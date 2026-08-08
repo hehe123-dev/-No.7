@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2E7D32;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bridgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#81C784;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#1B5E20;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 外圈圆形背景 -->
+  <circle cx="100" cy="100" r="95" fill="url(#greenGrad)"/>
+  
+  <!-- 内圈装饰 -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  
+  <!-- 桥梁图案 -->
+  <!-- 桥拱 -->
+  <path d="M 35 130 Q 100 85 165 130" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="8" stroke-linecap="round"/>
+  <!-- 桥面 -->
+  <line x1="30" y1="130" x2="170" y2="130" stroke="rgba(255,255,255,0.6)" stroke-width="6" stroke-linecap="round"/>
+  <!-- 桥下波纹 -->
+  <path d="M 50 155 Q 70 145 90 155 Q 110 165 130 155 Q 150 145 160 155" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- No.7 文字 -->
+  <text x="100" y="80" font-family="Arial, sans-serif" font-size="52" font-weight="900" fill="white" text-anchor="middle" letter-spacing="2">No.7</text>
+  
+  <!-- 装饰性小点 -->
+  <circle cx="40" cy="60" r="3" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="160" cy="60" r="3" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="100" cy="45" r="2" fill="rgba(255,255,255,0.3)"/>
+</svg>
