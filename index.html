@@ -614,6 +614,23 @@ ul, ol { list-style: none; }
 }
 
 /* ================================================================
+   PAGE: MEMBER ORGANIZATION
+   ================================================================ */
+.scroll-tabs { overflow-x: auto; white-space: nowrap; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
+.scroll-tabs::-webkit-scrollbar { display: none; }
+.scroll-tabs-inner { display: inline-flex; gap: 8px; }
+.scroll-tab {
+  display: inline-block; padding: 6px 16px; border-radius: 20px; font-size: 13px;
+  background: var(--bg-card); color: var(--text-secondary); cursor: pointer;
+  border: 1px solid var(--border-color); white-space: nowrap;
+}
+.scroll-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+.org-item-card {
+  background: var(--bg-card); border-radius: 10px; padding: 14px; margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* ================================================================
    PAGE: ALUMNI / MEMBER DISTRIBUTION (ECharts)
    ================================================================ */
 .dist-overview {
@@ -692,5 +709,5 @@ window.onerror = function(msg, src, l, c, err) {
 var Router = { current: null, params: {} };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-<script src="views.js?v=20260828"></script>
-<script src="app.js?v=20260828"></script>
+<script src="views.js?v=20260901"></script>
+<script src="app.js?v=20260902"></script>

@@ -60,6 +60,7 @@ var banners = [
 ];
 
 var newsList = [
+  { id: 5, title: '北理工AI俱乐部——探索大模型技术前沿与应用实践', cover: img('news5', 400, 240), date: '2026-08-10', author: '北理工AI俱乐部', summary: '北理工AI俱乐部举办大模型技术分享会，深入探讨大模型在企业级场景中的应用实践与未来趋势。', content: '<p>8月8日，北理工AI俱乐部在中关村校区举办了一场以"大模型技术前沿与应用实践"为主题的线下分享会，吸引了来自各行业的60余位校友参与。</p><img src="' + img('ai1', 800, 450) + '" style="width:100%;border-radius:8px;margin:12px 0" alt="活动现场"><p>本次活动邀请了三位在AI领域深耕的校友嘉宾进行主题分享。第一位嘉宾、字节跳动AI Lab研究员李明远（2015届计算机学院校友）分享了《大模型训练与推理优化实践》，深入解析了模型压缩、量化部署等关键技术。</p><img src="' + img('ai2', 800, 450) + '" style="width:100%;border-radius:8px;margin:12px 0" alt="嘉宾分享"><p>第二位嘉宾、百度智能云高级架构师王芳（2013届软件学院校友）带来了《企业级大模型应用落地指南》，结合实际案例讲解了金融、医疗、教育等行业的AI应用场景与落地路径。</p><p>圆桌讨论环节，与会校友围绕"AI创业机会与挑战"展开了热烈讨论。多位创业者分享了各自的实践经验，现场气氛活跃。</p><img src="' + img('ai3', 800, 450) + '" style="width:100%;border-radius:8px;margin:12px 0" alt="圆桌讨论"><p>俱乐部负责人表示，未来将每月定期举办此类技术交流活动，打造校友AI技术交流的核心平台，欢迎更多对AI感兴趣的校友加入。</p>', views: 428, likes: 36, comments: 8 },
   { id: 1, title: '北京理工大学2026年校友企业家论坛成功举办', cover: img('news1', 400, 240), date: '2026-06-08', author: '管理员', summary: '6月5日，北京理工大学2026年校友企业家论坛在中关村校区隆重举行，来自全国各地的200余位校友企业家齐聚一堂，共话创新发展。', content: '<p>6月5日，北京理工大学2026年校友企业家论坛在中关村校区隆重举行，来自全国各地的200余位校友企业家齐聚一堂，共话创新发展。本次论坛以"科技创新与产业升级"为主题，围绕人工智能、新能源、先进制造等前沿领域展开深入研讨。</p><p>论坛开幕式上，学校领导介绍了近年来学校在科研创新、人才培养等方面取得的突出成就。多位优秀校友企业家代表分享了创业经验与行业洞察，引发了与会者的热烈讨论。</p><p>本次论坛还设立了项目路演环节，12个校友创业项目进行了展示，涵盖人工智能、生物医药、新材料等多个领域。现场多家投资机构与项目方达成初步合作意向。</p><p>论坛期间，校友们参观了学校重点实验室和创新中心，深入了解母校最新科研成果。多位校友表示，将进一步加强与母校的合作，推动产学研深度融合。</p>', views: 1256, likes: 89, comments: 23 },
   { id: 2, title: '白石桥七号会员企业走访——走进华为技术有限公司', cover: img('news2', 400, 240), date: '2026-06-05', author: '管理员', summary: '近日，白石桥七号组织会员企业代表赴华为技术有限公司参观交流，深入了解华为在5G、云计算等领域的创新成果。', content: '<p>近日，白石桥七号组织会员企业代表赴华为技术有限公司参观交流，深入了解华为在5G、云计算、人工智能等领域的创新成果。</p><p>参访团由白石桥七号发起人代表和会员企业家组成，一行30余人参观了华为深圳总部园区、研发中心和展示厅。华为技术专家详细介绍了公司在数字化转型、智能制造、智慧城市等领域的技术方案和应用案例。</p><p>座谈会上，双方就企业数字化转型的关键挑战和解决方案进行了深入交流。华为专家针对参访企业提出的具体问题给予了专业建议。</p>', views: 986, likes: 67, comments: 15 },
   { id: 3, title: '人工智能赋能制造业转型升级专题沙龙圆满落幕', cover: img('news3', 400, 240), date: '2026-06-01', author: '管理员', summary: '由白石桥七号主办的"AI赋能制造业"专题沙龙在北京成功举办，来自AI领域和制造业的40余位校友进行了深度交流。', content: '<p>由白石桥七号主办的"AI赋能制造业"专题沙龙在北京成功举办，来自AI领域和制造业的40余位校友进行了深度交流。</p><p>活动邀请了3位在人工智能和智能制造领域有丰富实践经验的校友进行了主题分享，内容涵盖工业视觉检测、预测性维护、智能排产等热门话题。</p>', views: 756, likes: 45, comments: 12 },
@@ -67,12 +68,20 @@ var newsList = [
 ];
 
 var activityList = [
-  { id: 1, type: '商务活动', reviewStatus: 'approved', title: '北理工校友企业投融资对接会', cover: img('act1', 400, 240), date: '2026-06-20', location: '北京中关村', status: '报名中', fee: 0, organizer: '张建国', orgAvatar: img('avatar1', 100, 100), publisher: { name: '张建国', avatar: img('avatar1', 100, 100), role: '商务会员' }, deadline: '2026-06-18', description: '<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与，为校友企业提供展示和对接机会。欢迎有融资需求的校友企业报名参加。</p>', registered: 28, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '新能源', '生物医药', '金融', '其他'], required: true }, { label: '公司名称', type: 'text', required: true }, { label: '职位', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }, { name: '吴敏', avatar: img('u9', 60, 60) }] },
-  { id: 2, type: '校友活动', reviewStatus: 'approved', title: '走进字节跳动——数字化转型与组织创新', cover: img('act2', 400, 240), date: '2026-07-25', location: '北京海淀', status: '报名中', fee: 200, organizer: '李明远', orgAvatar: img('avatar2', 100, 100), publisher: { name: '李明远', avatar: img('avatar2', 100, 100), role: '认证校友' }, deadline: '2026-07-20', description: '<p>参访字节跳动总部，学习其在数字化转型、组织管理创新和企业文化建设方面的先进经验。活动费用包含交通和午餐。</p>', registered: 45, customFields: [{ label: '所属学校', type: 'text', required: true }, { label: '毕业年份', type: 'select', options: ['2026届', '2025届', '2024届', '2023届', '2022届', '更早'], required: false }, { label: '备注', type: 'textarea', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '赵磊', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u7', 60, 60) }, { name: '吴敏', avatar: img('u8', 60, 60) }, { name: '郑凯', avatar: img('u10', 60, 60) }] },
-  { id: 3, type: '商务活动', reviewStatus: 'approved', title: '2026北理工校友创业项目路演（第二季）', cover: img('act3', 400, 240), date: '2026-07-15', location: '北京朝阳', status: '报名中', fee: 0, organizer: '王军', orgAvatar: img('avatar3', 100, 100), publisher: { name: '王军', avatar: img('avatar3', 100, 100), role: '商务会员' }, deadline: '2026-07-10', description: '<p>为展示校友创业成果、对接产业资源和资本支持，特举办2026年度第二季校友创业项目路演活动。欢迎创业校友报名展示，也欢迎投资人校友参与评审。</p>', registered: 56, customFields: [{ label: '项目名称', type: 'text', required: true }, { label: '融资阶段', type: 'select', options: ['种子轮', '天使轮', 'A轮', 'B轮及以后'], required: true }, { label: '融资金额', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u7', 60, 60) }, { name: '吴敏', avatar: img('u8', 60, 60) }, { name: '郑凯', avatar: img('u10', 60, 60) }] },
-  { id: 4, type: '校友活动', reviewStatus: 'pending', title: '北理工羽毛球校友联谊赛', cover: img('act4', 400, 240), date: '2026-07-22', location: '北京理工大学体育馆', status: '报名中', fee: 50, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-20', description: '<p>面向全体北理工校友的羽毛球友谊赛，设有男单、女单、混双三个项目。欢迎各水平的羽毛球爱好者参加，以球会友！</p>', registered: 18, customFields: [{ label: '参赛项目', type: 'select', options: ['男单', '女单', '混双'], required: true }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }] },
-  { id: 5, type: '商务活动', reviewStatus: 'pending', title: '校友企业联合招聘会（北京站）', cover: img('act5', 400, 240), date: '2026-08-10', location: '北京中关村国际人才中心', status: '未开始', fee: 0, organizer: '陈晓华', orgAvatar: img('u2', 100, 100), publisher: { name: '陈晓华', avatar: img('u2', 100, 100), role: '商务会员' }, deadline: '2026-08-05', description: '<p>由白石桥七号平台联合20余家校友企业举办的大型线下招聘会，涵盖AI、新能源、生物医药、金融等多个行业。欢迎求职校友前来应聘、欢迎招聘企业报名设展。</p>', registered: 12, customFields: [{ label: '应聘岗位', type: 'text', required: true }, { label: '工作年限', type: 'select', options: ['应届生', '1-3年', '3-5年', '5-10年', '10年以上'], required: false }], registeredUsers: [{ name: '赵磊', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }] },
-  { id: 6, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号年度校友大会', cover: img('act6', 400, 240), date: '2026-09-15', location: '北京国家会议中心', status: '未开始', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-09-10', description: '<p>一年一度的白石桥七号校友大会，将邀请校领导、各行业杰出校友代表发表演讲，回顾平台年度成果，展望未来发展蓝图。欢迎全体校友踊跃报名参加！</p>', registered: 320, registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] }
+  // [报名中] 审核通过 + 报名截止日未到 + 活动未开始
+  { id: 1, type: '商务活动', reviewStatus: 'approved', title: '北理工校友企业投融资对接会', cover: img('act1', 400, 240), date: '2026-09-01', endDate: '2026-09-01', location: '北京中关村', fee: 0, organizer: '张建国', orgAvatar: img('avatar1', 100, 100), publisher: { name: '张建国', avatar: img('avatar1', 100, 100), role: '商务会员' }, deadline: '2026-08-25', description: '<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与，为校友企业提供展示和对接机会。欢迎有融资需求的校友企业报名参加。</p>', registered: 28, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '新能源', '生物医药', '金融', '其他'], required: true }, { label: '公司名称', type: 'text', required: true }, { label: '职位', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }, { name: '吴敏', avatar: img('u9', 60, 60) }] },
+  // [活动进行中] 审核通过 + 今天在 date~endDate 之间（8月10日-8月15日，今天8月11日）
+  { id: 2, type: '校友活动', reviewStatus: 'approved', title: '走进字节跳动——数字化转型与组织创新', cover: img('act2', 400, 240), date: '2026-08-10', endDate: '2026-08-15', location: '北京海淀', fee: 200, organizer: '李明远', orgAvatar: img('avatar2', 100, 100), publisher: { name: '李明远', avatar: img('avatar2', 100, 100), role: '认证校友' }, deadline: '2026-08-05', description: '<p>参访字节跳动总部，学习其在数字化转型、组织管理创新和企业文化建设方面的先进经验。活动费用包含交通和午餐。</p>', registered: 45, customFields: [{ label: '所属学校', type: 'text', required: true }, { label: '毕业年份', type: 'select', options: ['2026届', '2025届', '2024届', '2023届', '2022届', '更早'], required: false }, { label: '备注', type: 'textarea', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '赵磊', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u7', 60, 60) }, { name: '吴敏', avatar: img('u8', 60, 60) }, { name: '郑凯', avatar: img('u10', 60, 60) }] },
+  // [报名截止] 审核通过 + deadline已过 + 活动尚未开始
+  { id: 3, type: '商务活动', reviewStatus: 'approved', title: '2026北理工校友创业项目路演（第二季）', cover: img('act3', 400, 240), date: '2026-08-20', endDate: '2026-08-20', location: '北京朝阳', fee: 0, organizer: '王军', orgAvatar: img('avatar3', 100, 100), publisher: { name: '王军', avatar: img('avatar3', 100, 100), role: '商务会员' }, deadline: '2026-08-05', description: '<p>为展示校友创业成果、对接产业资源和资本支持，特举办2026年度第二季校友创业项目路演活动。欢迎创业校友报名展示，也欢迎投资人校友参与评审。</p>', registered: 56, customFields: [{ label: '项目名称', type: 'text', required: true }, { label: '融资阶段', type: 'select', options: ['种子轮', '天使轮', 'A轮', 'B轮及以后'], required: true }, { label: '融资金额', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u7', 60, 60) }, { name: '吴敏', avatar: img('u8', 60, 60) }, { name: '郑凯', avatar: img('u10', 60, 60) }] },
+  // [待审核] 校友活动待平台审核
+  { id: 4, type: '校友活动', reviewStatus: 'pending', title: '北理工羽毛球校友联谊赛', cover: img('act4', 400, 240), date: '2026-09-10', endDate: '2026-09-10', location: '北京理工大学体育馆', fee: 50, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-09-05', description: '<p>面向全体北理工校友的羽毛球友谊赛，设有男单、女单、混双三个项目。欢迎各水平的羽毛球爱好者参加，以球会友！</p>', registered: 0, customFields: [{ label: '参赛项目', type: 'select', options: ['男单', '女单', '混双'], required: true }], registeredUsers: [], reviewComment: '' },
+  // [已驳回] 审核被驳回
+  { id: 5, type: '商务活动', reviewStatus: 'rejected', title: '校友企业联合招聘会（北京站）', cover: img('act5', 400, 240), date: '2026-08-25', endDate: '2026-08-26', location: '北京中关村国际人才中心', fee: 0, organizer: '陈晓华', orgAvatar: img('u2', 100, 100), publisher: { name: '陈晓华', avatar: img('u2', 100, 100), role: '商务会员' }, deadline: '2026-08-20', description: '<p>由白石桥七号平台联合20余家校友企业举办的大型线下招聘会，涵盖AI、新能源、生物医药、金融等多个行业。</p>', registered: 0, customFields: [{ label: '应聘岗位', type: 'text', required: true }, { label: '工作年限', type: 'select', options: ['应届生', '1-3年', '3-5年', '5-10年', '10年以上'], required: false }], registeredUsers: [], reviewComment: '招聘会场地未确认，请提供场地方出具的同意函后重新提交。' },
+  // [报名中] 平台活动，运营端直接发布
+  { id: 6, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号年度校友大会', cover: img('act6', 400, 240), date: '2026-09-15', endDate: '2026-09-16', location: '北京国家会议中心', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-09-10', description: '<p>一年一度的白石桥七号校友大会，将邀请校领导、各行业杰出校友代表发表演讲，回顾平台年度成果，展望未来发展蓝图。欢迎全体校友踊跃报名参加！</p>', registered: 320, registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] },
+  // [活动结束] 活动日期已过
+  { id: 7, type: '校友活动', reviewStatus: 'approved', title: '毕业十周年校友聚会', cover: img('act3', 400, 240), date: '2026-07-15', endDate: '2026-07-15', location: '北京海淀某宴会厅', fee: 200, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-10', description: '<p>毕业十周年同学聚会，回顾校园时光，畅谈十年发展。</p>', registered: 36, customFields: [{ label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }], reviewComment: '' }
 ];
 
 var memberPackages = [
@@ -144,126 +153,6 @@ var memberIndustryData = [
   { name: '新材料', value: 45, color: '#dabb6e' },
   { name: '消费零售', value: 38, color: '#64b5f6' },
   { name: '其他', value: 28, color: '#9e9e9e' }
-];
-
-// 校友圈子数据（与后台管理一致）
-var businessNetworkData = [
-  { 
-    type: '上市公司', 
-    count: 5, 
-    desc: '校友创办或任职的上市公司、拟上市企业', 
-    icon: 'building',
-    gradient: 'linear-gradient(135deg, #6fa4cf, #4a90d9)',
-    items: [
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zjg/100/100', name: '张建国', gender: '男', graduationYear: '2005届', department: '自动化学院', major: '软件工程', phone: '138****1234', email: 'zhangjg@zktech.com' }, 
-        companyShortName: '智控科技', stockCode: '301xxx', roleLabel: '创始人', companyStage: '已上市', businessIntro: '工业智能控制解决方案提供商，服务超过100家制造企业' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/lmy/100/100', name: '李明远', gender: '男', graduationYear: '2006届', department: '材料学院', major: '新能源材料', phone: '139****5678', email: 'limy@starlight.com' }, 
-        companyShortName: '星辰科技', stockCode: '002xxx', roleLabel: '联合创始人', companyStage: '已上市', businessIntro: '新能源储能技术研发与应用，产品覆盖家庭和工业储能' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/wj/100/100', name: '王军', gender: '男', graduationYear: '2003届', department: '机械学院', major: '车辆工程', phone: '137****9012', email: 'wangj@nio.com' }, 
-        companyShortName: '蔚来汽车', stockCode: 'NIO', roleLabel: '总经理', companyStage: '已上市', businessIntro: '新能源汽车研发制造，专注智能电动汽车领域' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/cxh/100/100', name: '陈晓华', gender: '女', graduationYear: '2004届', department: '生命学院', major: '生物医学', phone: '136****3456', email: 'chenxh@kangyuan.com' }, 
-        companyShortName: '康源生物', stockCode: '', roleLabel: '董事长', companyStage: 'IPO 申报中', businessIntro: '创新药物研发，肿瘤免疫治疗为核心方向' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/lf/100/100', name: '刘芳', gender: '女', graduationYear: '2007届', department: '信息学院', major: '电子信息', phone: '135****7890', email: 'liuf@huachuang.com' }, 
-        companyShortName: '华创医疗', stockCode: '', roleLabel: '独立董事', companyStage: 'Pre-IPO', businessIntro: '医疗器械研发生产，聚焦高端影像诊断设备' 
-      }
-    ]
-  },
-  { 
-    type: '投资机构', 
-    count: 5, 
-    desc: '投资人及机构校友网络', 
-    icon: 'trendingUp',
-    gradient: 'linear-gradient(135deg, #07c160, #05a04a)',
-    items: [
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/cl/100/100', name: '陈立', gender: '男', graduationYear: '2002届', department: '经济管理学院', major: '金融学', phone: '138****2345', email: 'chenl@redstar.com' }, 
-        orgName: '红杉中国', orgType: 'VC', position: '合伙人', investTrack: '半导体、生物医药、新能源', representProjects: '字节跳动、美团、蔚来汽车' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zw/100/100', name: '张伟', gender: '男', graduationYear: '2004届', department: '经济管理学院', major: '投资学', phone: '137****6789', email: 'zhangw@idg.com' }, 
-        orgName: 'IDG资本', orgType: 'VC', position: '管理合伙人', investTrack: '人工智能、企业服务', representProjects: '百度、腾讯、小米' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/ly/100/100', name: '刘洋', gender: '男', graduationYear: '2008届', department: '计算机学院', major: '计算机科学', phone: '136****0123', email: 'liuyy@zhenge.com' }, 
-        orgName: '真格基金', orgType: '天使投资', position: '合伙人', investTrack: '消费科技、教育', representProjects: '小红书、完美日记' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/wl/100/100', name: '王磊', gender: '男', graduationYear: '2005届', department: '自动化学院', major: '控制工程', phone: '135****4567', email: 'wangl@matrix.com' }, 
-        orgName: '经纬中国', orgType: 'VC', position: '投资总监', investTrack: '硬科技、智能制造', representProjects: '大疆、商汤科技' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zq/100/100', name: '赵强', gender: '男', graduationYear: '2001届', department: '材料学院', major: '材料科学', phone: '134****8901', email: 'zhaoq@guoke.com' }, 
-        orgName: '国科投资', orgType: '产业投资', position: '总经理', investTrack: '集成电路、新材料', representProjects: '中芯国际、宁德时代' 
-      }
-    ]
-  },
-  { 
-    type: '企业高管', 
-    count: 5, 
-    desc: '担任企业高管的职业经理人校友', 
-    icon: 'user',
-    gradient: 'linear-gradient(135deg, #ee0a24, #d00820)',
-    items: [
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zming/100/100', name: '张明', gender: '男', graduationYear: '2000届', department: '计算机学院', major: '计算机科学', phone: '138****1111', email: 'zhangming@huawei.com' }, 
-        companyName: '华为技术有限公司', companyNature: '跨国企业', position: '常务董事', businessBlock: '消费者业务' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/lh/100/100', name: '李华', gender: '男', graduationYear: '2003届', department: '经济管理学院', major: '会计学', phone: '137****2222', email: 'lihua@xiaomi.com' }, 
-        companyName: '小米集团', companyNature: '上市民企', position: '首席财务官', businessBlock: '财务管理' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/wf/100/100', name: '王芳', gender: '女', graduationYear: '2006届', department: '外语学院', major: '英语', phone: '136****3333', email: 'wangf@bytedance.com' }, 
-        companyName: '字节跳动', companyNature: '跨国企业', position: '人力资源副总裁', businessBlock: '人才发展' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/cw/100/100', name: '陈伟', gender: '男', graduationYear: '2004届', department: '管理学院', major: '市场营销', phone: '135****4444', email: 'chenw@meituan.com' }, 
-        companyName: '美团', companyNature: '上市民企', position: '运营副总裁', businessBlock: '到店业务' 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zl/100/100', name: '赵丽', gender: '女', graduationYear: '2005届', department: '法学院', major: '法学', phone: '134****5555', email: 'zhaol@jd.com' }, 
-        companyName: '京东集团', companyNature: '上市民企', position: '首席合规官', businessBlock: '合规管理' 
-      }
-    ]
-  },
-  { 
-    type: '科创项目', 
-    count: 5, 
-    desc: '校友参与的科技创新项目', 
-    icon: 'lightbulb',
-    gradient: 'linear-gradient(135deg, #ff976a, #f07a4a)',
-    items: [
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zn/100/100', name: '张博士', gender: '男', graduationYear: '2015届', department: '计算机学院', major: '人工智能', phone: '138****6666', email: 'zhangdr@zdrive.ai' }, 
-        projectName: '智能驾驶系统', techTrack: '自动驾驶/人工智能', devStage: 'B轮', financing: 'B轮+2亿元', coreAdvantage: 'L4级自动驾驶解决方案，已在国内多个城市落地运营', showFinancing: true 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/lxs/100/100', name: '李博士', gender: '女', graduationYear: '2016届', department: '生命学院', major: '生物医学工程', phone: '137****7777', email: 'lixs@bioxchip.com' }, 
-        projectName: '生物芯片技术', techTrack: '生物医药/微流控', devStage: 'A轮', financing: 'A轮+5000万', coreAdvantage: '新一代基因检测芯片，检测效率提升10倍', showFinancing: true 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/wqp/100/100', name: '王博士', gender: '男', graduationYear: '2018届', department: '物理学院', major: '量子物理', phone: '136****8888', email: 'wangqp@quantum.cn' }, 
-        projectName: '量子计算平台', techTrack: '量子科技', devStage: '种子轮', financing: '种子轮+1000万', coreAdvantage: '超导量子计算原型机研发，已实现50量子比特', showFinancing: false 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/lx/100/100', name: '刘硕士', gender: '男', graduationYear: '2019届', department: '材料学院', major: '新能源材料', phone: '135****9999', email: 'liuxs@enerstore.com' }, 
-        projectName: '新能源储能', techTrack: '新能源/储能技术', devStage: 'C轮', financing: 'C轮+3亿元', coreAdvantage: '新型锂电池储能系统，能量密度行业领先', showFinancing: true 
-      },
-      { 
-        alumnusInfo: { avatar: 'https://picsum.photos/seed/zhp/100/100', name: '赵博士', gender: '男', graduationYear: '2017届', department: '自动化学院', major: '控制工程', phone: '134****0000', email: 'zhaohp@ai-control.com' }, 
-        projectName: '工业AI平台', techTrack: '智能制造/人工智能', devStage: '稳定经营', financing: 'A轮+1亿元', coreAdvantage: '工业过程智能控制平台，已服务100+制造企业', showFinancing: true 
-      }
-    ]
-  }
 ];
 
 // 报告订单列表
@@ -342,6 +231,54 @@ var memberList = [
   { id: 3, name: '刘芳', avatar: img('u3', 100, 100), school: '管理与经济学院', year: '2010级', city: '北京', industry: '生物医药', memberSince: '2026-01', company: '北京康源生物科技有限公司', title: 'CEO', intro: '连续创业者，专注于创新药物研发。公司已获B轮融资2亿元。', companies: [{ id: 1, name: '北京康源生物科技有限公司', logo: img('logo2', 200, 200), industry: '生物医药' }], products: [{ id: 1, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300) }] }
 ];
 
+// 会员组织数据（与后台会员组织管理对应）
+var memberOrgList = [
+  {
+    id: 1, name: '上市公司', description: '校友创办或任职的上市公司、拟上市企业', count: 5, color: '#6fa4cf',
+    items: [
+      { alumnusInfo: { avatar: img('u1', 100, 100), name: '张建国', school: '自动化学院', major: '软件工程' }, companyShortName: '智控科技', stockCode: '301xxx', roleLabel: '创始人', companyStage: '已上市', businessIntro: '工业智能控制解决方案提供商，服务超过100家制造企业' },
+      { alumnusInfo: { avatar: img('u2', 100, 100), name: '李明远', school: '材料学院', major: '新能源材料' }, companyShortName: '星辰科技', stockCode: '002xxx', roleLabel: '联合创始人', companyStage: '已上市', businessIntro: '新能源储能技术研发与应用，产品覆盖家庭和工业储能' }
+    ]
+  },
+  {
+    id: 2, name: '投资机构', description: '投资人及机构校友网络', count: 2, color: '#07c160',
+    items: [
+      { alumnusInfo: { avatar: img('m2', 100, 100), name: '陈立', school: '经济管理学院', major: '金融学' }, orgName: '红杉中国', orgType: 'VC', position: '合伙人', investTrack: '半导体、生物医药、新能源' },
+      { alumnusInfo: { avatar: img('m1', 100, 100), name: '赵明辉', school: '自动化学院', major: '控制工程' }, orgName: '经纬中国', orgType: 'VC', position: '投资总监', investTrack: '硬科技、智能制造' }
+    ]
+  },
+  {
+    id: 3, name: '企业高管', description: '担任企业高管的职业经理人校友', count: 2, color: '#ee0a24',
+    items: [
+      { alumnusInfo: { avatar: img('u1', 100, 100), name: '张明', school: '计算机学院', major: '计算机科学' }, companyName: '华为技术有限公司', companyNature: '跨国企业', position: '常务董事', businessBlock: '消费者业务' },
+      { alumnusInfo: { avatar: img('u3', 100, 100), name: '刘芳', school: '外语学院', major: '英语' }, companyName: '字节跳动', companyNature: '跨国企业', position: '人力资源副总裁', businessBlock: '人才发展' }
+    ]
+  },
+  {
+    id: 4, name: '科创项目', description: '校友参与的科技创新项目', count: 2, color: '#ff976a',
+    items: [
+      { alumnusInfo: { avatar: img('u4', 100, 100), name: '张博士', school: '计算机学院', major: '人工智能' }, projectName: '智能驾驶系统', techTrack: '自动驾驶/人工智能', devStage: 'B轮', financing: 'B轮+2亿元', showFinancing: true },
+      { alumnusInfo: { avatar: img('m3', 100, 100), name: '李博士', school: '生命学院', major: '生物医学工程' }, projectName: '生物芯片技术', techTrack: '生物医药/微流控', devStage: 'A轮', financing: 'A轮+5000万', showFinancing: true }
+    ]
+  },
+  {
+    id: 5, name: '高校合作', description: '', count: 2, color: '#9b59b6',
+    fields: ['合作高校', '合作方向', '合作状态'],
+    items: [
+      { alumnusInfo: { avatar: img('m1', 100, 100), name: '赵明辉', school: '自动化学院', major: '控制工程' }, '合作高校': '清华大学', '合作方向': '人工智能联合实验室', '合作状态': '进行中' },
+      { alumnusInfo: { avatar: img('u2', 100, 100), name: '李明远', school: '计算机学院', major: '计算机科学' }, '合作高校': '北京大学', '合作方向': '大数据研究中心', '合作状态': '已签约' }
+    ]
+  },
+  {
+    id: 6, name: '政策研究', description: '', count: 2, color: '#1abc9c',
+    fields: ['研究领域', '政策方向', '发布机构'],
+    items: [
+      { alumnusInfo: { avatar: img('u3', 100, 100), name: '刘芳', school: '法学院', major: '法学' }, '研究领域': '数字经济', '政策方向': '数据安全与隐私保护', '发布机构': '工信部' },
+      { alumnusInfo: { avatar: img('m4', 100, 100), name: '黄文杰', school: '经济管理学院', major: '公共管理' }, '研究领域': '产业政策', '政策方向': '新能源汽车补贴政策', '发布机构': '发改委' }
+    ]
+  }
+];
+
 var companyList = [
   { id: 1, name: '北京智控科技有限公司', logo: img('logo1', 200, 200), industry: '人工智能', address: '北京市海淀区中关村软件园', founder: '张建国', intro: '智控科技成立于2018年，专注于工业智能控制领域，为制造企业提供AI驱动的智能控制解决方案。公司已获A轮融资，服务客户超过100家。', products: [{ id: 1, name: '智控工业AI平台', cover: img('prod1', 400, 300), intro: '基于深度学习的工业过程控制和优化平台，可降低能耗15%，提升产能20%。' }, { id: 2, name: '智能质检系统', cover: img('prod3', 400, 300), intro: '基于计算机视觉的产品质量检测系统，检测精度达到99.5%。' }] },
   { id: 2, name: '北京康源生物科技有限公司', logo: img('logo2', 200, 200), industry: '生物医药', address: '北京市昌平区生命科学园', founder: '刘芳', intro: '康源生物专注于创新药物研发，以肿瘤免疫治疗为核心方向。公司拥有多项自主知识产权，研发管线涵盖小分子药物和生物制剂。', products: [{ id: 1, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300), intro: '针对非小细胞肺癌的新型靶向药物，目前处于临床II期。' }] },
@@ -357,7 +294,7 @@ var productList = [
 var helpList = [
   { id: 1, title: '寻找新能源电池领域的技术合作伙伴', publisher: { id: 4, name: '陈晓华', avatar: img('u2', 100, 100), role: '商务会员' }, date: '2026-06-08', description: '我们公司正在开发新一代储能电池管理系统，需要寻找在电池管理芯片或算法方面有技术积累的校友合作。最好在深圳或广州地区。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 3, responses: [{ id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '商务会员', text: '我在深圳认识几个做BMS的团队，可以帮忙牵线。', time: '2026-06-09', responseStatus: 'accepted' }, { id: 8, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友', text: '我们有一个储能方向的项目，可以聊一下合作。', time: '2026-06-10', responseStatus: 'waiting' }] },
   { id: 2, title: '求推荐靠谱的医疗器械注册代理机构', publisher: { id: 5, name: '刘芳', avatar: img('u3', 100, 100), role: '商务会员' }, date: '2026-06-05', description: '公司有一款二类医疗器械需要注册，求推荐有经验的代理机构，最好在北京地区，有成功案例的优先。', reviewStatus: 'approved', status: 'resolved', rejectReason: '', responseCount: 5, responses: [{ id: 2, name: '李明远', avatar: img('u2', 100, 100), role: '商务会员', text: '我可以帮忙对接，我们公司之前合作过一个不错的代理机构，我发给你。', time: '2026-06-06', responseStatus: 'finished' }] },
-  { id: 3, title: '公司招聘——高级前端工程师（北京）', publisher: { id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '商务会员' }, date: '2026-06-01', description: '智控科技招聘高级前端工程师，要求3年以上Vue/React开发经验，薪资30-50K，14薪，期权可谈。欢迎校友推荐或自荐。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 2, responses: [{ id: 6, name: '王磊', avatar: img('u5', 100, 100), role: '认证校友', text: '我有5年前端经验，可以发简历给您看看吗？', time: '2026-06-02', responseStatus: 'waiting' }, { id: 11, name: '李娜', avatar: img('u9', 100, 100), role: '认证校友', text: '朋友推荐，简历已发送邮箱。', time: '2026-06-03', responseStatus: 'waiting' }] },
+  { id: 3, title: '公司招聘——高级前端工程师（北京）', publisher: { id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '商务会员' }, date: '2026-06-01', description: '智控科技招聘高级前端工程师，要求3年以上Vue/React开发经验，薪资30-50K，14薪，期权可谈。欢迎校友推荐或自荐。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 2, responses: [{ id: 6, name: '王磊', avatar: img('u5', 100, 100), role: '认证校友', text: '我有5年前端经验，可以发简历给您看看吗？', time: '2026-06-02', responseStatus: 'waiting' }, { id: 11, name: '李娜', avatar: img('u9', 100, 100), role: '认证校友', text: '朋友推荐，简历已发送邮箱。', time: '2026-06-03', responseStatus: 'waiting' }, { id: 12, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友', text: '帮朋友发的，加微信私聊xxx', time: '2026-06-04', responseStatus: 'rejected', rejectReason: '响应内容含有不合规广告，请直接通过平台私信功能沟通联系方式' }] },
   { id: 4, title: '求校友内推——想跳槽到互联网大厂', publisher: { id: 6, name: '王磊', avatar: img('u5', 100, 100), role: '认证校友' }, date: '2026-06-10', description: '本人计算机学院2018级，目前在传统制造业做后端开发，想跳槽去互联网大厂。求校友帮忙内推，主要看北京的机会。', reviewStatus: 'pending', status: 'processing', rejectReason: '', responseCount: 4, responses: [] },
   { id: 5, title: '考研咨询——想跨考自动化学院', publisher: { id: 9, name: '周小雅', avatar: img('u6', 100, 100), role: '普通用户' }, date: '2026-06-12', description: '我是北理本科大三学生，现在学的是机械，想跨考自动化学院的研究生。想咨询一下自动化学院的学长学姐，哪些方向比较好？导师推荐？', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 6, responses: [] },
   { id: 6, title: '提供法律咨询公益服务', publisher: { id: 0, name: '王律师事务所', avatar: img('u7', 100, 100), role: '服务机构' }, date: '2026-06-15', description: '我们是一家专注于企业法律服务的律所，现面向白石桥七号校友企业提供免费法律咨询服务。涵盖公司法、知识产权、劳动法等领域。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 1, responses: [{ id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '商务会员', text: '想咨询一下劳动纠纷相关问题，方便联系吗？', time: '2026-06-16', responseStatus: 'waiting' }] },
@@ -391,7 +328,7 @@ var courseList = [
     teacher: '张建国', teacherAvatar: img('u1', 200, 200), teacherTitle: '智控科技创始人 · 北理工2005级',
     teacherBio: '15年数字化转型经验，曾主导多家世界500强企业的数字化项目。智控科技创始人，A轮已融资1亿元。著有《工业智能化转型》。',
     price: 299, originalPrice: 599, memberPrice: 249, students: 1280, duration: '12课时', totalMinutes: 360, rating: 4.9, reviews: 326,
-    category: '企业管理', tags: ['热门精选', '专家课', '14天回看'], intro: '从战略规划到落地执行，系统讲解企业数字化转型的方法论和实战经验。',
+    category: '企业管理', intro: '从战略规划到落地执行，系统讲解企业数字化转型的方法论和实战经验。',
     highlights: ['12课时系统讲解', '20+真实案例', '配套电子讲义', '社群答疑1对1', '永久回看权'],
     chapters: [
       { id: 1, title: '第一章 数字化转型概述', lessons: [{ id: 1, title: '1.1 什么是数字化转型', duration: '15:30', preview: true }, { id: 2, title: '1.2 数字化转型的三个层次', duration: '18:45', preview: false }, { id: 3, title: '1.3 国内外典型案例对比', duration: '22:10', preview: false }] },
@@ -411,7 +348,7 @@ var courseList = [
     teacher: '陈立', teacherAvatar: img('u2', 200, 200), teacherTitle: '资深财务顾问 · 北理工2007级',
     teacherBio: '注册会计师CPA，曾任四大会计师事务所高级经理。10年创业服务经验，已帮助50+创业公司完成融资。',
     price: 199, originalPrice: 399, memberPrice: 159, students: 856, duration: '8课时', totalMinutes: 240, rating: 4.8, reviews: 218,
-    category: '创业', tags: ['限时优惠', '新课首发'], intro: '帮助创业者建立财务思维，掌握现金流管理、融资估值等核心技能。',
+    category: '创业', intro: '帮助创业者建立财务思维，掌握现金流管理、融资估值等核心技能。',
     highlights: ['8课时精品内容', '15份财务模板', '案例全部实战', '群内答疑'],
     chapters: [
       { id: 1, title: '第一章 财务三表入门', lessons: [{ id: 1, title: '1.1 资产负债表精讲', duration: '20:00', preview: true }, { id: 2, title: '1.2 利润表关键指标', duration: '18:30', preview: false }] },
@@ -428,7 +365,7 @@ var courseList = [
     teacher: '李明远', teacherAvatar: img('u3', 200, 200), teacherTitle: '字节跳动技术总监 · 北理工2008级',
     teacherBio: '10年互联网产品经验，先后在百度、腾讯、字节担任核心产品岗位。负责的AI产品累计用户过亿。',
     price: 399, originalPrice: 799, memberPrice: 319, students: 2100, duration: '16课时', totalMinutes: 480, rating: 4.95, reviews: 587,
-    category: '产品', tags: ['口碑爆款', '专家课', '送学习社群'], intro: '从AI基础到产品设计，全面培养AI产品经理的核心能力。',
+    category: '产品', intro: '从AI基础到产品设计，全面培养AI产品经理的核心能力。',
     highlights: ['16课时深度内容', '30+实战案例', '专属学习社群', '7天试看期', '永久回看'],
     chapters: [
       { id: 1, title: '第一章 AI产品认知', lessons: [{ id: 1, title: '1.1 AI产品的本质', duration: '18:30', preview: true }, { id: 2, title: '1.2 AI产品分类与场景', duration: '20:45', preview: true }] },
@@ -447,15 +384,18 @@ var courseList = [
 var serviceProviders = [
   { id: 1, name: '北京中天律师事务所', avatar: img('svc1', 200, 200), category: '法律服务', desc: '为北理工校友提供专业法律服务', rating: 4.8, serviceCount: 3, consultCount: 45, phone: '138****0001', email: 'admin@zhongtian.com', contactName: '张主任', contactPosition: '合伙人' },
   { id: 2, name: '银泰财务咨询有限公司', avatar: img('svc2', 200, 200), category: '财务咨询', desc: '为北理工校友提供专业财务服务', rating: 4.9, serviceCount: 3, consultCount: 58, phone: '138****0002', email: 'service@yintai.com', contactName: '李经理', contactPosition: '高级顾问' },
-  { id: 3, name: '星路人力资源服务', avatar: img('svc3', 200, 200), category: '人力资源', desc: '为北理工校友提供专业人力资源服务', rating: 4.7, serviceCount: 2, consultCount: 28, phone: '138****0003', email: 'contact@xinglu.com', contactName: '王总监', contactPosition: '业务总监' }
+  { id: 3, name: '星路人力资源服务', avatar: img('svc3', 200, 200), category: '人力资源', desc: '为北理工校友提供专业人力资源服务', rating: 4.7, serviceCount: 2, consultCount: 28, phone: '138****0003', email: 'contact@xinglu.com', contactName: '王总监', contactPosition: '业务总监' },
+  { id: 4, name: '北京优学教育咨询有限公司', avatar: img('svc4', 200, 200), category: '亲子教育', desc: '为北理工校友家庭提供优质教育资源对接', rating: 4.9, serviceCount: 3, consultCount: 36, phone: '139****1001', email: 'service@youxue.com', contactName: '赵老师', contactPosition: '教育顾问' },
+  { id: 5, name: '北京康健医疗服务中心', avatar: img('svc5', 200, 200), category: '保健就医', desc: '为北理工校友及家属提供就医绿色通道服务', rating: 4.8, serviceCount: 2, consultCount: 52, phone: '139****1002', email: 'health@kangjian.com', contactName: '王主任', contactPosition: '健康管理师' },
+  { id: 6, name: '北京安家置业服务有限公司', avatar: img('svc6', 200, 200), category: '居家置业', desc: '为北理工校友提供安居置业一站式服务', rating: 4.7, serviceCount: 2, consultCount: 28, phone: '139****1003', email: 'anjia@anjia.com', contactName: '刘经理', contactPosition: '置业顾问' },
+  { id: 7, name: '北京瑞丰财富管理有限公司', avatar: img('svc7', 200, 200), category: '财富管理', desc: '为北理工校友提供专业的财富规划与管理服务', rating: 4.9, serviceCount: 2, consultCount: 41, phone: '139****1004', email: 'ruifeng@ruifeng.com', contactName: '陈总监', contactPosition: '高级理财师' }
 ];
 
 // 会员服务分类体系
 var serviceCategoryMap = {
-  '市场推广': ['供需匹配', '渠道拓展', '项目合作'],
   '企业赋能': ['投融资服务', '流量运营', '人才招聘', '教育培训', '管理咨询', '数字化建设', '企划合规', '资质申报', '办公选址', '资源置换'],
   '商务活动': ['主题沙龙', '私董聚会', '经营研修', '政企走访', '项目路演', '供需交流', '招商推介', '新品发布', '年度峰会', '商务晚宴', '团建联谊', '公益帮扶'],
-  '专属服务': ['亲子教育', '医疗保健', '居家置业', '外出礼遇', '应急解决']
+  '专属服务': ['亲子教育', '保健就医', '居家置业', '财富管理']
 };
 
 // 生成扁平的分类列表（用于选择器）
@@ -475,7 +415,20 @@ var serviceProjects = [
   { id: 5, providerId: 2, name: '企业估值与尽职调查', category: '投融资服务', price: 80000, unit: '项目', desc: '为投融资提供企业估值分析与财务尽调服务。', viewCount: 125, orderCount: 2 },
   { id: 6, providerId: 2, name: '数字化转型咨询', category: '数字化建设', price: 120000, unit: '项目', desc: '为企业提供数字化转型规划、方案设计与实施指导。', viewCount: 142, orderCount: 1 },
   { id: 7, providerId: 3, name: '高端人才寻聘', category: '人才招聘', price: 50000, unit: '岗', desc: '面向技术、管理岗的高端人才猎头服务。', viewCount: 198, orderCount: 4 },
-  { id: 8, providerId: 3, name: '校园招聘外包', category: '人才招聘', price: 30000, unit: '季', desc: '校园宣讲、简历筛选、组织面试等一站式服务。', viewCount: 156, orderCount: 2 }
+  { id: 8, providerId: 3, name: '校园招聘外包', category: '人才招聘', price: 30000, unit: '季', desc: '校园宣讲、简历筛选、组织面试等一站式服务。', viewCount: 156, orderCount: 2 },
+  // 专属服务 - 亲子教育
+  { id: 9, providerId: 4, name: '幼升小择校规划咨询', category: '亲子教育', price: 3000, unit: '次', desc: '资深教育顾问一对一咨询，结合家庭情况提供幼升小择校方案。', viewCount: 420, orderCount: 25 },
+  { id: 10, providerId: 4, name: '青少年编程启蒙课程', category: '亲子教育', price: 6800, unit: '期', desc: '面向8-15岁青少年的编程启蒙课程，小班教学，培养逻辑思维。', viewCount: 315, orderCount: 18 },
+  { id: 11, providerId: 4, name: '国际学校入学辅导', category: '亲子教育', price: 15000, unit: '套', desc: '国际学校申请全流程辅导，含面试模拟、文书润色、学校推荐。', viewCount: 186, orderCount: 7 },
+  // 专属服务 - 保健就医
+  { id: 12, providerId: 5, name: '三甲医院专家号预约', category: '保健就医', price: 500, unit: '次', desc: '北京三甲医院专家门诊快速预约通道，含专人陪同就诊。', viewCount: 520, orderCount: 42 },
+  { id: 13, providerId: 5, name: '年度高端体检套餐', category: '保健就医', price: 3800, unit: '次', desc: '三甲医院VIP体检中心年度体检套餐，含全面检查及专家解读。', viewCount: 298, orderCount: 15 },
+  // 专属服务 - 居家置业
+  { id: 14, providerId: 6, name: '北京学区房置业顾问', category: '居家置业', price: 20000, unit: '套', desc: '专业学区房置业顾问一对一服务，覆盖海淀、西城等核心学区。', viewCount: 345, orderCount: 12 },
+  { id: 15, providerId: 6, name: '高端住宅定制装修设计', category: '居家置业', price: 8000, unit: '套', desc: '知名设计师一对一量身定制装修方案，含3D效果图及施工监理。', viewCount: 178, orderCount: 6 },
+  // 专属服务 - 财富管理
+  { id: 16, providerId: 7, name: '家庭资产配置规划', category: '财富管理', price: 5000, unit: '次', desc: '持牌理财师一对一定制家庭资产配置方案，覆盖保险、基金、信托等。', viewCount: 256, orderCount: 9 },
+  { id: 17, providerId: 7, name: '家族信托设立咨询', category: '财富管理', price: 30000, unit: '次', desc: '资深律师与财富顾问协作，提供家族信托架构设计与设立全程服务。', viewCount: 132, orderCount: 3 }
 ];
 
 // 服务咨询聊天记录 - 与运营后台统一的数据结构
@@ -502,18 +455,18 @@ var groupBuyCategories = [
 ];
 
 var groupBuyList = [
-  { id: 1, title: '北理工校庆纪念版双肩包', cover: img('gb1', 400, 400), images: [img('gb1a', 750, 750), img('gb1b', 750, 750), img('gb1c', 750, 750)], price: 169, originalPrice: 399, soldCount: 456, totalCount: 600, endDate: '2026-06-30', category: 'cultural', supplier: '北理工校友文创工作室', desc: '为庆祝北理工建校纪念，特别推出的限量版双肩包。采用高品质防泼水面料，大容量主仓+独立电脑隔层，适合日常通勤和短途出行。', specs: ['材质：高密度防泼水尼龙', '尺寸：45×30×18cm', '容量：约25L', '颜色：深灰/藏蓝可选', '刺绣校徽+白石桥七号专属标识'], shipping: '下单后3个工作日内发货，全国包邮（偏远地区除外）', tags: ['限量', '包邮', '校庆纪念'] },
-  { id: 2, title: '校友企业出品——有机五常大米 5kg装', cover: img('gb2', 400, 400), images: [img('gb2a', 750, 750), img('gb2b', 750, 750)], price: 78, originalPrice: 158, soldCount: 890, totalCount: 1000, endDate: '2026-06-25', category: 'food', supplier: '黑龙江五常校友农场', desc: '由黑龙江校友自营农场直供的有机五常大米，产自五常核心产区，一年一季，米粒晶莹饱满，口感软糯香甜。通过国家有机认证，从田间直达餐桌。', specs: ['净重：5kg', '品种：稻花香2号', '产地：黑龙江五常市', '保质期：12个月', '有机认证 + 地理标志产品'], shipping: '下单后48小时内发货，全国包邮', tags: ['包邮', '有机认证', '校友自营'] },
-  { id: 3, title: '白石桥七号定制款紫砂茶具套装', cover: img('gb3', 400, 400), images: [img('gb3a', 750, 750), img('gb3b', 750, 750), img('gb3c', 750, 750)], price: 288, originalPrice: 688, soldCount: 215, totalCount: 300, endDate: '2026-07-15', category: 'cultural', supplier: '宜兴紫砂校友工坊', desc: '由宜兴校友工坊手工制作的紫砂茶具套装，包含一壶四杯一茶海。采用宜兴原矿紫砂泥料，传统工艺手工成型，壶身雕刻白石桥七号专属logo。自用雅致，送礼体面。', specs: ['套装：1壶+4杯+1公道杯', '材质：宜兴原矿紫泥', '壶容量：约200ml', '工艺：纯手工制作', '包装：精美礼盒装'], shipping: '手工制作需3-5天，发货后全国包邮', tags: ['手工', '限量', '包邮'] },
-  { id: 4, title: '北理工校友优选——智利进口红酒双支礼盒', cover: img('gb4', 400, 400), images: [img('gb4a', 750, 750), img('gb4b', 750, 750)], price: 198, originalPrice: 498, soldCount: 632, totalCount: 800, endDate: '2026-06-28', category: 'food', supplier: '校友企业·品醇国际酒业', desc: '由校友经营的进口酒业公司直供，智利中央山谷产区赤霞珠干红2支礼盒装。酒体饱满，果香浓郁，适合商务宴请和家庭聚餐。附赠专业开瓶器。', specs: ['规格：750ml×2支', '品种：赤霞珠干红', '产地：智利中央山谷', '年份：2024年', '礼盒装+赠开瓶器'], shipping: '下单后24小时内发货，全国包邮', tags: ['包邮', '进口', '送礼'] },
-  { id: 6, title: '北理工建筑系列——3D拼图 中心教学楼模型', cover: img('gb6', 400, 400), images: [img('gb6a', 750, 750), img('gb6b', 750, 750), img('gb6c', 750, 750)], price: 128, originalPrice: 268, soldCount: 340, totalCount: 500, endDate: '2026-07-20', category: 'cultural', supplier: '北理工校友文创工作室', desc: '以北京理工大学中关村校区中心教学楼为原型设计的高精度3D拼图模型。共328片零件，ABS环保材质，无需胶水即可拼装。拼装完成后尺寸约25×15×20cm，是送给北理工校友最好的桌面摆件。', specs: ['零件数：328片', '材质：ABS环保塑料', '成品尺寸：约25×15×20cm', '难度：中等（建议14岁以上）', '含详细拼装说明书'], shipping: '下单后2个工作日内发货，全国包邮', tags: ['限量', '文创', '包邮'] },
-  { id: 7, title: '全聚德烤鸭套餐 4-6人份', cover: img('gb1', 400, 400), images: [img('gb1a', 750, 750), img('gb2a', 750, 750)], price: 398, originalPrice: 588, soldCount: 256, totalCount: 500, endDate: '2026-08-30', category: 'food', supplier: '全聚德烤鸭店（前门店）', desc: '百年老字号全聚德烤鸭店4-6人套餐，包含果木炭火烤鸭一只、荷叶饼、甜面酱、葱丝黄瓜丝，以及精选热菜6道、凉菜4道。到店享用，品味京城百年味道。', specs: ['适合人数：4-6人', '包含：烤鸭+配菜+小吃', '有效期：3个月', '预约：需提前1天预约', '仅限堂食'], shipping: '到店消费，无需配送', tags: ['老字号', '到店消费', '限量'] },
-  { id: 8, title: '三里屯太古里酒店大床房', cover: img('gb3', 400, 400), images: [img('gb3a', 750, 750), img('gb3b', 750, 750)], price: 699, originalPrice: 1299, soldCount: 189, totalCount: 300, endDate: '2026-12-31', category: 'hotel', supplier: '三里屯太古里酒店', desc: '位于北京核心商圈三里屯的设计师酒店，大床房一晚住宿。酒店融合东方禅意与现代设计，步行可达太古里、工体等地标，是商旅休闲的理想选择。', specs: ['房型：高级大床房', '床型：1.8m大床', '含双早', '面积：35㎡', '免费WiFi+停车'], shipping: '预订成功后到店办理入住', tags: ['含早', '市中心', '限时特惠'] },
-  { id: 9, title: '海南三亚5日4晚自由行', cover: img('gb4', 400, 400), images: [img('gb4a', 750, 750), img('gb1b', 750, 750)], price: 2980, originalPrice: 4580, soldCount: 156, totalCount: 300, endDate: '2026-10-31', category: 'travel', supplier: '携程旅行·校友合作商', desc: '海南三亚5日4晚自由行套餐，包含往返机票、海景酒店住宿、蜈支洲岛一日游、南山文化旅游区门票。自由安排行程，享受阳光沙滩椰林海岛风情。', specs: ['行程：5日4晚', '包含：机票+酒店+景点', '酒店：三亚湾海景酒店', '机票：北京/上海出发', '可选日期：多日期可选'], shipping: '电子行程单，出行前3天发送', tags: ['自由行', '海景', '限时优惠'] },
-  { id: 10, title: '超级猩猩健身月卡', cover: img('gb5', 400, 400), images: [img('gb5a', 750, 750), img('gb3c', 750, 750)], price: 199, originalPrice: 399, soldCount: 523, totalCount: 1000, endDate: '2026-09-30', category: 'sport', supplier: '超级猩猩健身', desc: '超级猩猩健身全国通用月卡，覆盖北京、上海、广州、深圳等20+城市的50+门店。自由健身、团课预约、智能器械一应俱全，专业教练随时指导。', specs: ['有效期：30天', '适用门店：全国50+家', '包含：器械+团课+私教课体验', '首次到店需验证', '限新用户使用'], shipping: '电子卡券，购买后即时发放', tags: ['全国通用', '不限次', '新客专享'] },
-  { id: 11, title: '北京欢乐谷亲子套票', cover: img('gb6', 400, 400), images: [img('gb6a', 750, 750), img('gb4b', 750, 750)], price: 299, originalPrice: 498, soldCount: 432, totalCount: 800, endDate: '2026-08-31', category: 'entertainment', supplier: '北京欢乐谷', desc: '北京欢乐谷亲子套票（1大1小），含全园通票，涵盖太阳神车、水晶神翼、丛林飞车等50+项游乐设施。小朋友的欢乐天堂，大朋友的减压胜地。', specs: ['包含：1成人+1儿童票', '儿童：1.2-1.5m', '有效期：购买后30天内', '营业时间：9:00-18:00', '园区：北京欢乐谷'], shipping: '电子票，刷二维码入园', tags: ['亲子', '通票', '热门'] },
-  { id: 13, title: '海底捞火锅双人套餐', cover: img('gb1', 400, 400), images: [img('gb1c', 750, 750), img('gb2a', 750, 750)], price: 268, originalPrice: 398, soldCount: 789, totalCount: 1500, endDate: '2026-09-30', category: 'food', supplier: '海底捞火锅', desc: '海底捞火锅双人超值套餐，含锅底（四选一）、荤菜3份、素菜3份、主食2份、饮品2扎。服务至上的火锅体验，生日还有惊喜。', specs: ['适合：2人', '包含：锅底+菜品+饮品', '有效期：3个月', '需预约：提前排队', '限堂食'], shipping: '电子券，到店核销', tags: ['网红', '到店', '热销'] },
-  { id: 14, title: '瑜伽私教课10节套餐', cover: img('gb3', 400, 400), images: [img('gb3b', 750, 750), img('gb6b', 750, 750)], price: 1999, originalPrice: 3500, soldCount: 128, totalCount: 300, endDate: '2026-12-31', category: 'sport', supplier: '静缘瑜伽', desc: '资深瑜伽老师一对一私教课程10节，涵盖哈他瑜伽、阴瑜伽、流瑜伽等多种流派。量身定制练习计划，改善体态、提升柔韧性、缓解工作压力。', specs: ['课时：10节', '时长：每节60分钟', '授课方式：一对一', '有效期：6个月', '需提前预约'], shipping: '购买后联系门店预约课时', tags: ['私教', '专业', '改善体态'] },
+  { id: 1, title: '北理工校庆纪念版双肩包', cover: img('gb1', 400, 400), images: [img('gb1a', 750, 750), img('gb1b', 750, 750), img('gb1c', 750, 750)], price: 169, originalPrice: 399, soldCount: 456, totalCount: 600, endDate: '2026-06-30', category: 'cultural', supplier: '北理工校友文创工作室', desc: '为庆祝北理工建校纪念，特别推出的限量版双肩包。采用高品质防泼水面料，大容量主仓+独立电脑隔层，适合日常通勤和短途出行。', specs: ['材质：高密度防泼水尼龙', '尺寸：45×30×18cm', '容量：约25L', '颜色：深灰/藏蓝可选', '刺绣校徽+白石桥七号专属标识'], shipping: '北京市海淀区中关村大街XX号 XXX大厦B1层\n联系人：王经理 138****5678', tags: ['限量', '包邮', '校庆纪念'] },
+  { id: 2, title: '校友企业出品——有机五常大米 5kg装', cover: img('gb2', 400, 400), images: [img('gb2a', 750, 750), img('gb2b', 750, 750)], price: 78, originalPrice: 158, soldCount: 890, totalCount: 1000, endDate: '2026-06-25', category: 'food', supplier: '黑龙江五常校友农场', desc: '由黑龙江校友自营农场直供的有机五常大米，产自五常核心产区，一年一季，米粒晶莹饱满，口感软糯香甜。通过国家有机认证，从田间直达餐桌。', specs: ['净重：5kg', '品种：稻花香2号', '产地：黑龙江五常市', '保质期：12个月', '有机认证 + 地理标志产品'], shipping: '北京市朝阳区望京西路XX号 优品汇一层\n联系人：李店长 139****2345', tags: ['包邮', '有机认证', '校友自营'] },
+  { id: 3, title: '白石桥七号定制款紫砂茶具套装', cover: img('gb3', 400, 400), images: [img('gb3a', 750, 750), img('gb3b', 750, 750), img('gb3c', 750, 750)], price: 288, originalPrice: 688, soldCount: 215, totalCount: 300, endDate: '2026-07-15', category: 'cultural', supplier: '宜兴紫砂校友工坊', desc: '由宜兴校友工坊手工制作的紫砂茶具套装，包含一壶四杯一茶海。采用宜兴原矿紫砂泥料，传统工艺手工成型，壶身雕刻白石桥七号专属logo。自用雅致，送礼体面。', specs: ['套装：1壶+4杯+1公道杯', '材质：宜兴原矿紫泥', '壶容量：约200ml', '工艺：纯手工制作', '包装：精美礼盒装'], shipping: '北京市西城区琉璃厂东街XX号 紫砂工艺坊\n联系人：陈师傅 136****7890', tags: ['手工', '限量', '包邮'] },
+  { id: 4, title: '北理工校友优选——智利进口红酒双支礼盒', cover: img('gb4', 400, 400), images: [img('gb4a', 750, 750), img('gb4b', 750, 750)], price: 198, originalPrice: 498, soldCount: 632, totalCount: 800, endDate: '2026-06-28', category: 'food', supplier: '校友企业·品醇国际酒业', desc: '由校友经营的进口酒业公司直供，智利中央山谷产区赤霞珠干红2支礼盒装。酒体饱满，果香浓郁，适合商务宴请和家庭聚餐。附赠专业开瓶器。', specs: ['规格：750ml×2支', '品种：赤霞珠干红', '产地：智利中央山谷', '年份：2024年', '礼盒装+赠开瓶器'], shipping: '北京市东城区王府井大街XX号 品醇国际酒庄\n联系人：周经理 135****4321', tags: ['包邮', '进口', '送礼'] },
+  { id: 6, title: '北理工建筑系列——3D拼图 中心教学楼模型', cover: img('gb6', 400, 400), images: [img('gb6a', 750, 750), img('gb6b', 750, 750), img('gb6c', 750, 750)], price: 128, originalPrice: 268, soldCount: 340, totalCount: 500, endDate: '2026-07-20', category: 'cultural', supplier: '北理工校友文创工作室', desc: '以北京理工大学中关村校区中心教学楼为原型设计的高精度3D拼图模型。共328片零件，ABS环保材质，无需胶水即可拼装。拼装完成后尺寸约25×15×20cm，是送给北理工校友最好的桌面摆件。', specs: ['零件数：328片', '材质：ABS环保塑料', '成品尺寸：约25×15×20cm', '难度：中等（建议14岁以上）', '含详细拼装说明书'], shipping: '北京市海淀区中关村大街XX号 北理工校友中心\n联系人：赵老师 137****8901', tags: ['限量', '文创', '包邮'] },
+  { id: 7, title: '全聚德烤鸭套餐 4-6人份', cover: img('gb1', 400, 400), images: [img('gb1a', 750, 750), img('gb2a', 750, 750)], price: 398, originalPrice: 588, soldCount: 256, totalCount: 500, endDate: '2026-08-30', category: 'food', supplier: '全聚德烤鸭店（前门店）', desc: '百年老字号全聚德烤鸭店4-6人套餐，包含果木炭火烤鸭一只、荷叶饼、甜面酱、葱丝黄瓜丝，以及精选热菜6道、凉菜4道。到店享用，品味京城百年味道。', specs: ['适合人数：4-6人', '包含：烤鸭+配菜+小吃', '有效期：3个月', '预约：需提前1天预约', '仅限堂食'], shipping: '北京市东城区前门大街XX号 全聚德烤鸭店\n联系人：张经理 138****3456', tags: ['老字号', '到店消费', '限量'] },
+  { id: 8, title: '三里屯太古里酒店大床房', cover: img('gb3', 400, 400), images: [img('gb3a', 750, 750), img('gb3b', 750, 750)], price: 699, originalPrice: 1299, soldCount: 189, totalCount: 300, endDate: '2026-12-31', category: 'hotel', supplier: '三里屯太古里酒店', desc: '位于北京核心商圈三里屯的设计师酒店，大床房一晚住宿。酒店融合东方禅意与现代设计，步行可达太古里、工体等地标，是商旅休闲的理想选择。', specs: ['房型：高级大床房', '床型：1.8m大床', '含双早', '面积：35㎡', '免费WiFi+停车'], shipping: '北京市朝阳区三里屯太古里南区XX号 太古里酒店\n联系人：前台 010-5678****', tags: ['含早', '市中心', '限时特惠'] },
+  { id: 9, title: '海南三亚5日4晚自由行', cover: img('gb4', 400, 400), images: [img('gb4a', 750, 750), img('gb1b', 750, 750)], price: 2980, originalPrice: 4580, soldCount: 156, totalCount: 300, endDate: '2026-10-31', category: 'travel', supplier: '携程旅行·校友合作商', desc: '海南三亚5日4晚自由行套餐，包含往返机票、海景酒店住宿、蜈支洲岛一日游、南山文化旅游区门票。自由安排行程，享受阳光沙滩椰林海岛风情。', specs: ['行程：5日4晚', '包含：机票+酒店+景点', '酒店：三亚湾海景酒店', '机票：北京/上海出发', '可选日期：多日期可选'], shipping: '北京市朝阳区建国路XX号 携程旅行服务中心\n联系人：刘顾问 133****6789', tags: ['自由行', '海景', '限时优惠'] },
+  { id: 10, title: '超级猩猩健身月卡', cover: img('gb5', 400, 400), images: [img('gb5a', 750, 750), img('gb3c', 750, 750)], price: 199, originalPrice: 399, soldCount: 523, totalCount: 1000, endDate: '2026-09-30', category: 'sport', supplier: '超级猩猩健身', desc: '超级猩猩健身全国通用月卡，覆盖北京、上海、广州、深圳等20+城市的50+门店。自由健身、团课预约、智能器械一应俱全，专业教练随时指导。', specs: ['有效期：30天', '适用门店：全国50+家', '包含：器械+团课+私教课体验', '首次到店需验证', '限新用户使用'], shipping: '北京市海淀区五道口XX购物中心B1层 超级猩猩\n联系人：陈教练 139****0123', tags: ['全国通用', '不限次', '新客专享'] },
+  { id: 11, title: '北京欢乐谷亲子套票', cover: img('gb6', 400, 400), images: [img('gb6a', 750, 750), img('gb4b', 750, 750)], price: 299, originalPrice: 498, soldCount: 432, totalCount: 800, endDate: '2026-08-31', category: 'entertainment', supplier: '北京欢乐谷', desc: '北京欢乐谷亲子套票（1大1小），含全园通票，涵盖太阳神车、水晶神翼、丛林飞车等50+项游乐设施。小朋友的欢乐天堂，大朋友的减压胜地。', specs: ['包含：1成人+1儿童票', '儿童：1.2-1.5m', '有效期：购买后30天内', '营业时间：9:00-18:00', '园区：北京欢乐谷'], shipping: '北京市朝阳区东四环小武基北路 北京欢乐谷\n联系人：客服 010-6738****', tags: ['亲子', '通票', '热门'] },
+  { id: 13, title: '海底捞火锅双人套餐', cover: img('gb1', 400, 400), images: [img('gb1c', 750, 750), img('gb2a', 750, 750)], price: 268, originalPrice: 398, soldCount: 789, totalCount: 1500, endDate: '2026-09-30', category: 'food', supplier: '海底捞火锅', desc: '海底捞火锅双人超值套餐，含锅底（四选一）、荤菜3份、素菜3份、主食2份、饮品2扎。服务至上的火锅体验，生日还有惊喜。', specs: ['适合：2人', '包含：锅底+菜品+饮品', '有效期：3个月', '需预约：提前排队', '限堂食'], shipping: '北京市海淀区中关村大街XX号 海底捞火锅\n联系人：李店长 138****5678', tags: ['网红', '到店', '热销'] },
+  { id: 14, title: '瑜伽私教课10节套餐', cover: img('gb3', 400, 400), images: [img('gb3b', 750, 750), img('gb6b', 750, 750)], price: 1999, originalPrice: 3500, soldCount: 128, totalCount: 300, endDate: '2026-12-31', category: 'sport', supplier: '静缘瑜伽', desc: '资深瑜伽老师一对一私教课程10节，涵盖哈他瑜伽、阴瑜伽、流瑜伽等多种流派。量身定制练习计划，改善体态、提升柔韧性、缓解工作压力。', specs: ['课时：10节', '时长：每节60分钟', '授课方式：一对一', '有效期：6个月', '需提前预约'], shipping: '北京市朝阳区望京SOHO T2 XX层 静缘瑜伽\n联系人：王老师 137****2345', tags: ['私教', '专业', '改善体态'] },
   { id: 15, title: '电影票全国通用兑换码', cover: img('gb5', 400, 400), images: [img('gb5a', 750, 750), img('gb4b', 750, 750)], price: 39, originalPrice: 80, soldCount: 1560, totalCount: 3000, endDate: '2026-12-31', category: 'entertainment', supplier: '猫眼电影', desc: '全国通用电影票兑换码，支持万达、博纳、大地等主流院线影院。2D/3D通兑，IMAX补差价。热门大片随心看，不限场次时间。', specs: ['有效期：1年', '适用：全国3000+影院', '2D/3D通兑', 'IMAX：补10-30元', '每个订单限用1张'], shipping: '电子码，即时发送', tags: ['通兑', '不限场次', '热销'] }
 ];
 
@@ -524,10 +477,17 @@ var groupBuyList = [
 var AppState = {
   isLoggedIn: false,
   currentRole: '商务会员',
+  // 校友认证审核状态：'pending'(审核中) / 'rejected'(已驳回) / null(未提交或已通过)
+  alumniCertStatus: 'rejected',
+  alumniCertRejectReason: '提交的学籍材料不清晰，请重新上传毕业证/学位证照片，并确保个人信息页完整可见',
+  // 商务会员升级审核状态：'pending'(审核中) / 'rejected'(已驳回) / null(未提交或已通过)
+  bizUpgradeStatus: 'rejected',
+  bizUpgradeRejectReason: '关联企业缺少营业执照证明材料，产品介绍需补充完整的产品规格与应用案例说明',
   incomingRequests: [1, 3],
   outgoingIds: [],
   friendIds: [2],
   joinedGroups: [1],
+  groupJoinReasons: {},
   registeredActivities: [],
   activityRegistrations: [],
   subscribedCourses: [1],
@@ -539,10 +499,19 @@ var AppState = {
   feedComments: { 1: [{ name: '赵明辉', avatar: img('m1', 100, 100), text: '张总说得太好了，为北理工自豪！', time: '2026-06-08 15:00' }], 2: [{ name: '王军', avatar: img('u3', 100, 100), text: '恭喜落地！期待合作。', time: '2026-06-07 11:00' }, { name: '刘芳', avatar: img('u3', 100, 100), text: '星辰科技的产品很赞！', time: '2026-06-07 12:30' }], 3: [{ name: '张建国', avatar: img('u1', 100, 100), text: '恭喜刘总！A轮5000万非常不错！', time: '2026-06-06 20:00' }] },
   groupBuyOrders: [1, 2],
   myFeeds: [1, 2, 3],
-  myActivities: [1, 2],
+  myActivities: [1, 2, 7],
   myTopics: [1],
-  myHelp: [3],
-  myBiz: [1, 3]
+  myHelp: [3, 7],
+  myBiz: [1, 3],
+  newsComments: {
+    5: [
+      { name: '李明远', avatar: img('u2', 100, 100), text: '这次分享会干货满满！大模型在企业级场景的落地经验非常实用，期待下一期活动。', time: '2026-08-10 16:30' },
+      { name: '张建国', avatar: img('u1', 100, 100), text: '作为AI创业者，圆桌讨论环节收获很大，感谢俱乐部的组织！', time: '2026-08-10 17:15' },
+      { name: '王芳', avatar: img('u4', 100, 100), text: '三位嘉宾的分享都很精彩，PPT能不能分享一下？', time: '2026-08-10 18:02' },
+      { name: '赵明辉', avatar: img('m1', 100, 100), text: '俱乐部的活动越来越专业了，下次一定要到现场参加！', time: '2026-08-11 09:20' }
+    ]
+  },
+  topicComments: {}
 };
 
 // ================================================================
@@ -550,8 +519,8 @@ var AppState = {
 // ================================================================
 var rolePermissions = {
   '普通用户': ['browse', 'course', 'groupbuy'],
-  '认证校友': ['browse', 'course', 'groupbuy', 'alumni_card', 'alumni_group', 'alumni_activity', 'alumni_help', 'publish_feed', 'publish_help'],
-  '商务会员': ['browse', 'course', 'groupbuy', 'alumni_card', 'alumni_group', 'alumni_activity', 'alumni_help', 'publish_feed', 'publish_help', 'company', 'publish_business_need', 'member_service']
+  '认证校友': ['browse', 'course', 'groupbuy', 'alumni_card', 'alumni_group', 'alumni_activity', 'alumni_help', 'publish_feed', 'publish_help', 'publish_activity'],
+  '商务会员': ['browse', 'course', 'groupbuy', 'alumni_card', 'alumni_group', 'alumni_activity', 'alumni_help', 'publish_feed', 'publish_help', 'publish_activity', 'company', 'publish_business_need', 'member_service']
 };
 
 // 角色等级映射（仅用于兼容已有等级判断逻辑）
@@ -580,7 +549,8 @@ function getPublishActions() {
   var role = AppState.currentRole;
   var allActions = [
     { name: '发布动态', desc: '分享校友圈动态与生活', key: 'feed', icon: 'edit', color: '#6fa4cf', path: '/publish-feed', permission: 'publish_feed', minRole: '认证校友', category: 'alumni' },
-    { name: '发布需求', desc: '发布互助或商务需求', key: 'demand', icon: 'help', color: '#a78bfa', path: '/publish-demand', permission: 'publish_help', minRole: '认证校友', category: 'alumni' }
+    { name: '发布活动', desc: '发布校友活动', key: 'activity', icon: 'calendar', color: '#07c160', path: '/publish-activity', permission: 'publish_activity', minRole: '认证校友', category: 'alumni' },
+    { name: '发布需求', desc: '发布互助或商务求助', key: 'demand', icon: 'help', color: '#a78bfa', path: '/publish-demand', permission: 'publish_help', minRole: '认证校友', category: 'alumni' }
   ];
 
   // 按角色过滤和标记状态
@@ -593,15 +563,28 @@ function sendRequest(id) { if (AppState.outgoingIds.indexOf(id) < 0) AppState.ou
 function acceptRequest(id) { var idx = AppState.incomingRequests.indexOf(id); if (idx >= 0) { AppState.incomingRequests.splice(idx, 1); AppState.friendIds.push(id); } }
 function rejectRequest(id) { var idx = AppState.incomingRequests.indexOf(id); if (idx >= 0) AppState.incomingRequests.splice(idx, 1); }
 function isJoined(gid) { return AppState.joinedGroups.indexOf(gid) >= 0; }
-function joinGroup(gid) { if (AppState.joinedGroups.indexOf(gid) < 0) AppState.joinedGroups.push(gid); }
+function joinGroup(gid, reason) { if (AppState.joinedGroups.indexOf(gid) < 0) { AppState.joinedGroups.push(gid); AppState.groupJoinReasons[gid] = reason || ''; } }
 function leaveGroup(gid) { var idx = AppState.joinedGroups.indexOf(gid); if (idx >= 0) AppState.joinedGroups.splice(idx, 1); }
 function hasRegisteredAct(aid) { return AppState.registeredActivities.indexOf(aid) >= 0; }
 function registerActivity(aid) { if (AppState.registeredActivities.indexOf(aid) < 0) AppState.registeredActivities.push(aid); }
 function getActivityStatus(act) {
+  if (act.reviewStatus === 'pending') return '待审核';
+  if (act.reviewStatus === 'rejected') return '已驳回';
   var today = new Date().toISOString().split('T')[0];
-  if (act.date < today) return '活动结束';
-  if (act.deadline < today) return '报名截止';
-  return '报名进行中';
+  var end = act.endDate || act.date;
+  if (today > end) return '活动结束';
+  if (today >= act.date) return '活动进行中';
+  if (today > act.deadline) return '报名截止';
+  return '报名中';
+}
+function getActivityTagColor(act) {
+  var s = getActivityStatus(act);
+  if (s === '待审核') return 'warning';
+  if (s === '已驳回') return 'danger';
+  if (s === '活动进行中') return 'success';
+  if (s === '报名中') return 'warning';
+  if (s === '报名截止') return 'info';
+  return 'plain';
 }
 function getMyRegistration(aid) {
   return AppState.activityRegistrations.find(function(r) { return r.activityId == aid; });
@@ -643,16 +626,7 @@ function saveRegistration(activityId, data) {
     }
   }
 }
-function cancelRegistration(aid) {
-  var idx = AppState.registeredActivities.indexOf(aid);
-  if (idx >= 0) AppState.registeredActivities.splice(idx, 1);
-  var regIdx = AppState.activityRegistrations.findIndex(function(r) { return r.activityId == aid; });
-  if (regIdx >= 0) {
-    AppState.activityRegistrations[regIdx].status = 'cancelled';
-  }
-  showToast('已取消报名');
-  Router.navigate('/activity/' + aid);
-}
+
 function showRegistrationInfo(aid) {
   Router.navigate('/activity-registration/' + aid);
 }
@@ -665,7 +639,11 @@ function submitRegistration(aid) {
   
   var act = activityList.find(function(a) { return a.id == aid; });
   if (!act) return;
-  
+  if (act.type === '商务活动' && roleRank[AppState.currentRole] < 2) {
+    showToast('商务活动仅限商务会员报名，请先升级会员');
+    return;
+  }
+
   var customFields = (act.customFields || []).filter(function(f) { return f.visible !== false; });
   var fields = {};
   customFields.forEach(function(f, idx) {
@@ -815,6 +793,7 @@ var routes = [
   { path: '/publish-demand', view: 'PublishDemand' },
   { path: '/member-card', view: 'MemberCardList' },
   { path: '/member-card/:id', view: 'MemberCardDetail' },
+  { path: '/group-member/:groupId/:memberIdx', view: 'GroupMemberDetail' },
   { path: '/member-distribution', view: 'MemberDistribution' },
   { path: '/member-ep', view: 'MemberEPListView' },
   { path: '/member-company/:id', view: 'MemberCompanyDetail' },
@@ -825,7 +804,6 @@ var routes = [
   { path: '/member-demand/business/:id', view: 'MemberBusinessDetail' },
   { path: '/member-org', view: 'MemberOrganization' },
   { path: '/member-service', view: 'MemberServiceIndex' },
-  { path: '/member-service/alumni-circle/:type', view: 'AlumniCircleDetail' },
   { path: '/member-service/:category', view: 'MemberServiceDetail' },
   { path: '/service-provider/:id', view: 'ServiceProviderDetail' },
   { path: '/service-project/:id', view: 'ServiceProjectDetail' },
@@ -1297,6 +1275,7 @@ var uiState = {
   homeSearch: '',
   homeSearchVisible: false,
   groupListTab: 'all',
+  memberOrgTab: 0,
   groupDetailTab: 'intro',
   courseDetailTab: 'intro',
   profileActTab: 'registered',
@@ -1308,7 +1287,10 @@ var uiState = {
   groupBuyCategory: 'all',
   demandTab: 'help',
   epListTab: 'company',
-  publishDemandType: 'help'
+  publishDemandType: 'help',
+  showCourseReview: false,
+  reviewCourseId: null,
+  reviewText: ''
 };
 
 
@@ -1337,6 +1319,13 @@ function renderView() {
     html += UI_Tabbar(activeTabKey());
   }
   document.getElementById('app').innerHTML = html;
+
+  // 自动跳转（支付成功后强跳转至会员信息填写）
+  var autoNav = document.querySelector('[data-auto-nav]');
+  if (autoNav) {
+    var dest = autoNav.dataset.autoNav;
+    setTimeout(function() { Router.navigate(dest); }, 1500);
+  }
 
   // 添加图片上传监听器
   var companyLogoInput = document.getElementById('company-logo-input');
@@ -1863,6 +1852,43 @@ document.addEventListener('click', function(e) {
       }
       break;
 
+    // Course review
+    case 'toggle-course-review':
+      var reviewCourseId = parseInt(target.dataset.courseId);
+      if (uiState.showCourseReview && uiState.reviewCourseId === reviewCourseId) {
+        uiState.showCourseReview = false;
+        uiState.reviewCourseId = null;
+        uiState.reviewText = '';
+      } else {
+        uiState.showCourseReview = true;
+        uiState.reviewCourseId = reviewCourseId;
+        uiState.reviewText = '';
+      }
+      renderView();
+      break;
+    case 'submit-course-review':
+      var submitCourseId = parseInt(target.dataset.courseId);
+      var textEl = document.getElementById('course-review-text');
+      var reviewText = textEl ? textEl.value.trim() : '';
+      if (!reviewText) { showToast('请写下评价内容'); break; }
+      var course = courseList.find(function(c) { return c.id == submitCourseId; });
+      if (course) {
+        if (!course.reviewList) course.reviewList = [];
+        course.reviewList.unshift({
+          user: AppState.currentUser ? AppState.currentUser.name : '当前用户',
+          avatar: AppState.currentUser && AppState.currentUser.avatar ? AppState.currentUser.avatar : 'https://picsum.photos/seed/user/100/100',
+          date: new Date().toISOString().slice(0, 10),
+          content: reviewText
+        });
+        course.reviews = course.reviewList.length;
+      }
+      uiState.showCourseReview = false;
+      uiState.reviewCourseId = null;
+      uiState.reviewText = '';
+      showToast('评价已提交');
+      renderView();
+      break;
+
     // Login
     case 'wechat-login':
       AppState.isLoggedIn = true;
@@ -1905,6 +1931,13 @@ document.addEventListener('click', function(e) {
       if (window._asCallback) window._asCallback(key);
       break;
 
+    // 活动类型选择（发布活动页）
+    case 'select-act-type':
+      uiState.publishActType = payload;
+      uiState.publishActCat = ''; // 重置分类，切换类型后重新初始化
+      renderView();
+      break;
+
     // 活动分类选择
     case 'select-act-cat':
       var catTags = document.querySelectorAll('.act-cat-tag');
@@ -1926,6 +1959,65 @@ document.addEventListener('click', function(e) {
       if (minRole) {
         showToast('需要' + minRole + '身份才能使用此功能');
       }
+      break;
+
+    // 提交发布活动（提交审核）
+    case 'submit-publish-activity':
+      var paRoot = document.querySelector('.page-container');
+      var paInputs = paRoot ? paRoot.querySelectorAll('input, textarea') : [];
+      var paTitle = '', paLocation = '', paDate = '', paTime = '', paDeadline = '', paFee = '0', paDesc = '';
+      paInputs.forEach(function(el) {
+        var ph = el.placeholder || '';
+        if (ph.indexOf('活动名称') >= 0) paTitle = el.value.trim();
+        else if (ph.indexOf('活动地点') >= 0) paLocation = el.value.trim();
+        else if (ph.indexOf('活动日期') >= 0) paDate = el.value.trim();
+        else if (ph.indexOf('活动时间') >= 0) paTime = el.value.trim();
+        else if (ph.indexOf('截止') >= 0) paDeadline = el.value.trim();
+        else if (ph.indexOf('免费') >= 0) paFee = el.value.trim() || '0';
+        else if (el.tagName === 'TEXTAREA') paDesc = el.value.trim();
+      });
+      if (!paTitle) { showToast('请填写活动名称'); break; }
+      if (!paLocation) { showToast('请填写活动地点'); break; }
+      if (!paDate) { showToast('请填写活动日期'); break; }
+      // 解析活动时间区间
+      var paStartTime = '', paEndTime = '';
+      if (paTime) {
+        var timeParts = paTime.split(/[-~至]/);
+        if (timeParts.length >= 2) {
+          paStartTime = timeParts[0].trim();
+          paEndTime = timeParts[1].trim();
+        } else {
+          paStartTime = paTime.trim();
+        }
+      }
+      // 新建活动，状态为待审核
+      var newAct = {
+        id: Date.now(),
+        type: uiState.publishActType || '校友活动',
+        reviewStatus: 'pending',
+        title: paTitle,
+        cover: img('act1', 400, 240),
+        date: paDate,
+        startTime: paStartTime,
+        endTime: paEndTime,
+        location: paLocation,
+        status: '报名中',
+        fee: parseInt(paFee) || 0,
+        organizer: AppState.userName || '我',
+        orgAvatar: img('myavatar', 100, 100),
+        publisher: { name: AppState.userName || '我', avatar: img('myavatar', 100, 100), role: AppState.currentRole },
+        deadline: paDeadline || paDate,
+        description: '<p>' + escapeHtml(paDesc || '暂无描述') + '</p>',
+        registered: 0,
+        customFields: [],
+        registeredUsers: [],
+        reviewComment: ''
+      };
+      activityList.unshift(newAct);
+      AppState.myActivities = AppState.myActivities || [];
+      if (AppState.myActivities.indexOf(newAct.id) < 0) AppState.myActivities.unshift(newAct.id);
+      showToast('已提交审核，请等待平台审核');
+      setTimeout(function() { goBack('/profile/activities'); }, 1200);
       break;
 
     // Close overlay
@@ -1974,6 +2066,12 @@ document.addEventListener('click', function(e) {
     // Activity type tab
     case 'set-act-type':
       uiState.activityTypeTab = payload;
+      renderView();
+      break;
+
+    // Member organization tab
+    case 'memberOrgTab':
+      uiState.memberOrgTab = parseInt(tab) || 0;
       renderView();
       break;
 
@@ -2219,16 +2317,19 @@ document.addEventListener('click', function(e) {
       uiState.serviceSubCategory[fsCat] = fsSub;
       renderView();
       break;
-    case 'submit-member-upgrade':
+    case 'submit-member-info':
       if (!uiState.selectedCompanies || uiState.selectedCompanies.length === 0) {
         showToast('请至少添加一家关联企业');
         return;
       }
-      showConfirm('确认提交商务会员升级申请？\n关联企业：' + uiState.selectedCompanies.length + ' 家\n关联产品：' + (uiState.selectedProducts ? uiState.selectedProducts.length : 0) + ' 款', function() {
-        showToast('已提交审核，请等待平台审核');
-        setTimeout(function() { goBack(); }, 1200);
-      });
+      if (!uiState.selectedProducts || uiState.selectedProducts.length === 0) {
+        showToast('请至少添加一款关联产品');
+        return;
+      }
+      Router.navigate('/profile/member-recharge');
       break;
+
+    case 'submit-member-upgrade':
 
     case 'confirm-recharge':
       var pkgId = parseInt(target.dataset.pkgId);
@@ -2314,9 +2415,8 @@ document.addEventListener('click', function(e) {
     // Group join/leave
     case 'join-group':
       var gid = parseInt(id);
-      if (isJoined(gid)) { leaveGroup(gid); showToast('已退出社团'); }
-      else { joinGroup(gid); showToast('已申请加入社团'); }
-      renderView();
+      if (isJoined(gid)) { leaveGroup(gid); showToast('已退出社团'); renderView(); }
+      else { showJoinGroupDialog(gid); }
       break;
 
     // Group buy
@@ -2397,7 +2497,7 @@ document.addEventListener('click', function(e) {
     Router.navigate('/publish-activity');
   } else if (text === '发布互助求助') {
     Router.navigate('/publish-demand?type=help');
-  } else if (text === '发布商务需求') {
+  } else if (text === '发布商务求助') {
     Router.navigate('/publish-demand?type=business');
   } else if (text === '立即报名') {
     var actId = Router.params.id;
@@ -2408,13 +2508,6 @@ document.addEventListener('click', function(e) {
       } else {
         registerActivity(parseInt(actId)); showToast('报名成功'); renderView();
       }
-    }
-  } else if (text === '加入社团' || text === '退出社团') {
-    var gId = Router.params.id ? parseInt(Router.params.id) : null;
-    if (gId) {
-      if (isJoined(gId)) { leaveGroup(gId); showToast('已退出社团'); }
-      else { joinGroup(gId); showToast('已申请加入社团'); }
-      renderView();
     }
   } else if (text === '退出登录') {
     showConfirm('确定要退出登录吗？', doLogout);
@@ -2482,6 +2575,19 @@ function doPostNewsComment(id) {
     renderView();
   }
 }
+function doToggleTopicComment(id) { uiState.showTopicComment = uiState.showTopicComment === id ? null : id; renderView(); }
+function doPostTopicComment(id) {
+  var input = document.getElementById('topic-comment-input');
+  if (input && input.value.trim()) {
+    if (!AppState.topicComments) AppState.topicComments = {};
+    if (!AppState.topicComments[id]) AppState.topicComments[id] = [];
+    AppState.topicComments[id].push({ name: '演示用户', avatar: img('myavatar', 100, 100), text: input.value.trim(), time: new Date().toLocaleString() });
+    var td = topicList.find(function(t) { return t.id == id; });
+    if (td) td.comments = (td.comments || 0) + 1;
+    uiState.showTopicComment = null;
+    renderView();
+  }
+}
 function doCollectTopic(id) {
   AppState.collectedTopics[id] = !AppState.collectedTopics[id];
   showToast(AppState.collectedTopics[id] ? '已收藏' : '已取消收藏');
@@ -2511,15 +2617,32 @@ function doCollectCourse(id) {
 }
 function doRegisterActivity(id) {
   if (hasRegisteredAct(id)) return;
+  var act = activityList.find(function(a) { return a.id == id; });
+  if (act && act.type === '商务活动' && roleRank[AppState.currentRole] < 2) {
+    showToast('商务活动仅限商务会员报名，请先升级会员');
+    return;
+  }
   Router.navigate('/activity-register/' + id);
 }
 function doExchangeCard(id) {
   showConfirm('确认向该校友发送名片交换申请？', function() { sendRequest(id); showToast('名片交换请求已发送'); renderView(); });
 }
 function doToggleGroup(id) {
-  if (isJoined(id)) { leaveGroup(id); showToast('已退出社团'); }
-  else { joinGroup(id); showToast('已申请加入社团'); }
-  renderView();
+  if (isJoined(id)) { leaveGroup(id); showToast('已退出社团'); renderView(); }
+  else { showJoinGroupDialog(id); }
+}
+
+function showJoinGroupDialog(gid) {
+  var el = document.getElementById('overlay-container');
+  el.innerHTML = '<div class="comp-dialog-overlay"><div class="comp-dialog-box" style="max-width:360px"><div class="dlg-header">申请加入社团</div><div class="dlg-body"><div style="font-size:13px;color:#909399;margin-bottom:10px">请简要说明申请加入的原因</div><textarea id="join-reason-text" placeholder="我是北理工XX级校友，希望加入..." style="width:100%;height:80px;border:1px solid var(--border);border-radius:8px;padding:8px;font-size:13px;resize:vertical;box-sizing:border-box"></textarea></div><div class="dlg-footer"><button class="btn-cancel">取消</button><button class="btn-confirm" id="dlg-confirm-btn">提交申请</button></div></div></div>';
+  document.getElementById('dlg-confirm-btn').onclick = function() {
+    var reason = document.getElementById('join-reason-text').value.trim();
+    el.innerHTML = '';
+    joinGroup(gid, reason);
+    showToast('已申请加入社团');
+    renderView();
+  };
+  el.querySelector('.btn-cancel').onclick = function() { el.innerHTML = ''; };
 }
 function doSubscribeCourse(id) {
   if (isSubscribedCourse(id)) { showToast('已订阅该课程'); return; }
@@ -2527,6 +2650,9 @@ function doSubscribeCourse(id) {
   showConfirm('确认订阅《' + (course ? course.title : '') + '》？', function() { subscribeCourse(id); showToast('订阅成功'); renderView(); });
 }
 function doBuy() { showConfirm('确认购买？', function() { showToast('下单成功'); }); }
+function doPayService(id) {
+  showConfirm('确认进行缴费？', function() { showToast('缴费成功'); });
+}
 function doPostComment(id) {
   var input = document.getElementById('feed-comment-input');
   if (input && input.value.trim()) {

@@ -99,25 +99,25 @@ Views.Home = function() {
   // News section
   html += '<div class="section-title">最新资讯<span class="more" data-action="nav" data-payload="/news">查看更多 &gt;</span></div><div class="card-list">';
   newsList.slice(0, 3).forEach(function(n) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + ' · ' + n.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
   });
   html += '</div>';
   // Activity section
   html += '<div class="section-title">活动报名<span class="more" data-action="nav" data-payload="/activity">查看更多 &gt;</span></div><div class="card-list">';
   activityList.slice(0, 2).forEach(function(a) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(a.title) + '</div><div class="card-desc">' + escapeHtml(a.date) + ' ' + escapeHtml(a.location) + '</div><div class="card-meta">' + UI_Tag(a.status === '报名中' ? '报名中' : '未开始', a.status === '报名中' ? 'danger' : 'plain') + ' ' + a.registered + '人已报名</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(a.title) + '</div><div class="card-desc">' + escapeHtml(a.date + (a.endDate && a.endDate !== a.date ? ' - ' + a.endDate : '')) + (a.startTime ? ' ' + a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '') + ' ' + escapeHtml(a.location) + '</div><div class="card-meta">' + UI_Tag(getActivityStatus(a), getActivityTagColor(a)) + ' ' + (a.reviewStatus === 'approved' ? a.registered + '人已报名' : '-') + '</div></div></div>';
   });
   html += '</div>';
   // Topic Share section
   html += '<div class="section-title">主题分享<span class="more" data-action="nav" data-payload="/topic-share">查看更多 &gt;</span></div><div class="card-list">';
   topicList.slice(0, 2).forEach(function(t) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + ' · ' + t.author + ' · ' + t.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
   });
   html += '</div>';
   // Interview section
   html += '<div class="section-title">会员专访<span class="more" data-action="nav" data-payload="/interview">查看更多 &gt;</span></div><div class="card-list">';
   interviewList.slice(0, 2).forEach(function(item) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + ' · ' + item.author + ' · ' + item.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
   });
   html += '</div>';
   // Alumni Feed section
@@ -142,7 +142,7 @@ Views.NewsList = function() {
   var html = '<div class="page-container">' + UI_NavBar('最新资讯', true);
   html += '<div class="card-list">';
   newsList.forEach(function(n) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + ' · ' + n.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
   });
   html += '</div></div>';
   return html;
@@ -153,7 +153,7 @@ Views.NewsDetail = function() {
   if (!n) return '<div class="page-container">' + UI_NavBar('资讯详情', true) + UI_Empty('资讯未找到') + '</div>';
   var collected = AppState.collectedNews[n.id];
   var html = '<div class="page-container">' + UI_NavBar('资讯详情', true);
-  html += '<div class="content-detail"><h3>' + escapeHtml(n.title) + '</h3><div class="meta">' + n.author + ' · ' + n.date + ' · ' + n.views + '阅读</div><div class="body">' + n.content + '</div></div>';
+  html += '<div class="content-detail"><h3>' + escapeHtml(n.title) + '</h3><div class="meta">' + n.author + ' · ' + n.date + '</div><div class="body">' + n.content + '</div></div>';
   // Comment section
   var showCmt = uiState.showNewsComment === n.id;
   var cmts = (AppState.newsComments && AppState.newsComments[n.id]) || [];
@@ -173,17 +173,11 @@ Views.NewsDetail = function() {
 Views.ActivityList = function() {
   var isMember = roleRank[AppState.currentRole] >= 2;
   var typeTab = uiState.activityTypeTab || 'all';
-  // 商务活动tab仅对商务会员显示；非商务会员选中商务活动时重置为全部
-  if (typeTab === '商务活动' && !isMember) { typeTab = 'all'; uiState.activityTypeTab = 'all'; }
-  var types = [{ key: 'all', name: '全部活动' }, { key: '校友活动', name: '校友活动' }];
-  if (isMember) types.push({ key: '商务活动', name: '商务活动' });
-  types.push({ key: '平台活动', name: '平台活动' });
-  var typeColors = { '校友活动': 'success', '商务活动': 'warning', '平台活动': 'info' };
-  
+  var types = [{ key: 'all', name: '全部活动' }, { key: '校友活动', name: '校友活动' }, { key: '商务活动', name: '商务活动' }, { key: '社团活动', name: '社团活动' }, { key: '平台活动', name: '平台活动' }];
+  var typeColors = { '校友活动': 'success', '商务活动': 'warning', '社团活动': 'primary', '平台活动': 'info' };
+
   var filtered = activityList.filter(function(a) {
     if (a.reviewStatus !== 'approved') return false;
-    // 非商务会员不显示商务活动
-    if (!isMember && a.type === '商务活动') return false;
     return typeTab === 'all' || a.type === typeTab;
   });
   
@@ -199,8 +193,8 @@ Views.ActivityList = function() {
   filtered.forEach(function(a) {
     var typeColor = typeColors[a.type] || 'plain';
     var actStatus = getActivityStatus(a);
-    var statusColor = actStatus === '报名进行中' ? 'danger' : (actStatus === '报名截止' ? 'warning' : 'plain');
-    html += '<div class="activity-item" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" class="act-thumb"><div class="act-info"><div class="act-title">' + escapeHtml(a.title) + '</div><div class="act-row">' + iconSVG('clock', 12, '#999') + ' ' + a.date + '</div><div class="act-row">' + iconSVG('location', 12, '#999') + ' ' + escapeHtml(a.location) + '</div><div class="act-bottom">' + UI_Tag(a.type, typeColor) + ' ' + UI_Tag(actStatus, statusColor) + '<span style="font-size:11px;color:var(--text-lighter)">' + a.registered + '人报名 ' + (a.fee === 0 ? '免费' : '¥' + a.fee) + '</span></div></div></div>';
+    var statusColor = getActivityTagColor(a);
+    html += '<div class="activity-item" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" class="act-thumb"><div class="act-info"><div class="act-title">' + escapeHtml(a.title) + '</div><div class="act-row">' + iconSVG('clock', 12, '#999') + ' ' + a.date + (a.endDate && a.endDate !== a.date ? ' - ' + a.endDate : '') + (a.startTime ? ' ' + a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '') + '</div><div class="act-row">' + iconSVG('location', 12, '#999') + ' ' + escapeHtml(a.location) + '</div><div class="act-bottom">' + UI_Tag(a.type, typeColor) + ' ' + UI_Tag(actStatus, statusColor) + '<span style="font-size:11px;color:var(--text-lighter)">' + (a.reviewStatus === 'approved' ? a.registered + '人报名 ' : '- ') + (a.fee === 0 ? '免费' : '¥' + a.fee) + '</span></div></div></div>';
   });
   html += '</div>';
   
@@ -216,16 +210,30 @@ Views.ActivityDetail = function() {
   var a = activityList.find(function(item) { return item.id == Router.params.id; });
   if (!a) return '<div class="page-container">' + UI_NavBar('活动详情', true) + UI_Empty('活动未找到') + '</div>';
   var registered = hasRegisteredAct(a.id);
-  var typeColors = { '校友活动': 'success', '商务活动': 'warning', '平台活动': 'info' };
+  var typeColors = { '校友活动': 'success', '商务活动': 'warning', '社团活动': 'primary', '平台活动': 'info' };
   var typeColor = typeColors[a.type] || 'plain';
   var actStatus = getActivityStatus(a);
-  var statusColor = actStatus === '报名进行中' ? 'danger' : (actStatus === '报名截止' ? 'warning' : 'plain');
+  var statusColor = getActivityTagColor(a);
   var html = '<div class="page-container no-tab">' + UI_NavBar('活动详情', true);
   html += '<img src="' + a.cover + '" class="act-cover">';
+
+  // 审核状态条
+  if (a.reviewStatus === 'pending') {
+    html += '<div style="margin:12px 16px;padding:14px 16px;background:#fffbe6;border:1px solid #faecd8;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+      iconSVG('clock', 18, '#e6a23c') +
+      '<div><div style="font-size:14px;font-weight:600;color:#b88230">活动审核中</div>' +
+      '<div style="font-size:12px;color:#b88230;margin-top:4px;line-height:1.6">您发布的活动正在平台审核中，审核通过后将正式开放报名。</div></div></div>';
+  } else if (a.reviewStatus === 'rejected') {
+    html += '<div style="margin:12px 16px;padding:14px 16px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+      iconSVG('alertCircle', 18, '#f56c6c') +
+      '<div><div style="font-size:14px;font-weight:600;color:#c45656">活动未通过审核</div>' +
+      '<div style="font-size:12px;color:#c45656;margin-top:4px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(a.reviewComment || '活动信息不符合平台规范，请修改后重新发布') + '</div></div></div>';
+  }
+
   html += '<div style="padding:12px 16px"><h3 style="font-size:18px;margin-bottom:8px">' + escapeHtml(a.title) + '</h3><div style="display:flex;gap:8px">' + UI_Tag(a.type, typeColor) + UI_Tag(actStatus, statusColor) + '</div></div>';
-  html += UI_CellGroup([{ title: '活动时间', value: a.date, icon: iconSVG('clock', 16, '#999') }, { title: '活动地点', value: a.location, icon: iconSVG('location', 16, '#999') }, { title: '发起人', value: a.organizer, icon: iconSVG('user', 16, '#999') }, { title: '报名截止', value: a.deadline }, { title: '活动费用', value: a.fee === 0 ? '免费' : '¥' + a.fee }], true);
+  html += UI_CellGroup([{ title: '活动日期', value: a.date + (a.endDate && a.endDate !== a.date ? ' - ' + a.endDate : ''), icon: iconSVG('clock', 16, '#999') }, { title: '活动时间', value: (a.startTime ? a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '待定'), icon: iconSVG('clock', 16, '#999') }, { title: '活动地点', value: a.location, icon: iconSVG('location', 16, '#999') }, { title: '组织者', value: a.organizer, icon: iconSVG('user', 16, '#999') }, { title: '报名截止', value: a.deadline }, { title: '活动费用', value: a.fee === 0 ? '免费' : '¥' + a.fee }], true);
   html += '<div class="content-detail"><div class="body">' + (a.description || '') + '</div></div>';
-  html += '<div style="padding:0 16px"><div class="section-title" style="padding:8px 0">已报名校友 (' + a.registered + '人)</div><div class="registered-avatars">';
+  html += '<div style="padding:0 16px"><div class="section-title" style="padding:8px 0">已报名校友 (' + (a.reviewStatus === 'approved' ? a.registered : '-') + '人)</div><div class="registered-avatars">';
   var regUsers = a.registeredUsers || [];
   for (var i = 0; i < Math.min(regUsers.length, 8); i++) {
     html += '<div style="position:relative"><img src="' + regUsers[i].avatar + '" title="' + escapeHtml(regUsers[i].name) + '"><span class="reg-name">' + escapeHtml(regUsers[i].name) + '</span></div>';
@@ -235,31 +243,41 @@ Views.ActivityDetail = function() {
   if (registered) {
     var myReg = getMyRegistration(a.id);
     var regStatus = myReg && myReg.status ? myReg.status : '已报名';
-    html += '<div class="bottom-bar"><button class="comp-btn outline round" onclick="showRegistrationInfo(' + a.id + ')">查看报名信息</button><button class="comp-btn danger round" onclick="cancelRegistration(' + a.id + ')">退出报名</button></div>';
+    html += '<div class="bottom-bar"><button class="comp-btn outline round" onclick="showRegistrationInfo(' + a.id + ')">查看报名信息</button></div>';
   } else {
-    var canRegister = actStatus === '报名进行中';
-    html += '<div class="bottom-bar">' + (canRegister ? '<button class="comp-btn primary round block" onclick="doRegisterActivity(' + a.id + ')">立即报名</button>' : '<button class="comp-btn outline round block">' + (actStatus === '报名截止' ? '报名已截止' : '活动已结束') + '</button>') + '</div>';
+    var canRegister = actStatus === '报名中';
+    html += '<div class="bottom-bar">' + (canRegister ? '<button class="comp-btn primary round block" onclick="doRegisterActivity(' + a.id + ')">立即报名</button>' : '<button class="comp-btn outline round block">' + (actStatus === '报名截止' ? '报名已截止' : (actStatus === '活动进行中' ? '活动进行中' : '活动已结束')) + '</button>') + '</div>';
   }
   html += '</div>';
   return html;
 };
 
 Views.PublishActivity = function() {
-  var categories = serviceCategoryMap['商务活动'] || [];
-  var catHtml = '<div class="comp-field"><span class="field-label required">活动分类</span><div style="display:flex;flex-wrap:wrap;gap:8px;padding:4px 0">';
-  categories.forEach(function(c, i) {
-    var isActive = i === 0;
-    var style = 'padding:6px 14px;border:1px solid ' + (isActive ? 'var(--primary)' : 'var(--border)') + ';border-radius:16px;font-size:13px;color:' + (isActive ? '#fff' : 'var(--text-light)') + ';background:' + (isActive ? 'var(--primary)' : '#fff') + ';cursor:pointer';
-    catHtml += '<span class="act-cat-tag' + (isActive ? ' active' : '') + '" data-action="select-act-cat" data-payload="' + escapeHtml(c) + '" style="' + style + '">' + escapeHtml(c) + '</span>';
-  });
-  catHtml += '</div></div>';
-  return '<div class="page-container">' + UI_NavBar('发布活动', true, '<span data-action="toast" data-payload="活动已发布">发表</span>')
+  var role = AppState.currentRole;
+  // 商务活动仅通过运营后台发布，移动端仅可发布校友活动
+  var actTypes = ['校友活动'];
+  uiState.publishActType = '校友活动';
+
+  function typeTagHtml() {
+    var html = '<div class="comp-field"><span class="field-label required">活动类型</span><div style="display:flex;flex-wrap:wrap;gap:8px;padding:4px 0">';
+    actTypes.forEach(function(t) {
+      var isActive = t === uiState.publishActType;
+      var style = 'padding:6px 14px;border:1px solid ' + (isActive ? 'var(--primary)' : 'var(--border)') + ';border-radius:16px;font-size:13px;color:' + (isActive ? '#fff' : 'var(--text-light)') + ';background:' + (isActive ? 'var(--primary)' : '#fff') + ';cursor:pointer';
+      html += '<span class="act-type-tag' + (isActive ? ' active' : '') + '" data-action="select-act-type" data-payload="' + escapeHtml(t) + '" style="' + style + '">' + t + '</span>';
+    });
+    html += '</div></div>';
+    return html;
+  }
+
+  return'<div class="page-container">' + UI_NavBar('发布活动', true, '<span data-action="submit-publish-activity">发表</span>')
     + '<div class="cover-uploader" data-action="upload-cover"><span class="upload-plus">+</span><span style="font-size:12px;color:#c0c4cc;margin-left:6px">上传封面</span></div>'
+    + typeTagHtml()
     + UI_Field('活动名称', 'text', '请输入活动名称') + UI_Field('活动地点', 'text', '请输入活动地点')
-    + UI_Field('活动日期', 'text', '请输入活动日期') + UI_Field('活动费用', 'number', '0表示免费', '0')
-    + catHtml
+    + UI_Field('活动日期', 'date', '活动日期', '', true) + UI_Field('活动费用', 'number', '0表示免费', '0')
+    + UI_Field('活动时间', 'text', '如：09:00 - 17:00', '', true) + UI_Field('报名截止', 'date', '报名截止日期', '', true)
     + UI_Field('活动描述', 'textarea', '请输入活动描述...')
-    + '<div style="padding:12px 16px">' + UI_Button('发布', 'primary', '', true, true) + '</div></div>';
+    + '<div style="padding:12px 16px"><span data-action="submit-publish-activity">' + UI_Button('提交审核', 'primary', '', true, true) + '</span></div>'
+    + '<div style="padding:0 16px 20px;font-size:12px;color:#999;text-align:center">提交后将由平台审核，预计1-3个工作日内反馈</div></div>';
 };
 
 Views.ActivityRegister = function() {
@@ -275,7 +293,7 @@ Views.ActivityRegister = function() {
   html += '<img src="' + act.cover + '" style="width:100%;height:160px;border-radius:8px;object-fit:cover;margin-bottom:12px">';
   html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:8px">' + escapeHtml(act.title) + '</h3>';
   html += '<div style="display:flex;gap:12px;font-size:13px;color:#666">';
-  html += '<span>' + iconSVG('clock', 12, '#999') + ' ' + act.date + '</span>';
+  html += '<span>' + iconSVG('clock', 12, '#999') + ' ' + act.date + (act.startTime ? ' ' + act.startTime + (act.endTime ? ' - ' + act.endTime : '') : '') + '</span>';
   html += '<span>' + iconSVG('location', 12, '#999') + ' ' + escapeHtml(act.location) + '</span>';
   html += '</div>';
   html += '</div>';
@@ -343,7 +361,7 @@ Views.ActivityPay = function() {
   
   html += '<div style="background:#fff;margin:12px 16px;padding:16px;border-radius:12px">';
   html += '<div style="font-size:15px;font-weight:600;margin-bottom:16px;color:#333">活动信息</div>';
-  html += '<div class="comp-cell"><img src="' + act.cover + '" style="width:60px;height:60px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(act.title) + '</div><div class="cell-label">' + act.date + ' · ' + escapeHtml(act.location) + '</div></div></div>';
+  html += '<div class="comp-cell"><img src="' + act.cover + '" style="width:60px;height:60px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(act.title) + '</div><div class="cell-label">' + act.date + (act.startTime ? ' ' + act.startTime + (act.endTime ? ' - ' + act.endTime : '') : '') + ' · ' + escapeHtml(act.location) + '</div></div></div>';
   html += '</div>';
   
   html += '<div style="background:#fff;margin:0 16px;padding:16px;border-radius:12px">';
@@ -397,7 +415,7 @@ Views.ActivityRegisterSuccess = function() {
   
   html += '<div style="background:#fff;margin:12px 16px;padding:16px;border-radius:12px">';
   html += '<div style="font-size:15px;font-weight:600;margin-bottom:16px;color:#333">报名信息</div>';
-  html += UI_CellGroup([{ title: '活动名称', value: act.title }, { title: '活动时间', value: act.date }, { title: '活动地点', value: act.location }, { title: '报名时间', value: reg.registerTime }, { title: '支付状态', value: reg.payStatus === 'paid' ? '已支付' : '未支付' }], true);
+  html += UI_CellGroup([{ title: '活动名称', value: act.title }, { title: '活动日期', value: act.date }, { title: '活动时间', value: (act.startTime ? act.startTime + (act.endTime ? ' - ' + act.endTime : '') : '待定') }, { title: '活动地点', value: act.location }, { title: '报名时间', value: reg.registerTime }, { title: '支付状态', value: reg.payStatus === 'paid' ? '已支付' : '未支付' }], true);
   html += '</div>';
   
   if (reg.fields && Object.keys(reg.fields).length > 0) {
@@ -432,12 +450,12 @@ Views.ActivityRegistration = function() {
   html += '<div style="background:#fff;margin:12px 16px;padding:16px;border-radius:12px">';
   html += '<img src="' + act.cover + '" style="width:100%;height:160px;border-radius:8px;object-fit:cover;margin-bottom:12px">';
   html += '<h3 style="font-size:16px;font-weight:600;margin-bottom:8px">' + escapeHtml(act.title) + '</h3>';
-  html += '<div style="display:flex;gap:8px">' + UI_Tag(getActivityStatus(act), 'danger') + UI_Tag(statusText, statusColor) + '</div>';
+  html += '<div style="display:flex;gap:8px">' + UI_Tag(getActivityStatus(act), getActivityTagColor(act)) + UI_Tag(statusText, statusColor) + '</div>';
   html += '</div>';
   
   html += '<div style="background:#fff;margin:0 16px;padding:16px;border-radius:12px">';
   html += '<div style="font-size:15px;font-weight:600;margin-bottom:16px;color:#333">报名信息</div>';
-  html += UI_CellGroup([{ title: '活动时间', value: act.date }, { title: '活动地点', value: act.location }, { title: '报名时间', value: reg.registerTime }, { title: '支付状态', value: reg.payStatus === 'paid' ? '已支付' : '未支付' }], true);
+  html += UI_CellGroup([{ title: '活动日期', value: act.date }, { title: '活动时间', value: (act.startTime ? act.startTime + (act.endTime ? ' - ' + act.endTime : '') : '待定') }, { title: '活动地点', value: act.location }, { title: '报名时间', value: reg.registerTime }, { title: '支付状态', value: reg.payStatus === 'paid' ? '已支付' : '未支付' }], true);
   html += '</div>';
   
   html += '<div style="background:#fff;margin:12px 16px;padding:16px;border-radius:12px">';
@@ -457,7 +475,6 @@ Views.ActivityRegistration = function() {
   } else if (reg.status === 'confirmed') {
     html += '<div style="padding:16px">';
     html += '<button class="comp-btn outline block" onclick="Router.navigate(\'/activity/' + aid + '\')">返回活动详情</button>';
-    html += '<button class="comp-btn danger block" style="margin-top:10px" onclick="cancelRegistration(' + aid + ')">退出报名</button>';
     html += '</div>';
   }
   
@@ -532,8 +549,7 @@ Views.AlumniCardDetail = function() {
   html += '</div>';
   if (exchanged) {
     html += '<div style="display:flex;gap:4px;padding:4px 16px;flex-wrap:wrap">';
-    a.tags.forEach(function(t) { html += UI_Tag(t, 'primary'); });
-    html += '</div>';
+        html += '</div>';
   }
   // 底部交换名片按钮
   if (!exchanged) {
@@ -592,12 +608,12 @@ Views.AlumniGroupDetail = function() {
     if (g.activities && g.activities.length) {
       html += '<div style="padding:12px 16px">';
       g.activities.forEach(function(act) {
-        html += '<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;cursor:pointer">';
+        html += '<div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;cursor:pointer" data-action="nav" data-payload="/activity/' + act.id + '">';
         html += '<img src="' + (act.cover || '') + '" style="width:120px;height:72px;border-radius:6px;object-fit:cover;flex-shrink:0;background:#f5f5f5">';
         html += '<div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between">';
         html += '<div style="font-size:14px;font-weight:500;color:#333;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(act.title) + '</div>';
         html += '<div style="font-size:11px;color:#999;display:flex;align-items:center;gap:6px;flex-wrap:wrap">';
-        html += '<span style="display:flex;align-items:center;gap:3px">' + iconSVG('clock', 12, '#999') + act.date + '</span>';
+        html += '<span style="display:flex;align-items:center;gap:3px">' + iconSVG('clock', 12, '#999') + act.date + (act.startTime ? ' ' + act.startTime + (act.endTime ? ' - ' + act.endTime : '') : '') + '</span>';
         html += '<span style="display:flex;align-items:center;gap:3px">' + iconSVG('location', 12, '#999') + escapeHtml(act.location) + '</span>';
         html += '</div>';
         html += '</div>';
@@ -607,13 +623,55 @@ Views.AlumniGroupDetail = function() {
     } else { html += UI_Empty('暂无活动'); }
   } else if (uiState.groupDetailTab === 'members') {
     html += '<div class="card-list">';
-    g.members.forEach(function(m) {
-      html += '<div class="comp-cell"><img src="' + m.avatar + '" style="width:36px;height:36px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(m.name) + '</div><div class="cell-label">' + m.school + ' · ' + m.year + '</div></div></div>';
+    g.members.forEach(function(m, idx) {
+      html += '<div class="comp-cell" data-action="nav" data-payload="/group-member/' + g.id + '/' + idx + '" style="cursor:pointer"><img src="' + m.avatar + '" style="width:36px;height:36px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(m.name) + '</div><div class="cell-label">' + m.school + ' · ' + m.year + '</div></div></div>';
     });
     html += '</div>';
   }
   var joined = isJoined(g.id);
   html += '<div class="bottom-bar"><button class="comp-btn ' + (joined ? 'outline' : 'primary') + ' round block" onclick="doToggleGroup(' + g.id + ')">' + (joined ? '退出社团' : '加入社团') + '</button></div>';
+  html += '</div>';
+  return html;
+};
+
+Views.GroupMemberDetail = function() {
+  var g = groupList.find(function(item) { return item.id == Router.params.groupId; });
+  if (!g) return '<div class="page-container">' + UI_NavBar('成员详情', true) + UI_Empty('社团未找到') + '</div>';
+  var m = g.members[parseInt(Router.params.memberIdx)];
+  if (!m) return '<div class="page-container">' + UI_NavBar('成员详情', true) + UI_Empty('成员未找到') + '</div>';
+  // Try to find richer data from memberList
+  var fullInfo = memberList.find(function(item) { return item.name === m.name; });
+  var html = '<div class="page-container">' + UI_NavBar('成员详情', true);
+  html += '<div style="text-align:center;padding:24px;background:#fff">';
+  html += '<img src="' + m.avatar + '" style="width:80px;height:80px;border-radius:50%;margin:0 auto">';
+  html += '<h3 style="margin:10px 0 4px">' + escapeHtml(m.name) + '</h3>';
+  html += '<div style="font-size:13px;color:#909399;margin-bottom:4px">' + m.school + ' · ' + m.year + '</div>';
+  html += '<div style="font-size:12px;color:#c0c4cc">加入时间：' + (m.joinDate || '-') + '</div>';
+  html += '</div>';
+  html += UI_CellGroup([
+    { title: '所属社团', value: g.name },
+    { title: '社团分类', value: g.category },
+    { title: '社团负责人', value: g.leader }
+  ], true);
+  if (fullInfo) {
+    var isCardFriend = isFriend(fullInfo.id);
+    html += '<div style="padding:8px 16px;font-size:14px;color:#909399">更多信息</div>';
+    if (isCardFriend) {
+      html += UI_CellGroup([
+        { title: '所在城市', value: fullInfo.city || '-' },
+        { title: '所属行业', value: fullInfo.industry || '-' },
+        { title: '公司', value: fullInfo.company || '-' },
+        { title: '职位', value: fullInfo.title || '-' }
+      ], true);
+      html += '<div class="content-detail" style="padding:0 16px"><div class="body">' + escapeHtml(fullInfo.intro || '暂无介绍') + '</div></div>';
+    } else {
+      html += '<div style="text-align:center;padding:24px 16px">';
+      html += '<div style="width:48px;height:48px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">' + iconSVG('lock', 24, '#c0c4cc') + '</div>';
+      html += '<div style="font-size:14px;color:#909399;margin-bottom:8px">需交换校友名片后查看完整信息</div>';
+      html += '<button class="comp-btn primary round" onclick="doExchangeCard(' + fullInfo.id + ')">交换名片</button>';
+      html += '</div>';
+    }
+  }
   html += '</div>';
   return html;
 };
@@ -678,8 +736,8 @@ Views.HelpList = function() {
   });
   var html = '<div class="page-container">' + UI_NavBar('校友互助', true);
   filtered.forEach(function(h) {
-    var statusText = h.status === 'resolved' ? '已解决' : '进行中';
-    var statusColor = h.status === 'resolved' ? 'success' : 'warning';
+    var statusText = '';
+    var statusColor = 'warning';
     html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '"><img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.publisher.name + ' · ' + h.publisher.role + ' · ' + h.date + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
   });
   if (filtered.length === 0) {
@@ -693,8 +751,8 @@ Views.HelpDetail = function() {
   var h = helpList.find(function(item) { return item.id == Router.params.id; });
   if (!h) return '<div class="page-container">' + UI_NavBar('求助详情', true) + UI_Empty('求助未找到') + '</div>';
   var isPublisher = AppState.myHelp.indexOf(h.id) >= 0;
-  var statusText = h.status === 'resolved' ? '已解决' : (h.status === 'offline' ? '已下架' : '进行中');
-  var statusColor = h.status === 'resolved' ? 'success' : (h.status === 'offline' ? 'plain' : 'warning');
+  var statusText = '';
+  var statusColor = 'warning';
   var html = '<div class="page-container no-tab">' + UI_NavBar('求助详情', true);
 
   // 求助信息卡片
@@ -754,9 +812,10 @@ Views.HelpDetail = function() {
   html += '<div style="padding:12px 16px;font-size:13px;color:#999;border-bottom:1px solid #f0f0f0">响应列表 (' + h.responseCount + ')</div>';
   (h.responses || []).forEach(function(r, idx) {
     var rStatus = r.responseStatus || 'waiting';
-    var rStatusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : '等待处理');
-    var rStatusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : 'warning');
-    html += '<div class="comp-cell" style="padding:12px 16px;display:flex;align-items:flex-start;border-bottom:1px solid #f5f5f5">';
+    var rStatusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+    var rStatusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
+    html += '<div style="border-bottom:1px solid #f5f5f5">';
+    html += '<div class="comp-cell" style="padding:12px 16px;display:flex;align-items:flex-start">';
     if (r.id > 0) {
       html += '<div data-action="nav" data-payload="/alumni-card/' + r.id + '" style="display:flex;align-items:flex-start;gap:10px;flex-shrink:0;cursor:pointer">';
       html += '<img src="' + r.avatar + '" style="width:36px;height:36px;border-radius:50%">';
@@ -784,6 +843,10 @@ Views.HelpDetail = function() {
     html += '</div>';
     html += '</div>';
     html += '</div>';
+    if (rStatus === 'rejected' && r.rejectReason) {
+      html += '<div style="padding:6px 16px 10px;color:#f56c6c;font-size:12px;background:#fef0f0;margin:0 16px 0px 62px;border-radius:4px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
+    }
+    html += '</div>';
   });
   if ((h.responses || []).length === 0) {
     html += '<div class="empty-state" style="padding:40px 20px">' + iconSVG('chat', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无响应</div></div>';
@@ -798,21 +861,21 @@ Views.HelpDetail = function() {
 Views.PublishDemand = function() {
   var type = Router.params.type || uiState.publishDemandType || 'help';
   var isMember = roleRank[AppState.currentRole] >= 2;
-  // 认证校友只能发布互助求助，商务需求仅商务会员可发布
+  // 认证校友只能发布互助求助，商务求助仅商务会员可发布
   if (type === 'business' && !isMember) {
     type = 'help';
   }
   var tabs = [{ key: 'help', name: '互助求助' }];
   if (isMember) {
-    tabs.push({ key: 'business', name: '商务需求' });
+    tabs.push({ key: 'business', name: '商务求助' });
   }
   var html = '<div class="page-container">' + UI_NavBar('发布需求', true, '<span data-action="toast" data-payload="需求已发布">发表</span>');
   html += UI_Tabs(tabs, type);
   html += '<div class="demand-form">';
   if (type === 'business') {
-    html += UI_Field('需求标题', 'text', '请输入商务需求标题', '', true);
+    html += UI_Field('需求标题', 'text', '请输入商务求助标题', '', true);
     html += UI_Field('预算范围', 'text', '请输入预算范围，如：50万-100万', '', false);
-    html += UI_Field('需求描述', 'textarea', '请详细描述你的商务需求...', '', true);
+    html += UI_Field('需求描述', 'textarea', '请详细描述你的商务求助...', '', true);
   } else {
     html += UI_Field('求助标题', 'text', '请输入求助标题', '', true);
     html += UI_Field('求助描述', 'textarea', '请详细描述你的求助需求...', '', true);
@@ -1059,11 +1122,11 @@ Views.MemberEPListView = function() {
 
 // --- MEMBER DEMAND ---
 Views.MemberDemandListView = function() {
-  var tabs = [{ key: 'help', name: '会员互助' }, { key: 'business', name: '商务需求' }];
+  var tabs = [{ key: 'help', name: '会员互助' }, { key: 'business', name: '商务求助' }];
   var html = '<div class="page-container">' + UI_NavBar('会员需求', true) + UI_Tabs(tabs, uiState.demandTab || 'help');
 
   if (uiState.demandTab === 'business') {
-    // 商务需求列表
+    // 商务求助列表
     var businessFiltered = businessNeedList.filter(function(b) { return b.status !== 'offline'; });
     html += '<div style="padding:8px 0;background:#f5f5f5">';
     businessFiltered.forEach(function(b) {
@@ -1091,7 +1154,7 @@ Views.MemberDemandListView = function() {
       html += '</div>';
     });
     if (businessFiltered.length === 0) {
-      html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无商务需求</div></div>';
+      html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无商务求助</div></div>';
     }
   } else {
     // 会员互助列表（复用helpList数据）
@@ -1100,8 +1163,8 @@ Views.MemberDemandListView = function() {
     });
     html += '<div style="padding:8px 0;background:#f5f5f5">';
     helpFiltered.forEach(function(h) {
-      var statusText = h.status === 'resolved' ? '已解决' : '进行中';
-      var statusColor = h.status === 'resolved' ? 'success' : 'warning';
+      var statusText = '';
+      var statusColor = 'warning';
       html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '">';
       html += '<img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px">';
       html += '<div style="flex:1;min-width:0">';
@@ -1122,7 +1185,7 @@ Views.MemberDemandListView = function() {
   if (roleRank[AppState.currentRole] >= 2) {
     html += '<div class="bottom-bar">';
     if (uiState.demandTab === 'business') {
-      html += UI_Button('发布商务需求', 'primary', '', true, true);
+      html += UI_Button('发布商务求助', 'primary', '', true, true);
     } else {
       html += UI_Button('发布互助求助', 'primary', '', true, true);
     }
@@ -1142,8 +1205,8 @@ Views.MemberMutualHelp = function() {
   });
   html += '<div style="padding:8px 0;background:#f5f5f5">';
   helpFiltered.forEach(function(h) {
-    var statusText = h.status === 'resolved' ? '已解决' : '进行中';
-    var statusColor = h.status === 'resolved' ? 'success' : 'warning';
+    var statusText = '';
+    var statusColor = 'warning';
     html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '">';
     html += '<img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px">';
     html += '<div style="flex:1;min-width:0">';
@@ -1169,11 +1232,11 @@ Views.MemberMutualHelp = function() {
   return html;
 };
 
-// --- 商务需求 ---
+// --- 商务求助 ---
 Views.MemberBusinessDemand = function() {
-  var html = '<div class="page-container">' + UI_NavBar('商务需求', true);
+  var html = '<div class="page-container">' + UI_NavBar('商务求助', true);
 
-  // 商务需求列表
+  // 商务求助列表
   var businessFiltered = businessNeedList.filter(function(b) { return b.status !== 'offline'; });
   html += '<div style="padding:8px 0;background:#f5f5f5">';
   businessFiltered.forEach(function(b) {
@@ -1201,14 +1264,14 @@ Views.MemberBusinessDemand = function() {
     html += '</div>';
   });
   if (businessFiltered.length === 0) {
-    html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无商务需求</div></div>';
+    html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无商务求助</div></div>';
   }
   html += '</div>';
 
-  // 发布按钮（仅商务会员可发布商务需求）
+  // 发布按钮（仅商务会员可发布商务求助）
   if (roleRank[AppState.currentRole] >= 2) {
     html += '<div class="bottom-bar">';
-    html += UI_Button('发布商务需求', 'primary', '', true, true);
+    html += UI_Button('发布商务求助', 'primary', '', true, true);
     html += '</div>';
   }
   html += '</div>';
@@ -1220,7 +1283,7 @@ Views.MemberBusinessDetail = function() {
   if (!b) return '<div class="page-container">' + UI_NavBar('需求详情', true) + UI_Empty('需求未找到') + '</div>';
   var statusText = b.status === 'resolved' ? '已完成' : '进行中';
   var statusColor = b.status === 'resolved' ? 'success' : 'warning';
-  var html = '<div class="page-container no-tab">' + UI_NavBar('商务需求详情', true);
+  var html = '<div class="page-container no-tab">' + UI_NavBar('商务求助详情', true);
 
   // 需求信息卡片
   html += '<div style="background:#fff;padding:16px;margin-bottom:8px">';
@@ -1279,13 +1342,6 @@ Views.MemberBusinessDetail = function() {
 
 // --- MEMBER SERVICE ---
 Views.MemberServiceIndex = function() {
-  var mainCats = [
-    { key: 'market', name: '市场推广', desc: '供需匹配 · 渠道拓展 · 项目合作', icon: 'fire', gradient: 'linear-gradient(135deg, #6fa4cf, #4a90d9)', tagBg: '#e8f4fd', tagColor: '#4a90d9' },
-    { key: 'empower', name: '企业赋能', desc: '投融资 · 流量运营 · 人才招聘等10项', icon: 'activity', gradient: 'linear-gradient(135deg, #07c160, #05a04a)', tagBg: '#e8f8ee', tagColor: '#05a04a' },
-    { key: 'biz-activity', name: '商务活动', desc: '主题沙龙 · 项目路演 · 年度峰会等12项', icon: 'calendar', gradient: 'linear-gradient(135deg, #ee0a24, #d00820)', tagBg: '#fff0f0', tagColor: '#d00820' },
-    { key: 'exclusive', name: '专属服务', desc: '亲子教育 · 医疗保健 · 居家置业等', icon: 'service', gradient: 'linear-gradient(135deg, #ff976a, #f07a4a)', tagBg: '#fff7ed', tagColor: '#f07a4a' }
-  ];
-  
   var aiCat = { key: 'ai-report', name: 'AI智能报告', desc: '产业分析 · 经营评估 · 科创需求 · 企业画像', icon: 'brain', gradient: 'linear-gradient(135deg, #6fa4cf, #9bc1de)', tagBg: '#e8f4fd', tagColor: '#4a90d9' };
 
   var html = '<div class="page-container" style="background:#f5f6fa">' + UI_NavBar('会员服务', true);
@@ -1293,7 +1349,7 @@ Views.MemberServiceIndex = function() {
   // 顶部说明条
   html += '<div style="padding:12px 16px;background:linear-gradient(135deg,#f0f4ff,#fff);display:flex;align-items:center;gap:8px;border-bottom:1px solid #eef0f5">';
   html += '<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6fa4cf,#9bc1de);display:flex;align-items:center;justify-content:center;flex-shrink:0">' + iconSVG('service', 16, '#fff') + '</div>';
-  html += '<div><div style="font-size:13px;font-weight:600;color:#333">欢迎使用会员服务</div><div style="font-size:11px;color:#999">北理工校友专属的商务服务对接平台</div></div>';
+  html += '<div><div style="font-size:13px;font-weight:600;color:#333">欢迎使用会员服务</div><div style="font-size:11px;color:#999">北理工校友专属的商务求助对接平台</div></div>';
   html += '</div>';
 
   html += '<div style="padding:12px 16px">';
@@ -1304,7 +1360,7 @@ Views.MemberServiceIndex = function() {
   html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('help', 20, '#fff') + '</div>';
   html += '<div>';
   html += '<div style="font-size:15px;font-weight:600">会员互助</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">校友互助求助 · 问题解决</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">互助与响应 · 问题解决</div>';
   html += '</div>';
   html += '</div>';
   html += '<div style="display:flex;align-items:center;gap:4px">';
@@ -1313,13 +1369,13 @@ Views.MemberServiceIndex = function() {
   html += '</div>';
   html += '</div>';
 
-  // 商务需求 - 入口卡片
+  // 商务求助 - 入口卡片
   html += '<div data-action="nav" data-payload="/member-business-demand" style="background:linear-gradient(135deg,#9254de,#b37feb);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(146,84,222,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
   html += '<div style="display:flex;align-items:center;gap:12px">';
   html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('list', 20, '#fff') + '</div>';
   html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">商务需求</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">需求发布 · 商务对接</div>';
+  html += '<div style="font-size:15px;font-weight:600">商务求助</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">供需匹配 | 销售拓展 | 项目合作 | 投融资对接</div>';
   html += '</div>';
   html += '</div>';
   html += '<div style="display:flex;align-items:center;gap:4px">';
@@ -1330,210 +1386,76 @@ Views.MemberServiceIndex = function() {
 
   html += '</div>';
 
-  // 四大服务卡片 - 一行四列布局
-  html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 16px">';
-  mainCats.forEach(function(c) {
-    var subCount = (serviceCategoryMap[c.name] || []).length;
-    var projectCount = serviceProjects.filter(function(p) {
-      return (serviceCategoryMap[c.name] || []).indexOf(p.category) >= 0;
-    }).length;
-    var navPath = '/member-service/' + c.key;
-    html += '<div data-action="nav" data-payload="' + navPath + '" style="background:#fff;border-radius:10px;padding:10px 8px;box-shadow:0 2px 8px rgba(0,0,0,0.04);position:relative;overflow:hidden;cursor:pointer;text-align:center">';
-    // 顶部彩色色条
-    html += '<div style="position:absolute;top:0;left:0;right:0;height:2px;background:' + c.gradient + '"></div>';
-    // 图标
-    html += '<div style="width:32px;height:32px;border-radius:8px;background:' + c.gradient + ';display:flex;align-items:center;justify-content:center;margin:8px auto 6px">' + iconSVG(c.icon, 16, '#fff') + '</div>';
-    // 名称
-    html += '<div style="font-size:12px;font-weight:600;color:#222;margin-bottom:2px">' + c.name + '</div>';
-    // 统计
-    html += '<div style="font-size:9px;color:#999">' + projectCount + '项服务</div>';
-    html += '</div>';
-  });
-  html += '</div>';
-
   // AI智能报告卡片
-  var aiProjectCount = serviceProjects.filter(function(p) {
-    return (serviceCategoryMap[aiCat.name] || []).indexOf(p.category) >= 0;
-  }).length;
-  html += '<div style="padding:0 16px 12px">';
-  html += '<div data-action="nav" data-payload="/ai-report" style="background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:12px;padding:14px 16px;box-shadow:0 4px 16px rgba(111,164,207,0.3);cursor:pointer;color:#fff">';
-  html += '<div style="display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:10px">';
-  html += '<div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG(aiCat.icon, 18, '#fff') + '</div>';
+  html += '<div style="padding:6px 16px">';
+  html += '<div data-action="nav" data-payload="/ai-report" style="background:linear-gradient(135deg,#6fa4cf,#9bc1de);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(111,164,207,0.3);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
+  html += '<div style="display:flex;align-items:center;gap:12px">';
+  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG(aiCat.icon, 20, '#fff') + '</div>';
   html += '<div>';
-  html += '<div style="font-size:14px;font-weight:600">' + aiCat.name + '</div>';
-  html += '<div style="font-size:10px;opacity:0.8;margin-top:1px">' + aiCat.desc + '</div>';
+  html += '<div style="font-size:15px;font-weight:600">' + aiCat.name + '</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">' + aiCat.desc + '</div>';
   html += '</div>';
   html += '</div>';
   html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">' + aiProjectCount + '项服务</span>';
-  html += iconSVG('arrowRight', 14, '#fff');
+  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
+  html += iconSVG('arrowRight', 16, '#fff');
   html += '</div>';
   html += '</div>';
+  html += '</div>';
+
+  // 企业赋能 - 入口卡片
+  html += '<div style="padding:6px 16px">';
+  html += '<div data-action="nav" data-payload="/member-service/empower" style="background:linear-gradient(135deg,#07c160,#05a04a);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(7,193,96,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
+  html += '<div style="display:flex;align-items:center;gap:12px">';
+  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('activity', 20, '#fff') + '</div>';
+  html += '<div>';
+  html += '<div style="font-size:15px;font-weight:600">企业赋能</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">管理咨询 | 教育培训 | 人才招聘 | 办公选址 | 企划合规 | 资质申报 | 营销推广 | 系统建设</div>';
+  html += '</div>';
+  html += '</div>';
+  html += '<div style="display:flex;align-items:center;gap:4px">';
+  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
+  html += iconSVG('arrowRight', 16, '#fff');
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+
+  // 专属服务 - 入口卡片
+  html += '<div style="padding:6px 16px">';
+  html += '<div data-action="nav" data-payload="/member-service/exclusive" style="background:linear-gradient(135deg,#ff976a,#f07a4a);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(255,151,106,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
+  html += '<div style="display:flex;align-items:center;gap:12px">';
+  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('service', 20, '#fff') + '</div>';
+  html += '<div>';
+  html += '<div style="font-size:15px;font-weight:600">专属服务</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">亲子教育 | 保健就医 | 居家置业 | 财富管理</div>';
+  html += '</div>';
+  html += '</div>';
+  html += '<div style="display:flex;align-items:center;gap:4px">';
+  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
+  html += iconSVG('arrowRight', 16, '#fff');
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+
+  // 商务活动 - 入口卡片
+  html += '<div style="padding:6px 16px">';
+  html += '<div data-action="nav" data-payload="/member-service/biz-activity" style="background:linear-gradient(135deg,#ee0a24,#d00820);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(238,10,36,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
+  html += '<div style="display:flex;align-items:center;gap:12px">';
+  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('calendar', 20, '#fff') + '</div>';
+  html += '<div>';
+  html += '<div style="font-size:15px;font-weight:600">商务活动</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">主题沙龙 | 圈层联谊 | 管理研修 | 行业峰会 | 项目路演 | 政企走访 | 招商推介 | 公益帮扶</div>';
+  html += '</div>';
+  html += '</div>';
+  html += '<div style="display:flex;align-items:center;gap:4px">';
+  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
+  html += iconSVG('arrowRight', 16, '#fff');
+  html += '</div>';
+  html += '</div>';
+  html += '</div>';
+
   html += '</div></div>';
 
-  // ================================================================
-  // 模块：校友圈子
-  // ================================================================
-  html += '<div style="padding:12px 16px">';
-  
-  // 校友圈子 - 独立显示
-  html += '<div style="background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,0.04);margin-bottom:12px">';
-  html += '<div style="font-size:15px;font-weight:600;color:#333;margin-bottom:12px">校友圈子</div>';
-  businessNetworkData.forEach(function(item) {
-    var color = item.gradient.split(',')[0].replace('linear-gradient(135deg, ', '');
-    html += '<div onclick="Router.navigate(\'/member-service/alumni-circle/' + encodeURIComponent(item.type) + '\')" style="margin-bottom:10px;padding:12px;border-radius:10px;background:#f8f9fc;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background=\'#eef2ff\'" onmouseout="this.style.background=\'#f8f9fc\'">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between">';
-    html += '<div style="display:flex;align-items:center;gap:12px">';
-    html += '<div style="width:36px;height:36px;border-radius:10px;background:' + item.gradient + ';display:flex;align-items:center;justify-content:center">' + iconSVG(item.icon, 18, '#fff') + '</div>';
-    html += '<div>';
-    html += '<div style="font-size:14px;font-weight:600;color:#333">' + item.type + '</div>';
-    html += '<div style="font-size:12px;color:#999">' + item.count + '个</div>';
-    html += '</div>';
-    html += '</div>';
-    html += '<div style="display:flex;align-items:center;color:#999">';
-    html += '<span style="font-size:12px">查看详情</span>';
-    html += '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
-    html += '</div>';
-    html += '</div>';
-    html += '</div>';
-  });
-  html += '</div>';
-
-  html += '</div>';
-
-  html += '</div>';
-  return html;
-};
-
-Views.AlumniCircleDetail = function() {
-  var type = decodeURIComponent(Router.params.type || '');
-  var data = businessNetworkData.find(function(item) { return item.type === type; });
-  
-  if (!data) {
-    return '<div style="padding:40px;text-align:center;color:#999">未找到相关内容</div>';
-  }
-  
-  var html = '<div class="page-container" style="background:#f5f6fa;padding-bottom:20px">';
-  html += '<div class="header" style="padding:20px">';
-  html += '<button onclick="Router.back()" style="font-size:24px;color:#333;background:none;border:none;cursor:pointer;margin-right:10px">←</button>';
-  html += '<span style="font-size:18px;font-weight:600;color:#333">' + data.type + '</span>';
-  html += '</div>';
-  
-  // 头部统计
-  html += '<div style="margin:0 16px 16px;background:' + data.gradient + ';border-radius:16px;padding:20px;color:#fff">';
-  html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG(data.icon, 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:24px;font-weight:700">' + data.count + ' 位校友</div>';
-  html += '<div style="font-size:13px;opacity:0.9">' + data.desc + '</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-  
-  // 根据类型展示不同的详情卡片
-  if (data.items && data.items.length) {
-    data.items.forEach(function(item, idx) {
-      html += '<div class="alumni-card" style="margin:0 16px 12px;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.04)">';
-      
-      // 头部：校友信息
-      var info = item.alumnusInfo || {};
-      html += '<div style="padding:16px;display:flex;gap:12px;border-bottom:1px solid #f0f0f0">';
-      html += '<img src="' + info.avatar + '" style="width:56px;height:56px;border-radius:50%;object-fit:cover" onerror="this.style.display=\'none\'">';
-      html += '<div style="flex:1;min-width:0">';
-      html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
-      html += '<span style="font-size:16px;font-weight:600;color:#333">' + escapeHtml(info.name) + '</span>';
-      html += '<span style="font-size:12px;color:#999">' + escapeHtml(info.gender) + '</span>';
-      html += '<span style="font-size:11px;color:#6fa4cf;background:#e8f4fd;padding:2px 6px;border-radius:4px">' + escapeHtml(info.graduationYear) + '</span>';
-      html += '</div>';
-      html += '<div style="font-size:12px;color:#666">' + escapeHtml(info.department) + ' · ' + escapeHtml(info.major) + '</div>';
-      html += '</div>';
-      html += '</div>';
-      
-      // 根据类型展示不同的业务信息
-      if (data.type === '上市公司') {
-        // 上市公司
-        html += '<div style="padding:16px">';
-        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-        html += '<span style="font-size:15px;font-weight:600;color:#333">' + escapeHtml(item.companyShortName) + '</span>';
-        if (item.stockCode) {
-          html += '<span style="font-size:11px;color:#07c160;background:#e8f8ee;padding:2px 6px;border-radius:4px">' + escapeHtml(item.stockCode) + '</span>';
-        }
-        html += '<span style="font-size:11px;color:#ff976a;background:#fff3e8;padding:2px 6px;border-radius:4px">' + escapeHtml(item.companyStage) + '</span>';
-        html += '</div>';
-        html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">';
-        html += '<span style="font-size:12px;color:#6fa4cf;font-weight:500">' + escapeHtml(item.roleLabel) + '</span>';
-        html += '</div>';
-        html += '<div style="font-size:12px;color:#666;line-height:1.6">' + escapeHtml(item.businessIntro) + '</div>';
-        html += '</div>';
-      } else if (data.type === '投资机构') {
-        // 投资机构
-        html += '<div style="padding:16px">';
-        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-        html += '<span style="font-size:15px;font-weight:600;color:#333">' + escapeHtml(item.orgName) + '</span>';
-        html += '<span style="font-size:11px;color:#07c160;background:#e8f8ee;padding:2px 6px;border-radius:4px">' + escapeHtml(item.orgType) + '</span>';
-        html += '</div>';
-        html += '<div style="font-size:12px;color:#6fa4cf;font-weight:500;margin-bottom:8px">' + escapeHtml(item.position) + '</div>';
-        html += '<div style="background:#f8f9fc;border-radius:8px;padding:10px;margin-bottom:8px">';
-        html += '<div style="font-size:11px;color:#999;margin-bottom:4px">投资方向</div>';
-        html += '<div style="font-size:12px;color:#333">' + escapeHtml(item.investTrack) + '</div>';
-        html += '</div>';
-        html += '<div style="background:#f8f9fc;border-radius:8px;padding:10px">';
-        html += '<div style="font-size:11px;color:#999;margin-bottom:4px">代表案例</div>';
-        html += '<div style="font-size:12px;color:#333">' + escapeHtml(item.representProjects) + '</div>';
-        html += '</div>';
-        html += '</div>';
-      } else if (data.type === '企业高管') {
-        // 企业高管
-        html += '<div style="padding:16px">';
-        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-        html += '<span style="font-size:15px;font-weight:600;color:#333">' + escapeHtml(item.companyName) + '</span>';
-        html += '<span style="font-size:11px;color:#999;background:#f5f6fa;padding:2px 6px;border-radius:4px">' + escapeHtml(item.companyNature) + '</span>';
-        html += '</div>';
-        html += '<div style="display:flex;gap:16px">';
-        html += '<div style="flex:1">';
-        html += '<div style="font-size:11px;color:#999;margin-bottom:4px">职位</div>';
-        html += '<div style="font-size:13px;color:#333;font-weight:500">' + escapeHtml(item.position) + '</div>';
-        html += '</div>';
-        html += '<div style="flex:1">';
-        html += '<div style="font-size:11px;color:#999;margin-bottom:4px">业务板块</div>';
-        html += '<div style="font-size:13px;color:#333;font-weight:500">' + escapeHtml(item.businessBlock) + '</div>';
-        html += '</div>';
-        html += '</div>';
-        html += '</div>';
-      } else if (data.type === '科创项目') {
-        // 科创项目
-        html += '<div style="padding:16px">';
-        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">';
-        html += '<span style="font-size:15px;font-weight:600;color:#333">' + escapeHtml(item.projectName) + '</span>';
-        if (item.showFinancing) {
-          html += '<span style="font-size:11px;color:#ff976a;background:#fff3e8;padding:2px 6px;border-radius:4px">' + escapeHtml(item.devStage) + '</span>';
-        } else {
-          html += '<span style="font-size:11px;color:#07c160;background:#e8f8ee;padding:2px 6px;border-radius:4px">' + escapeHtml(item.devStage) + '</span>';
-        }
-        html += '</div>';
-        html += '<div style="font-size:12px;color:#666;margin-bottom:10px">技术赛道：' + escapeHtml(item.techTrack) + '</div>';
-        if (item.showFinancing) {
-          html += '<div style="display:flex;gap:12px;margin-bottom:10px">';
-          html += '<div style="flex:1;background:linear-gradient(135deg,#fff3e8,#ffe8d6);border-radius:8px;padding:10px">';
-          html += '<div style="font-size:11px;color:#999;margin-bottom:4px">融资情况</div>';
-          html += '<div style="font-size:13px;color:#ff976a;font-weight:600">' + escapeHtml(item.financing) + '</div>';
-          html += '</div>';
-          html += '</div>';
-        }
-        html += '<div style="background:#f8f9fc;border-radius:8px;padding:10px">';
-        html += '<div style="font-size:11px;color:#999;margin-bottom:4px">核心优势</div>';
-        html += '<div style="font-size:12px;color:#333;line-height:1.5">' + escapeHtml(item.coreAdvantage) + '</div>';
-        html += '</div>';
-        html += '</div>';
-      }
-      
-      html += '</div>';
-    });
-  } else {
-    html += '<div style="margin:0 16px;padding:40px;text-align:center;color:#999;background:#fff;border-radius:14px">暂无数据</div>';
-  }
-  
   html += '</div>';
   return html;
 };
@@ -1543,7 +1465,6 @@ Views.MemberServiceDetail = function() {
 
   // 分类key到名称的映射
   var categoryNames = {
-    'market': '市场推广',
     'empower': '企业赋能',
     'biz-activity': '商务活动',
     'exclusive': '专属服务'
@@ -1583,8 +1504,8 @@ Views.MemberServiceDetail = function() {
 
   var html = '<div class="page-container" style="background:#f5f6fa">' + UI_NavBar(catName, true);
 
-  // 子分类标签筛选（可点击）
-  if (subCategories.length > 0) {
+  // 子分类标签筛选（可点击），企业赋能页不显示
+  if (subCategories.length > 0 && catKey !== 'empower' && catKey !== 'exclusive') {
     html += '<div style="padding:10px 16px;background:#fff;border-bottom:1px solid #eef0f5;display:flex;align-items:center;gap:8px;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch">';
 
     // 全部按钮
@@ -1628,7 +1549,6 @@ Views.MemberServiceDetail = function() {
       html += '<img src="' + proj.providerAvatar + '" style="width:38px;height:38px;border-radius:10px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,0.08)">';
       html += '<div>';
       html += '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:2px">' + escapeHtml(proj.providerName) + '</div>';
-      html += '<div style="font-size:11px;color:#aaa">' + (proj.orderCount || 0) + ' 次合作</div>';
       html += '</div></div>';
 
       // 服务标题
@@ -1643,10 +1563,7 @@ Views.MemberServiceDetail = function() {
       html += '<span style="font-size:22px;font-weight:800;color:#f56c6c;letter-spacing:-0.5px">¥' + proj.price.toLocaleString() + '</span>';
       html += '<span style="font-size:12px;color:#aaa">/ ' + proj.unit + '</span>';
       html += '</div>';
-      html += '<div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#bbb">';
-      html += '<span style="display:flex;align-items:center;gap:3px">' + iconSVG('eye', 11, '#ccc') + proj.viewCount + '</span>';
-      html += '<span style="display:flex;align-items:center;gap:3px">' + iconSVG('bag', 11, '#ccc') + proj.orderCount + '</span>';
-      html += '</div></div>';
+      html += '</div>';
 
       html += '</div>';
     });
@@ -1672,7 +1589,7 @@ Views.TopicShareList = function() {
   var html = '<div class="page-container">' + UI_NavBar('主题分享', true);
   html += '<div class="card-list">';
   topicList.forEach(function(t) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + ' · ' + t.author + ' · ' + t.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
   });
   html += '</div></div>';
   return html;
@@ -1683,8 +1600,19 @@ Views.TopicShareDetail = function() {
   if (!t) return '<div class="page-container">' + UI_NavBar('分享详情', true) + UI_Empty('内容未找到') + '</div>';
   var collected = AppState.collectedTopics[t.id];
   var html = '<div class="page-container">' + UI_NavBar('分享详情', true);
-  html += '<div class="content-detail"><h3>' + escapeHtml(t.title) + '</h3><div class="meta">' + t.author + ' · ' + t.date + ' · ' + t.views + '阅读</div><div class="body">' + t.content + '</div></div>';
-  html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['t' + t.id] ? ' active' : '') + '" onclick="doLikeTopic(' + t.id + ')">' + (AppState.likedFeeds['t' + t.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + t.likes + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectTopic(' + t.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
+  html += '<div class="content-detail"><h3>' + escapeHtml(t.title) + '</h3><div class="meta">' + t.date + '</div><div class="body">' + t.content + '</div></div>';
+  // Comment section
+  var showCmt = uiState.showTopicComment === t.id;
+  var cmts = (AppState.topicComments && AppState.topicComments[t.id]) || [];
+  if (showCmt) {
+    html += '<div class="comment-section"><div class="cmt-title">评论 (' + cmts.length + ')</div>';
+    if (cmts.length === 0) html += '<div style="text-align:center;padding:20px;color:var(--text-lighter)">暂无评论，来说两句吧</div>';
+    cmts.forEach(function(c) {
+      html += '<div class="comment-item"><img src="' + c.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(c.name) + '</div><div class="cmt-text">' + escapeHtml(c.text) + '</div><div class="cmt-time">' + c.time + '</div></div></div>';
+    });
+    html += '<div style="display:flex;gap:10px;padding:8px 16px;background:#fff;border-top:1px solid var(--border)"><input id="topic-comment-input" type="text" placeholder="写评论..." style="flex:1;background:#f5f6f8;border-radius:20px;padding:8px 14px;font-size:13px;border:none;outline:none"><span style="padding:8px 12px;color:var(--primary);font-weight:600;cursor:pointer;font-size:14px" onclick="doPostTopicComment(' + t.id + ')">发送</span></div>';
+  }
+  html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['t' + t.id] ? ' active' : '') + '" onclick="doLikeTopic(' + t.id + ')">' + (AppState.likedFeeds['t' + t.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + t.likes + '</span></div><div class="bba-item' + (showCmt ? ' active' : '') + '" onclick="doToggleTopicComment(' + t.id + ')">' + iconSVG('message', 18) + '<span>' + (t.comments || 0) + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectTopic(' + t.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
   html += '</div>';
   return html;
 };
@@ -1694,7 +1622,7 @@ Views.InterviewList = function() {
   var html = '<div class="page-container">' + UI_NavBar('会员专访', true);
   html += '<div class="card-list">';
   interviewList.forEach(function(item) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + ' · ' + item.author + ' · ' + item.views + '阅读</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
   });
   html += '</div></div>';
   return html;
@@ -1705,7 +1633,7 @@ Views.InterviewDetail = function() {
   if (!item) return '<div class="page-container">' + UI_NavBar('专访详情', true) + UI_Empty('内容未找到') + '</div>';
   var collected = AppState.collectedInterviews[item.id];
   var html = '<div class="page-container">' + UI_NavBar('专访详情', true);
-  html += '<div class="content-detail"><h3>' + escapeHtml(item.title) + '</h3><div class="meta">' + item.author + ' · ' + item.date + ' · ' + item.views + '阅读</div><div class="body">' + item.content + '</div></div>';
+  html += '<div class="content-detail"><h3>' + escapeHtml(item.title) + '</h3><div class="meta">' + item.date + '</div><div class="body">' + item.content + '</div></div>';
   html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['i' + item.id] ? ' active' : '') + '" onclick="doLikeInterview(' + item.id + ')">' + (AppState.likedFeeds['i' + item.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + item.likes + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectInterview(' + item.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
   html += '</div>';
   return html;
@@ -1716,7 +1644,7 @@ Views.CourseList = function() {
   var html = '<div class="page-container">' + UI_NavBar('在线课程', true);
   html += '<div class="card-list">';
   courseList.forEach(function(c) {
-    html += '<div class="course-item" data-action="nav" data-payload="/courses/' + c.id + '"><img src="' + c.cover + '" class="course-thumb"><div class="course-info"><div class="course-title">' + escapeHtml(c.title) + '</div><div class="course-meta">' + c.teacher + ' · ' + c.duration + ' · ' + c.students + '人学习</div><div class="course-price">¥' + c.price + '<span class="orig">¥' + c.originalPrice + '</span></div></div></div>';
+    html += '<div class="course-item" data-action="nav" data-payload="/courses/' + c.id + '"><img src="' + c.cover + '" class="course-thumb"><div class="course-info"><div class="course-title">' + escapeHtml(c.title) + '</div><div class="course-meta">' + c.teacher + ' · ' + c.duration + ' · ' + c.students + '人订阅</div><div class="course-price">¥' + c.price + '<span class="orig">¥' + c.originalPrice + '</span></div></div></div>';
   });
   html += '</div></div>';
   return html;
@@ -1731,22 +1659,29 @@ Views.CourseDetail = function() {
   html += '<img src="' + c.cover + '" style="width:100%;max-height:220px;object-fit:cover">';
   html += '<div style="padding:12px 16px"><h3>' + escapeHtml(c.title) + '</h3><div style="font-size:12px;color:var(--text-lighter);margin:4px 0">' + c.subtitle + '</div>';
   html += '<div style="color:var(--danger);font-size:22px;font-weight:700">¥' + c.price + '<span style="font-size:12px;color:var(--text-lighter);text-decoration:line-through;margin-left:4px">¥' + c.originalPrice + '</span><span style="font-size:12px;color:var(--accent);margin-left:8px">会员价 ¥' + c.memberPrice + '</span></div>';
-  html += '<div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--text-lighter)">' + c.duration + ' · ' + c.rating + '分 · ' + c.students + '人学习</div></div>';
+  html += '<div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--text-lighter)">' + c.duration + ' · ' + c.students + '人订阅</div></div>';
   html += '<div style="display:flex;gap:8px;padding:4px 16px;flex-wrap:wrap">';
-  c.tags.forEach(function(t) { html += UI_Tag(t, 'primary'); });
-  html += '</div>';
+    html += '</div>';
   html += UI_Tabs(tabs, uiState.courseDetailTab);
   if (uiState.courseDetailTab === 'intro') {
     html += '<div class="content-detail"><h4>课程亮点</h4><div><ul style="padding-left:16px;line-height:2">';
     c.highlights.forEach(function(h) { html += '<li>' + escapeHtml(h) + '</li>'; });
     html += '</ul></div><h4>课程简介</h4><div class="body">' + escapeHtml(c.intro) + '</div></div>';
+    html += '<div class="comment-section"><div class="cmt-title">学员评价 (' + (c.reviews || 0) + ')</div>';
     if (c.reviewList && c.reviewList.length) {
-      html += '<div class="comment-section"><div class="cmt-title">学员评价 (' + c.reviews + ')</div>';
       c.reviewList.forEach(function(r) {
-        html += '<div class="comment-item"><img src="' + r.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(r.user) + ' ' + '★'.repeat(r.rating) + '</div><div class="cmt-text">' + escapeHtml(r.content) + '</div><div class="cmt-time">' + r.date + '</div></div></div>';
+        html += '<div class="comment-item"><img src="' + r.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(r.user) + '</div><div class="cmt-text">' + escapeHtml(r.content) + '</div><div class="cmt-time">' + r.date + '</div></div></div>';
       });
+    }
+    html += '<div style="text-align:center;padding:12px 0"><button class="comp-btn primary round" data-action="toggle-course-review" data-course-id="' + c.id + '">写评价</button></div>';
+    if (uiState.showCourseReview && uiState.reviewCourseId == c.id) {
+      html += '<div style="padding:12px;background:#f9f9f9;border-radius:8px;margin-top:8px">';
+      html += '<div style="margin-bottom:8px;text-align:center"><span style="font-weight:600;font-size:14px">我的评价</span></div>';
+      html += '<textarea id="course-review-text" placeholder="写下你的评价..." style="width:100%;height:80px;border:1px solid var(--border);border-radius:8px;padding:8px;font-size:13px;resize:vertical;box-sizing:border-box">' + (uiState.reviewText || '') + '</textarea>';
+      html += '<div style="text-align:center;margin-top:10px"><button class="comp-btn primary round" data-action="submit-course-review" data-course-id="' + c.id + '">提交评价</button></div>';
       html += '</div>';
     }
+    html += '</div>';
   } else if (uiState.courseDetailTab === 'chapters') {
     html += '<div style="padding:0 16px">';
     c.chapters.forEach(function(ch) {
@@ -1766,7 +1701,7 @@ Views.CourseDetail = function() {
     html += '<div style="text-align:center;padding:20px"><img src="' + c.teacherAvatar + '" style="width:64px;height:64px;border-radius:50%;margin:0 auto"><div style="font-weight:600;margin:8px 0 4px">' + escapeHtml(c.teacher) + '</div><div style="font-size:12px;color:var(--text-lighter)">' + escapeHtml(c.teacherTitle) + '</div></div>';
     html += '<div class="content-detail"><div class="body">' + escapeHtml(c.teacherBio) + '</div></div>';
   }
-  html += '<div class="bottom-bar"><span style="flex:1;display:flex;gap:16px;align-items:center"><span onclick="doShare()">' + iconSVG('share', 18, '#999') + '</span><span onclick="doCollectCourse(' + c.id + ')" style="color:' + (AppState.collectedCourses[c.id] ? 'var(--accent)' : '#999') + '">' + (AppState.collectedCourses[c.id] ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '</span><span onclick="showToast(\'客服功能开发中\')">' + iconSVG('service', 18, '#999') + '</span></span>' + (subscribed ? '<button class="comp-btn outline round block">已订阅</button>' : '<button class="comp-btn primary round block" onclick="doSubscribeCourse(' + c.id + ')">立即订阅 ¥' + c.price + '</button>') + '</div>';
+  html += '<div class="bottom-bar"><span style="flex:1;display:flex;gap:16px;align-items:center"><span onclick="doShare()">' + iconSVG('share', 18, '#999') + '</span><span onclick="doCollectCourse(' + c.id + ')" style="color:' + (AppState.collectedCourses[c.id] ? 'var(--accent)' : '#999') + '">' + (AppState.collectedCourses[c.id] ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '</span></span>' + (subscribed ? '<button class="comp-btn outline round block">已订阅</button>' : '<button class="comp-btn primary round block" onclick="doSubscribeCourse(' + c.id + ')">立即订阅 ¥' + c.price + '</button>') + '</div>';
   html += '</div>';
   return html;
 };
@@ -1861,13 +1796,83 @@ Views.MemberDistribution = function() {
 
 // --- MEMBER ORGANIZATION ---
 Views.MemberOrganization = function() {
+  var tab = uiState.memberOrgTab || 0;
+  var circle = memberOrgList[tab];
   var html = '<div class="page-container no-tab">' + UI_NavBar('会员组织', true);
-  html += '<div style="padding:80px 20px;text-align:center;color:var(--text-lighter)">';
-  html += iconSVG('list', 48, '#c0c4cc');
-  html += '<div style="margin-top:16px;font-size:14px">会员组织页面建设中</div>';
+
+  // tab bar
+  html += '<div class="scroll-tabs"><div class="scroll-tabs-inner">';
+  memberOrgList.forEach(function(c, i) {
+    html += '<div class="scroll-tab' + (i === tab ? ' active' : '') + '" data-action="memberOrgTab" data-tab="' + i + '">' + c.name + '</div>';
+  });
   html += '</div></div>';
+
+  if (circle) {
+    // header
+    html += '<div style="padding:16px;background:linear-gradient(135deg,' + circle.color + ',rgba(255,255,255,0.3));border-radius:10px;margin:12px 16px;color:#fff">';
+    html += '<div style="font-size:18px;font-weight:700">' + circle.name + '</div>';
+    if (circle.description) html += '<div style="font-size:12px;opacity:0.85;margin-top:4px">' + circle.description + '</div>';
+    html += '<div style="font-size:28px;font-weight:700;margin-top:8px">' + circle.count + ' <span style="font-size:12px;font-weight:400">条</span></div>';
+    html += '</div>';
+
+    // items list
+    html += '<div style="padding:0 16px">';
+    if (circle.items && circle.items.length) {
+      circle.items.forEach(function(item) {
+        var info = item.alumnusInfo || {};
+        html += '<div class="org-item-card">';
+        // alumnus header
+        html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+        html += '<img src="' + (info.avatar || '') + '" style="width:40px;height:40px;border-radius:50%;object-fit:cover">';
+        html += '<div><div style="font-weight:600;font-size:14px">' + escapeHtml(info.name || '') + '</div>';
+        html += '<div style="font-size:11px;color:var(--text-lighter)">' + escapeHtml((info.school || '') + ' · ' + (info.major || '')) + '</div></div>';
+        html += '</div>';
+
+        // fields
+        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+        if (circle.name === '上市公司') {
+          html += fieldTag(item.companyShortName);
+          html += fieldTag(item.stockCode, '#409eff');
+          html += fieldTag(item.roleLabel, '#67c23a');
+          html += fieldTag(item.companyStage, item.companyStage === '已上市' ? '#67c23a' : '#e6a23c');
+          if (item.businessIntro) html += '<div style="width:100%;font-size:11px;color:var(--text-lighter);margin-top:4px">' + escapeHtml(item.businessIntro) + '</div>';
+        } else if (circle.name === '投资机构') {
+          html += fieldTag(item.orgName, '#409eff');
+          html += fieldTag(item.orgType);
+          html += fieldTag(item.position, '#67c23a');
+          html += fieldTag(item.investTrack, '#e6a23c');
+        } else if (circle.name === '企业高管') {
+          html += fieldTag(item.companyName, '#409eff');
+          html += fieldTag(item.companyNature);
+          html += fieldTag(item.position, '#67c23a');
+          html += fieldTag(item.businessBlock);
+        } else if (circle.name === '科创项目') {
+          html += fieldTag(item.projectName, '#409eff');
+          html += fieldTag(item.techTrack);
+          html += fieldTag(item.devStage, '#67c23a');
+          html += fieldTag(item.financing, '#e6a23c');
+        } else if (circle.fields) {
+          circle.fields.forEach(function(f) {
+            if (item[f]) html += fieldTag(item[f], '#409eff');
+          });
+        }
+        html += '</div></div>';
+      });
+    } else {
+      html += '<div style="padding:40px;text-align:center;color:var(--text-lighter)">暂无数据</div>';
+    }
+    html += '</div>';
+  }
+
+  html += '</div>';
   return html;
 };
+
+function fieldTag(val, color) {
+  color = color || '#909399';
+  if (!val) return '';
+  return '<span style="font-size:10px;background:' + color + '15;color:' + color + ';padding:2px 8px;border-radius:10px;white-space:nowrap">' + escapeHtml(val) + '</span>';
+}
 
 // --- GROUP BUY ---
 Views.GroupBuyList = function() {
@@ -1894,7 +1899,6 @@ Views.GroupBuyList = function() {
     html += '<div style="grid-column:1/-1;padding:40px;text-align:center;color:var(--text-lighter)">该分类暂无商品</div>';
   } else {
     filteredList.forEach(function(g) {
-      var pct = Math.round(g.soldCount / g.totalCount * 100);
       var catObj = groupBuyCategories.find(function(c) { return c.key === g.category; });
       var catName = catObj ? catObj.name : '';
       html += '<div class="gb-card" data-action="nav" data-payload="/group-buy/' + g.id + '">';
@@ -1903,7 +1907,7 @@ Views.GroupBuyList = function() {
         html += '<span class="gb-cat-badge">' + catName + '</span>';
       }
       html += '</div>';
-      html += '<div class="gb-info"><div class="gb-title">' + escapeHtml(g.title) + '</div><div class="gb-price">¥' + g.price + '<span class="orig">¥' + g.originalPrice + '</span></div><div style="margin-top:4px">' + UI_Progress(pct) + '</div><div style="font-size:10px;color:var(--text-lighter);margin-top:2px">已售' + g.soldCount + '件</div></div></div>';
+      html += '<div class="gb-info"><div class="gb-title">' + escapeHtml(g.title) + '</div><div class="gb-price">¥' + g.price + '<span class="orig">¥' + g.originalPrice + '</span></div><div style="font-size:10px;color:var(--text-lighter);margin-top:2px">已售' + g.soldCount + '件</div></div></div>';
     });
   }
   html += '</div></div>';
@@ -1913,7 +1917,6 @@ Views.GroupBuyList = function() {
 Views.GroupBuyDetail = function() {
   var g = groupBuyList.find(function(item) { return item.id == Router.params.id; });
   if (!g) return '<div class="page-container">' + UI_NavBar('团购详情', true) + UI_Empty('商品未找到') + '</div>';
-  var pct = Math.round(g.soldCount / g.totalCount * 100);
   var html = '<div class="page-container no-tab">' + UI_NavBar('团购详情', true);
   html += '<div class="comp-swipe" data-swipe="true"><div class="swipe-track">';
   g.images.forEach(function(img) { html += '<div class="swipe-item"><img src="' + img + '" data-action="preview-img" data-src="' + img + '" alt="" style="cursor:pointer"></div>'; });
@@ -1922,7 +1925,7 @@ Views.GroupBuyDetail = function() {
   html += '</div></div>';
   html += '<div style="padding:12px 16px"><h3>' + escapeHtml(g.title) + '</h3>';
   html += '<div style="color:var(--danger);font-size:24px;font-weight:700;margin:8px 0">¥' + g.price + '<span style="font-size:12px;color:var(--text-lighter);text-decoration:line-through;margin-left:6px">¥' + g.originalPrice + '</span></div>';
-  html += '<div style="margin:6px 0">' + UI_Progress(pct) + '</div><div style="font-size:11px;color:var(--text-lighter)">已售' + g.soldCount + '件 / 共' + g.totalCount + '件</div>';
+  html += '<div style="font-size:11px;color:var(--text-lighter)">已售' + g.soldCount + '件</div>';
   html += '<div style="font-size:12px;color:var(--text-lighter);margin-top:4px">供应商：' + escapeHtml(g.supplier) + ' · 截止：' + g.endDate + '</div></div>';
   html += '<div class="content-detail"><h4>商品描述</h4><div class="body">' + escapeHtml(g.desc) + '</div>';
   if (g.specs && g.specs.length) {
@@ -1930,10 +1933,7 @@ Views.GroupBuyDetail = function() {
     g.specs.forEach(function(s) { html += '<li>' + escapeHtml(s) + '</li>'; });
     html += '</ul>';
   }
-  html += '<h4 style="margin-top:10px">配送说明</h4><div class="body">' + escapeHtml(g.shipping) + '</div></div>';
-  html += '<div style="display:flex;gap:4px;padding:4px 16px;flex-wrap:wrap">';
-  g.tags.forEach(function(t) { html += UI_Tag(t, 'danger'); });
-  html += '</div>';
+  html += '<h4 style="margin-top:10px">取货地址与联系人</h4><div class="body">' + escapeHtml(g.shipping).replace(/\n/g, '<br>') + '</div></div>';
   html += '<div class="bottom-bar"><div class="comp-stepper"><button data-action="stepper-minus">-</button><input type="number" value="1" id="gb-qty" style="width:40px;text-align:center" readonly><button data-action="stepper-plus">+</button></div><span style="flex:1"></span><button class="comp-btn primary round" onclick="doBuy()">立即购买</button></div>';
   html += '</div>';
   return html;
@@ -1948,11 +1948,11 @@ Views.Profile = function() {
   // Stats based on role
   var stats;
   if (isMember) {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/points"><div class="num">1250</div><div class="label">积分</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/points"><div class="num">1250</div><div class="label">积分</div></div>';
   } else if (isAlumni) {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-group"><div class="num">2</div><div class="label">社团</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-group"><div class="num">2</div><div class="label">社团</div></div>';
   } else {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/group-buy"><div class="num">2</div><div class="label">订单</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/favorites"><div class="num">3</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/courses"><div class="num">1</div><div class="label">课程</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/group-buy"><div class="num">2</div><div class="label">订单</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">3</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/courses"><div class="num">1</div><div class="label">课程</div></div>';
   }
 
   var html = '<div class="page-container">';
@@ -1991,25 +1991,21 @@ Views.Profile = function() {
   }
   // Member promo (only for 认证校友, not 普通用户)
   if (isAlumni && !isMember) {
-    html += '<div class="promo-card" data-action="nav" data-payload="/profile/member-edit"><div class="promo-icon">⭐</div><div class="promo-text"><div class="pt">升级为商务会员</div><div class="ps">解锁会员名片、企业展示、产品推广等更多权益</div></div>' + iconSVG('arrowRight', 16, '#dabb6e') + '</div>';
+    html += '<div class="promo-card" data-action="nav" data-payload="/profile/member-edit"><div class="promo-icon">⭐</div><div class="promo-text"><div class="pt">升级为商务会员</div><div class="ps">填写企业信息，支付信息服务费后完成升级</div></div>' + iconSVG('arrowRight', 16, '#dabb6e') + '</div>';
   }
   // Service grid
   html += '<div class="service-grid">';
-  html += '<div class="svc-item" data-action="nav" data-payload="' + (isAlumni ? '/profile/member-edit' : '/profile/edit') + '"><div class="svc-icon">' + iconSVG('award', 20, '#6fa4cf') + '</div><div class="svc-label">' + (isAlumni ? (isMember ? '商务信息' : '升级会员') : '校友认证') + '</div></div>';
-  html += '<div class="svc-item" data-action="nav" data-payload="' + (isAlumni ? '/profile/member-recharge' : '/profile/edit') + '" data-need-auth="' + (!isAlumni) + '"><div class="svc-icon">' + iconSVG('wallet', 20, '#dabb6e') + '</div><div class="svc-label">' + (isMember ? '续费充值' : '开通会员') + '</div></div>';
-  html += '<div class="svc-item" data-action="nav" data-payload="/profile/group-buy"><div class="svc-icon">' + iconSVG('bag', 20, '#ee0a24') + '</div><div class="svc-label">团购订单</div></div>';
   html += '</div>';
 
   // Category cards
   var categories = [
-    { name: '我的内容', desc: '动态/活动/社团/主题', path: '/profile/my-content', icon: 'edit', color: '#6fa4cf' },
-    { name: '社交关系', desc: '好友/名片交换', path: '/profile/social', icon: 'heart', color: '#ff976a' },
-    { name: '校友互助', desc: '求助/响应', path: '/profile/help-center', icon: 'help', color: '#07c160' },
-    { name: '学习消费', desc: isMember ? '课程/收藏/订单/积分' : '课程/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
+    { name: '我的内容', desc: '活动/社团', path: '/profile/my-content', icon: 'edit', color: '#6fa4cf' },
+    { name: '互助与响应', desc: '求助/响应', path: '/profile/help-center', icon: 'help', color: '#07c160' },
+    { name: '学习消费', desc: '课程/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
     { name: '设置', desc: '资料/客服/切换角色', path: '/profile/settings', icon: 'settings', color: '#999' }
   ];
   if (isMember) {
-    categories.splice(4, 0, { name: '商务服务中心', desc: '商务/服务/咨询/订单', path: '/profile/business-center', icon: 'briefcase', color: '#1976d2' });
+    categories.splice(3, 0, { name: '会员服务', desc: '服务订单管理', path: '/profile/service-orders', icon: 'briefcase', color: '#1976d2' });
   }
 
   html += '<div style="padding:16px">';
@@ -2117,6 +2113,21 @@ Views.ProfileEdit = function() {
 
   var html = '<div class="page-container">' + UI_NavBar(pageTitle, true);
   html += '<div style="padding:8px 0">';
+
+  // 校友认证审核状态条（仅对普通用户展示）
+  if (!isAlumni && AppState.alumniCertStatus) {
+    if (AppState.alumniCertStatus === 'pending') {
+      html += '<div style="margin:12px 16px;padding:14px 16px;background:#fffbe6;border:1px solid #faecd8;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+        iconSVG('clock', 18, '#e6a23c') +
+        '<div><div style="font-size:14px;font-weight:600;color:#b88230">认证审核中</div>' +
+        '<div style="font-size:12px;color:#b88230;margin-top:4px;line-height:1.6">您的校友认证申请已提交，平台正在审核中，一般 1-3 个工作日完成，请耐心等待。</div></div></div>';
+    } else if (AppState.alumniCertStatus === 'rejected') {
+      html += '<div style="margin:12px 16px;padding:14px 16px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+        iconSVG('alertCircle', 18, '#f56c6c') +
+        '<div><div style="font-size:14px;font-weight:600;color:#c45656">认证未通过</div>' +
+        '<div style="font-size:12px;color:#c45656;margin-top:4px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(AppState.alumniCertRejectReason || '认证信息不符，请重新提交') + '</div></div></div>';
+    }
+  }
 
   // 个人基础信息
   html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">个人基础信息 <span style="color:#ee0a24;font-size:11px;font-weight:400">*必填</span></div>';
@@ -2250,6 +2261,19 @@ Views.ProfileMemberEdit = function() {
   // ============================
   var html = '<div class="page-container">' + UI_NavBar('升级商务会员', true);
 
+  // 升级审核状态条（仅在审核中/驳回时展示）
+  if (AppState.bizUpgradeStatus === 'pending') {
+    html += '<div style="margin:12px 16px;padding:14px 16px;background:#fffbe6;border:1px solid #faecd8;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+      iconSVG('clock', 18, '#e6a23c') +
+      '<div><div style="font-size:14px;font-weight:600;color:#b88230">升级审核中</div>' +
+      '<div style="font-size:12px;color:#b88230;margin-top:4px;line-height:1.6">您的商务会员升级申请已提交，平台正在审核中，一般 1-3 个工作日完成，请耐心等待。</div></div></div>';
+  } else if (AppState.bizUpgradeStatus === 'rejected') {
+    html += '<div style="margin:12px 16px;padding:14px 16px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
+      iconSVG('alertCircle', 18, '#f56c6c') +
+      '<div><div style="font-size:14px;font-weight:600;color:#c45656">升级未通过</div>' +
+      '<div style="font-size:12px;color:#c45656;margin-top:4px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(AppState.bizUpgradeRejectReason || '提交材料不完整，请重新提交') + '</div></div></div>';
+  }
+
   // 顶部说明
   html += '<div style="padding:16px;background:linear-gradient(135deg,#fff8e1,#fff3cd);margin:0;border-bottom:1px solid #f0d9a3">';
   html += '<div style="display:flex;align-items:flex-start;gap:8px">';
@@ -2264,6 +2288,36 @@ Views.ProfileMemberEdit = function() {
   html += '<div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">';
   html += '<div style="font-size:15px;font-weight:600;color:#333">关联企业</div>';
   html += '<button class="comp-btn primary small" data-action="add-company">' + iconSVG('plus', 12, '#fff') + ' 添加企业</button>';
+  html += '</div>';
+
+  // 显示已添加的企业
+  if (uiState.selectedCompanies.length === 0) {
+    html += '<div style="padding:40px 20px;text-align:center;color:#999;font-size:13px">';
+    html += '<div style="margin-bottom:8px">' + iconSVG('building', 32, '#ddd') + '</div>';
+    html += '<div>请添加您关联的企业</div>';
+    html += '<div style="font-size:12px;color:#bbb;margin-top:4px">建议关联至少1家企业</div>';
+    html += '</div>';
+  } else {
+    html += '<div style="padding:8px">';
+    uiState.selectedCompanies.forEach(function(c, idx) {
+      html += '<div style="background:#fafafa;border-radius:8px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px">';
+      html += '<img src="' + c.logo + '" style="width:44px;height:44px;border-radius:6px;flex-shrink:0;object-fit:cover">';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:2px">' + escapeHtml(c.name) + '</div>';
+      html += '<div style="font-size:12px;color:#999">' + escapeHtml(c.position || '') + (c.joinDate ? ' · ' + escapeHtml(c.joinDate) : '') + '</div>';
+      html += '</div>';
+      html += '<button data-action="remove-company" data-index="' + idx + '" style="background:none;border:none;color:#f56c6c;cursor:pointer;padding:6px">' + iconSVG('close', 16, '#f56c6c') + '</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+
+  // 关联产品部分
+  html += '<div style="margin-top:12px;background:#fff">';
+  html += '<div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">';
+  html += '<div style="font-size:15px;font-weight:600;color:#333">关联产品</div>';
+  html += '<button class="comp-btn primary small" data-action="add-product">' + iconSVG('plus', 12, '#fff') + ' 添加产品</button>';
   html += '</div>';
 
   // 显示已添加的产品
@@ -2291,8 +2345,8 @@ Views.ProfileMemberEdit = function() {
 
   // 提交按钮区域
   html += '<div style="padding:20px 16px;margin-top:12px">';
-  html += '<button class="comp-btn primary block" data-action="submit-member-upgrade">提交审核</button>';
-  html += '<div style="margin-top:10px;font-size:12px;color:#999;text-align:center">提交后将由平台审核，预计1-3个工作日内反馈</div>';
+  html += '<button class="comp-btn primary block" data-action="submit-member-info">下一步：支付信息服务费</button>';
+  html += '<div style="margin-top:10px;font-size:12px;color:#999;text-align:center">提交企业信息后需支付信息服务费，支付完成后自动进入后台审核</div>';
   html += '</div>';
 
   html += '<div style="height:40px"></div>';
@@ -2469,20 +2523,28 @@ Views.ProfileActivities = function() {
         var reg = registrations.find(function(r) { return r.activityId == a.id; });
         var statusText = getRegistrationStatusText(reg);
         var statusColor = getRegistrationStatusColor(reg);
-        html += '<div class="comp-cell" data-action="nav" data-payload="/activity-registration/' + a.id + '"><img src="' + a.cover + '" style="width:48px;height:48px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.title) + '</div><div class="cell-label">' + a.date + ' · ' + escapeHtml(a.location) + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        html += '<div class="comp-cell" data-action="nav" data-payload="/activity-registration/' + a.id + '"><img src="' + a.cover + '" style="width:48px;height:48px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.title) + '</div><div class="cell-label">' + a.date + (a.startTime ? ' ' + a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '') + ' · ' + escapeHtml(a.location) + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
       });
       html += '</div>';
     }
   } else {
-    var pubActs = activityList.filter(function(a, i) { return i < 2; });
+    var pubActs = activityList.filter(function(a) { return AppState.myActivities.indexOf(a.id) >= 0; });
     if (!pubActs.length) {
       html += UI_Empty('暂无发布活动');
     } else {
       html += '<div class="card-list">';
       pubActs.forEach(function(a) {
         var actStatus = getActivityStatus(a);
-        var statusColor = actStatus === '报名进行中' ? 'success' : (actStatus === '报名截止' ? 'warning' : 'plain');
-        html += '<div class="comp-cell" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" style="width:48px;height:48px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.title) + '</div><div class="cell-label">' + a.date + ' · ' + a.registered + '人报名</div></div>' + UI_Tag(actStatus, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        var statusColor = getActivityTagColor(a);
+        html += '<div data-action="nav" data-payload="/activity/' + a.id + '">';
+        html += '<div class="comp-cell"><img src="' + a.cover + '" style="width:48px;height:48px;border-radius:6px;margin-right:12px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.title) + '</div><div class="cell-label">' + a.date + (a.endDate && a.endDate !== a.date ? ' - ' + a.endDate : '') + (a.startTime ? ' ' + a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '') + ' · ' + (a.reviewStatus === 'approved' ? a.registered + '人报名' : '-') + '</div></div>';
+        html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
+        html += UI_Tag(actStatus, statusColor);
+        html += '</div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        if (a.reviewStatus === 'rejected' && a.reviewComment) {
+          html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(a.reviewComment) + '</div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
     }
@@ -2524,8 +2586,8 @@ Views.ProfileMyHelp = function() {
     myHelps.forEach(function(h) {
       var reviewText = h.reviewStatus === 'pending' ? '审核中' : (h.reviewStatus === 'approved' ? '已发布' : '审核未通过');
       var reviewColor = h.reviewStatus === 'pending' ? 'warning' : (h.reviewStatus === 'approved' ? 'success' : 'danger');
-      var helpStatus = h.reviewStatus === 'approved' ? (h.status === 'resolved' ? '已解决' : (h.status === 'offline' ? '已下架' : '进行中')) : '';
-      var helpStatusColor = h.status === 'resolved' ? 'success' : (h.status === 'offline' ? 'plain' : 'warning');
+      var helpStatus = '';
+      var helpStatusColor = 'warning';
       html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '">';
       html += '<div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.date + ' · ' + (h.responseCount || 0) + '人响应</div></div>';
       html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
@@ -2552,7 +2614,7 @@ Views.ProfileMyResponse = function() {
     helpList.forEach(function(h) {
       if (AppState.myHelp.indexOf(h.id) >= 0 && h.responses && h.responses.length > 0) {
         h.responses.forEach(function(r, idx) {
-          receivedResponses.push({ helpId: h.id, responseIdx: idx, helpTitle: h.title, responderName: r.name, responderAvatar: r.avatar, responderRole: r.role, text: r.text, time: r.time, responseStatus: r.responseStatus });
+          receivedResponses.push({ helpId: h.id, responseIdx: idx, helpTitle: h.title, responderName: r.name, responderAvatar: r.avatar, responderRole: r.role, text: r.text, time: r.time, responseStatus: r.responseStatus, rejectReason: r.rejectReason });
         });
       }
     });
@@ -2562,15 +2624,20 @@ Views.ProfileMyResponse = function() {
       html += '<div class="card-list">';
       receivedResponses.forEach(function(r) {
         var rStatus = r.responseStatus || 'waiting';
-        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : '等待处理');
-        var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : 'warning');
-        html += '<div class="comp-cell" data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '"><img src="' + r.responderAvatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + escapeHtml(r.responderName) + ' · ' + r.responderRole + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>';
+        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+        var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
+        html += '<div data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '">';
+        html += '<div class="comp-cell"><img src="' + r.responderAvatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + escapeHtml(r.responderName) + ' · ' + r.responderRole + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>';
         html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
         html += UI_Tag(statusText, statusColor);
         if (rStatus === 'waiting') {
           html += '<div style="display:flex;gap:4px"><span class="mini-btn primary" onclick="event.stopPropagation();doAcceptResponse(' + r.helpId + ', \'' + r.responderName + '\')">接受</span><span class="mini-btn outline" onclick="event.stopPropagation();doDeferResponse(' + r.helpId + ', \'' + r.responderName + '\')">暂不考虑</span></div>';
         }
         html += '</div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        if (rStatus === 'rejected' && r.rejectReason) {
+          html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
     }
@@ -2580,7 +2647,7 @@ Views.ProfileMyResponse = function() {
       if (h.responses) {
         h.responses.forEach(function(r, idx) {
           if (r.name === AppState.userName) {
-            myResponses.push({ helpId: h.id, responseIdx: idx, helpTitle: h.title, helpPublisher: h.publisher.name, text: r.text, time: r.time, responseStatus: r.responseStatus });
+            myResponses.push({ helpId: h.id, responseIdx: idx, helpTitle: h.title, helpPublisher: h.publisher.name, text: r.text, time: r.time, responseStatus: r.responseStatus, rejectReason: r.rejectReason });
           }
         });
       }
@@ -2591,9 +2658,14 @@ Views.ProfileMyResponse = function() {
       html += '<div class="card-list">';
       myResponses.forEach(function(r) {
         var rStatus = r.responseStatus || 'waiting';
-        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : '等待对方处理');
-        var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : 'warning');
-        html += '<div class="comp-cell" data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + r.helpPublisher + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待对方处理'));
+        var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
+        html += '<div data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '">';
+        html += '<div class="comp-cell"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + r.helpPublisher + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+        if (rStatus === 'rejected' && r.rejectReason) {
+          html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
+        }
+        html += '</div>';
       });
       html += '</div>';
     }
@@ -2614,10 +2686,10 @@ Views.HelpResponseDetail = function() {
   var isPublisher = AppState.myHelp.indexOf(h.id) >= 0;
   var isResponder = r.name === AppState.userName;
   var rStatus = r.responseStatus || 'waiting';
-  var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : '等待处理');
-  var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : 'warning');
-  var hStatusText = h.status === 'resolved' ? '已解决' : (h.status === 'offline' ? '已下架' : '进行中');
-  var hStatusColor = h.status === 'resolved' ? 'success' : (h.status === 'offline' ? 'plain' : 'warning');
+  var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+  var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
+  var hStatusText = '';
+  var hStatusColor = 'warning';
   
   var html = '<div class="page-container no-tab">' + UI_NavBar('响应详情', true);
   
@@ -2637,6 +2709,9 @@ Views.HelpResponseDetail = function() {
   html += '<div class="card-item" style="padding:16px">';
   html += '<div style="font-size:14px;line-height:1.6;color:#333">' + escapeHtml(r.text) + '</div>';
   html += '<div style="font-size:12px;color:#999;margin-top:12px">响应时间：' + r.time + ' · ' + UI_Tag(statusText, statusColor) + '</div>';
+  if (rStatus === 'rejected' && r.rejectReason) {
+    html += '<div style="margin-top:12px;padding:10px 12px;color:#f56c6c;font-size:12px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:6px;line-height:1.6"><div style="font-weight:600;margin-bottom:2px">驳回原因</div>' + escapeHtml(r.rejectReason) + '</div>';
+  }
   html += '</div>';
   
   html += '<div class="section-title">互动记录</div>';
@@ -2660,6 +2735,8 @@ Views.HelpResponseDetail = function() {
   html += '</div>';
   if (rStatus === 'accepted') {
     html += '<div style="margin-top:12px;font-size:12px;color:#67c23a;padding-left:52px">✓ 您已接受此响应，请线下联系沟通</div>';
+  } else if (rStatus === 'rejected' && r.rejectReason) {
+    html += '<div style="margin-top:12px;padding:8px 12px;background:#fef0f0;border-radius:4px;font-size:12px;color:#f56c6c;padding-left:52px;line-height:1.6">✕ 平台已驳回此响应，原因：' + escapeHtml(r.rejectReason) + '</div>';
   }
   html += '</div>';
   
@@ -2696,7 +2773,7 @@ Views.ProfileMyTopics = function() {
   else {
     html += '<div style="padding:10px 16px">' + UI_Button('发布主题', 'primary', 'small', true) + '</div>';
     myTop.forEach(function(t) {
-      html += '<div class="comp-card" style="padding:12px 16px" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-meta">' + t.date + ' · ' + t.views + '阅读 · ' + t.likes + '赞</div></div></div>';
+      html += '<div class="comp-card" style="padding:12px 16px" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-meta">' + t.date + ' · ' + t.likes + '赞</div></div></div>';
     });
   }
   html += '</div>';
@@ -2851,10 +2928,7 @@ Views.ServiceProviderDetail = function() {
         html += '<span style="font-size:20px;font-weight:700;color:var(--primary)">¥' + proj.price.toLocaleString() + '</span>';
         html += '<span style="font-size:12px;color:var(--text-lighter)">/ ' + proj.unit + '</span>';
         html += '</div>';
-        html += '<div style="font-size:12px;color:var(--text-lighter)">';
-        html += iconSVG('eye', 12, 'currentColor') + ' ' + proj.viewCount + '  ';
-        html += iconSVG('bag', 12, 'currentColor') + ' ' + proj.orderCount;
-        html += '</div></div>';
+        html += '</div>';
         html += '<div style="margin-top:10px"><span style="display:inline-block;padding:6px 12px;background:#e8f4fd;color:#6fa4cf;border-radius:16px;font-size:12px">' + iconSVG('phone', 12, '#6fa4cf') + ' 查看联系方式</span></div>';
         html += '</div>';
       });
@@ -2931,14 +3005,6 @@ Views.ServiceProjectDetail = function() {
   ], false);
   html += '</div>';
 
-  // 浏览与订单统计
-  html += '<div style="padding:16px 20px;background:#fff;margin-top:12px">';
-  html += UI_CellGroup([
-    { title: '浏览人次', value: project.viewCount + ' 次' },
-    { title: '已购订单', value: project.orderCount + ' 单' }
-  ], false);
-  html += '</div>';
-
   // 联系方式与联系人
   if (provider) {
     html += '<div style="padding:16px 20px;background:#fff;margin-top:12px">';
@@ -2974,8 +3040,9 @@ Views.ServiceProjectDetail = function() {
   }
 
   // 底部操作栏
-  html += '<div style="position:fixed;bottom:0;left:0;right:0;padding:10px 16px;background:#fff;border-top:1px solid var(--border);z-index:10">';
-  html += '<button class="comp-btn success block" data-action="order-service" data-project-id="' + project.id + '">' + iconSVG('bag', 16, '#fff') + ' 预约购买</button>';
+  html += '<div style="position:fixed;bottom:0;left:0;right:0;padding:10px 16px;background:#fff;border-top:1px solid var(--border);z-index:10;display:flex;gap:10px">';
+  html += '<button class="comp-btn success block" style="flex:1" data-action="order-service" data-project-id="' + project.id + '">' + iconSVG('bag', 16, '#fff') + ' 预约购买</button>';
+  html += '<button class="comp-btn primary block" style="flex:1" onclick="doPayService(' + project.id + ')">' + iconSVG('wallet', 16, '#fff') + ' 缴费</button>';
   html += '</div>';
 
   html += '<div style="height:120px"></div>'; // 底部空白占位
@@ -3049,7 +3116,7 @@ Views.ServiceChat = function() {
 };
 
 Views.MemberRecharge = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员充值', true);
+  var html = '<div class="page-container">' + UI_NavBar('信息服务费', true);
   html += '<div style="padding:16px;background:linear-gradient(135deg,#6fa4cf,#9bc1de);text-align:center;color:#fff">';
   html += '<div style="font-size:14px;margin-bottom:4px">当前会员状态</div>';
   html += '<div style="font-size:24px;font-weight:700">' + AppState.currentRole + '</div>';
@@ -3152,8 +3219,8 @@ Views.MemberRechargeSuccess = function() {
   ], true);
   html += '</div>';
   html += '<div style="padding:20px 16px;margin-top:30px">';
-  html += '<button class="comp-btn primary block" data-action="nav" data-payload="/profile">返回个人中心</button>';
-  html += '<button class="comp-btn outline block" style="margin-top:10px" data-action="nav" data-payload="/member-card">查看会员权益</button>';
+  html += '<div style="font-size:14px;color:var(--text-light);margin-bottom:20px">支付成功，您的商务会员申请已提交审核</div>';
+  html += '<div style="font-size:12px;color:var(--text-muted)">预计1-3个工作日内反馈审核结果，请耐心等待</div>';
   html += '</div>';
   html += '</div>';
   return html;
@@ -3403,10 +3470,8 @@ Views.ProfileServiceOrders = function() {
 Views.ProfileMyContent = function() {
   var html = '<div class="page-container">' + UI_NavBar('我的内容', true);
   var items = [
-    { title: '我的动态', path: '/profile/my-feed', icon: 'edit' },
     { title: '我的活动', path: '/profile/activities', icon: 'calendar' },
-    { title: '我的社团', path: '/profile/my-groups', icon: 'users' },
-    { title: '我的主题', path: '/profile/my-topics', icon: 'topic' }
+    { title: '我的社团', path: '/profile/my-groups', icon: 'users' }
   ];
   html += '<div class="card-list">';
   items.forEach(function(item) {
@@ -3447,7 +3512,7 @@ Views.ProfileSocial = function() {
 };
 
 Views.ProfileHelpCenter = function() {
-  var html = '<div class="page-container">' + UI_NavBar('校友互助', true);
+  var html = '<div class="page-container">' + UI_NavBar('互助与响应', true);
   var items = [
     { title: '我的求助', path: '/profile/my-help', icon: 'help' },
     { title: '我的响应', path: '/profile/my-response', icon: 'message' }
@@ -3469,7 +3534,7 @@ Views.ProfileHelpCenter = function() {
 };
 
 Views.ProfileBusinessCenter = function() {
-  var html = '<div class="page-container">' + UI_NavBar('商务服务中心', true);
+  var html = '<div class="page-container">' + UI_NavBar('商务求助中心', true);
   var items = [
     { title: '我的商务', path: '/profile/my-business', icon: 'briefcase' },
     { title: '我的服务', path: '/profile/my-services', icon: 'service' },
@@ -3498,15 +3563,9 @@ Views.ProfileLearning = function() {
   var html = '<div class="page-container">' + UI_NavBar('学习消费', true);
   var items = [
     { title: '订阅课程', path: '/profile/subscribe', icon: 'book' },
-    { title: '我的收藏', path: '/profile/collections', icon: 'star' },
-    { title: '我的点赞', path: '/profile/likes', icon: 'heart' },
     { title: '团购订单', path: '/profile/group-buy', icon: 'bag' },
-    { title: '会员订单', path: '/profile/member-orders', icon: 'wallet' },
-    { title: '报告订单', path: '/profile/report-orders', icon: 'file' }
+    { title: '会员订单', path: '/profile/member-orders', icon: 'wallet' }
   ];
-  if (isMember) {
-    items.push({ title: '积分明细', path: '/profile/points', icon: 'coin' });
-  }
   html += '<div class="card-list">';
   items.forEach(function(item) {
     html += '<div class="comp-cell" data-action="nav" data-payload="' + item.path + '">';
