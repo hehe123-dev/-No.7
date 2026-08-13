@@ -48,7 +48,7 @@ var Views = {};
 Views.Login = function() {
   return '<div class="page-login">'
     + '<div class="login-bg-deco"></div>'
-    + '<div class="logo-area"><div class="logo-card"><img src="bit-logo.svg?v=3" alt="白石桥七号"></div><div class="app-name">白石桥七号</div><div class="slogan">同心共建 · 聚力赋能</div><div class="desc">北理人商务平台</div></div>'
+    + '<div class="logo-area"><div class="logo-card"><img src="bit-logo.jpg" alt="白石桥七号"></div><div class="app-name">白石桥七号</div><div class="slogan">同心共建 · 聚力共赢</div><div class="desc">北理人商务平台</div></div>'
     + '<div class="login-panel">'
     + '<div class="wechat-btn" data-action="wechat-login"><span class="wx-icon">微</span>微信一键登录</div>'
     + '<div class="phone-toggle" data-action="toggle-phone"><span>手机号登录</span></div>'
@@ -73,14 +73,14 @@ Views.Home = function() {
   var publicMenus = '';
 
   // 所有角色均可见，权限隔离在后端实现
-  var alumniMenus = '<div class="section-title">校友功能<span class="more" data-action="nav" data-payload="/alumni-distribution">校友分布 ›</span></div><div class="menu-grid">'
+  var alumniMenus = '<div class="section-title">校友功能<span class="more" data-action="nav" data-payload="/alumni-distribution">校友数据 ›</span></div><div class="menu-grid">'
     + '<div class="menu-item" data-action="nav" data-payload="/alumni-card"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('card', 22, '#6fa4cf') + '</div><div class="menu-label">校友名片</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/alumni-group"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('users', 22, '#07c160') + '</div><div class="menu-label">校友社团</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/activity"><div class="menu-icon" style="background:#fff0f0">' + iconSVG('activity', 22, '#ee0a24') + '</div><div class="menu-label">校友活动</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/help"><div class="menu-icon" style="background:#fff7ed">' + iconSVG('help', 22, '#ff976a') + '</div><div class="menu-label">校友互助</div></div>'
     + '</div>';
 
-  var memberMenus = '<div class="section-title">会员功能<span class="more" data-action="nav" data-payload="/member-distribution">会员分布 ›</span></div><div class="menu-grid">'
+  var memberMenus = '<div class="section-title">会员功能<span class="more" data-action="nav" data-payload="/member-distribution">会员数据 ›</span></div><div class="menu-grid">'
     + '<div class="menu-item" data-action="nav" data-payload="/member-card"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('award', 22, '#6fa4cf') + '</div><div class="menu-label">会员名片</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/member-ep"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('building', 22, '#07c160') + '</div><div class="menu-label">会员企业</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/member-service"><div class="menu-icon" style="background:#fff7ed">' + iconSVG('service', 22, '#ff976a') + '</div><div class="menu-label">会员服务</div></div>'
@@ -89,11 +89,11 @@ Views.Home = function() {
 
   var html = '<div class="page-container page-home">';
   // Header
-  html += '<div class="home-header"><div class="top-row"><div class="brand"><img src="bit-logo.svg?v=3"><div><div class="name">白石桥七号</div><div class="sub">北理人商务平台</div></div></div><div class="actions"><span class="role-tag" data-action="show-role-popup">' + escapeHtml(role) + ' ' + iconSVG('arrowDown', 10, '#fff') + '</span><div class="comp-badge"><span>' + iconSVG('bell', 20, '#fff') + '</span>' + (AppState.incomingRequests.length > 0 ? '<span class="badge-dot">' + AppState.incomingRequests.length + '</span>' : '') + '</div></div></div></div>';
+  html += '<div class="home-header"><div class="top-row"><div class="brand"><img src="bit-logo.jpg"><div><div class="name">白石桥七号</div><div class="sub">北理人商务平台</div></div></div><div class="actions"><span class="role-tag" data-action="show-role-popup">' + escapeHtml(role) + ' ' + iconSVG('arrowDown', 10, '#fff') + '</span><div class="comp-badge"><span>' + iconSVG('bell', 20, '#fff') + '</span>' + (AppState.incomingRequests.length > 0 ? '<span class="badge-dot">' + AppState.incomingRequests.length + '</span>' : '') + '</div></div></div></div>';
   // Banner
   html += UI_Swipe(banners);
   // Slogan
-  html += '<div class="slogan-banner">同心共建，聚力赋能</div>';
+  html += '<div class="slogan-banner">同心共建，聚力共赢</div>';
   // Menus
   html += publicMenus + alumniMenus + memberMenus;
   // News section
@@ -1410,7 +1410,8 @@ Views.MemberServiceIndex = function() {
   html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('activity', 20, '#fff') + '</div>';
   html += '<div>';
   html += '<div style="font-size:15px;font-weight:600">企业赋能</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">管理咨询 | 教育培训 | 人才招聘 | 办公选址 | 企划合规 | 资质申报 | 营销推广 | 系统建设</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">管理咨询 | 教育培训 | 人才招聘 | 办公选址</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">企划合规 | 资质申报 | 营销推广 | 系统建设</div>';
   html += '</div>';
   html += '</div>';
   html += '<div style="display:flex;align-items:center;gap:4px">';
@@ -1444,7 +1445,8 @@ Views.MemberServiceIndex = function() {
   html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('calendar', 20, '#fff') + '</div>';
   html += '<div>';
   html += '<div style="font-size:15px;font-weight:600">商务活动</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">主题沙龙 | 圈层联谊 | 管理研修 | 行业峰会 | 项目路演 | 政企走访 | 招商推介 | 公益帮扶</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">主题沙龙 | 圈层联谊 | 管理研修 | 行业峰会</div>';
+  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">项目路演 | 政企走访 | 招商推介 | 公益帮扶</div>';
   html += '</div>';
   html += '</div>';
   html += '<div style="display:flex;align-items:center;gap:4px">';
@@ -1708,7 +1710,7 @@ Views.CourseDetail = function() {
 
 // --- ALUMNI DISTRIBUTION ---
 Views.AlumniDistribution = function() {
-  var html = '<div class="page-container no-tab">' + UI_NavBar('校友分布', true);
+  var html = '<div class="page-container no-tab">' + UI_NavBar('校友数据', true);
 
   // ===== 1. 数据概览卡片 =====
   html += '<div class="dist-overview">';
@@ -1755,7 +1757,7 @@ Views.AlumniDistribution = function() {
 
 // --- MEMBER DISTRIBUTION ---
 Views.MemberDistribution = function() {
-  var html = '<div class="page-container no-tab">' + UI_NavBar('会员分布', true);
+  var html = '<div class="page-container no-tab">' + UI_NavBar('会员数据', true);
 
   // ===== 1. 数据概览卡片 =====
   html += '<div class="dist-overview">';
@@ -1796,73 +1798,66 @@ Views.MemberDistribution = function() {
 
 // --- MEMBER ORGANIZATION ---
 Views.MemberOrganization = function() {
-  var tab = uiState.memberOrgTab || 0;
-  var circle = memberOrgList[tab];
   var html = '<div class="page-container no-tab">' + UI_NavBar('会员组织', true);
 
-  // tab bar
-  html += '<div class="scroll-tabs"><div class="scroll-tabs-inner">';
-  memberOrgList.forEach(function(c, i) {
-    html += '<div class="scroll-tab' + (i === tab ? ' active' : '') + '" data-action="memberOrgTab" data-tab="' + i + '">' + c.name + '</div>';
+  // 合并所有圈子数据为单一列表
+  var allItems = [];
+  memberOrgList.forEach(function(circle) {
+    (circle.items || []).forEach(function(item) {
+      allItems.push({ circle: circle, item: item });
+    });
   });
-  html += '</div></div>';
 
-  if (circle) {
-    // header
-    html += '<div style="padding:16px;background:linear-gradient(135deg,' + circle.color + ',rgba(255,255,255,0.3));border-radius:10px;margin:12px 16px;color:#fff">';
-    html += '<div style="font-size:18px;font-weight:700">' + circle.name + '</div>';
-    if (circle.description) html += '<div style="font-size:12px;opacity:0.85;margin-top:4px">' + circle.description + '</div>';
-    html += '<div style="font-size:28px;font-weight:700;margin-top:8px">' + circle.count + ' <span style="font-size:12px;font-weight:400">条</span></div>';
-    html += '</div>';
+  html += '<div style="padding:16px">';
+  if (allItems.length) {
+    allItems.forEach(function(entry) {
+      var circle = entry.circle;
+      var item = entry.item;
+      var info = item.alumnusInfo || {};
+      html += '<div class="org-item-card">';
+      // 分类标签
+      html += '<div style="font-size:11px;font-weight:600;margin-bottom:6px;color:' + circle.color + '">' + circle.name + '</div>';
+      // 校友信息
+      html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
+      html += '<img src="' + (info.avatar || '') + '" style="width:40px;height:40px;border-radius:50%;object-fit:cover">';
+      html += '<div><div style="font-weight:600;font-size:14px">' + escapeHtml(info.name || '') + '</div>';
+      html += '<div style="font-size:11px;color:var(--text-lighter)">' + escapeHtml((info.school || '') + ' · ' + (info.major || '')) + '</div></div>';
+      html += '</div>';
 
-    // items list
-    html += '<div style="padding:0 16px">';
-    if (circle.items && circle.items.length) {
-      circle.items.forEach(function(item) {
-        var info = item.alumnusInfo || {};
-        html += '<div class="org-item-card">';
-        // alumnus header
-        html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
-        html += '<img src="' + (info.avatar || '') + '" style="width:40px;height:40px;border-radius:50%;object-fit:cover">';
-        html += '<div><div style="font-weight:600;font-size:14px">' + escapeHtml(info.name || '') + '</div>';
-        html += '<div style="font-size:11px;color:var(--text-lighter)">' + escapeHtml((info.school || '') + ' · ' + (info.major || '')) + '</div></div>';
-        html += '</div>';
-
-        // fields
-        html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
-        if (circle.name === '上市公司') {
-          html += fieldTag(item.companyShortName);
-          html += fieldTag(item.stockCode, '#409eff');
-          html += fieldTag(item.roleLabel, '#67c23a');
-          html += fieldTag(item.companyStage, item.companyStage === '已上市' ? '#67c23a' : '#e6a23c');
-          if (item.businessIntro) html += '<div style="width:100%;font-size:11px;color:var(--text-lighter);margin-top:4px">' + escapeHtml(item.businessIntro) + '</div>';
-        } else if (circle.name === '投资机构') {
-          html += fieldTag(item.orgName, '#409eff');
-          html += fieldTag(item.orgType);
-          html += fieldTag(item.position, '#67c23a');
-          html += fieldTag(item.investTrack, '#e6a23c');
-        } else if (circle.name === '企业高管') {
-          html += fieldTag(item.companyName, '#409eff');
-          html += fieldTag(item.companyNature);
-          html += fieldTag(item.position, '#67c23a');
-          html += fieldTag(item.businessBlock);
-        } else if (circle.name === '科创项目') {
-          html += fieldTag(item.projectName, '#409eff');
-          html += fieldTag(item.techTrack);
-          html += fieldTag(item.devStage, '#67c23a');
-          html += fieldTag(item.financing, '#e6a23c');
-        } else if (circle.fields) {
-          circle.fields.forEach(function(f) {
-            if (item[f]) html += fieldTag(item[f], '#409eff');
-          });
-        }
-        html += '</div></div>';
-      });
-    } else {
-      html += '<div style="padding:40px;text-align:center;color:var(--text-lighter)">暂无数据</div>';
-    }
-    html += '</div>';
+      // 字段
+      html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
+      if (circle.name === '上市公司') {
+        html += fieldTag(item.companyShortName);
+        html += fieldTag(item.stockCode, '#409eff');
+        html += fieldTag(item.roleLabel, '#67c23a');
+        html += fieldTag(item.companyStage, item.companyStage === '已上市' ? '#67c23a' : '#e6a23c');
+        if (item.businessIntro) html += '<div style="width:100%;font-size:11px;color:var(--text-lighter);margin-top:4px">' + escapeHtml(item.businessIntro) + '</div>';
+      } else if (circle.name === '投资机构') {
+        html += fieldTag(item.orgName, '#409eff');
+        html += fieldTag(item.orgType);
+        html += fieldTag(item.position, '#67c23a');
+        html += fieldTag(item.investTrack, '#e6a23c');
+      } else if (circle.name === '企业高管') {
+        html += fieldTag(item.companyName, '#409eff');
+        html += fieldTag(item.companyNature);
+        html += fieldTag(item.position, '#67c23a');
+        html += fieldTag(item.businessBlock);
+      } else if (circle.name === '科创项目') {
+        html += fieldTag(item.projectName, '#409eff');
+        html += fieldTag(item.techTrack);
+        html += fieldTag(item.devStage, '#67c23a');
+        html += fieldTag(item.financing, '#e6a23c');
+      } else if (circle.fields) {
+        circle.fields.forEach(function(f) {
+          if (item[f]) html += fieldTag(item[f], '#409eff');
+        });
+      }
+      html += '</div></div>';
+    });
+  } else {
+    html += '<div style="padding:40px;text-align:center;color:var(--text-lighter)">暂无数据</div>';
   }
+  html += '</div>';
 
   html += '</div>';
   return html;

@@ -1611,7 +1611,7 @@ function initAlumniDistributionCharts() {
 }
 
 function initMemberDistributionCharts() {
-  // 公共配置 - 会员分布使用金色系配色
+  // 公共配置 - 会员数据使用金色系配色
   var baseTextColor = '#333';
   var lightTextColor = '#999';
   var goldColor = '#dabb6e';
