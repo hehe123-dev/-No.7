@@ -763,7 +763,10 @@ function authGuard(route, params) {
   if (route.meta && route.meta.minRole) {
     var reqRank = roleRank[route.meta.minRole];
     var userRank = roleRank[AppState.currentRole];
-    if (userRank < reqRank) return '/home';
+    if (userRank < reqRank) {
+      showToast('该功能仅限' + route.meta.minRole + '使用，请先升级会员');
+      return '/home';
+    }
   }
   return null;
 }
@@ -796,21 +799,21 @@ var routes = [
   { path: '/help/:id', view: 'HelpDetail' },
   { path: '/publish-demand', view: 'PublishDemand' },
   { path: '/member-card', view: 'MemberCardList' },
-  { path: '/member-card/:id', view: 'MemberCardDetail' },
+  { path: '/member-card/:id', view: 'MemberCardDetail', meta: { minRole: '商务会员' } },
   { path: '/group-member/:groupId/:memberIdx', view: 'GroupMemberDetail' },
   { path: '/member-distribution', view: 'MemberDistribution' },
   { path: '/member-ep', view: 'MemberEPListView' },
-  { path: '/member-company/:id', view: 'MemberCompanyDetail' },
-  { path: '/member-product/:id', view: 'MemberProductDetail' },
+  { path: '/member-company/:id', view: 'MemberCompanyDetail', meta: { minRole: '商务会员' } },
+  { path: '/member-product/:id', view: 'MemberProductDetail', meta: { minRole: '商务会员' } },
   { path: '/member-demand', view: 'MemberDemandListView' },
   { path: '/member-mutual-help', view: 'MemberMutualHelp' },
   { path: '/member-business-demand', view: 'MemberBusinessDemand' },
-  { path: '/member-demand/business/:id', view: 'MemberBusinessDetail' },
+  { path: '/member-demand/business/:id', view: 'MemberBusinessDetail', meta: { minRole: '商务会员' } },
   { path: '/member-org', view: 'MemberOrganization' },
   { path: '/member-service', view: 'MemberServiceIndex' },
-  { path: '/member-service/:category', view: 'MemberServiceDetail' },
-  { path: '/service-provider/:id', view: 'ServiceProviderDetail' },
-  { path: '/service-project/:id', view: 'ServiceProjectDetail' },
+  { path: '/member-service/:category', view: 'MemberServiceDetail', meta: { minRole: '商务会员' } },
+  { path: '/service-provider/:id', view: 'ServiceProviderDetail', meta: { minRole: '商务会员' } },
+  { path: '/service-project/:id', view: 'ServiceProjectDetail', meta: { minRole: '商务会员' } },
   { path: '/service-chat/:providerId/:projectId', view: 'ServiceChat' },
   { path: '/topic-share', view: 'TopicShareList' },
   { path: '/topic-share/:id', view: 'TopicShareDetail' },
@@ -1363,6 +1366,8 @@ function renderView() {
   try { initSearch(); } catch(e) {}
   // Init profile edit avatar uploader
   try { initProfileEditAvatar(); } catch(e) {}
+  // Init feed image uploader (多图)
+  try { initFeedImageUpload(); } catch(e) {}
   // Init cert photo uploaders (学位证 / 毕业证)
   try { initCertPhotoUploads(); } catch(e) {}
   // Init charts (ECharts)
@@ -1387,6 +1392,38 @@ function initProfileEditAvatar() {
     };
     reader.readAsDataURL(file);
   });
+}
+
+function initFeedImageUpload() {
+  var input = document.getElementById('publish-feed-image-input');
+  if (!input) return;
+  uiState.feedImages = [];
+  input.addEventListener('change', function(e) {
+    var files = e.target.files;
+    if (!files || !files.length) return;
+    for (var i = 0; i < files.length; i++) {
+      (function(file) {
+        var reader = new FileReader();
+        reader.onload = function(ev) {
+          uiState.feedImages.push(ev.target.result);
+          renderFeedImages();
+        };
+        reader.readAsDataURL(file);
+      })(files[i]);
+    }
+    input.value = '';
+  });
+}
+
+function renderFeedImages() {
+  var container = document.getElementById('publish-feed-images');
+  if (!container) return;
+  var html = '';
+  (uiState.feedImages || []).forEach(function(src, idx) {
+    html += '<div class="pi-item"><img src="' + src + '"><span class="pi-del" data-action="remove-feed-img" data-index="' + idx + '">×</span></div>';
+  });
+  html += '<div class="pi-item" data-action="upload-img"><span>+</span></div>';
+  container.innerHTML = html;
 }
 
 function initCertPhotoUpload(id) {
@@ -2246,7 +2283,13 @@ document.addEventListener('click', function(e) {
 
     // Upload image
     case 'upload-img':
-      showToast('请选择图片');
+      var feedImgInput = document.getElementById('publish-feed-image-input');
+      if (feedImgInput) feedImgInput.click();
+      else showToast('请选择图片');
+      break;
+    case 'remove-feed-img':
+      var feedImgIdx = parseInt(target.dataset.index);
+      if (!isNaN(feedImgIdx)) { uiState.feedImages.splice(feedImgIdx, 1); renderFeedImages(); }
       break;
     case 'upload-cover':
       showToast('请选择封面图片');

@@ -722,9 +722,8 @@ Views.AlumniFeedDetail = function() {
 Views.PublishFeed = function() {
   var html = '<div class="page-container">' + UI_NavBar('发布动态', true, '<span data-action="publish-feed-submit">发表</span>');
   html += '<div style="padding:12px 16px"><textarea id="publish-feed-text" placeholder="分享你的想法..." style="width:100%;min-height:120px;font-size:15px;border:none;resize:none;outline:none"></textarea></div>';
-  html += '<div class="publish-images" style="padding:8px 16px"><div class="pi-item" data-action="upload-img"><span>+</span></div></div>';
-  html += '<div class="publish-option"><span>所在位置</span><span class="text-muted">不显示位置</span></div>';
-  html += '<div class="publish-option" data-action="cycle-visibility"><span>谁可以看</span><span class="text-muted">' + (uiState.feedVisibility || '公开') + '</span></div>';
+  html += '<div class="publish-images" id="publish-feed-images" style="padding:8px 16px"><div class="pi-item" data-action="upload-img"><span>+</span></div></div>';
+  html += '<input type="file" id="publish-feed-image-input" accept="image/*" multiple style="display:none">';
   html += '</div>';
   return html;
 };
@@ -1984,10 +1983,12 @@ Views.Profile = function() {
   // Category cards
   var categories = [
     { name: '我的内容', desc: '活动/社团', path: '/profile/my-content', icon: 'edit', color: '#6fa4cf' },
-    { name: '互助与响应', desc: '求助/响应', path: '/profile/help-center', icon: 'help', color: '#07c160' },
     { name: '学习消费', desc: '课程/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
     { name: '设置', desc: '资料/客服/切换角色', path: '/profile/settings', icon: 'settings', color: '#999' }
   ];
+  if (isAlumni) {
+    categories.splice(1, 0, { name: '互助与响应', desc: '求助/响应', path: '/profile/help-center', icon: 'help', color: '#07c160' });
+  }
 
   html += '<div style="padding:16px">';
   categories.forEach(function(cat, index) {
@@ -3447,9 +3448,11 @@ Views.ProfileServiceOrders = function() {
 Views.ProfileMyContent = function() {
   var html = '<div class="page-container">' + UI_NavBar('我的内容', true);
   var items = [
-    { title: '我的活动', path: '/profile/activities', icon: 'calendar' },
-    { title: '我的社团', path: '/profile/my-groups', icon: 'users' }
+    { title: '我的活动', path: '/profile/activities', icon: 'calendar' }
   ];
+  if (roleRank[AppState.currentRole] >= 1) {
+    items.push({ title: '我的社团', path: '/profile/my-groups', icon: 'users' });
+  }
   html += '<div class="card-list">';
   items.forEach(function(item) {
     html += '<div class="comp-cell" data-action="nav" data-payload="' + item.path + '">';
@@ -3548,9 +3551,11 @@ Views.ProfileLearning = function() {
   var html = '<div class="page-container">' + UI_NavBar('学习消费', true);
   var items = [
     { title: '订阅课程', path: '/profile/subscribe', icon: 'book' },
-    { title: '团购订单', path: '/profile/group-buy', icon: 'bag' },
-    { title: '会员订单', path: '/profile/member-orders', icon: 'wallet' }
+    { title: '团购订单', path: '/profile/group-buy', icon: 'bag' }
   ];
+  if (isMember) {
+    items.push({ title: '会员订单', path: '/profile/member-orders', icon: 'wallet' });
+  }
   html += '<div class="card-list">';
   items.forEach(function(item) {
     html += '<div class="comp-cell" data-action="nav" data-payload="' + item.path + '">';
