@@ -81,7 +81,8 @@ var activityList = [
   // [报名中] 平台活动，运营端直接发布
   { id: 6, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号年度校友大会', cover: img('act6', 400, 240), date: '2026-09-15', endDate: '2026-09-16', location: '北京国家会议中心', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-09-10', description: '<p>一年一度的白石桥七号校友大会，将邀请校领导、各行业杰出校友代表发表演讲，回顾平台年度成果，展望未来发展蓝图。欢迎全体校友踊跃报名参加！</p>', registered: 320, registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] },
   // [活动结束] 活动日期已过
-  { id: 7, type: '校友活动', reviewStatus: 'approved', title: '毕业十周年校友聚会', cover: img('act3', 400, 240), date: '2026-07-15', endDate: '2026-07-15', location: '北京海淀某宴会厅', fee: 200, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-10', description: '<p>毕业十周年同学聚会，回顾校园时光，畅谈十年发展。</p>', registered: 36, customFields: [{ label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }], reviewComment: '' }
+  { id: 7, type: '校友活动', reviewStatus: 'approved', title: '毕业十周年校友聚会', cover: img('act3', 400, 240), date: '2026-07-15', endDate: '2026-07-15', location: '北京海淀某宴会厅', fee: 200, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-10', description: '<p>毕业十周年同学聚会，回顾校园时光，畅谈十年发展。</p>', registered: 36, customFields: [{ label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }], reviewComment: '' },
+  { id: 8, type: '商务活动', reviewStatus: 'approved', title: '智能制造行业校友沙龙', cover: img('act4', 400, 240), date: '2026-09-20', endDate: '2026-09-20', location: '北京中关村', fee: 0, organizer: '演示用户', orgAvatar: img('myavatar', 100, 100), publisher: { name: '演示用户', avatar: img('myavatar', 100, 100), role: '商务会员' }, deadline: '2026-09-15', description: '<p>面向智能制造领域的校友举办小型沙龙，交流行业趋势与合作机会。</p>', registered: 5, customFields: [{ label: '所属行业', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }], reviewComment: '' }
 ];
 
 var memberPackages = [
@@ -201,7 +202,9 @@ var reportOrders = [
 var feedList = [
   { id: 1, user: { name: '张建国', avatar: img('u1', 100, 100), school: '自动化学院', year: '2005级' }, content: '今天参加了母校的校友企业家论坛，见到了许多老同学，感慨万千！母校的发展令人振奋，为是一名北理工人而自豪！', images: [img('feed1a', 400, 300), img('feed1b', 400, 300)], date: '2026-06-08 14:30', likes: 32, comments: 8, liked: false },
   { id: 2, user: { name: '陈晓华', avatar: img('u2', 100, 100), school: '计算机学院', year: '2008级' }, content: '我们公司新研发的智能安防系统已经在全国多个城市落地应用，感谢白石桥七号平台对接的合作伙伴，让好产品能被更多人看到！', images: [img('feed2a', 400, 300), img('feed2b', 400, 300), img('feed2c', 400, 300)], date: '2026-06-07 10:15', likes: 56, comments: 12, liked: true },
-  { id: 3, user: { name: '刘芳', avatar: img('u3', 100, 100), school: '管理与经济学院', year: '2010级' }, content: '分享一个好消息：我们团队获得了A轮融资5000万！感谢一路支持我的校友们，特别是李明远师兄在关键时刻给予的指导和建议。北理工校友的力量真的很强大！', images: [], date: '2026-06-06 18:45', likes: 128, comments: 35, liked: false }
+  { id: 3, user: { name: '刘芳', avatar: img('u3', 100, 100), school: '管理与经济学院', year: '2010级' }, content: '分享一个好消息：我们团队获得了A轮融资5000万！感谢一路支持我的校友们，特别是李明远师兄在关键时刻给予的指导和建议。北理工校友的力量真的很强大！', images: [], date: '2026-06-06 18:45', likes: 128, comments: 35, liked: false },
+  { id: 4, user: { name: '演示用户', avatar: img('myavatar', 100, 100), school: '自动化学院', year: '2005级' }, content: '今天参加了母校的智能制造行业交流会，和几位校友深入聊了聊工业互联网的落地场景，收获很大。感谢白石桥七号平台搭的桥！', images: [], date: '2026-06-05 09:20', likes: 26, comments: 6, liked: false },
+  { id: 5, user: { name: '演示用户', avatar: img('myavatar', 100, 100), school: '自动化学院', year: '2005级' }, content: '推荐一篇关于AI与制造业融合的前沿报告，我们团队正在做相关产品，欢迎感兴趣的校友一起探讨合作机会。', images: [], date: '2026-06-03 16:45', likes: 18, comments: 4, liked: false }
 ];
 
 var alumniList = [
@@ -300,7 +303,8 @@ var helpList = [
   { id: 6, title: '提供法律咨询公益服务', publisher: { id: 0, name: '王律师事务所', avatar: img('u7', 100, 100), role: '服务机构' }, date: '2026-06-15', description: '我们是一家专注于企业法律服务的律所，现面向白石桥七号校友企业提供免费法律咨询服务。涵盖公司法、知识产权、劳动法等领域。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 1, responses: [{ id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '商务会员', text: '想咨询一下劳动纠纷相关问题，方便联系吗？', time: '2026-06-16', responseStatus: 'waiting' }] },
   { id: 7, title: '北京车牌指标出租或转让求助', publisher: { id: 10, name: '杨帆', avatar: img('u8', 100, 100), role: '普通用户' }, date: '2026-06-14', description: '刚毕业在北京工作，急需解决通勤问题。想问问有没有校友出租或转让北京车牌指标的渠道？靠谱的中介也可以推荐。', reviewStatus: 'rejected', status: 'processing', rejectReason: '涉及违规内容，平台不允许发布此类信息', responseCount: 0, responses: [] },
   { id: 8, title: '校友创业项目寻求天使轮融资', publisher: { id: 7, name: '孙磊', avatar: img('m3', 100, 100), role: '认证校友' }, date: '2026-06-16', description: '我们团队正在做AI辅助教育产品，已有种子用户，想寻求天使轮融资100-200万。BP已准备好，欢迎感兴趣的校友投资人联系。', reviewStatus: 'pending', status: 'processing', rejectReason: '', responseCount: 0, responses: [] },
-  { id: 9, title: '旧书转让——考研资料低价出', publisher: { id: 9, name: '周小雅', avatar: img('u6', 100, 100), role: '普通用户' }, date: '2026-06-17', description: '本人去年考研上岸，现有大量考研资料（数学、英语、政治）低价转让，包含真题、笔记、网课视频等。北京地区可面交，其他地区包邮。', reviewStatus: 'approved', status: 'offline', rejectReason: '', responseCount: 3, responses: [] }
+  { id: 9, title: '旧书转让——考研资料低价出', publisher: { id: 9, name: '周小雅', avatar: img('u6', 100, 100), role: '普通用户' }, date: '2026-06-17', description: '本人去年考研上岸，现有大量考研资料（数学、英语、政治）低价转让，包含真题、笔记、网课视频等。北京地区可面交，其他地区包邮。', reviewStatus: 'approved', status: 'offline', rejectReason: '', responseCount: 3, responses: [] },
+  { id: 10, title: '寻找智能制造领域的校友合作伙伴', publisher: { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '商务会员' }, date: '2026-06-18', description: '我们公司正在推进工业互联网相关项目，希望寻找在智能制造、工业大数据、AI质检方面有经验的校友一起合作，可技术合作或项目联合。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 3, responses: [{ id: 2, name: '李明远', avatar: img('u2', 100, 100), role: '商务会员', text: '我在做工业大数据方向，可以深入聊聊合作。', time: '2026-06-19', responseStatus: 'waiting' }, { id: 8, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友', text: '我们团队有智能制造解决方案，可以对接一下。', time: '2026-06-20', responseStatus: 'waiting' }, { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '商务会员', text: '补充说明：项目地点在北京，优先考虑有实际落地案例的团队，欢迎私信进一步沟通。', time: '2026-06-21', responseStatus: 'waiting' }] }
 ];
 
 var businessNeedList = [
@@ -498,10 +502,10 @@ var AppState = {
   collectedCourses: {},
   feedComments: { 1: [{ name: '赵明辉', avatar: img('m1', 100, 100), text: '张总说得太好了，为北理工自豪！', time: '2026-06-08 15:00' }], 2: [{ name: '王军', avatar: img('u3', 100, 100), text: '恭喜落地！期待合作。', time: '2026-06-07 11:00' }, { name: '刘芳', avatar: img('u3', 100, 100), text: '星辰科技的产品很赞！', time: '2026-06-07 12:30' }], 3: [{ name: '张建国', avatar: img('u1', 100, 100), text: '恭喜刘总！A轮5000万非常不错！', time: '2026-06-06 20:00' }] },
   groupBuyOrders: [1, 2],
-  myFeeds: [1, 2, 3],
-  myActivities: [1, 2, 7],
+  myFeeds: [4, 5],
+  myActivities: [8],
   myTopics: [1],
-  myHelp: [3, 7],
+  myHelp: [10],
   myBiz: [1, 3],
   newsComments: {
     5: [
@@ -1359,6 +1363,8 @@ function renderView() {
   try { initSearch(); } catch(e) {}
   // Init profile edit avatar uploader
   try { initProfileEditAvatar(); } catch(e) {}
+  // Init cert photo uploaders (学位证 / 毕业证)
+  try { initCertPhotoUploads(); } catch(e) {}
   // Init charts (ECharts)
   try { initPageCharts(); } catch(e) { console.error('chart init error:', e); }
 }
@@ -1381,6 +1387,30 @@ function initProfileEditAvatar() {
     };
     reader.readAsDataURL(file);
   });
+}
+
+function initCertPhotoUpload(id) {
+  var input = document.getElementById(id + '-input');
+  if (!input) return;
+  input.addEventListener('change', function(e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var preview = document.getElementById(id + '-preview');
+      if (!preview) return;
+      var newImg = document.createElement('img');
+      newImg.id = id + '-preview';
+      newImg.src = ev.target.result;
+      newImg.style.cssText = 'width:88px;height:64px;border-radius:6px;object-fit:cover;border:1px solid #ebedf0';
+      preview.replaceWith(newImg);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+function initCertPhotoUploads() {
+  initCertPhotoUpload('pe-degree-cert');
+  initCertPhotoUpload('pe-grad-cert');
 }
 
 function initSwipe() {
@@ -2043,9 +2073,13 @@ document.addEventListener('click', function(e) {
       var peLabels = ['avatar', 'name', 'gender', 'birth', 'phone', 'email', 'school', 'dept', 'major', 'year', 'degree', 'hometown', 'city', 'tags', 'hobbies', 'intro'];
       var peAvatarEl = document.getElementById('pe-avatar-input');
       peVals.avatar = peAvatarEl && peAvatarEl.files && peAvatarEl.files.length > 0 ? 'uploaded' : (peIsAlumni ? 'existing' : '');
+      var peDegreeCertEl = document.getElementById('pe-degree-cert-input');
+      peVals.degreeCert = peDegreeCertEl && peDegreeCertEl.files && peDegreeCertEl.files.length > 0 ? 'uploaded' : '';
+      var peGradCertEl = document.getElementById('pe-grad-cert-input');
+      peVals.gradCert = peGradCertEl && peGradCertEl.files && peGradCertEl.files.length > 0 ? 'uploaded' : '';
       var peIdx = 1;
       peInputs.forEach(function(el) {
-        if (el.id === 'pe-avatar-input') return;
+        if (el.id === 'pe-avatar-input' || el.id === 'pe-degree-cert-input' || el.id === 'pe-grad-cert-input') return;
         if (peIdx < peLabels.length) { peVals[peLabels[peIdx]] = (el.value || '').trim(); peIdx++; }
       });
       if (!peIsAlumni && !peVals.avatar) { showToast('请上传个人头像'); break; }
@@ -2059,6 +2093,8 @@ document.addEventListener('click', function(e) {
       if (!peVals.major) { showToast('请填写专业'); break; }
       if (!peVals.year) { showToast('请填写入学年份'); break; }
       if (!peVals.degree) { showToast('请选择学历层次'); break; }
+      if (!peIsAlumni && !peVals.degreeCert) { showToast('请上传学位证照片'); break; }
+      if (!peIsAlumni && !peVals.gradCert) { showToast('请上传毕业证照片'); break; }
       showToast(peIsAlumni ? '信息保存成功' : '认证申请已提交，请等待审核');
       setTimeout(function() { goBack('/profile'); }, 1000);
       break;

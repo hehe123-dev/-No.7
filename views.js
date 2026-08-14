@@ -497,7 +497,7 @@ Views.AlumniCardList = function() {
     var stat = '';
     if (isFriend(a.id)) stat = '<span style="padding:4px 10px;background:#e8f5e9;color:#4caf50;border-radius:12px;font-size:12px">已是好友</span>';
     else if (AppState.outgoingIds.indexOf(a.id) >= 0) stat = '<span style="padding:4px 10px;background:#f5f5f5;color:#999;border-radius:12px;font-size:12px">已发送请求</span>';
-    else stat = '<button class="comp-btn primary small" data-action="exchange-card" data-id="' + a.id + '" onclick="event.stopPropagation()">交换名片</button>';
+    else stat = '<button class="comp-btn primary small" onclick="event.stopPropagation();doExchangeCard(' + a.id + ')">交换名片</button>';
 
     html += '<div class="alumni-card" data-action="nav" data-payload="/alumni-card/' + a.id + '" style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">';
 
@@ -781,32 +781,6 @@ Views.HelpDetail = function() {
   html += '<div style="font-size:15px;color:#333;line-height:1.6">' + escapeHtml(h.description) + '</div>';
   html += '</div>';
 
-  // 响应统计
-  html += '<div style="background:#fff;padding:16px;margin-bottom:8px">';
-  html += '<div style="font-size:13px;color:#999;margin-bottom:8px">响应统计</div>';
-  html += '<div style="display:flex;gap:16px">';
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#333">' + h.responseCount + '</div>';
-  html += '<div style="font-size:12px;color:#999">响应数</div>';
-  html += '</div>';
-  var acceptedCount = 0;
-  var finishedCount = 0;
-  (h.responses || []).forEach(function(r) {
-    var s = r.responseStatus || 'waiting';
-    if (s === 'accepted') acceptedCount++;
-    if (s === 'finished') finishedCount++;
-  });
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#07c160">' + (acceptedCount + finishedCount) + '</div>';
-  html += '<div style="font-size:12px;color:#999">已处理</div>';
-  html += '</div>';
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#ff976a">' + Math.max(0, h.responseCount - acceptedCount - finishedCount) + '</div>';
-  html += '<div style="font-size:12px;color:#999">等待中</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-
   // 响应列表
   html += '<div style="padding:0 0 20px;background:#fff">';
   html += '<div style="padding:12px 16px;font-size:13px;color:#999;border-bottom:1px solid #f0f0f0">响应列表 (' + h.responseCount + ')</div>';
@@ -904,6 +878,10 @@ Views.MemberCardList = function() {
     html += '<div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#dabb6e,#e8c987);color:#fff;font-size:11px;padding:3px 12px;border-bottom-left-radius:8px">商务会员</div>';
 
     // 头部：头像+姓名+职位
+    var mstat = '';
+    if (isFriend(m.id)) mstat = '<span style="padding:4px 10px;background:#e8f5e9;color:#4caf50;border-radius:12px;font-size:12px">已是好友</span>';
+    else if (AppState.outgoingIds.indexOf(m.id) >= 0) mstat = '<span style="padding:4px 10px;background:#f5f5f5;color:#999;border-radius:12px;font-size:12px">已发送请求</span>';
+    else mstat = '<button class="comp-btn primary small" onclick="event.stopPropagation();doExchangeCard(' + m.id + ')">交换名片</button>';
     html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">';
     html += '<img src="' + m.avatar + '" style="width:60px;height:60px;border-radius:50%;flex-shrink:0;border:2px solid #dabb6e">';
     html += '<div style="flex:1;min-width:0">';
@@ -911,6 +889,7 @@ Views.MemberCardList = function() {
     html += '<div style="font-size:13px;color:#666;margin-bottom:2px">' + escapeHtml(m.title) + '</div>';
     html += '<div style="font-size:12px;color:#999;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(m.company) + '</div>';
     html += '</div>';
+    html += '<div style="flex-shrink:0">' + mstat + '</div>';
     html += '</div>';
 
     // 详细信息
@@ -934,7 +913,7 @@ Views.MemberCardList = function() {
 Views.MemberCardDetail = function() {
   var m = memberList.find(function(item) { return item.id == Router.params.id; });
   if (!m) return '<div class="page-container">' + UI_NavBar('会员详情', true) + UI_Empty('会员未找到') + '</div>';
-  var html = '<div class="page-container">' + UI_NavBar('会员详情', true);
+  var html = '<div class="page-container no-tab">' + UI_NavBar('会员详情', true);
   html += '<div style="text-align:center;padding:20px"><img src="' + m.avatar + '" style="width:72px;height:72px;border-radius:50%;margin:0 auto"><h3 style="margin:8px 0 4px">' + escapeHtml(m.name) + '</h3><div style="font-size:12px;color:var(--text-lighter)">' + m.company + ' · ' + m.title + '</div>' + UI_Tag('商务会员', 'primary') + '</div>';
   html += UI_CellGroup([{ title: '学校', value: m.school }, { title: '年级', value: m.year }, { title: '城市', value: m.city }, { title: '行业', value: m.industry }, { title: '加入时间', value: m.memberSince }], true);
   html += '<div class="content-detail"><h4>简介</h4><div class="body">' + escapeHtml(m.intro) + '</div></div>';
@@ -951,6 +930,12 @@ Views.MemberCardDetail = function() {
     m.products.forEach(function(p) {
       html += '<div class="comp-cell" data-action="nav" data-payload="/member-product/' + p.id + '"><img src="' + p.cover + '" style="width:36px;height:36px;border-radius:6px;margin-right:10px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(p.name) + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
     });
+  }
+  // 底部交换名片按钮
+  if (!isFriend(m.id)) {
+    var mbtnText = AppState.outgoingIds.indexOf(m.id) >= 0 ? '已发送请求' : '交换名片';
+    var mbtnDisabled = AppState.outgoingIds.indexOf(m.id) >= 0;
+    html += '<div class="bottom-bar"><button class="comp-btn ' + (mbtnDisabled ? 'outline' : 'primary') + ' round block" onclick="doExchangeCard(' + m.id + ')"' + (mbtnDisabled ? ' disabled' : '') + '>' + mbtnText + '</button></div>';
   }
   html += '</div>';
   return html;
@@ -1943,9 +1928,9 @@ Views.Profile = function() {
   // Stats based on role
   var stats;
   if (isMember) {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/points"><div class="num">1250</div><div class="label">积分</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">' + AppState.friendIds.length + '</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">' + AppState.myFeeds.length + '</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/points"><div class="num">1250</div><div class="label">积分</div></div>';
   } else if (isAlumni) {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">3</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">4</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-group"><div class="num">2</div><div class="label">社团</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">' + AppState.friendIds.length + '</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">' + AppState.myFeeds.length + '</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-group"><div class="num">2</div><div class="label">社团</div></div>';
   } else {
     stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/group-buy"><div class="num">2</div><div class="label">订单</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">3</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/courses"><div class="num">1</div><div class="label">课程</div></div>';
   }
@@ -1984,6 +1969,10 @@ Views.Profile = function() {
     });
     html += '</div>';
   }
+  // 校友认证入口（仅普通用户）
+  if (!isAlumni) {
+    html += '<div class="promo-card" style="background:linear-gradient(135deg,#eef4fb,#e3eefc)" data-action="nav" data-payload="/profile/edit"><div class="promo-icon">🎓</div><div class="promo-text"><div class="pt">认证为校友</div><div class="ps">填写校友信息，认证后解锁校友名片、动态、互助等功能</div></div>' + iconSVG('arrowRight', 16, '#6fa4cf') + '</div>';
+  }
   // Member promo (only for 认证校友, not 普通用户)
   if (isAlumni && !isMember) {
     html += '<div class="promo-card" data-action="nav" data-payload="/profile/member-edit"><div class="promo-icon">⭐</div><div class="promo-text"><div class="pt">升级为商务会员</div><div class="ps">填写企业信息，支付信息服务费后完成升级</div></div>' + iconSVG('arrowRight', 16, '#dabb6e') + '</div>';
@@ -1999,9 +1988,6 @@ Views.Profile = function() {
     { name: '学习消费', desc: '课程/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
     { name: '设置', desc: '资料/客服/切换角色', path: '/profile/settings', icon: 'settings', color: '#999' }
   ];
-  if (isMember) {
-    categories.splice(3, 0, { name: '会员服务', desc: '服务订单管理', path: '/profile/service-orders', icon: 'briefcase', color: '#1976d2' });
-  }
 
   html += '<div style="padding:16px">';
   categories.forEach(function(cat, index) {
@@ -2019,10 +2005,6 @@ Views.Profile = function() {
   });
   html += '</div>';
 
-  // Points bar
-  if (isMember) {
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;margin:0 16px 10px;background:linear-gradient(135deg,#fff8e1,#fff3cd);border-radius:8px"><div style="display:flex;align-items:center;gap:6px">' + iconSVG('coin', 18, '#dabb6e') + '<span style="font-weight:600">当前积分 1250</span></div><span style="font-size:12px;color:var(--accent);cursor:pointer" data-action="nav" data-payload="/profile/points">查看明细 &gt;</span></div>';
-  }
   html += '</div>';
   return html;
 };
@@ -2033,14 +2015,6 @@ Views.ProfileSettings = function() {
   var html = '<div class="page-container">' + UI_NavBar('设置', true);
 
   html += '<div style="padding:12px 0">';
-
-  // 个人设置
-  html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">个人设置</div>';
-  html += '<div class="comp-cell-group inset">';
-  html += '<div class="comp-cell" data-action="nav" data-payload="/profile/edit"><div class="cell-body"><div class="cell-title">资料编辑</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
-  html += '<div class="comp-cell" data-action="toast" data-payload="客服功能即将上线"><div class="cell-body"><div class="cell-title">客服</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
-  html += '<div class="comp-cell" data-action="show-role-popup"><div class="cell-body"><div class="cell-title">切换角色</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
-  html += '</div>';
 
   // 系统信息
   html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">系统信息</div>';
@@ -2076,11 +2050,11 @@ Views.ProfileEdit = function() {
     avatar: img('myavatar', 100, 100),
     name: '赵明辉', gender: '男', birth: '1987-05', phone: '138****8888', email: 'zhaomh@example.com',
     school: '北京理工大学', dept: '自动化学院', major: '控制科学与工程', year: '2005级', degree: '硕士',
-    hometown: '江苏南京', city: '北京', tags: '创业,人工智能,智能制造', hobbies: '篮球,摄影,阅读', intro: ''
+    hometown: '江苏南京', city: '北京', tags: '创业,人工智能,智能制造', hobbies: '篮球,摄影,阅读', intro: '', degreeCertImg: img('degcert', 400, 300), gradCertImg: img('gradcert', 400, 300)
   } : {
     avatar: '', name: '', gender: '', birth: '', phone: '', email: '',
     school: '', dept: '', major: '', year: '', degree: '',
-    hometown: '', city: '', tags: '', hobbies: '', intro: ''
+    hometown: '', city: '', tags: '', hobbies: '', intro: '', degreeCertImg: '', gradCertImg: ''
   };
 
   function genderField(val) {
@@ -2103,6 +2077,16 @@ Views.ProfileEdit = function() {
       + '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-left:auto">'
       + preview
       + '<input type="file" accept="image/*" id="pe-avatar-input" style="display:none">'
+      + '</label></div>';
+  }
+  function certPhotoField(label, id, val) {
+    var preview = val
+      ? '<img src="' + val + '" id="' + id + '-preview" style="width:88px;height:64px;border-radius:6px;object-fit:cover;border:1px solid #ebedf0">'
+      : '<div id="' + id + '-preview" style="width:88px;height:64px;border-radius:6px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;border:1px dashed #c8c9cc;color:#c8c9cc;font-size:20px">+</div>';
+    return '<div class="comp-field" style="align-items:center"><span class="field-label required">' + label + '</span>'
+      + '<label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-left:auto">'
+      + preview
+      + '<input type="file" accept="image/*" id="' + id + '-input" style="display:none">'
       + '</label></div>';
   }
 
@@ -2143,6 +2127,8 @@ Views.ProfileEdit = function() {
   html += UI_Field('专业', 'text', '请输入专业', d.major, true);
   html += UI_Field('入学年份', 'text', '例如：2005级', d.year, true);
   html += degreeField(d.degree);
+  html += certPhotoField('学位证照片', 'pe-degree-cert', d.degreeCertImg);
+  html += certPhotoField('毕业证照片', 'pe-grad-cert', d.gradCertImg);
   html += '</div>';
 
   // 其它信息
@@ -2551,9 +2537,13 @@ Views.ProfileActivities = function() {
 
 Views.ProfileMyFeed = function() {
   var html = '<div class="page-container">' + UI_NavBar('我的动态', true);
-  feedList.forEach(function(f) {
-    html += '<div class="feed-item" data-action="nav" data-payload="/alumni-feed/' + f.id + '"><div class="feed-user"><img src="' + f.user.avatar + '"><div><div class="uname">' + escapeHtml(f.user.name) + '</div><div class="umeta">' + f.date + '</div></div></div><div class="feed-content" style="max-height:60px;overflow:hidden">' + escapeHtml(f.content) + '</div><div class="feed-actions"><span>' + iconSVG('heart', 14) + ' ' + f.likes + '</span><span>' + iconSVG('message', 14) + ' ' + f.comments + '</span></div></div>';
-  });
+  var myFeeds = feedList.filter(function(f) { return AppState.myFeeds.indexOf(f.id) >= 0; });
+  if (!myFeeds.length) { html += UI_Empty('暂无发布的动态'); }
+  else {
+    myFeeds.forEach(function(f) {
+      html += '<div class="feed-item" data-action="nav" data-payload="/alumni-feed/' + f.id + '"><div class="feed-user"><img src="' + f.user.avatar + '"><div><div class="uname">' + escapeHtml(f.user.name) + '</div><div class="umeta">' + f.date + '</div></div></div><div class="feed-content" style="max-height:60px;overflow:hidden">' + escapeHtml(f.content) + '</div><div class="feed-actions"><span>' + iconSVG('heart', 14) + ' ' + f.likes + '</span><span>' + iconSVG('message', 14) + ' ' + f.comments + '</span></div></div>';
+    });
+  }
   html += '</div>';
   return html;
 };
@@ -2621,13 +2611,10 @@ Views.ProfileMyResponse = function() {
         var rStatus = r.responseStatus || 'waiting';
         var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
         var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
-        html += '<div data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '">';
+        html += '<div data-action="nav" data-payload="/help/' + r.helpId + '">';
         html += '<div class="comp-cell"><img src="' + r.responderAvatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + escapeHtml(r.responderName) + ' · ' + r.responderRole + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>';
         html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
         html += UI_Tag(statusText, statusColor);
-        if (rStatus === 'waiting') {
-          html += '<div style="display:flex;gap:4px"><span class="mini-btn primary" onclick="event.stopPropagation();doAcceptResponse(' + r.helpId + ', \'' + r.responderName + '\')">接受</span><span class="mini-btn outline" onclick="event.stopPropagation();doDeferResponse(' + r.helpId + ', \'' + r.responderName + '\')">暂不考虑</span></div>';
-        }
         html += '</div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
         if (rStatus === 'rejected' && r.rejectReason) {
           html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
@@ -2655,7 +2642,7 @@ Views.ProfileMyResponse = function() {
         var rStatus = r.responseStatus || 'waiting';
         var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待对方处理'));
         var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
-        html += '<div data-action="nav" data-payload="/help-response/' + r.helpId + '/' + r.responseIdx + '">';
+        html += '<div data-action="nav" data-payload="/help/' + r.helpId + '">';
         html += '<div class="comp-cell"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + r.helpPublisher + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
         if (rStatus === 'rejected' && r.rejectReason) {
           html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
@@ -2734,10 +2721,6 @@ Views.HelpResponseDetail = function() {
     html += '<div style="margin-top:12px;padding:8px 12px;background:#fef0f0;border-radius:4px;font-size:12px;color:#f56c6c;padding-left:52px;line-height:1.6">✕ 平台已驳回此响应，原因：' + escapeHtml(r.rejectReason) + '</div>';
   }
   html += '</div>';
-  
-  if (isPublisher && rStatus === 'waiting') {
-    html += '<div class="bottom-bar"><button class="comp-btn outline round block" onclick="doDeferResponse(' + h.id + ', \'' + r.name + '\')">暂不考虑</button><button class="comp-btn primary round block" onclick="doAcceptResponse(' + h.id + ', \'' + r.name + '\')">接受</button></div>';
-  }
   
   html += '</div>';
   return html;
@@ -2995,8 +2978,7 @@ Views.ServiceProjectDetail = function() {
   html += '<div style="font-size:16px;font-weight:600;margin-bottom:10px">服务详情</div>';
   html += UI_CellGroup([
     { title: '服务周期', value: '根据实际情况协商' },
-    { title: '服务方式', value: '线上 + 线下' },
-    { title: '响应时间', value: '24 小时内' }
+    { title: '服务方式', value: '线上 + 线下' }
   ], false);
   html += '</div>';
 
@@ -3508,23 +3490,31 @@ Views.ProfileSocial = function() {
 
 Views.ProfileHelpCenter = function() {
   var html = '<div class="page-container">' + UI_NavBar('互助与响应', true);
-  var items = [
-    { title: '我的求助', path: '/profile/my-help', icon: 'help' },
-    { title: '我的响应', path: '/profile/my-response', icon: 'message' }
-  ];
-  html += '<div class="card-list">';
-  items.forEach(function(item) {
-    html += '<div class="comp-cell" data-action="nav" data-payload="' + item.path + '">';
-    html += '<div style="width:40px;height:40px;border-radius:10px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin-right:12px">';
-    html += iconSVG(item.icon, 18, '#fff');
-    html += '</div>';
-    html += '<div class="cell-body">';
-    html += '<div class="cell-title">' + escapeHtml(item.title) + '</div>';
-    html += '</div>';
-    html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
-    html += '</div>';
+  var records = [];
+  helpList.forEach(function(h) {
+    if (AppState.myHelp.indexOf(h.id) >= 0) {
+      // 我的求助（发布者 = 求助发布者）
+      records.push({ avatar: h.publisher.avatar, name: h.publisher.name, title: h.title, sub: h.date + ' · ' + (h.responseCount || 0) + '人响应', helpId: h.id });
+      // 收到的响应（发布者 = 响应者）
+      (h.responses || []).forEach(function(r) {
+        records.push({ avatar: r.avatar, name: r.name, title: h.title, sub: r.text, helpId: h.id });
+      });
+    }
   });
-  html += '</div></div>';
+  if (!records.length) {
+    html += UI_Empty('暂无互助记录');
+  } else {
+    html += '<div class="card-list">';
+    records.forEach(function(rec) {
+      html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + rec.helpId + '">';
+      html += '<img src="' + rec.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px">';
+      html += '<div class="cell-body"><div class="cell-title">' + escapeHtml(rec.title) + '</div><div class="cell-label">' + escapeHtml(rec.name) + ' · ' + escapeHtml(rec.sub) + '</div></div>';
+      html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
   return html;
 };
 
