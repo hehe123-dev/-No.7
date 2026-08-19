@@ -481,6 +481,7 @@ var groupBuyList = [
 var AppState = {
   isLoggedIn: false,
   currentRole: '商务会员',
+  userName: '演示用户',
   // 校友认证审核状态：'pending'(审核中) / 'rejected'(已驳回) / null(未提交或已通过)
   alumniCertStatus: 'rejected',
   alumniCertRejectReason: '提交的学籍材料不清晰，请重新上传毕业证/学位证照片，并确保个人信息页完整可见',

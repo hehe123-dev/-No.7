@@ -749,7 +749,6 @@ Views.HelpList = function() {
 Views.HelpDetail = function() {
   var h = helpList.find(function(item) { return item.id == Router.params.id; });
   if (!h) return '<div class="page-container">' + UI_NavBar('求助详情', true) + UI_Empty('求助未找到') + '</div>';
-  var isPublisher = AppState.myHelp.indexOf(h.id) >= 0;
   var statusText = '';
   var statusColor = 'warning';
   var html = '<div class="page-container no-tab">' + UI_NavBar('求助详情', true);
@@ -785,7 +784,7 @@ Views.HelpDetail = function() {
   html += '<div style="padding:12px 16px;font-size:13px;color:#999;border-bottom:1px solid #f0f0f0">响应列表 (' + h.responseCount + ')</div>';
   (h.responses || []).forEach(function(r, idx) {
     var rStatus = r.responseStatus || 'waiting';
-    var rStatusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+    var rStatusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : ''));
     var rStatusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
     html += '<div style="border-bottom:1px solid #f5f5f5">';
     html += '<div class="comp-cell" style="padding:12px 16px;display:flex;align-items:flex-start">';
@@ -804,13 +803,7 @@ Views.HelpDetail = function() {
     html += '<div style="font-size:13px;color:#555;line-height:1.5;margin-bottom:6px">' + escapeHtml(r.text) + '</div>';
     html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
     html += '<span style="font-size:11px;color:#999">' + r.time + '</span>';
-    if (isPublisher) {
-      if (rStatus === 'waiting') {
-        html += '<span class="cmt-status" style="margin-left:auto">' + rStatusText + '</span>';
-      } else {
-        html += UI_Tag(rStatusText, rStatusColor);
-      }
-    } else if (rStatus !== 'waiting') {
+    if (rStatus !== 'waiting') {
       html += UI_Tag(rStatusText, rStatusColor);
     }
     html += '</div>';
@@ -2610,12 +2603,14 @@ Views.ProfileMyResponse = function() {
       html += '<div class="card-list">';
       receivedResponses.forEach(function(r) {
         var rStatus = r.responseStatus || 'waiting';
-        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+        var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : ''));
         var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
         html += '<div data-action="nav" data-payload="/help/' + r.helpId + '">';
         html += '<div class="comp-cell"><img src="' + r.responderAvatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(r.helpTitle) + '</div><div class="cell-label">' + escapeHtml(r.responderName) + ' · ' + r.responderRole + ' · ' + r.time + '</div><div style="font-size:13px;color:#666;margin-top:4px">' + escapeHtml(r.text) + '</div></div>';
         html += '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">';
-        html += UI_Tag(statusText, statusColor);
+        if (rStatus !== 'waiting') {
+          html += UI_Tag(statusText, statusColor);
+        }
         html += '</div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
         if (rStatus === 'rejected' && r.rejectReason) {
           html += '<div style="padding:8px 16px;color:#f56c6c;font-size:12px;background:#fef0f0;border-radius:4px;margin:0 16px 8px;line-height:1.6"><span style="font-weight:600">驳回原因：</span>' + escapeHtml(r.rejectReason) + '</div>';
@@ -2669,7 +2664,7 @@ Views.HelpResponseDetail = function() {
   var isPublisher = AppState.myHelp.indexOf(h.id) >= 0;
   var isResponder = r.name === AppState.userName;
   var rStatus = r.responseStatus || 'waiting';
-  var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : '等待处理'));
+  var statusText = rStatus === 'accepted' ? '已接受' : (rStatus === 'finished' ? '已完成' : (rStatus === 'rejected' ? '已驳回' : ''));
   var statusColor = rStatus === 'accepted' ? 'success' : (rStatus === 'finished' ? 'info' : (rStatus === 'rejected' ? 'danger' : 'warning'));
   var hStatusText = '';
   var hStatusColor = 'warning';
@@ -2691,7 +2686,7 @@ Views.HelpResponseDetail = function() {
   html += '<div class="section-title">响应内容</div>';
   html += '<div class="card-item" style="padding:16px">';
   html += '<div style="font-size:14px;line-height:1.6;color:#333">' + escapeHtml(r.text) + '</div>';
-  html += '<div style="font-size:12px;color:#999;margin-top:12px">响应时间：' + r.time + ' · ' + UI_Tag(statusText, statusColor) + '</div>';
+  html += '<div style="font-size:12px;color:#999;margin-top:12px">响应时间：' + r.time + (rStatus !== 'waiting' ? ' · ' + UI_Tag(statusText, statusColor) : '') + '</div>';
   if (rStatus === 'rejected' && r.rejectReason) {
     html += '<div style="margin-top:12px;padding:10px 12px;color:#f56c6c;font-size:12px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:6px;line-height:1.6"><div style="font-weight:600;margin-bottom:2px">驳回原因</div>' + escapeHtml(r.rejectReason) + '</div>';
   }
@@ -3495,25 +3490,39 @@ Views.ProfileHelpCenter = function() {
   var html = '<div class="page-container">' + UI_NavBar('互助与响应', true);
   var records = [];
   helpList.forEach(function(h) {
-    if (AppState.myHelp.indexOf(h.id) >= 0) {
+    var isMyHelp = AppState.myHelp.indexOf(h.id) >= 0;
+    if (isMyHelp) {
       // 我的求助（发布者 = 求助发布者）
-      records.push({ avatar: h.publisher.avatar, name: h.publisher.name, title: h.title, sub: h.date + ' · ' + (h.responseCount || 0) + '人响应', helpId: h.id });
-      // 收到的响应（发布者 = 响应者）
-      (h.responses || []).forEach(function(r) {
-        records.push({ avatar: r.avatar, name: r.name, title: h.title, sub: r.text, helpId: h.id });
-      });
+      records.push({ type: 'myHelp', avatar: h.publisher.avatar, name: h.publisher.name, title: h.title, sub: h.date + ' · ' + (h.responseCount || 0) + '人响应', helpId: h.id });
     }
+    (h.responses || []).forEach(function(r) {
+      if (r.name === AppState.userName || isMyHelp) {
+        // 所有响应统一按「我发出的」样式展示
+        records.push({ type: 'myResponse', avatar: h.publisher.avatar, name: h.publisher.name, title: h.title, myText: r.text, helpId: h.id });
+      }
+    });
   });
   if (!records.length) {
     html += UI_Empty('暂无互助记录');
   } else {
     html += '<div class="card-list">';
     records.forEach(function(rec) {
-      html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + rec.helpId + '">';
-      html += '<img src="' + rec.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px">';
-      html += '<div class="cell-body"><div class="cell-title">' + escapeHtml(rec.title) + '</div><div class="cell-label">' + escapeHtml(rec.name) + ' · ' + escapeHtml(rec.sub) + '</div></div>';
-      html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
-      html += '</div>';
+      if (rec.type === 'myResponse') {
+        html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + rec.helpId + '">';
+        html += '<img src="' + rec.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px;flex-shrink:0">';
+        html += '<div class="cell-body">';
+        html += '<div style="font-size:16px;font-weight:600;color:#333;line-height:1.5">' + escapeHtml(rec.myText) + '</div>';
+        html += '<div style="font-size:12px;color:#999;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">回复 <span style="color:#666;font-weight:500">' + escapeHtml(rec.name) + '</span> · ' + escapeHtml(rec.title) + '</div>';
+        html += '</div>';
+        html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
+        html += '</div>';
+      } else {
+        html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + rec.helpId + '">';
+        html += '<img src="' + rec.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px">';
+        html += '<div class="cell-body"><div class="cell-title">' + escapeHtml(rec.title) + '</div><div class="cell-label">' + escapeHtml(rec.name) + ' · ' + escapeHtml(rec.sub) + '</div></div>';
+        html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
+        html += '</div>';
+      }
     });
     html += '</div>';
   }
