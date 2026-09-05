@@ -111,6 +111,10 @@ img{max-width:100%}a{color:inherit;text-decoration:none}input,textarea,button,se
 /* ========== TOOLBAR ========== */
 .toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px}.toolbar-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.toolbar-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-left:auto}
 .total-count{font-size:13px;color:var(--info);white-space:nowrap}
+.filter-tabs{display:flex;gap:8px;padding:0 0 14px;flex-wrap:wrap}
+.filter-tab{padding:6px 16px;border-radius:20px;font-size:13px;color:var(--text-light);background:#fff;border:1px solid var(--border);cursor:pointer;transition:all .2s;white-space:nowrap}
+.filter-tab:hover{border-color:var(--primary);color:var(--primary)}
+.filter-tab.active{background:var(--primary);border-color:var(--primary);color:#fff;font-weight:600}
 .search-input{position:relative;display:inline-flex;align-items:center}.search-input input{padding-left:34px!important}.search-input .search-icon-slot{position:absolute;left:10px;color:#c0c4cc;pointer-events:none;display:flex;align-items:center}
 
 /* ========== TABS ========== */
@@ -236,8 +240,10 @@ function luci(name,size){size=size||16;var s='width:'+size+'px;height:'+size+'px
 // ================================================================
 var newsList=[{id:1,title:'北京理工大学2026年校友企业家论坛成功举办',cover:'https://picsum.photos/seed/news1/400/240',date:'2026-06-08',author:'平台管理员',summary:'6月5日，北京理工大学2026年校友企业家论坛在中关村校区隆重举行。',content:'<p>6月5日，北京理工大学2026年校友企业家论坛在中关村校区隆重举行，来自全国各地的200余位校友企业家齐聚一堂，共话创新发展。本次论坛以"科技创新与产业升级"为主题，围绕人工智能、新能源、先进制造等前沿领域展开深入研讨。</p>',views:1256,likes:89,comments:23},{id:2,title:'白石桥七号会员企业走访——走进华为技术有限公司',cover:'https://picsum.photos/seed/news2/400/240',date:'2026-06-05',author:'平台管理员',summary:'近日，白石桥七号组织会员企业代表赴华为技术有限公司参观交流。',content:'<p>近日，白石桥七号组织会员企业代表赴华为技术有限公司参观交流，深入了解华为在5G、云计算、人工智能等领域的创新成果。</p>',views:986,likes:67,comments:15},{id:3,title:'人工智能赋能制造业转型升级专题沙龙圆满落幕',cover:'https://picsum.photos/seed/news3/400/240',date:'2026-06-01',author:'平台管理员',summary:'由白石桥七号主办的"AI赋能制造业"专题沙龙在北京成功举办。',content:'<p>由白石桥七号主办的"AI赋能制造业"专题沙龙在北京成功举办，来自AI领域和制造业的40余位校友进行了深度交流。</p>',views:756,likes:45,comments:12},{id:4,title:'关于征集北理工校友企业产品入驻平台的通知',cover:'https://picsum.photos/seed/news4/400/240',date:'2026-05-28',author:'平台管理员',summary:'为进一步丰富平台资源，现面向全体校友企业征集优质产品入驻。',content:'<p>为进一步丰富平台资源，现面向全体校友企业征集优质产品入驻白石桥七号商务平台。</p>',views:1567,likes:112,comments:35},{id:5,title:'北理工人工智能校友会春季技术交流会圆满举办',cover:'https://picsum.photos/seed/news5/400/240',date:'2026-05-20',author:'北理工人工智能校友会',summary:'北理工人工智能校友会组织春季技术交流会，聚焦大模型与AI应用。',content:'<p>北理工人工智能校友会春季技术交流会于5月18日在中关村软件园举办，邀请多位AI领域校友分享大模型最新进展与应用实践。</p>',views:689,likes:52,comments:18}];
 var topicList=[{id:1,title:'从0到1：我的AI创业之路',cover:'https://picsum.photos/seed/topic1/400/240',author:'平台管理员',date:'2026-06-01',summary:'分享我在人工智能领域的创业经历和感悟。',content:'<p>大家好，我是自动化学院2005级的张建国。今天想和大家分享一下我在AI领域的创业历程。</p>',views:2356,likes:156,comments:32},{id:2,title:'新能源汽车行业发展趋势与机会',cover:'https://picsum.photos/seed/topic2/400/240',author:'平台管理员',date:'2026-05-25',summary:'基于我在蔚来汽车的工作经验，分享对新能源汽车行业未来发展的判断。',content:'<p>作为在新能源汽车行业工作多年的从业者，我想分享一些对这个行业未来发展的看法。</p>',views:1890,likes:98,comments:15}];
+var alumniEssayList=[{id:1,title:'北理工的银杏大道',cover:'https://picsum.photos/seed/essay1/400/240',author:'李芳',date:'2026-05-10',summary:'深秋时节回到母校，漫步银杏大道，回忆那段金色的青春岁月。',content:'<p>深秋的北京，天高云淡。我再次踏进阔别多年的北理工校园，直奔那条魂牵梦萦的银杏大道。</p><p>金黄的银杏叶铺满地面，阳光透过枝叶洒下斑驳的光影。当年我们背着书包匆匆走过这里，从未想过多年后会如此怀念。</p><p>图书馆、教学楼、食堂，每一处都承载着青春的印记。时光荏苒，但那份对母校的深情从未改变。</p>',views:1280,likes:96,comments:18},{id:2,title:'恩师难忘——怀念我的导师',cover:'https://picsum.photos/seed/essay2/400/240',author:'王强',date:'2026-04-18',summary:'毕业多年，仍时常想起导师的谆谆教诲和严谨治学的精神。',content:'<p>我的导师是一位极其严谨的学者，对待学术一丝不苟。记得有一次论文修改，他逐字逐句地批注，连标点符号都不放过。</p><p>毕业后我才真正体会到，导师教给我的不仅是知识，更是做人做事的态度。那份认真与执着，影响了我整个职业生涯。</p><p>每逢教师节，我都会给导师发去问候。师恩如山，永生难忘。</p>',views:986,likes:72,comments:12}];
+var campusMemoryList=[{id:1,title:'八十年代的中关村校区',cover:'https://picsum.photos/seed/campus1/400/240',author:'陈老校友',date:'2026-03-20',summary:'翻出泛黄的老照片，回忆八十年代北理工的校园时光。',content:'<p>最近整理旧物，翻出一沓八十年代在母校拍的老照片。那时的中关村校区还没有现在的高楼大厦，校园里绿树成荫，格外宁静。</p><p>记得那时候我们宿舍八个人挤一间房，冬天靠煤炉取暖，条件虽然艰苦，但大家其乐融融。晚自习后一起去操场跑步、聊天，是最快乐的时光。</p><p>四十多年过去了，母校发生了翻天覆地的变化，但那份对母校的眷恋从未改变。</p>',views:1560,likes:132,comments:25},{id:2,title:'篮球场上的青春',cover:'https://picsum.photos/seed/campus2/400/240',author:'刘洋',date:'2026-02-15',summary:'那片挥洒汗水的篮球场，承载着我们最热血的青春记忆。',content:'<p>如果说大学生活最难忘的地方，一定是那片篮球场。每天下午下课后，我们几个球友准时集合，一直打到天黑。</p><p>院系联赛是我们最期待的盛事，整个系的同学都来加油助威。赢球后的欢呼、输球后的沮丧，都是青春最真实的模样。</p><p>如今我们各奔东西，但每年校庆都会约一场球，重温当年的热血与激情。</p>',views:1105,likes:87,comments:16}];
 var interviewList=[{id:1,title:'从技术专家到创业者——专访智控科技CEO张建国',cover:'https://picsum.photos/seed/interview1/400/240',author:'平台管理员',date:'2026-05-20',summary:'张建国校友分享了从西门子技术专家到创办智控科技的心路历程。',content:'<p><strong>问：是什么促使你离开外企选择创业？</strong></p><p>张建国：在西门子工作了近10年，2018年看到国内制造业智能化转型的需求爆发，我判断这是一个千载难逢的机会窗口。</p>',views:3210,likes:210,comments:45},{id:2,title:'创新药研发的北理工力量——访康源生物CEO刘芳',cover:'https://picsum.photos/seed/interview2/400/240',author:'平台管理员',date:'2026-05-15',summary:'刘芳校友分享了在创新药研发领域的创业故事。',content:'<p><strong>问：为什么选择肿瘤免疫治疗这个方向？</strong></p><p>刘芳：我母亲因癌症去世，这成为我投身肿瘤药物研发的原动力。</p>',views:2180,likes:145,comments:28}];
-var activityList=[{id:1,type:'商务活动',publishSource:'admin',reviewStatus:'approved',title:'北理工校友企业投融资对接会',subtitle:'汇聚资本力量，赋能校友创业',cover:'https://picsum.photos/seed/act1/400/240',date:'2026-09-01',endDate:'2026-09-01',startTime:'09:00',endTime:'17:00',location:'北京中关村',fee:0,organizer:'张建国',orgAvatar:'https://picsum.photos/seed/avatar1/100/100',publisher:{name:'张建国',avatar:'https://picsum.photos/seed/avatar1/100/100',role:'商务会员'},deadline:'2026-08-25',description:'<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:28,registrations:[]},{id:2,type:'校友活动',category:'参访交流',publishSource:'admin',reviewStatus:'approved',title:'走进字节跳动——数字化转型与组织创新',subtitle:'探索科技巨头的创新密码',cover:'https://picsum.photos/seed/act2/400/240',date:'2026-08-10',endDate:'2026-08-15',startTime:'10:00',endTime:'16:00',location:'北京海淀',fee:200,organizer:'李明远',orgAvatar:'https://picsum.photos/seed/avatar2/100/100',publisher:{name:'李明远',avatar:'https://picsum.photos/seed/avatar2/100/100',role:'认证校友'},deadline:'2026-08-05',description:'<p>参访字节跳动总部。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:45,registrations:[]},{id:3,type:'商务活动',publishSource:'miniapp',reviewStatus:'approved',title:'2026北理工校友创业项目路演（第二季）',subtitle:'展示创业成果',cover:'https://picsum.photos/seed/act3/400/240',date:'2026-08-20',endDate:'2026-08-20',startTime:'14:00',endTime:'18:00',location:'北京朝阳',fee:0,organizer:'王军',orgAvatar:'https://picsum.photos/seed/avatar3/100/100',publisher:{name:'王军',avatar:'https://picsum.photos/seed/avatar3/100/100',role:'商务会员'},deadline:'2026-08-05',description:'<p>为展示校友创业成果。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:56,registrations:[]},{id:4,type:'校友活动',category:'文体活动',publishSource:'miniapp',reviewStatus:'pending',title:'北理工羽毛球校友联谊赛',subtitle:'以球会友',cover:'https://picsum.photos/seed/act4/400/240',date:'2026-09-10',endDate:'2026-09-10',startTime:'09:00',endTime:'17:00',location:'北京理工大学体育馆',fee:50,organizer:'赵明辉',orgAvatar:'https://picsum.photos/seed/m1/100/100',publisher:{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',role:'认证校友'},deadline:'2026-09-05',description:'<p>面向全体北理工校友的羽毛球友谊赛。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[]},{id:5,type:'商务活动',publishSource:'miniapp',reviewStatus:'pending',title:'校友企业联合招聘会（北京站）',subtitle:'汇聚优质岗位',cover:'https://picsum.photos/seed/act5/400/240',date:'2026-08-25',endDate:'2026-08-26',startTime:'09:00',endTime:'16:00',location:'北京中关村国际人才中心',fee:0,organizer:'陈晓华',orgAvatar:'https://picsum.photos/seed/u2/100/100',publisher:{name:'陈晓华',avatar:'https://picsum.photos/seed/u2/100/100',role:'商务会员'},deadline:'2026-08-20',description:'<p>由白石桥七号平台联合20余家校友企业举办的大型线下招聘会。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[]},{id:6,type:'平台活动',publishSource:'admin',reviewStatus:'approved',title:'白石桥七号年度校友大会',subtitle:'凝聚校友力量',cover:'https://picsum.photos/seed/act6/400/240',date:'2026-09-15',endDate:'2026-09-16',startTime:'09:00',endTime:'17:30',location:'北京国家会议中心',fee:0,organizer:'平台运营',orgAvatar:'https://picsum.photos/seed/admin/100/100',publisher:{name:'平台运营',avatar:'https://picsum.photos/seed/admin/100/100',role:'平台'},deadline:'2026-09-10',description:'<p>一年一度的白石桥七号校友大会。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:320,registrations:[]},{id:7,type:'社团活动',publishSource:'admin',reviewStatus:'approved',title:'AI校友会大模型技术研讨会',subtitle:'探索AI前沿',cover:'https://picsum.photos/seed/act7/400/240',date:'2026-08-11',endDate:'2026-08-12',startTime:'14:00',endTime:'18:00',location:'中关村软件园',fee:0,organizer:'平台管理员',orgAvatar:'https://picsum.photos/seed/admin/100/100',publisher:{name:'平台运营',avatar:'https://picsum.photos/seed/admin/100/100',role:'平台'},deadline:'2026-08-08',description:'<p>邀请业界大咖分享大模型最新技术进展。</p>',groupName:'北理工人工智能校友会',registerFields:[],publishScope:{type:'group',regions:[],industries:[],members:[],groups:['北理工人工智能校友会']},registered:32,registrations:[]},{id:8,type:'社团活动',publishSource:'miniapp',reviewStatus:'approved',title:'北理 vs 清华校友足球友谊赛',subtitle:'绿茵场上的校友情谊',cover:'https://picsum.photos/seed/act8/400/240',date:'2026-06-28',endDate:'2026-06-28',startTime:'14:00',endTime:'16:30',location:'北理工中关村校区体育场',fee:30,organizer:'北理工北京校友足球队',orgAvatar:'https://picsum.photos/seed/g3/200/200',publisher:{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',role:'社团管理员'},deadline:'2026-06-25',description:'<p>一年一度的友谊赛。</p>',groupName:'北理工北京校友足球队',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:86,registrations:[]},{id:9,type:'社团活动',publishSource:'admin',reviewStatus:'approved',title:'广东校友会企业走访——华为松山湖',cover:'https://picsum.photos/seed/act9/400/240',date:'2026-07-15',endDate:'2026-07-15',startTime:'09:00',endTime:'16:00',location:'华为松山湖基地',fee:0,organizer:'北理工广东校友会',orgAvatar:'https://picsum.photos/seed/g4/200/200',publisher:{name:'黄文杰',avatar:'https://picsum.photos/seed/m4/100/100',role:'社团管理员'},deadline:'2026-07-10',description:'<p>走访华为松山湖基地。</p>',groupName:'北理工广东校友会',registerFields:[],publishScope:{type:'region',regions:['广东'],industries:[],members:[],groups:[]},registered:42,registrations:[]},{id:10,type:'校友活动',category:'校友聚会',publishSource:'miniapp',reviewStatus:'rejected',title:'校友户外烧烤聚会',cover:'https://picsum.photos/seed/act10/400/240',date:'2026-08-30',endDate:'2026-08-30',startTime:'',endTime:'',location:'奥林匹克森林公园',fee:80,organizer:'刘芳',orgAvatar:'https://picsum.photos/seed/u3/100/100',publisher:{name:'刘芳',avatar:'https://picsum.photos/seed/u3/100/100',role:'认证校友'},deadline:'2026-08-25',description:'周末户外烧烤聚会。',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[],reviewComment:'活动描述过于简略，请补充具体活动安排和安全措施说明。'}];
+var activityList=[{id:1,type:'商务活动',publishSource:'admin',reviewStatus:'approved',title:'北理工校友企业投融资对接会',subtitle:'汇聚资本力量，赋能校友创业',cover:'https://picsum.photos/seed/act1/400/240',date:'2026-09-01',endDate:'2026-09-01',startTime:'09:00',endTime:'17:00',location:'北京中关村',fee:0,organizer:'张建国',orgAvatar:'https://picsum.photos/seed/avatar1/100/100',publisher:{name:'张建国',avatar:'https://picsum.photos/seed/avatar1/100/100',role:'认证校友'},deadline:'2026-08-25',description:'<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:28,registrations:[]},{id:2,type:'校友活动',category:'参访交流',publishSource:'admin',reviewStatus:'approved',title:'走进字节跳动——数字化转型与组织创新',subtitle:'探索科技巨头的创新密码',cover:'https://picsum.photos/seed/act2/400/240',date:'2026-08-10',endDate:'2026-08-15',startTime:'10:00',endTime:'16:00',location:'北京海淀',fee:200,organizer:'李明远',orgAvatar:'https://picsum.photos/seed/avatar2/100/100',publisher:{name:'李明远',avatar:'https://picsum.photos/seed/avatar2/100/100',role:'认证校友'},deadline:'2026-08-05',description:'<p>参访字节跳动总部。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:45,registrations:[]},{id:3,type:'商务活动',publishSource:'miniapp',reviewStatus:'approved',title:'2026北理工校友创业项目路演（第二季）',subtitle:'展示创业成果',cover:'https://picsum.photos/seed/act3/400/240',date:'2026-08-20',endDate:'2026-08-20',startTime:'14:00',endTime:'18:00',location:'北京朝阳',fee:0,organizer:'王军',orgAvatar:'https://picsum.photos/seed/avatar3/100/100',publisher:{name:'王军',avatar:'https://picsum.photos/seed/avatar3/100/100',role:'认证校友'},deadline:'2026-08-05',description:'<p>为展示校友创业成果。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:56,registrations:[]},{id:4,type:'校友活动',category:'文体活动',publishSource:'miniapp',reviewStatus:'pending',title:'北理工羽毛球校友联谊赛',subtitle:'以球会友',cover:'https://picsum.photos/seed/act4/400/240',date:'2026-09-10',endDate:'2026-09-10',startTime:'09:00',endTime:'17:00',location:'北京理工大学体育馆',fee:50,organizer:'赵明辉',orgAvatar:'https://picsum.photos/seed/m1/100/100',publisher:{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',role:'认证校友'},deadline:'2026-09-05',description:'<p>面向全体北理工校友的羽毛球友谊赛。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[]},{id:5,type:'商务活动',publishSource:'miniapp',reviewStatus:'pending',title:'校友企业联合招聘会（北京站）',subtitle:'汇聚优质岗位',cover:'https://picsum.photos/seed/act5/400/240',date:'2026-08-25',endDate:'2026-08-26',startTime:'09:00',endTime:'16:00',location:'北京中关村国际人才中心',fee:0,organizer:'陈晓华',orgAvatar:'https://picsum.photos/seed/u2/100/100',publisher:{name:'陈晓华',avatar:'https://picsum.photos/seed/u2/100/100',role:'认证校友'},deadline:'2026-08-20',description:'<p>由白石桥七号平台联合20余家校友企业举办的大型线下招聘会。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[]},{id:6,type:'平台活动',publishSource:'admin',reviewStatus:'approved',title:'白石桥七号年度校友大会',subtitle:'凝聚校友力量',cover:'https://picsum.photos/seed/act6/400/240',date:'2026-09-15',endDate:'2026-09-16',startTime:'09:00',endTime:'17:30',location:'北京国家会议中心',fee:0,organizer:'平台运营',orgAvatar:'https://picsum.photos/seed/admin/100/100',publisher:{name:'平台运营',avatar:'https://picsum.photos/seed/admin/100/100',role:'平台'},deadline:'2026-09-10',description:'<p>一年一度的白石桥七号校友大会。</p>',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:320,registrations:[]},{id:7,type:'社团活动',publishSource:'admin',reviewStatus:'approved',title:'AI校友会大模型技术研讨会',subtitle:'探索AI前沿',cover:'https://picsum.photos/seed/act7/400/240',date:'2026-08-11',endDate:'2026-08-12',startTime:'14:00',endTime:'18:00',location:'中关村软件园',fee:0,organizer:'平台管理员',orgAvatar:'https://picsum.photos/seed/admin/100/100',publisher:{name:'平台运营',avatar:'https://picsum.photos/seed/admin/100/100',role:'平台'},deadline:'2026-08-08',description:'<p>邀请业界大咖分享大模型最新技术进展。</p>',groupName:'北理工人工智能校友会',registerFields:[],publishScope:{type:'group',regions:[],industries:[],members:[],groups:['北理工人工智能校友会']},registered:32,registrations:[]},{id:8,type:'社团活动',publishSource:'miniapp',reviewStatus:'approved',title:'北理 vs 清华校友足球友谊赛',subtitle:'绿茵场上的校友情谊',cover:'https://picsum.photos/seed/act8/400/240',date:'2026-06-28',endDate:'2026-06-28',startTime:'14:00',endTime:'16:30',location:'北理工中关村校区体育场',fee:30,organizer:'北理工北京校友足球队',orgAvatar:'https://picsum.photos/seed/g3/200/200',publisher:{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',role:'社团管理员'},deadline:'2026-06-25',description:'<p>一年一度的友谊赛。</p>',groupName:'北理工北京校友足球队',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:86,registrations:[]},{id:9,type:'社团活动',publishSource:'admin',reviewStatus:'approved',title:'广东校友会企业走访——华为松山湖',cover:'https://picsum.photos/seed/act9/400/240',date:'2026-07-15',endDate:'2026-07-15',startTime:'09:00',endTime:'16:00',location:'华为松山湖基地',fee:0,organizer:'北理工广东校友会',orgAvatar:'https://picsum.photos/seed/g4/200/200',publisher:{name:'黄文杰',avatar:'https://picsum.photos/seed/m4/100/100',role:'社团管理员'},deadline:'2026-07-10',description:'<p>走访华为松山湖基地。</p>',groupName:'北理工广东校友会',registerFields:[],publishScope:{type:'region',regions:['广东'],industries:[],members:[],groups:[]},registered:42,registrations:[]},{id:10,type:'校友活动',category:'校友聚会',publishSource:'miniapp',reviewStatus:'rejected',title:'校友户外烧烤聚会',cover:'https://picsum.photos/seed/act10/400/240',date:'2026-08-30',endDate:'2026-08-30',startTime:'',endTime:'',location:'奥林匹克森林公园',fee:80,organizer:'刘芳',orgAvatar:'https://picsum.photos/seed/u3/100/100',publisher:{name:'刘芳',avatar:'https://picsum.photos/seed/u3/100/100',role:'认证校友'},deadline:'2026-08-25',description:'周末户外烧烤聚会。',registerFields:[],publishScope:{type:'all',regions:[],industries:[],members:[],groups:[]},registered:0,registrations:[],reviewComment:'活动描述过于简略，请补充具体活动安排和安全措施说明。'}];
 
 // 补齐活动报名字段与报名数据（与 Vue 版 mock/data.ts 对齐）
 (function(){
@@ -269,13 +275,13 @@ var activityList=[{id:1,type:'商务活动',publishSource:'admin',reviewStatus:'
   activityList.forEach(function(a){if(RF[a.id])a.registerFields=RF[a.id];if(RG[a.id])a.registrations=RG[a.id]});
 })();
 
-var groupList=[{id:1,name:'北理工人工智能校友会',logo:'https://picsum.photos/seed/g1/200/200',category:'行业社团',leader:'赵明辉',phone:'138****0001',email:'zhaominghui@bit.edu.cn',intro:'汇聚人工智能领域的北理工校友，定期举办技术交流、项目合作和人才对接活动。目前已有成员200余人。',memberCount:218,news:[{id:1,title:'AI校友会春季技术交流会圆满举办'},{id:2,title:'AI校友会赴商汤科技参观学习'}],activities:[{id:1,title:'大模型技术研讨会',date:'2026-06-20',location:'中关村软件园',description:'邀请业界大咖分享大模型最新技术进展。'}],members:[{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',school:'自动化学院',year:'2005级',joinDate:'2025-03-01'},{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',school:'自动化学院',year:'2005级',joinDate:'2025-03-10'},{name:'李明远',avatar:'https://picsum.photos/seed/u2/100/100',school:'计算机学院',year:'2008级',joinDate:'2025-06-15'}]},{id:2,name:'北理工金融投资校友俱乐部',logo:'https://picsum.photos/seed/g2/200/200',category:'行业社团',leader:'陈立',phone:'139****0002',email:'chenli@bit.edu.cn',intro:'由从事金融投资行业的校友发起，旨在搭建校友间的投融资对接平台。',memberCount:156,news:[],activities:[{id:1,title:'校友企业投融资对接会',date:'2026-07-08',location:'北京国贸三期',description:'为有融资需求的校友企业对接投资机构。'}],members:[{name:'陈立',avatar:'https://picsum.photos/seed/m2/100/100',school:'管理与经济学院',year:'2006级',joinDate:'2025-02-20'}]},{id:3,name:'北理工北京校友足球队',logo:'https://picsum.photos/seed/g3/200/200',category:'兴趣社团',leader:'孙磊',phone:'137****0003',email:'sunlei@bit.edu.cn',intro:'热爱足球的北理工北京校友聚集地。',memberCount:68,news:[],activities:[{id:1,title:'友谊赛 vs 清华校友队',date:'2026-06-28',location:'北理工中关村校区体育场'}],members:[{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',school:'机械与车辆学院',year:'2007级',joinDate:'2024-09-01'}]},{id:4,name:'北理工广东校友会',logo:'https://picsum.photos/seed/g4/200/200',category:'地方社团',leader:'黄文杰',phone:'135****0004',email:'huangwenjie@bit.edu.cn',intro:'广东地区北理工校友的联络平台。',memberCount:320,news:[],activities:[],members:[{name:'黄文杰',avatar:'https://picsum.photos/seed/m4/100/100',school:'信息与电子学院',year:'2004级',joinDate:'2023-05-10'}]}];
+var groupList=[{id:1,name:'北理工人工智能校友会',logo:'https://picsum.photos/seed/g1/200/200',category:'行业社群',leader:'赵明辉',phone:'138****0001',email:'zhaominghui@bit.edu.cn',intro:'汇聚人工智能领域的北理工校友，定期举办技术交流、项目合作和人才对接活动。目前已有成员200余人。',memberCount:218,news:[{id:1,title:'AI校友会春季技术交流会圆满举办'},{id:2,title:'AI校友会赴商汤科技参观学习'}],activities:[{id:1,title:'大模型技术研讨会',date:'2026-06-20',location:'中关村软件园',description:'邀请业界大咖分享大模型最新技术进展。'}],members:[{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',school:'自动化学院',year:'2005级',joinDate:'2025-03-01'},{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',school:'自动化学院',year:'2005级',joinDate:'2025-03-10'},{name:'李明远',avatar:'https://picsum.photos/seed/u2/100/100',school:'计算机学院',year:'2008级',joinDate:'2025-06-15'}]},{id:2,name:'北理工金融投资校友俱乐部',logo:'https://picsum.photos/seed/g2/200/200',category:'行业社群',leader:'陈立',phone:'139****0002',email:'chenli@bit.edu.cn',intro:'由从事金融投资行业的校友发起，旨在搭建校友间的投融资对接平台。',memberCount:156,news:[],activities:[{id:1,title:'校友企业投融资对接会',date:'2026-07-08',location:'北京国贸三期',description:'为有融资需求的校友企业对接投资机构。'}],members:[{name:'陈立',avatar:'https://picsum.photos/seed/m2/100/100',school:'管理与经济学院',year:'2006级',joinDate:'2025-02-20'}]},{id:3,name:'北理工北京校友足球队',logo:'https://picsum.photos/seed/g3/200/200',category:'兴趣社团',leader:'孙磊',phone:'137****0003',email:'sunlei@bit.edu.cn',intro:'热爱足球的北理工北京校友聚集地。',memberCount:68,news:[],activities:[{id:1,title:'友谊赛 vs 清华校友队',date:'2026-06-28',location:'北理工中关村校区体育场'}],members:[{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',school:'机械与车辆学院',year:'2007级',joinDate:'2024-09-01'}]},{id:4,name:'北理工广东校友会',logo:'https://picsum.photos/seed/g4/200/200',category:'地方社群',leader:'黄文杰',phone:'135****0004',email:'huangwenjie@bit.edu.cn',intro:'广东地区北理工校友的联络平台。',memberCount:320,news:[],activities:[],members:[{name:'黄文杰',avatar:'https://picsum.photos/seed/m4/100/100',school:'信息与电子学院',year:'2004级',joinDate:'2023-05-10'}]}];
 
-var helpList=[{id:1,title:'寻找新能源电池领域的技术合作伙伴',publisher:{name:'陈晓华',avatar:'https://picsum.photos/seed/u2/100/100',role:'商务会员',phone:'135****3456',email:'chenxh@starlight.com'},date:'2026-06-08',description:'我们公司正在开发新一代储能电池管理系统，需要寻找在电池管理芯片或算法方面有技术积累的校友合作。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-09 10:30',reviewer:'管理员',responseCount:3,responses:[{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'商务会员',text:'我在深圳认识几个做BMS的团队，可以帮忙牵线。',time:'2026-06-09',responseStatus:'accepted'},{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',role:'认证校友',text:'我们有一个储能方向的项目，可以聊一下合作。',time:'2026-06-10',responseStatus:'waiting'}]},{id:2,title:'求推荐靠谱的医疗器械注册代理机构',publisher:{name:'刘芳',avatar:'https://picsum.photos/seed/u3/100/100',role:'商务会员',phone:'137****9012',email:'liuf@kangyuan.com'},date:'2026-06-05',description:'公司有一款二类医疗器械需要注册，求推荐有经验的代理机构。',reviewStatus:'approved',status:'resolved',rejectReason:'',reviewTime:'2026-06-06 09:15',reviewer:'管理员',responseCount:5,responses:[{name:'李明远',avatar:'https://picsum.photos/seed/u2/100/100',role:'商务会员',text:'我可以帮忙对接，我们公司之前合作过一个不错的代理机构，我发给你。',time:'2026-06-06',responseStatus:'finished'}]},{id:3,title:'公司招聘——高级前端工程师（北京）',publisher:{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'商务会员',phone:'138****6789',email:'zhangjg@zktech.com'},date:'2026-06-01',description:'智控科技招聘高级前端工程师。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-02 14:00',reviewer:'管理员',responseCount:2,responses:[{name:'王磊',avatar:'https://picsum.photos/seed/u5/100/100',role:'认证校友',text:'我有5年前端经验，可以发简历给您看看吗？',time:'2026-06-02',responseStatus:'waiting'},{name:'李娜',avatar:'https://picsum.photos/seed/u9/100/100',role:'认证校友',text:'朋友推荐，简历已发送邮箱。',time:'2026-06-03',responseStatus:'waiting'}]},{id:4,title:'求校友内推——想跳槽到互联网大厂',publisher:{name:'王磊',avatar:'https://picsum.photos/seed/u5/100/100',role:'认证校友'},date:'2026-06-10',description:'本人计算机学院2018级，想跳槽去互联网大厂。',reviewStatus:'pending',status:'processing',rejectReason:'',reviewTime:'',reviewer:'',responseCount:4,responses:[]},{id:5,title:'考研咨询——想跨考自动化学院',publisher:{name:'周小雅',avatar:'https://picsum.photos/seed/u6/100/100',role:'认证校友'},date:'2026-06-12',description:'我是北理本科大三学生，想跨考自动化学院的研究生。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-13 11:20',reviewer:'管理员',responseCount:6,responses:[]},{id:6,title:'提供法律咨询公益服务',publisher:{name:'王律师事务所',avatar:'https://picsum.photos/seed/u7/100/100',role:'商务会员',phone:'139****5678'},date:'2026-06-15',description:'面向白石桥七号校友企业提供免费法律咨询服务。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-15 16:45',reviewer:'管理员',responseCount:1,responses:[{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'商务会员',text:'想咨询一下劳动纠纷相关问题，方便联系吗？',time:'2026-06-16',responseStatus:'waiting'}]},{id:7,title:'北京车牌指标出租或转让求助',publisher:{name:'杨帆',avatar:'https://picsum.photos/seed/u8/100/100',role:'认证校友'},date:'2026-06-14',description:'刚毕业在北京工作，急需解决通勤问题。',reviewStatus:'rejected',status:'processing',rejectReason:'涉及违规内容',reviewTime:'2026-06-15 09:00',reviewer:'管理员',responseCount:0,responses:[]},{id:8,title:'校友创业项目寻求天使轮融资',publisher:{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',role:'认证校友'},date:'2026-06-16',description:'我们团队正在做AI辅助教育产品，已有种子用户，想寻求天使轮融资100-200万。',reviewStatus:'pending',status:'processing',rejectReason:'',reviewTime:'',reviewer:'',responseCount:0,responses:[]}];
+var helpList=[{id:1,title:'寻找新能源电池领域的技术合作伙伴',publisher:{name:'陈晓华',avatar:'https://picsum.photos/seed/u2/100/100',role:'认证校友',phone:'135****3456',email:'chenxh@starlight.com'},date:'2026-06-08',description:'我们公司正在开发新一代储能电池管理系统，需要寻找在电池管理芯片或算法方面有技术积累的校友合作。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-09 10:30',reviewer:'管理员',responseCount:3,responses:[{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'认证校友',text:'我在深圳认识几个做BMS的团队，可以帮忙牵线。',time:'2026-06-09',responseStatus:'accepted'},{name:'赵明辉',avatar:'https://picsum.photos/seed/m1/100/100',role:'认证校友',text:'我们有一个储能方向的项目，可以聊一下合作。',time:'2026-06-10',responseStatus:'waiting'}]},{id:2,title:'求推荐靠谱的医疗器械注册代理机构',publisher:{name:'刘芳',avatar:'https://picsum.photos/seed/u3/100/100',role:'认证校友',phone:'137****9012',email:'liuf@kangyuan.com'},date:'2026-06-05',description:'公司有一款二类医疗器械需要注册，求推荐有经验的代理机构。',reviewStatus:'approved',status:'resolved',rejectReason:'',reviewTime:'2026-06-06 09:15',reviewer:'管理员',responseCount:5,responses:[{name:'李明远',avatar:'https://picsum.photos/seed/u2/100/100',role:'认证校友',text:'我可以帮忙对接，我们公司之前合作过一个不错的代理机构，我发给你。',time:'2026-06-06',responseStatus:'finished'}]},{id:3,title:'公司招聘——高级前端工程师（北京）',publisher:{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'认证校友',phone:'138****6789',email:'zhangjg@zktech.com'},date:'2026-06-01',description:'智控科技招聘高级前端工程师。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-02 14:00',reviewer:'管理员',responseCount:2,responses:[{name:'王磊',avatar:'https://picsum.photos/seed/u5/100/100',role:'认证校友',text:'我有5年前端经验，可以发简历给您看看吗？',time:'2026-06-02',responseStatus:'waiting'},{name:'李娜',avatar:'https://picsum.photos/seed/u9/100/100',role:'认证校友',text:'朋友推荐，简历已发送邮箱。',time:'2026-06-03',responseStatus:'waiting'}]},{id:4,title:'求校友内推——想跳槽到互联网大厂',publisher:{name:'王磊',avatar:'https://picsum.photos/seed/u5/100/100',role:'认证校友'},date:'2026-06-10',description:'本人计算机学院2018级，想跳槽去互联网大厂。',reviewStatus:'pending',status:'processing',rejectReason:'',reviewTime:'',reviewer:'',responseCount:4,responses:[]},{id:5,title:'考研咨询——想跨考自动化学院',publisher:{name:'周小雅',avatar:'https://picsum.photos/seed/u6/100/100',role:'认证校友'},date:'2026-06-12',description:'我是北理本科大三学生，想跨考自动化学院的研究生。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-13 11:20',reviewer:'管理员',responseCount:6,responses:[]},{id:6,title:'提供法律咨询公益服务',publisher:{name:'王律师事务所',avatar:'https://picsum.photos/seed/u7/100/100',role:'认证校友',phone:'139****5678'},date:'2026-06-15',description:'面向白石桥七号校友企业提供免费法律咨询服务。',reviewStatus:'approved',status:'processing',rejectReason:'',reviewTime:'2026-06-15 16:45',reviewer:'管理员',responseCount:1,responses:[{name:'张建国',avatar:'https://picsum.photos/seed/u1/100/100',role:'认证校友',text:'想咨询一下劳动纠纷相关问题，方便联系吗？',time:'2026-06-16',responseStatus:'waiting'}]},{id:7,title:'北京车牌指标出租或转让求助',publisher:{name:'杨帆',avatar:'https://picsum.photos/seed/u8/100/100',role:'认证校友'},date:'2026-06-14',description:'刚毕业在北京工作，急需解决通勤问题。',reviewStatus:'rejected',status:'processing',rejectReason:'涉及违规内容',reviewTime:'2026-06-15 09:00',reviewer:'管理员',responseCount:0,responses:[]},{id:8,title:'校友创业项目寻求天使轮融资',publisher:{name:'孙磊',avatar:'https://picsum.photos/seed/m3/100/100',role:'认证校友'},date:'2026-06-16',description:'我们团队正在做AI辅助教育产品，已有种子用户，想寻求天使轮融资100-200万。',reviewStatus:'pending',status:'processing',rejectReason:'',reviewTime:'',reviewer:'',responseCount:0,responses:[]}];
 
-var courseList=[{id:1,title:'企业数字化转型实战指南',subtitle:'从战略到落地',cover:'https://picsum.photos/seed/course1/750/420',teacher:'张建国',teacherAvatar:'https://picsum.photos/seed/u1/200/200',teacherTitle:'智控科技创始人',price:299,originalPrice:599,memberPrice:249,students:1280,duration:'12课时',rating:4.9,reviews:326,category:'企业管理',intro:'系统讲解企业数字化转型的方法论和实战经验。',highlights:['12课时系统讲解'],chapters:[],reviewList:[]},{id:2,title:'创业者的财务管理课',subtitle:'让创业者真正读懂财务报表',cover:'https://picsum.photos/seed/course2/750/420',teacher:'陈立',teacherAvatar:'https://picsum.photos/seed/u2/200/200',teacherTitle:'资深财务顾问',price:199,originalPrice:399,memberPrice:159,students:856,duration:'8课时',rating:4.8,reviews:218,category:'创业',intro:'帮助创业者建立财务思维。',highlights:[],chapters:[],reviewList:[]},{id:3,title:'AI产品经理入门到精通',cover:'https://picsum.photos/seed/course3/750/420',teacher:'李明远',teacherAvatar:'https://picsum.photos/seed/u3/200/200',teacherTitle:'字节跳动技术总监',price:399,originalPrice:799,memberPrice:319,students:2100,duration:'16课时',rating:4.95,reviews:587,category:'产品',intro:'全面培养AI产品经理的核心能力。',highlights:[],chapters:[],reviewList:[]}];
+var courseList=[{id:1,title:'企业数字化转型实战指南',subtitle:'从战略到落地',cover:'https://picsum.photos/seed/course1/750/420',teacher:'张建国',teacherAvatar:'https://picsum.photos/seed/u1/200/200',teacherTitle:'智控科技创始人',price:299,originalPrice:599,memberPrice:249,students:1280,duration:'12课时',rating:4.9,reviews:326,category:'在线学习',intro:'系统讲解企业数字化转型的方法论和实战经验。',highlights:['12课时系统讲解'],chapters:[],reviewList:[]},{id:2,title:'创业者的财务管理课',subtitle:'让创业者真正读懂财务报表',cover:'https://picsum.photos/seed/course2/750/420',teacher:'陈立',teacherAvatar:'https://picsum.photos/seed/u2/200/200',teacherTitle:'资深财务顾问',price:199,originalPrice:399,memberPrice:159,students:856,duration:'8课时',rating:4.8,reviews:218,category:'行业看点',intro:'帮助创业者建立财务思维。',highlights:[],chapters:[],reviewList:[]},{id:3,title:'AI产品经理入门到精通',cover:'https://picsum.photos/seed/course3/750/420',teacher:'李明远',teacherAvatar:'https://picsum.photos/seed/u3/200/200',teacherTitle:'字节跳动技术总监',price:399,originalPrice:799,memberPrice:319,students:2100,duration:'16课时',rating:4.95,reviews:587,category:'直播课程',intro:'全面培养AI产品经理的核心能力。',highlights:[],chapters:[],reviewList:[]}];
 
-// 补齐课程章节/评价/讲师等数据（与 Vue 版 mock/data.ts 对齐）
+// 补齐视频章节/评价/讲师等数据（与 Vue 版 mock/data.ts 对齐）
 (function(){
   var CD={
     1:{subtitle:'从战略到落地，一站式掌握数字化转型方法论',teacherTitle:'智控科技创始人 · 北理工2005级',teacherBio:'15年数字化转型经验，曾主导多家世界500强企业的数字化项目。智控科技创始人，A轮已融资1亿元。著有《工业智能化转型》。',totalMinutes:360,intro:'从战略规划到落地执行，系统讲解企业数字化转型的方法论和实战经验。',
@@ -288,7 +294,7 @@ var courseList=[{id:1,title:'企业数字化转型实战指南',subtitle:'从战
       ],
       reviewList:[
         {user:'王工程师',avatar:'https://picsum.photos/seed/r1/100/100',rating:5,date:'2026-06-05',content:'内容非常实用，老师讲得深入浅出，案例都是真实的，对我们公司的数字化转型有很大启发。'},
-        {user:'李总监',avatar:'https://picsum.photos/seed/r2/100/100',rating:5,date:'2026-05-28',content:'系统性强，从战略到落地都有涉及，是难得的好课程。强烈推荐给企业管理者。'},
+        {user:'李总监',avatar:'https://picsum.photos/seed/r2/100/100',rating:5,date:'2026-05-28',content:'系统性强，从战略到落地都有涉及，是难得的好视频。强烈推荐给企业管理者。'},
         {user:'赵创始人',avatar:'https://picsum.photos/seed/r3/100/100',rating:4,date:'2026-05-20',content:'干货满满，特别是组织变革那一章，正好解决了我们当前的痛点。'}
       ]},
     2:{subtitle:'让创业者真正读懂财务报表，做出明智决策',teacherTitle:'资深财务顾问 · 北理工2007级',teacherBio:'注册会计师CPA，曾任四大会计师事务所高级经理。10年创业服务经验，已帮助50+创业公司完成融资。',totalMinutes:240,intro:'帮助创业者建立财务思维，掌握现金流管理、融资估值等核心技能。',
@@ -318,9 +324,8 @@ var courseList=[{id:1,title:'企业数字化转型实战指南',subtitle:'从战
 
 var groupBuyList=[{id:1,title:'北理工校庆纪念版双肩包',cover:'https://picsum.photos/seed/gb1/400/400',price:169,originalPrice:399,soldCount:456,totalCount:600,endDate:'2026-06-30',category:'商品',supplier:'北理工校友文创工作室',desc:'为庆祝北理工建校纪念，特别推出的限量版双肩包。',specs:[],shipping:'',tags:['限量','包邮']},{id:2,title:'校友企业出品——有机五常大米 5kg装',cover:'https://picsum.photos/seed/gb2/400/400',price:78,originalPrice:158,soldCount:890,totalCount:1000,endDate:'2026-06-25',category:'餐饮',supplier:'黑龙江五常校友农场',desc:'由黑龙江校友自营农场直供的有机五常大米。',specs:[],shipping:'',tags:['包邮','有机认证']},{id:3,title:'白石桥七号定制款紫砂茶具套装',cover:'https://picsum.photos/seed/gb3/400/400',price:288,originalPrice:688,soldCount:215,totalCount:300,endDate:'2026-07-15',category:'商品',supplier:'宜兴紫砂校友工坊',desc:'由宜兴校友工坊手工制作的紫砂茶具套装。',specs:[],shipping:'',tags:['手工','限量']},{id:4,title:'北理工校友优选——智利进口红酒双支礼盒',cover:'https://picsum.photos/seed/gb4/400/400',price:198,originalPrice:498,soldCount:632,totalCount:800,endDate:'2026-06-28',category:'餐饮',supplier:'校友企业·品醇国际酒业',desc:'智利中央山谷赤霞珠干红2支礼盒装。',specs:[],shipping:'',tags:['包邮','进口']},{id:5,title:'校友企业——智能体脂秤',cover:'https://picsum.photos/seed/gb5/400/400',price:99,originalPrice:259,soldCount:1200,totalCount:1500,endDate:'2026-07-10',category:'运动',supplier:'深圳星辰科技',desc:'可测量体重、体脂率等18项身体数据。',specs:[],shipping:'',tags:['包邮','热卖']},{id:6,title:'北理工建筑系列——3D拼图 中心教学楼模型',cover:'https://picsum.photos/seed/gb6/400/400',price:128,originalPrice:268,soldCount:340,totalCount:500,endDate:'2026-07-20',category:'娱乐',supplier:'北理工校友文创工作室',desc:'以北京理工大学中心教学楼为原型设计的高精度3D拼图模型。',specs:[],shipping:'',tags:['限量','文创']}];
 
-var alumniCirclesList=[{id:1,name:'上市公司',description:'校友创办或任职的上市公司、拟上市企业',count:5,published:true,gradient:'linear-gradient(135deg,#6fa4cf,#9bc1de)',listedItems:[{alumnusInfo:{avatar:'https://picsum.photos/seed/zjg/100/100',name:'张建国',gender:'男',graduationYear:'2005届',department:'自动化学院',major:'软件工程',phone:'138****1234'},companyShortName:'智控科技',stockCode:'301xxx',roleLabel:'创始人',companyStage:'已上市',businessIntro:'工业智能控制解决方案提供商。'},{alumnusInfo:{avatar:'https://picsum.photos/seed/lmy/100/100',name:'李明远',gender:'男',graduationYear:'2006届',department:'材料学院',major:'新能源材料'},companyShortName:'星辰科技',stockCode:'002xxx',roleLabel:'联合创始人',companyStage:'已上市',businessIntro:'新能源储能技术研发与应用。'},{alumnusInfo:{avatar:'https://picsum.photos/seed/wj/100/100',name:'王军',gender:'男',graduationYear:'2003届',department:'机械学院',major:'车辆工程'},companyShortName:'蔚来汽车',stockCode:'NIO',roleLabel:'总经理',companyStage:'已上市',businessIntro:'新能源汽车研发制造。'},{alumnusInfo:{avatar:'https://picsum.photos/seed/cxh/100/100',name:'陈晓华',gender:'女',graduationYear:'2004届',department:'生命学院',major:'生物医学'},companyShortName:'康源生物',stockCode:'',roleLabel:'董事长',companyStage:'IPO 申报中',businessIntro:'创新药物研发。'},{alumnusInfo:{avatar:'https://picsum.photos/seed/lf/100/100',name:'刘芳',gender:'女',graduationYear:'2007届',department:'信息学院',major:'电子信息'},companyShortName:'华创医疗',stockCode:'',roleLabel:'独立董事',companyStage:'Pre-IPO',businessIntro:'医疗器械研发生产。'}]},{id:2,name:'投资机构',description:'投资人及机构校友网络',count:5,published:true,gradient:'linear-gradient(135deg,#07c160,#05a04a)',investmentItems:[{alumnusInfo:{avatar:'https://picsum.photos/seed/cl/100/100',name:'陈立',gender:'男',graduationYear:'2002届',department:'经济管理学院',major:'金融学'},orgName:'红杉中国',orgType:'VC',position:'合伙人',investTrack:'半导体、生物医药、新能源',representProjects:'字节跳动、美团、蔚来汽车'},{alumnusInfo:{avatar:'https://picsum.photos/seed/zw/100/100',name:'张伟',gender:'男',graduationYear:'2004届',department:'经济管理学院',major:'投资学'},orgName:'IDG资本',orgType:'VC',position:'管理合伙人',investTrack:'人工智能、企业服务',representProjects:'百度、腾讯、小米'},{alumnusInfo:{avatar:'https://picsum.photos/seed/ly/100/100',name:'刘洋',gender:'男',graduationYear:'2008届',department:'计算机学院',major:'计算机科学'},orgName:'真格基金',orgType:'天使投资',position:'合伙人',investTrack:'消费科技、教育',representProjects:'小红书、完美日记'},{alumnusInfo:{avatar:'https://picsum.photos/seed/wl/100/100',name:'王磊',gender:'男',graduationYear:'2005届',department:'自动化学院',major:'控制工程'},orgName:'经纬中国',orgType:'VC',position:'投资总监',investTrack:'硬科技、智能制造',representProjects:'大疆、商汤科技'},{alumnusInfo:{avatar:'https://picsum.photos/seed/zq/100/100',name:'赵强',gender:'男',graduationYear:'2001届',department:'材料学院',major:'材料科学'},orgName:'国科投资',orgType:'产业投资',position:'总经理',investTrack:'集成电路、新材料',representProjects:'中芯国际、宁德时代'}]},{id:3,name:'企业高管',description:'担任企业高管的职业经理人校友',count:5,published:true,gradient:'linear-gradient(135deg,#ee0a24,#d00820)',executiveItems:[{alumnusInfo:{avatar:'https://picsum.photos/seed/zming/100/100',name:'张明',gender:'男',graduationYear:'2000届',department:'计算机学院',major:'计算机科学'},companyName:'华为技术有限公司',companyNature:'跨国企业',position:'常务董事',businessBlock:'消费者业务'},{alumnusInfo:{avatar:'https://picsum.photos/seed/lh/100/100',name:'李华',gender:'男',graduationYear:'2003届',department:'经济管理学院',major:'会计学'},companyName:'小米集团',companyNature:'上市民企',position:'首席财务官',businessBlock:'财务管理'},{alumnusInfo:{avatar:'https://picsum.photos/seed/wf/100/100',name:'王芳',gender:'女',graduationYear:'2006届',department:'外语学院',major:'英语'},companyName:'字节跳动',companyNature:'跨国企业',position:'人力资源副总裁',businessBlock:'人才发展'},{alumnusInfo:{avatar:'https://picsum.photos/seed/cw/100/100',name:'陈伟',gender:'男',graduationYear:'2004届',department:'管理学院',major:'市场营销'},companyName:'美团',companyNature:'上市民企',position:'运营副总裁',businessBlock:'到店业务'},{alumnusInfo:{avatar:'https://picsum.photos/seed/zl/100/100',name:'赵丽',gender:'女',graduationYear:'2005届',department:'法学院',major:'法学'},companyName:'京东集团',companyNature:'上市民企',position:'首席合规官',businessBlock:'合规管理'}]},{id:4,name:'科创项目',description:'校友参与的科技创新项目',count:5,published:true,gradient:'linear-gradient(135deg,#ff976a,#f07a4a)',techProjectItems:[{alumnusInfo:{avatar:'https://picsum.photos/seed/zn/100/100',name:'张博士',gender:'男',graduationYear:'2015届',department:'计算机学院',major:'人工智能'},projectName:'智能驾驶系统',techTrack:'自动驾驶/人工智能',devStage:'B轮',financing:'B轮+2亿元',coreAdvantage:'L4级自动驾驶解决方案。',showFinancing:true},{alumnusInfo:{avatar:'https://picsum.photos/seed/lxs/100/100',name:'李博士',gender:'女',graduationYear:'2016届',department:'生命学院',major:'生物医学工程'},projectName:'生物芯片技术',techTrack:'生物医药/微流控',devStage:'A轮',financing:'A轮+5000万',coreAdvantage:'新一代基因检测芯片。',showFinancing:true},{alumnusInfo:{avatar:'https://picsum.photos/seed/wqp/100/100',name:'王博士',gender:'男',graduationYear:'2018届',department:'物理学院',major:'量子物理'},projectName:'量子计算平台',techTrack:'量子科技',devStage:'种子轮',financing:'种子轮+1000万',coreAdvantage:'超导量子计算原型机研发。',showFinancing:false},{alumnusInfo:{avatar:'https://picsum.photos/seed/lx/100/100',name:'刘硕士',gender:'男',graduationYear:'2019届',department:'材料学院',major:'新能源材料'},projectName:'新能源储能',techTrack:'新能源/储能技术',devStage:'C轮',financing:'C轮+3亿元',coreAdvantage:'新型锂电池储能系统。',showFinancing:true},{alumnusInfo:{avatar:'https://picsum.photos/seed/zhp/100/100',name:'赵博士',gender:'男',graduationYear:'2017届',department:'自动化学院',major:'控制工程'},projectName:'工业AI平台',techTrack:'智能制造/人工智能',devStage:'稳定经营',financing:'A轮+1亿元',coreAdvantage:'工业过程智能控制平台。',showFinancing:true}]}];
 
-var certRequests=[{id:1,name:'张志强',avatar:'https://picsum.photos/seed/c1/100/100',school:'自动化学院',major:'控制科学与工程',year:'2010级',degree:'硕士',date:'2026-06-10 14:32',status:'pending',phone:'138****5678',email:'zhangzq@example.com',idCard:'1101**********1234',graduationYear:'2013',hometown:'河北石家庄',city:'北京',company:'某AI科技有限公司',position:'技术总监',intro:'本科毕业后保研至本院。',gender:'男',birthMonth:'1990-05',tags:['技术专家','创业者'],hobbies:['篮球','阅读','编程'],proofImages:['https://picsum.photos/seed/p1/600/400','https://picsum.photos/seed/p2/600/400']},{id:2,name:'王晓梅',avatar:'https://picsum.photos/seed/c2/100/100',school:'计算机学院',major:'软件工程',year:'2009级',degree:'本科',date:'2026-06-10 11:08',status:'pending',phone:'139****1234',email:'wangxm@example.com',graduationYear:'2013',hometown:'山东济南',city:'上海',company:'某互联网公司',position:'产品经理',gender:'女',birthMonth:'1991-09',tags:['产品经理'],hobbies:['摄影','旅行'],proofImages:['https://picsum.photos/seed/p3/600/400']},{id:3,name:'陈一鸣',avatar:'https://picsum.photos/seed/c3/100/100',school:'机械工程学院',major:'机械设计',year:'2011级',degree:'本科',date:'2026-06-09 16:45',status:'pending',phone:'136****8899',city:'深圳',company:'某制造业上市公司',position:'研发经理',gender:'男',birthMonth:'1992-03',tags:['研发经理'],hobbies:['足球','音乐'],proofImages:['https://picsum.photos/seed/p4/600/400']},{id:4,name:'刘建国',avatar:'https://picsum.photos/seed/c4/100/100',school:'电子学院',major:'通信工程',year:'2007级',degree:'博士',date:'2026-06-08 10:20',status:'approved',city:'北京',company:'某通信研究院',position:'高级研究员',gender:'男',birthMonth:'1988-11',tags:['高级研究员','博士'],hobbies:['羽毛球','围棋']}];
+var certRequests=[{id:1,name:'张志强',avatar:'https://picsum.photos/seed/c1/100/100',school:'自动化学院',major:'控制科学与工程',year:'2010级',degree:'硕士',date:'2026-06-10 14:32',status:'pending',phone:'138****5678',email:'zhangzq@example.com',idCard:'1101**********1234',graduationYear:'2013',hometown:'河北石家庄',city:'北京',company:'某AI科技有限公司',position:'技术总监',intro:'本科毕业后保研至本院。',gender:'男',birthMonth:'1990-05',tags:['技术专家','创业者'],hobbies:['篮球','阅读','编程'],companies:[{name:'某AI科技有限公司',logo:'https://picsum.photos/seed/logo-c1/200/200',industry:'人工智能',address:'北京市海淀区',position:'技术总监',intro:'专注于AI技术的科技公司。'}],products:[{name:'智能语音识别系统',cover:'https://picsum.photos/seed/prod-c1/400/300',intro:'基于深度学习的智能语音识别系统。',features:['高精度识别','多语言支持'],applications:'智能客服、语音助手'}],proofImages:['https://picsum.photos/seed/p1/600/400','https://picsum.photos/seed/p2/600/400']},{id:2,name:'王晓梅',avatar:'https://picsum.photos/seed/c2/100/100',school:'计算机学院',major:'软件工程',year:'2009级',degree:'本科',date:'2026-06-10 11:08',status:'pending',phone:'139****1234',email:'wangxm@example.com',graduationYear:'2013',hometown:'山东济南',city:'上海',company:'某互联网公司',position:'产品经理',gender:'女',birthMonth:'1991-09',tags:['产品经理'],hobbies:['摄影','旅行'],proofImages:['https://picsum.photos/seed/p3/600/400']},{id:3,name:'陈一鸣',avatar:'https://picsum.photos/seed/c3/100/100',school:'机械工程学院',major:'机械设计',year:'2011级',degree:'本科',date:'2026-06-09 16:45',status:'pending',phone:'136****8899',city:'深圳',company:'某制造业上市公司',position:'研发经理',gender:'男',birthMonth:'1992-03',tags:['研发经理'],hobbies:['足球','音乐'],proofImages:['https://picsum.photos/seed/p4/600/400']},{id:4,name:'刘建国',avatar:'https://picsum.photos/seed/c4/100/100',school:'电子学院',major:'通信工程',year:'2007级',degree:'博士',date:'2026-06-08 10:20',status:'approved',city:'北京',company:'某通信研究院',position:'高级研究员',gender:'男',birthMonth:'1988-11',tags:['高级研究员','博士'],hobbies:['羽毛球','围棋']}];
 
 // 校友认证字段对齐移动端：原 school 实为院系，迁移为 dept；school 改为学校；补齐证书照片
 (function(){
@@ -365,7 +370,7 @@ var groupNewsMock=[{id:1,ownerId:4,title:'AI俱乐部 2026 春季技术沙龙圆
 var groupActivitiesMock=[{id:1,ownerId:4,groupName:'北理工AI俱乐部',title:'AI 模型与算力前沿交流会',cover:'https://picsum.photos/seed/gact1/400/240',date:'2026-07-05',location:'北京中关村软件园',fee:0,registered:48,capacity:60,status:'报名中',reviewStatus:'approved',submitTime:'2026-06-10 10:00'},{id:2,ownerId:4,title:'AI 创业项目路演 #3',cover:'https://picsum.photos/seed/gact2/400/240',date:'2026-08-12',location:'北京海淀区',fee:200,registered:22,capacity:50,status:'报名中',reviewStatus:'approved',submitTime:'2026-06-15 14:20'},{id:3,ownerId:5,groupName:'自动化学院校友会',title:'自动化学院校友秋季联谊',cover:'https://picsum.photos/seed/gact3/400/240',date:'2026-09-20',location:'北京理工大学',fee:100,registered:35,capacity:80,status:'筹备中',reviewStatus:'pending',submitTime:'2026-06-23 09:15'}];
 var groupMembersMock=[{id:1,ownerId:4,name:'李铭',avatar:'https://picsum.photos/seed/m1/100/100',school:'计算机学院',year:'2018级',applyTime:'2026-06-22 09:30',status:'pending',message:'希望加入 AI 俱乐部学习与交流。'},{id:2,ownerId:4,name:'周楠',avatar:'https://picsum.photos/seed/m2/100/100',school:'计算机学院',year:'2020级',applyTime:'2026-06-23 14:15',status:'pending',message:'我在研究 LLM 应用。'},{id:3,ownerId:4,name:'王志强',avatar:'https://picsum.photos/seed/m3/100/100',school:'自动化学院',year:'2010级',applyTime:'2026-06-20 16:48',status:'approved'},{id:4,ownerId:5,name:'陈一鸣',avatar:'https://picsum.photos/seed/m4/100/100',school:'自动化学院',year:'2019级',applyTime:'2026-06-24 11:00',status:'pending',message:'校友会请通过~'},{id:5,ownerId:5,name:'张涛',avatar:'https://picsum.photos/seed/m5/100/100',school:'自动化学院',year:'2008级',applyTime:'2026-06-19 09:00',status:'approved'}];
 var groupBillingMock=[{id:1,ownerId:4,activity:'AI 创业项目路演 #3',member:'李铭',amount:200,status:'已支付',payTime:'2026-06-20 10:15'},{id:2,ownerId:4,activity:'AI 创业项目路演 #3',member:'周楠',amount:200,status:'已支付',payTime:'2026-06-21 14:30'},{id:4,ownerId:5,activity:'自动化学院校友秋季联谊',member:'陈一鸣',amount:100,status:'已支付',payTime:'2026-06-22 09:50'}];
-var fundsRecordsMock=[{id:'TRX005',userId:4,userName:'李铭',userAvatar:'https://picsum.photos/seed/m1/100/100',type:'activity',typeLabel:'活动报名支付',amount:200,balanceBefore:1500,balanceAfter:1300,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 11:30:00'},{id:'TRX006',userId:1,userName:'张建国',userAvatar:'https://picsum.photos/seed/u1/100/100',type:'course',typeLabel:'课程购买',amount:299,balanceBefore:5000,balanceAfter:4701,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 09:00:18'},{id:'TRX007',userId:8,userName:'李娜',userAvatar:'https://picsum.photos/seed/u9/100/100',type:'groupbuy',typeLabel:'团购购买',amount:169,balanceBefore:500,balanceAfter:331,payMethod:'微信支付',status:'success',transactionTime:'2026-06-22 16:00:30'},{id:'TRX009',userId:12,userName:'王志强',userAvatar:'https://picsum.photos/seed/m3/100/100',type:'activity',typeLabel:'活动报名支付',amount:200,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 17:00:00'}];
+var fundsRecordsMock=[{id:'TRX005',userId:4,userName:'李铭',userAvatar:'https://picsum.photos/seed/m1/100/100',type:'activity',typeLabel:'活动报名支付',amount:200,balanceBefore:1500,balanceAfter:1300,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 11:30:00'},{id:'TRX006',userId:1,userName:'张建国',userAvatar:'https://picsum.photos/seed/u1/100/100',type:'course',typeLabel:'视频购买',amount:299,balanceBefore:5000,balanceAfter:4701,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 09:00:18'},{id:'TRX007',userId:8,userName:'李娜',userAvatar:'https://picsum.photos/seed/u9/100/100',type:'groupbuy',typeLabel:'团购购买',amount:169,balanceBefore:500,balanceAfter:331,payMethod:'微信支付',status:'success',transactionTime:'2026-06-22 16:00:30'},{id:'TRX009',userId:12,userName:'王志强',userAvatar:'https://picsum.photos/seed/m3/100/100',type:'activity',typeLabel:'活动报名支付',amount:200,payMethod:'微信支付',status:'success',transactionTime:'2026-06-24 17:00:00'}];
 
 var memberPoints=[{id:1,name:'赵明辉',avatar:'https://picsum.photos/seed/p1/100/100',points:5280,lastUpdate:'2026-07-16 14:30'},{id:2,name:'张志强',avatar:'https://picsum.photos/seed/p2/100/100',points:3520,lastUpdate:'2026-07-16 10:15'},{id:3,name:'黄文杰',avatar:'https://picsum.photos/seed/p3/100/100',points:8900,lastUpdate:'2026-07-15 16:45'},{id:4,name:'陈晓华',avatar:'https://picsum.photos/seed/p4/100/100',points:2150,lastUpdate:'2026-07-15 09:20'},{id:5,name:'王晓梅',avatar:'https://picsum.photos/seed/p5/100/100',points:1250,lastUpdate:'2026-07-14 11:30'},{id:6,name:'李梦琪',avatar:'https://picsum.photos/seed/p6/100/100',points:890,lastUpdate:'2026-07-13 15:00'},{id:7,name:'陈一鸣',avatar:'https://picsum.photos/seed/p7/100/100',points:6340,lastUpdate:'2026-07-12 18:20'},{id:8,name:'刘建国',avatar:'https://picsum.photos/seed/p8/100/100',points:2340,lastUpdate:'2026-07-11 13:10'}];
 var pointRecords=[{id:2,userId:2,userName:'张志强',type:'activity',desc:'参加活动《走进字节跳动》',points:'+20',date:'2026-07-16 10:15',operator:'系统'},{id:3,userId:3,userName:'黄文杰',type:'feed',desc:'发布动态',points:'+5',date:'2026-07-15 14:20',operator:'系统'},{id:6,userId:2,userName:'张志强',type:'admin_add',desc:'活动奖励',points:'+100',date:'2026-07-14 09:00',operator:'运营管理员'}];
@@ -377,7 +382,7 @@ var ptRuleOptions=[{name:'发布动态',desc:'发布校友圈动态'},{name:'参
 // APP CORE
 // ================================================================
 var App={route:'',account:null,loggedIn:false};
-var UI={pointsTab:'members',memberTab:'cert',certTab:'pending',bizTab:'pending',helpMainTab:'helps',helpTab:'all',helpSearch:'',responseSearch:'',responseFilter:'all',actType:'全部',actSearch:'',actStatus:'',actGroup:'',actAlumni:'',groupCat:'全部',groupSearch:'',fundsType:'all',fundsStatus:'success',circleIdx:0,roleType:'admin',ctSearch:'',ctAuthor:'',courseSearch:'',gbSearch:'',gbStatus:'全部',certSearch:'',bizSearch:'',pointsSearch:''};
+var UI={pointsTab:'members',memberTab:'cert',certTab:'pending',bizTab:'pending',helpMainTab:'helps',helpTab:'all',helpSearch:'',responseSearch:'',responseFilter:'all',actType:'全部',actSearch:'',actStatus:'',actGroup:'',actAlumni:'',groupCat:'全部',groupSearch:'',fundsType:'all',fundsStatus:'success',circleIdx:0,roleType:'admin',ctSearch:'',ctAuthor:'',storyCat:'校友访谈',courseCat:'全部',courseSearch:'',gbSearch:'',gbStatus:'全部',certSearch:'',bizSearch:'',pointsSearch:''};
 
 function esc(s){if(s===undefined||s===null||s==='undefined'||s==='null')return'';if(!s&&s!==0)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function tag(t,c){return'<span class="tag tag-'+c+'">'+esc(t)+'</span>'}
@@ -423,9 +428,9 @@ function render(){
   if(!App.loggedIn||!App.account){app.innerHTML=renderLogin();bindLogin();return}
   var r=App.route||'/admin';var content='';var menus=[];
   if(isPlatform()){
-    var pages={'/admin':renderDash,'/admin/news':function(){return renderContent('news')},'/admin/topics':function(){return renderContent('topics')},'/admin/interviews':function(){return renderContent('interviews')},'/admin/groups':renderGroups,'/admin/help':renderHelp,'/admin/activities':renderActivities,'/admin/courses':renderCourses,'/admin/groupbuy':renderGroupbuy,'/admin/members':renderMembers,'/admin/points':renderPoints,'/admin/funds-flow':renderFundsFlow,'/admin/roles':renderRoles,'/admin/service-orgs':renderServiceOrgs,'/admin/alumni-circles':renderAlumniCircles};
+    var pages={'/admin':renderDash,'/admin/news':function(){return renderContent('news')},'/admin/topics':function(){return renderContent('topics')},'/admin/groups':renderGroups,'/admin/help':renderHelp,'/admin/activities':renderActivities,'/admin/courses':renderCourses,'/admin/groupbuy':renderGroupbuy,'/admin/members':renderMembers,'/admin/funds-flow':renderFundsFlow,'/admin/roles':renderRoles,'/admin/service-orgs':renderServiceOrgs};
     if(pages[r])content=pages[r]();
-    menus=[{k:'/admin',l:'工作台'},{k:'/admin/news',l:'资讯管理'},{k:'/admin/topics',l:'主题分享'},{k:'/admin/interviews',l:'会员专访'},{k:'/admin/groups',l:'社团管理'},{k:'/admin/help',l:'求助与响应'},{k:'/admin/activities',l:'活动管理'},{k:'/admin/courses',l:'课程管理'},{k:'/admin/groupbuy',l:'团购管理'},{k:'/admin/members',l:'用户管理'},{k:'/admin/points',l:'积分管理'},{k:'/admin/funds-flow',l:'资金流水'},{k:'/admin/roles',l:'账号管理'},{k:'/admin/service-orgs',l:'服务机构管理'},{k:'/admin/alumni-circles',l:'会员组织管理'}];
+    menus=[{k:'/admin',l:'工作台'},{k:'/admin/news',l:'资讯管理'},{k:'/admin/topics',l:'校友故事'},{k:'/admin/groups',l:'校友组织'},{k:'/admin/help',l:'校友互助管理'},{k:'/admin/activities',l:'活动管理'},{k:'/admin/courses',l:'视频管理'},{k:'/admin/groupbuy',l:'团购管理'},{k:'/admin/members',l:'用户管理'},{k:'/admin/funds-flow',l:'资金流水'},{k:'/admin/roles',l:'账号管理'},{k:'/admin/service-orgs',l:'服务机构管理'}];
   }else if(isService()){
     var pages={'/admin':renderSvcDash,'/admin/service-projects':renderSvcProjects,'/admin/service-orders':renderSvcOrders};
     if(pages[r])content=pages[r]();menus=[];menus.push({k:'/admin',l:'工作台'});if(hasPerm('service:publish'))menus.push({k:'/admin/service-projects',l:'服务项目'});if(hasPerm('service:order'))menus.push({k:'/admin/service-orders',l:'服务订单'});  }else if(isGroup()){
@@ -544,7 +549,7 @@ function renderDash(){
   h+='<div class="stat-row">'+statCard('今日访问','2,341','+12.5%',true,'#4a90d9',luci('eye',26))+statCard('待审核用户','8','+5',false,'#f56c6c',luci('user',26))+statCard('本月发布','47','+8',true,'#67c23a',luci('file-text',26))+statCard('总用户数','1,256','+24',true,'#e6a23c',luci('users',26))+'</div>';
   h+='<div class="stat-row">'+featStat('社团总数',groupList.length,groupList.reduce(function(s,g){return s+v(g.memberCount)},0)+' 名成员','#67c23a',luci('flag',20),'/admin/groups')+featStat('活动总数',activityList.length,'报名中 '+activityList.filter(function(a){var t=new Date().toISOString().split('T')[0];return a.deadline>=t&&a.reviewStatus==='approved'}).length+' 个','#e6a23c',luci('calendar',20),'/admin/activities')+featStat('求助总数',helpList.length,'待审核 '+helpList.filter(function(h){return h.reviewStatus==='pending'}).length+' 条','#06b6d4',luci('headphones',20),'/admin/help')+'</div>';
   h+='<div class="stat-row" style="grid-template-columns:2fr 1fr"><div class="card"><div class="card-header"><span>管理功能</span><span class="card-sub">11 个模块</span></div><div class="card-body"><div class="module-grid">';
-  h+=modItem('news','资讯管理','编辑发布资讯文章','#4a90d9','#ebf3fc')+modItem('topics','主题分享','管理主题分享内容','#67c23a','#edf7e6')+modItem('interviews','会员专访','编辑专访稿件','#e6a23c','#fdf6ec')+modItem('courses','课程管理','管理在线课程','#8b5cf6','#f3f0ff')+modItem('groupbuy','团购管理','管理团购商品','#f97316','#fff7ed')+modItem('members','用户管理','校友认证，会员认证','#8b5cf6','#f3f0ff')+modItem('groups','社团管理','管理校友社团信息','#67c23a','#edf7e6')+modItem('activities','活动管理','管理校友活动','#e6a23c','#fdf6ec')+modItem('help','求助与响应','管理求助与响应','#06b6d4','#ecfeff')+modItem('roles','账号管理','维护机构与社团账号','#6366f1','#eef2ff');
+  h+=modItem('news','资讯管理','编辑发布资讯文章','#4a90d9','#ebf3fc')+modItem('topics','校友故事','管理校友故事内容','#67c23a','#edf7e6')+modItem('courses','视频管理','管理在线视频','#8b5cf6','#f3f0ff')+modItem('groupbuy','团购管理','管理团购商品','#f97316','#fff7ed')+modItem('members','用户管理','校友认证，会员认证','#8b5cf6','#f3f0ff')+modItem('groups','校友组织','管理校友组织信息','#67c23a','#edf7e6')+modItem('activities','活动管理','管理校友活动','#e6a23c','#fdf6ec')+modItem('help','校友互助管理','管理校友互助','#06b6d4','#ecfeff')+modItem('roles','账号管理','维护机构与社团账号','#6366f1','#eef2ff');
   h+='</div></div></div><div class="card"><div class="card-header"><span>最近动态</span></div><div class="card-body"><ul class="timeline">';
   [{t:'14:45',u:'赵明辉',a:'创建社团《北理工智能驾驶俱乐部》'},{t:'14:32',u:'张志强',a:'提交了校友认证申请'},{t:'14:18',u:'系统',a:'资讯已发布'},{t:'13:55',u:'王军',a:'发布互助《寻找自动驾驶人才》'},{t:'13:40',u:'运营管理员',a:'上架活动《投融资对接会》'}].forEach(function(x){h+='<li class="timeline-item"><div class="timeline-time">'+x.t+'</div><span style="font-weight:600">'+esc(x.u)+'</span> '+esc(x.a)+'</li>'});
   h+='</ul></div></div></div>';return h;
@@ -569,12 +574,17 @@ function renderGrpDash(){
 }
 
 // ================================================================
-// CONTENT (news/topics/interviews)
+// CONTENT (news/topics)
 // ================================================================
 var _ct={};
+var storyCats=['校友访谈','人物风采','校友文苑','校园记忆'];
+var storySources={'校友访谈':topicList,'人物风采':newsList,'校友文苑':alumniEssayList,'校园记忆':campusMemoryList};
 function renderContent(type){
-  var cfg={news:{t:'资讯管理',s:newsList,a:'新建资讯'},topics:{t:'主题分享管理',s:topicList,a:'新建主题'},interviews:{t:'会员专访管理',s:interviewList,a:'新建专访'}};
-  var cur=cfg[type];_ct[type]=cur.s.map(function(i){return Object.assign({},i,{published:i.published!==false})});
+  var cfg={news:{t:'资讯管理',s:newsList,a:'新建资讯'},topics:{t:'校友故事',s:topicList,a:'新建内容'}};
+  var cur=cfg[type];
+  var sc=UI.storyCat||'校友访谈';
+  if(type==='topics'){_ct[type]=storySources[sc].map(function(i){return Object.assign({},i,{published:i.published!==false})})}
+  else{_ct[type]=cur.s.map(function(i){return Object.assign({},i,{published:i.published!==false})})}
   var list=_ct[type];
   var q=(UI.ctSearch||'').toLowerCase();var af=UI.ctAuthor||'';
   if(af){
@@ -587,6 +597,7 @@ function renderContent(type){
   h+='<div class="toolbar"><div class="toolbar-left">';
   if(type==='news'){h+='<select class="form-select sm" onchange="UI.ctAuthor=this.value;render()"><option value="">来源筛选</option>';sourceOptions.forEach(function(a){h+='<option value="'+esc(a)+'"'+(af===a?' selected':'')+'>'+esc(a)+'</option>'});h+='</select>'}
   h+='<div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索'+cur.t+'" value="'+esc(UI.ctSearch||'')+'" oninput="UI.ctSearch=this.value;render()" style="width:280px"></div></div><div class="toolbar-right"><span class="total-count">共 <b>'+list.length+'</b> 条</span><button class="btn btn-primary btn-sm" onclick="ctForm(\''+type+'\')">'+luci('plus',16)+' '+cur.a+'</button></div></div>';
+  if(type==='topics'){h+='<div class="filter-tabs">';storyCats.forEach(function(x){h+='<span class="filter-tab'+(sc===x?' active':'')+'" onclick="UI.storyCat=\''+x+'\';render()">'+x+'</span>'});h+='</div>'}
   h+='<div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:110px">封面</th><th>标题</th><th style="width:100px">来源</th><th style="width:120px">发布日期</th><th style="width:90px">状态</th><th style="width:80px">操作</th></tr></thead><tbody>';
   list.forEach(function(it){
     h+='<tr><td>'+(it.cover?'<img src="'+it.cover+'" style="width:80px;height:45px;border-radius:4px;object-fit:cover">':'')+'</td><td style="font-weight:500">'+esc(it.title)+'</td><td>'+esc(it.author||'')+'</td><td>'+esc(it.date||'')+'</td><td>'+(it.published?tag('已上架','success'):tag('已下架','warning'))+'</td><td><div class="dropdown">'+ddBtn('ctd-'+it.id)+dd('ctd-'+it.id,[{label:'编辑',action:'ctForm(\"'+type+'\",'+it.id+')'},{label:it.published?'下架':'上架',action:'ctToggle(\"'+type+'\",'+it.id+')'},{label:'删除',action:'ctDel(\"'+type+'\",'+it.id+')',danger:true}])+'</div></td></tr>';
@@ -598,6 +609,7 @@ function ctForm(type,id){
   window._ctForm={type:type,isEdit:isEdit,item:item};
   var h='<div class="modal-overlay" id="ct-modal"><div class="modal-box" style="width:640px"><div class="modal-header"><span>'+(isEdit?'编辑':'新建')+'</span><span class="modal-close" onclick="closeModal(\'ct-modal\')">×</span></div><div class="modal-body vue-form">';
   h+='<div class="vf-row"><div class="vf-label w90 required">标题</div><div class="vf-value"><input class="form-input" id="ctf-title" value="'+esc(item.title)+'"></div></div>';
+  if(type==='topics')h+='<div class="vf-row"><div class="vf-label w90 required">类目标签</div><div class="vf-value"><select class="form-select" id="ctf-cat" style="width:240px">'+storyCats.map(function(x){return '<option value="'+x+'"'+((UI.storyCat||'校友访谈')===x?' selected':'')+'>'+x+'</option>'}).join('')+'</select></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">封面图</div><div class="vf-value">'+imgUploadHtml('ctf-cover',item.cover||'','封面图')+'</div></div>';
   if(type==='news')h+='<div class="vf-row"><div class="vf-label w90">来源</div><div class="vf-value"><input class="form-input" id="ctf-author" value="'+esc(item.author||'平台管理员')+'" disabled style="background:#f5f7fa;width:240px"></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">发布日期</div><div class="vf-value"><input class="form-input" type="date" id="ctf-date" value="'+esc(item.date||'')+'" style="width:200px"></div></div>';
@@ -610,8 +622,16 @@ function ctSave(){
   var cf=window._ctForm;var it=cf.item;
   it.title=document.getElementById('ctf-title').value.trim();it.cover=imgVal('ctf-cover');it.date=document.getElementById('ctf-date').value;it.content=richVal('ctf-content');it.published=document.getElementById('ctf-pub').checked;
   if(!it.title||!it.cover||!it.date||!it.content){toast('请填写必要字段','warning');return}
-  var list=_ct[cf.type];
-  if(cf.isEdit){var idx=list.findIndex(function(i){return i.id===it.id});if(idx>-1)list[idx]=it}else{list.unshift(Object.assign({},it,{id:Date.now(),likes:0,comments:0}))}
+  if(cf.type==='topics'){
+    var el=document.getElementById('ctf-cat');var cat=el?el.value:(UI.storyCat||'校友访谈');
+    var src=storySources[cat];
+    if(cf.isEdit){storyCats.forEach(function(x){var arr=storySources[x];var i=arr.findIndex(function(y){return y.id===it.id});if(i>-1&&x!==cat)arr.splice(i,1)});var idx=src.findIndex(function(y){return y.id===it.id});if(idx>-1)src[idx]=it;else src.unshift(it)}
+    else{src.unshift(Object.assign({},it,{id:Date.now(),likes:0,comments:0}))}
+    UI.storyCat=cat;
+  } else {
+    var list=_ct[cf.type];
+    if(cf.isEdit){var idx=list.findIndex(function(i){return i.id===it.id});if(idx>-1)list[idx]=it}else{list.unshift(Object.assign({},it,{id:Date.now(),likes:0,comments:0}))}
+  }
   closeModal('ct-modal');toast('已保存','success');render();
 }
 function ctToggle(type,id){var it=_ct[type].find(function(i){return i.id===id});if(it){it.published=!it.published;toast(it.published?'已上架':'已下架','success');render()}}
@@ -621,7 +641,7 @@ function ctDel(type,id){confirmDialog('确定删除？',function(){_ct[type]=_ct
 // GROUPS
 // ================================================================
 function renderGroups(){
-  var list=groupList;var c=UI.groupCat||'全部';var q=(UI.groupSearch||'').toLowerCase();var cats=['全部','行业社团','兴趣社团','地方社团','海外社团'];
+  var list=groupList;var c=UI.groupCat||'全部';var q=(UI.groupSearch||'').toLowerCase();var cats=['全部','行业社群','兴趣社团','地方社群','商务团体'];
   var fl=c==='全部'?list:list.filter(function(g){return g.category===c});if(q)fl=fl.filter(function(g){return g.name.toLowerCase().indexOf(q)>=0||g.leader.indexOf(q)>=0});
   var h='<div class="card"><div class="card-body"><div class="toolbar"><div class="toolbar-left"><div style="display:inline-flex;background:#f5f7fa;border-radius:6px;padding:3px">';
   cats.forEach(function(x){h+='<div class="sub-tab'+(c===x?' active':'')+'" onclick="UI.groupCat=\''+x+'\';render()" style="padding:7px 18px;border-radius:4px;cursor:pointer;font-size:13px'+(c===x?';background:#fff;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.1)':'')+'">'+x+' <span style="color:#909399;font-size:11px">'+(x==='全部'?list.length:list.filter(function(g){return g.category===x}).length)+'</span></div>'});
@@ -633,12 +653,12 @@ function renderGroups(){
 }
 function grpForm(id){
   var g=id!==undefined?groupList.find(function(x){return x.id===id}):null;var ie=!!g;
-  if(!g)g={id:0,name:'',logo:'https://picsum.photos/seed/g-new/200/200',category:'行业社团',leader:'',phone:'',intro:'',memberCount:0};
+  if(!g)g={id:0,name:'',logo:'https://picsum.photos/seed/g-new/200/200',category:'行业社群',leader:'',phone:'',intro:'',memberCount:0};
   window._grpF={ie:ie,it:g};
   var h='<div class="modal-overlay" id="grp-modal"><div class="modal-box" style="width:560px"><div class="modal-header"><span>'+(ie?'编辑社团':'新建社团')+'</span><span class="modal-close" onclick="closeModal(\'grp-modal\')">×</span></div><div class="modal-body vue-form">';
   h+='<div class="vf-row"><div class="vf-label w90 required">社团名称</div><div class="vf-value"><input class="form-input" id="gf-name" value="'+esc(g.name)+'"></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">LOGO</div><div class="vf-value">'+imgUploadHtml('gf-logo',g.logo,'LOGO','square')+'</div></div>';
-  h+='<div class="vf-row"><div class="vf-label w90 required">分类</div><div class="vf-value"><select class="form-select" id="gf-cat">';['行业社团','兴趣社团','地方社团','海外社团'].forEach(function(x){h+='<option value="'+x+'"'+(g.category===x?' selected':'')+'>'+x+'</option>'});h+='</select></div></div>';
+  h+='<div class="vf-row"><div class="vf-label w90 required">分类</div><div class="vf-value"><select class="form-select" id="gf-cat">';['行业社群','兴趣社团','地方社群','商务团体'].forEach(function(x){h+='<option value="'+x+'"'+(g.category===x?' selected':'')+'>'+x+'</option>'});h+='</select></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">负责人</div><div class="vf-value"><input class="form-input" id="gf-leader" value="'+esc(g.leader)+'" style="width:200px"></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">联系电话</div><div class="vf-value"><input class="form-input" id="gf-phone" value="'+esc(g.phone)+'" style="width:200px"></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">社团简介</div><div class="vf-value"><textarea class="form-textarea" id="gf-intro" style="min-height:60px">'+esc(g.intro)+'</textarea></div></div>';
@@ -664,19 +684,14 @@ function grpDel(id){confirmDialog('确定删除该社团？',function(){groupLis
 // ================================================================
 // HELP
 // ================================================================
-function helpRoleColor(role){return role==='认证校友'?'primary':(role==='商务会员'?'danger':'info')}
+function helpRoleColor(role){return role==='认证校友'?'primary':'info'}
 function helpReviewTag(s){return s==='pending'?'warning':(s==='approved'?'success':'danger')}
 function helpReviewText(s){return s==='pending'?'待审核':(s==='approved'?'已通过':'已驳回')}
 function helpRespText(s){return s==='waiting'?'等待处理':(s==='accepted'?'已接受':(s==='rejected'?'已驳回':'已完成'))}
 function helpRespTag(s){return s==='waiting'?'warning':(s==='accepted'?'success':(s==='rejected'?'danger':'info'))}
 
 function renderHelp(){
-  var mt=UI.helpMainTab||'helps';
-  var respCount=0;helpList.forEach(function(h){(h.responses||[]).forEach(function(){respCount++})});
-  var h='<div class="card" style="margin-bottom:20px"><div class="card-body"><div class="el-tabs"><div class="el-tab'+(mt==='helps'?' active':'')+'" onclick="UI.helpMainTab=\'helps\';render()">求助管理 ('+helpList.length+')</div><div class="el-tab'+(mt==='responses'?' active':'')+'" onclick="UI.helpMainTab=\'responses\';render()">商务响应 ('+respCount+')</div></div></div></div>';
-  if(mt==='helps')h+=renderHelpHelps();
-  else h+=renderHelpResponses();
-  return h;
+  return renderHelpHelps();
 }
 function renderHelpHelps(){
   var tab=UI.helpTab||'all';var q=(UI.helpSearch||'').toLowerCase();
@@ -696,7 +711,7 @@ function renderHelpHelps(){
 function renderHelpResponses(){
   var q=(UI.responseSearch||'').toLowerCase();
   var rf=UI.responseFilter||'all';
-  var businessHelps=helpList.filter(function(h){return h.publisher&&h.publisher.role==='商务会员'});
+  var businessHelps=helpList.filter(function(h){return h.publisher&&h.publisher.role==='认证校友'});
   var responses=[];
   businessHelps.forEach(function(h){(h.responses||[]).forEach(function(r,idx){
     var rs={id:h.id+'-'+idx,helpId:h.id,_idx:idx,helpTitle:h.title,helpDescription:h.description||'',publisher:h.publisher,responder:{name:r.name,avatar:r.avatar,role:r.role},content:r.text,summary:r.text.length>30?r.text.slice(0,30)+'...':r.text,time:r.time,responseStatus:r.responseStatus||'waiting'};
@@ -732,7 +747,7 @@ function helpForm(id){
   var h='<div class="modal-overlay" id="hpf-modal"><div class="modal-box" style="width:620px"><div class="modal-header"><span>'+(ie?'编辑求助':'新建求助')+'</span><span class="modal-close" onclick="closeModal(\'hpf-modal\')">×</span></div><div class="modal-body vue-form">';
   h+='<div class="vf-row"><div class="vf-label w90 required">求助标题</div><div class="vf-value"><input class="form-input" id="hpf-title" value="'+esc(it.title)+'"></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90 required">发布者姓名</div><div class="vf-value"><input class="form-input" id="hpf-name" value="'+esc(it.publisher.name)+'" style="width:240px"></div></div>';
-  h+='<div class="vf-row"><div class="vf-label w90">发布者角色</div><div class="vf-value"><select class="form-select" id="hpf-role" style="width:240px"><option value="认证校友"'+(it.publisher.role==='认证校友'?' selected':'')+'>认证校友</option><option value="商务会员"'+(it.publisher.role==='商务会员'?' selected':'')+'>商务会员</option></select></div></div>';
+  h+='<div class="vf-row"><div class="vf-label w90">发布者角色</div><div class="vf-value"><select class="form-select" id="hpf-role" style="width:240px"><option value="认证校友"'+(it.publisher.role==='认证校友'?' selected':'')+'>认证校友</option></select></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90">审核状态</div><div class="vf-value"><select class="form-select" id="hpf-review" style="width:240px" onchange="helpFormToggleReject()"><option value="pending"'+(it.reviewStatus==='pending'?' selected':'')+'>待审核</option><option value="approved"'+(it.reviewStatus==='approved'?' selected':'')+'>已通过</option><option value="rejected"'+(it.reviewStatus==='rejected'?' selected':'')+'>已驳回</option></select></div></div>';
   h+='<div class="vf-row" id="hpf-reject-row" style="display:'+(it.reviewStatus==='rejected'?'flex':'none')+'"><div class="vf-label w90">驳回原因</div><div class="vf-value"><textarea class="form-textarea" id="hpf-reject" style="min-height:60px">'+esc(it.rejectReason||'')+'</textarea></div></div>';
   h+='<div class="vf-row"><div class="vf-label w90">求助描述</div><div class="vf-value"><textarea class="form-textarea" id="hpf-desc" style="min-height:100px">'+esc(it.description||'')+'</textarea></div></div>';
@@ -774,7 +789,7 @@ function helpRespDetail(id){
 function helpRespRespond(id){
   var parts=id.split('-');var helpId=parseInt(parts[0]);
   var it=helpList.find(function(h){return h.id===helpId});if(!it)return;
-  var businessHelps=helpList.filter(function(h){return h.publisher&&h.publisher.role==='商务会员'});
+  var businessHelps=helpList.filter(function(h){return h.publisher&&h.publisher.role==='认证校友'});
   var h='<div class="modal-overlay" id="hpr-modal"><div class="modal-box" style="width:520px"><div class="modal-header"><span>响应</span><span class="modal-close" onclick="closeModal(\'hpr-modal\')">×</span></div><div class="modal-body vue-form">';
   h+='<div class="vf-row"><div class="vf-label required">选择求助</div><div class="vf-value"><select class="form-select" id="hpr-helpId" style="width:100%"><option value="">请选择要响应的商务求助</option>';businessHelps.forEach(function(b){h+='<option value="'+b.id+'"'+(b.id===helpId?' selected':'')+'>'+esc(b.title)+'（'+esc(b.publisher&&b.publisher.name)+'）</option>'});h+='</select></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">响应内容</div><div class="vf-value"><textarea class="form-textarea" id="hpr-content" placeholder="请输入响应内容，将公开展示给求助者" style="min-height:120px"></textarea></div></div>';
@@ -930,32 +945,34 @@ function actDel(id){confirmDialog('确定删除该活动？',function(){activity
 // ================================================================
 function renderCourses(){
   var list=courseList.map(function(c){return Object.assign({},c,{published:c.published!==false})});
+  var cat=UI.courseCat||'全部';if(cat!=='全部')list=list.filter(function(c){return c.category===cat});
+  var cats=['全部','专题采访','行业看点','在线学习','直播课程'];
+  var catsHtml=cats.map(function(x){return '<span class="filter-tab'+(cat===x?' active':'')+'" onclick="UI.courseCat=\''+x+'\';render()">'+x+'</span>'}).join('');
   var q=(UI.courseSearch||'').toLowerCase();
   if(q)list=list.filter(function(c){return (c.title||'').toLowerCase().indexOf(q)>=0||(c.teacher||'').toLowerCase().indexOf(q)>=0});
   var lessonCount=function(c){var s=0;(c.chapters||[]).forEach(function(ch){s+=(ch.lessons||[]).length});return s};
-  var h='<div class="card"><div class="card-body"><div class="toolbar"><div class="toolbar-left"><div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索课程名/讲师" value="'+esc(UI.courseSearch||'')+'" oninput="UI.courseSearch=this.value;render()" style="width:280px"></div></div><div class="toolbar-right"><span class="total-count">共 '+list.length+' 门课程</span><button class="btn btn-primary btn-sm" onclick="courseForm()">'+luci('plus',16)+' 新建课程</button></div></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:120px">封面</th><th style="min-width:280px">课程信息</th><th style="width:140px">讲师</th><th style="width:180px">价格</th><th style="width:120px">章节/课时</th><th style="width:120px">订阅人数</th><th style="width:90px">状态</th><th style="width:80px">操作</th></tr></thead><tbody>';
+  var h='<div class="card"><div class="card-body"><div class="toolbar"><div class="toolbar-left"><div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索视频名/讲师" value="'+esc(UI.courseSearch||'')+'" oninput="UI.courseSearch=this.value;render()" style="width:280px"></div></div><div class="toolbar-right"><span class="total-count">共 '+list.length+' 门视频</span><button class="btn btn-primary btn-sm" onclick="courseForm()">'+luci('plus',16)+' 新建视频</button></div></div><div class="filter-tabs">'+catsHtml+'</div><div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:120px">封面</th><th style="min-width:280px">视频信息</th><th style="width:110px">分类</th><th style="width:140px">讲师</th><th style="width:180px">价格</th><th style="width:120px">章节/课时</th><th style="width:120px">订阅人数</th><th style="width:90px">状态</th><th style="width:80px">操作</th></tr></thead><tbody>';
   list.forEach(function(c){
     var chCount=(c.chapters||[]).length;var lsCount=lessonCount(c);
-    h+='<tr><td><img src="'+c.cover+'" style="width:90px;height:54px;border-radius:4px;object-fit:cover"></td><td><div style="font-weight:600;font-size:14px">'+esc(c.title)+'</div><div style="font-size:12px;color:#909399;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">'+esc(c.subtitle||'')+'</div></td><td><div style="font-weight:500">'+esc(c.teacher)+'</div><div style="font-size:12px;color:#909399">'+esc(c.duration||'')+'</div></td><td><div style="color:#f56c6c;font-weight:700;font-size:16px">¥'+c.price+'</div><div style="font-size:12px;color:#909399"><span style="text-decoration:line-through">¥'+c.originalPrice+'</span><span style="margin-left:6px;color:#e6a23c">会员¥'+c.memberPrice+'</span></div></td><td style="font-size:12px">'+chCount+' 章 · '+lsCount+' 节</td><td style="font-size:12px">'+v(c.students)+' 人</td><td>'+(c.published?tag('已上架','success'):tag('已下架','warning'))+'</td><td><div class="dropdown">'+ddBtn('cd-'+c.id)+dd('cd-'+c.id,[{label:'详情',action:'courseDetail('+c.id+')'},{label:'编辑',action:'courseForm('+c.id+')'},{label:c.published?'下架':'上架',action:'courseToggle('+c.id+')'},null,{label:'删除',action:'courseDel('+c.id+')',danger:true}].filter(Boolean))+'</div></td></tr>'});h+='</tbody></table></div></div></div>';return h;
+    h+='<tr><td><img src="'+c.cover+'" style="width:90px;height:54px;border-radius:4px;object-fit:cover"></td><td><div style="font-weight:600;font-size:14px">'+esc(c.title)+'</div><div style="font-size:12px;color:#909399;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px">'+esc(c.subtitle||'')+'</div></td><td>'+esc(c.category||'')+'</td><td><div style="font-weight:500">'+esc(c.teacher)+'</div><div style="font-size:12px;color:#909399">'+esc(c.duration||'')+'</div></td><td><div style="color:#f56c6c;font-weight:700;font-size:16px">¥'+c.price+'</div><div style="font-size:12px;color:#909399"><span style="text-decoration:line-through">¥'+c.originalPrice+'</span></div></td><td style="font-size:12px">'+chCount+' 章 · '+lsCount+' 节</td><td style="font-size:12px">'+v(c.students)+' 人</td><td>'+(c.published?tag('已上架','success'):tag('已下架','warning'))+'</td><td><div class="dropdown">'+ddBtn('cd-'+c.id)+dd('cd-'+c.id,[{label:'详情',action:'courseDetail('+c.id+')'},{label:'编辑',action:'courseForm('+c.id+')'},{label:c.published?'下架':'上架',action:'courseToggle('+c.id+')'},null,{label:'删除',action:'courseDel('+c.id+')',danger:true}].filter(Boolean))+'</div></td></tr>'});h+='</tbody></table></div></div></div>';return h;
 }
 function courseDetail(id){
   var c=courseList.find(function(x){return x.id===id});if(!c)return;
   var h='<div class="modal-overlay" id="crsd-modal"><div class="modal-box modal-lg"><div class="modal-header"><span>'+esc(c.title)+'</span><span class="modal-close" onclick="closeModal(\'crsd-modal\')">×</span></div><div class="modal-body">';
   h+='<div class="detail-grid">';
-  h+='<div class="dg-item dg-full"><div class="dg-label">课程名称</div><div class="dg-value">'+esc(c.title)+'</div></div>';
+  h+='<div class="dg-item dg-full"><div class="dg-label">视频名称</div><div class="dg-value">'+esc(c.title)+'</div></div>';
   h+='<div class="dg-item dg-full"><div class="dg-label">副标题</div><div class="dg-value">'+esc(c.subtitle||'')+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">讲师</div><div class="dg-value">'+esc(c.teacher)+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">职称</div><div class="dg-value">'+esc(c.teacherTitle||'')+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">价格</div><div class="dg-value">¥'+c.price+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">原价</div><div class="dg-value" style="text-decoration:line-through">¥'+c.originalPrice+'</div></div>';
-  h+='<div class="dg-item"><div class="dg-label">会员价</div><div class="dg-value">¥'+c.memberPrice+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">分类</div><div class="dg-value">'+esc(c.category||'')+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">课时</div><div class="dg-value">'+esc(c.duration||'')+'</div></div>';
   h+='<div class="dg-item"><div class="dg-label">订阅人数</div><div class="dg-value">'+v(c.students)+' 人</div></div>';
   h+='<div class="dg-item"><div class="dg-label">状态</div><div class="dg-value">'+(c.published?tag('已上架','success'):tag('已下架','warning'))+'</div></div>';
-  h+='<div class="dg-item dg-full"><div class="dg-label">课程介绍</div><div class="dg-value">'+esc(c.intro||'')+'</div></div>';
+  h+='<div class="dg-item dg-full"><div class="dg-label">视频介绍</div><div class="dg-value">'+esc(c.intro||'')+'</div></div>';
   h+='</div>';
-  h+='<h4 style="margin:20px 0 10px">课程章节</h4>';
+  h+='<h4 style="margin:20px 0 10px">视频章节</h4>';
   var chapters=c.chapters||[];
   if(!chapters.length){h+='<div style="padding:20px;text-align:center;color:#909399">暂无章节</div>'}
   else{
@@ -980,7 +997,7 @@ function courseForm(id){
   var c=id!==undefined?courseList.find(function(x){return x.id===id}):null;var ie=!!c;
   if(!c)c={id:0,title:'',subtitle:'',cover:'',teacher:'',teacherTitle:'',teacherBio:'',intro:'',price:0,originalPrice:0,memberPrice:0,published:true,students:0,rating:5,duration:'',totalMinutes:0,category:'企业管理',highlights:[],chapters:[],reviewList:[]};
   window._crsF={ie:ie,it:c};window._crsStep=0;
-  var h='<div class="modal-overlay" id="crs-modal"><div class="modal-box" style="width:900px"><div class="modal-header"><span>'+(ie?'编辑课程':'新建课程')+'</span><span class="modal-close" onclick="closeModal(\'crs-modal\')">×</span></div><div class="modal-body">';
+  var h='<div class="modal-overlay" id="crs-modal"><div class="modal-box" style="width:900px"><div class="modal-header"><span>'+(ie?'编辑视频':'新建视频')+'</span><span class="modal-close" onclick="closeModal(\'crs-modal\')">×</span></div><div class="modal-body">';
   h+='<div id="crs-steps">'+courseStepsHtml()+'</div>';
   h+='<div style="margin-top:20px">';
   h+='<div id="crs-step-0" style="display:'+(window._crsStep===0?'block':'none')+'">'+renderCourseStepBasic()+'</div>';
@@ -1004,7 +1021,7 @@ function courseFooterHtml(){
   var h='<div style="display:flex;justify-content:space-between;width:100%">';
   h+=window._crsStep>0?'<button class="btn btn-default" onclick="courseStepGo('+(window._crsStep-1)+')">上一步</button>':'<span></span>';
   h+='<div><button class="btn btn-default" onclick="closeModal(\'crs-modal\')">取消</button>';
-  h+=window._crsStep<2?'<button class="btn btn-primary" onclick="courseNext()">下一步</button>':'<button class="btn btn-primary" onclick="courseSave()">保存课程</button>';
+  h+=window._crsStep<2?'<button class="btn btn-primary" onclick="courseNext()">下一步</button>':'<button class="btn btn-primary" onclick="courseSave()">保存视频</button>';
   h+='</div></div>';return h;
 }
 function courseStepGo(n){
@@ -1017,43 +1034,42 @@ function courseStepGo(n){
 }
 function courseNext(){
   if(window._crsStep===0){
-    if(!document.getElementById('cf-title').value.trim())return toast('请填写课程名称','warning');
+    if(!document.getElementById('cf-title').value.trim())return toast('请填写视频名称','warning');
     if(!document.getElementById('cf-subtitle').value.trim())return toast('请填写副标题','warning');
-    if(!imgVal('cf-cover'))return toast('请上传课程封面','warning');
+    if(!imgVal('cf-cover'))return toast('请上传视频封面','warning');
     if(!document.getElementById('cf-teacher').value.trim())return toast('请填写讲师姓名','warning');
     if(!document.getElementById('cf-ttitle').value.trim())return toast('请填写讲师职称','warning');
     if(!document.getElementById('cf-teacherBio').value.trim())return toast('请填写讲师介绍','warning');
-    if(!document.getElementById('cf-intro').value.trim())return toast('请填写课程介绍','warning');
+    if(!document.getElementById('cf-intro').value.trim())return toast('请填写视频介绍','warning');
   }else if(window._crsStep===1){
-    if(!(parseInt(document.getElementById('cf-price').value)||0))return toast('请填写课程价格','warning');
+    if(!(parseInt(document.getElementById('cf-price').value)||0))return toast('请填写视频价格','warning');
     if(!(parseInt(document.getElementById('cf-oprice').value)||0))return toast('请填写原价','warning');
-    if(!(parseInt(document.getElementById('cf-mprice').value)||0))return toast('请填写会员价','warning');
   }
   courseStepGo(window._crsStep+1);
 }
 function renderCourseStepBasic(){
   var c=window._crsF.it;
   var h='<div class="vue-form">';
-  h+='<div class="vf-row"><div class="vf-label required">课程名称</div><div class="vf-value"><input class="form-input" id="cf-title" value="'+esc(c.title)+'" placeholder="请输入课程名称"></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">视频名称</div><div class="vf-value"><input class="form-input" id="cf-title" value="'+esc(c.title)+'" placeholder="请输入视频名称"></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">视频分类</div><div class="vf-value"><select class="form-input" id="cf-category" style="width:280px"><option value="专题采访"'+(c.category==='专题采访'?' selected':'')+'>专题采访</option><option value="行业看点"'+(c.category==='行业看点'?' selected':'')+'>行业看点</option><option value="在线学习"'+(c.category==='在线学习'?' selected':'')+'>在线学习</option><option value="直播课程"'+(c.category==='直播课程'?' selected':'')+'>直播课程</option></select></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">副标题</div><div class="vf-value"><input class="form-input" id="cf-subtitle" value="'+esc(c.subtitle||'')+'" placeholder="请输入副标题"></div></div>';
-  h+='<div class="vf-row"><div class="vf-label required">课程封面</div><div class="vf-value">'+imgUploadHtml('cf-cover',c.cover,'课程封面')+'</div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">视频封面</div><div class="vf-value">'+imgUploadHtml('cf-cover',c.cover,'视频封面')+'</div></div>';
   h+='<div class="vf-row"><div class="vf-label required">讲师</div><div class="vf-value"><input class="form-input" id="cf-teacher" value="'+esc(c.teacher)+'" placeholder="讲师姓名" style="width:280px"></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">讲师职称</div><div class="vf-value"><input class="form-input" id="cf-ttitle" value="'+esc(c.teacherTitle||'')+'" placeholder="如：智控科技创始人 · 北理工2005级"></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">讲师介绍</div><div class="vf-value"><textarea class="form-textarea" id="cf-teacherBio" style="min-height:60px" placeholder="讲师背景介绍">'+esc(c.teacherBio||'')+'</textarea></div></div>';
-  h+='<div class="vf-row"><div class="vf-label required">课程介绍</div><div class="vf-value"><textarea class="form-textarea" id="cf-intro" style="min-height:80px" placeholder="课程介绍">'+esc(c.intro||'')+'</textarea></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">视频介绍</div><div class="vf-value"><textarea class="form-textarea" id="cf-intro" style="min-height:80px" placeholder="视频介绍">'+esc(c.intro||'')+'</textarea></div></div>';
   h+='</div>';return h;
 }
 function renderCourseStepPrice(){
   var c=window._crsF.it;
   var h='<div class="vue-form">';
-  h+='<div class="vf-row"><div class="vf-label required">课程价格</div><div class="vf-value"><input class="form-input" type="number" id="cf-price" value="'+c.price+'" style="width:160px"><span style="margin-left:8px;color:#909399;font-size:12px">元（实际售价）</span></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">视频价格</div><div class="vf-value"><input class="form-input" type="number" id="cf-price" value="'+c.price+'" style="width:160px"><span style="margin-left:8px;color:#909399;font-size:12px">元（实际售价）</span></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">原价</div><div class="vf-value"><input class="form-input" type="number" id="cf-oprice" value="'+c.originalPrice+'" style="width:160px"><span style="margin-left:8px;color:#909399;font-size:12px">元（划线价格，用于展示折扣）</span></div></div>';
-  h+='<div class="vf-row"><div class="vf-label required">会员价</div><div class="vf-value"><input class="form-input" type="number" id="cf-mprice" value="'+c.memberPrice+'" style="width:160px"><span style="margin-left:8px;color:#909399;font-size:12px">元（商务会员专享价）</span></div></div>';
   h+='</div>';return h;
 }
 function renderCourseStepChapters(){
   var c=window._crsF.it;var ls=0;c.chapters.forEach(function(ch){ls+=ch.lessons.length});
-  var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><span style="font-weight:600;font-size:15px">课程章节</span><span style="margin-left:8px;color:#909399;font-size:12px">共 '+c.chapters.length+' 章 · '+ls+' 课时</span></div><button class="btn btn-primary btn-sm" onclick="addCourseChapter()">'+luci('plus',16)+' 添加章节</button></div>';
+  var h='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><span style="font-weight:600;font-size:15px">视频章节</span><span style="margin-left:8px;color:#909399;font-size:12px">共 '+c.chapters.length+' 章 · '+ls+' 课时</span></div><button class="btn btn-primary btn-sm" onclick="addCourseChapter()">'+luci('plus',16)+' 添加章节</button></div>';
   h+=renderCourseChapterList();
   return h;
 }
@@ -1111,8 +1127,8 @@ function courseVideoPreview(ci,li){
 function courseFormatBytes(b){if(!b)return'';if(b<1048576)return(b/1024).toFixed(1)+' KB';return(b/1048576).toFixed(1)+' MB'}
 function courseSave(){
   var c=window._crsF.it;
-  c.title=document.getElementById('cf-title').value.trim();c.subtitle=document.getElementById('cf-subtitle').value.trim();c.cover=imgVal('cf-cover');c.teacher=document.getElementById('cf-teacher').value.trim();c.teacherTitle=document.getElementById('cf-ttitle').value.trim();c.teacherBio=document.getElementById('cf-teacherBio').value.trim();c.intro=document.getElementById('cf-intro').value.trim();c.price=parseInt(document.getElementById('cf-price').value)||0;c.originalPrice=parseInt(document.getElementById('cf-oprice').value)||0;c.memberPrice=parseInt(document.getElementById('cf-mprice').value)||0;
-  if(!c.title||!c.subtitle||!c.cover||!c.teacher||!c.teacherTitle||!c.teacherBio||!c.intro||!c.price||!c.originalPrice||!c.memberPrice){toast('请填写必要字段','warning');return}
+  c.title=document.getElementById('cf-title').value.trim();c.category=document.getElementById('cf-category').value;c.subtitle=document.getElementById('cf-subtitle').value.trim();c.cover=imgVal('cf-cover');c.teacher=document.getElementById('cf-teacher').value.trim();c.teacherTitle=document.getElementById('cf-ttitle').value.trim();c.teacherBio=document.getElementById('cf-teacherBio').value.trim();c.intro=document.getElementById('cf-intro').value.trim();c.price=parseInt(document.getElementById('cf-price').value)||0;c.originalPrice=parseInt(document.getElementById('cf-oprice').value)||0;
+  if(!c.title||!c.subtitle||!c.cover||!c.teacher||!c.teacherTitle||!c.teacherBio||!c.intro||!c.price||!c.originalPrice){toast('请填写必要字段','warning');return}
   var _ls=0;c.chapters.forEach(function(ch){_ls+=ch.lessons.length});c.duration=_ls+'课时';
   if(!window._crsF.ie){c.id=Date.now();c.students=0;c.rating=5;c.reviewList=c.reviewList||[];courseList.unshift(c)}else{var idx=courseList.findIndex(function(x){return x.id===c.id});if(idx>-1)courseList[idx]=c}
   closeModal('crs-modal');toast('已保存','success');render();
@@ -1149,9 +1165,10 @@ function gbForm(id){
   var h='<div class="modal-overlay" id="gb-modal"><div class="modal-box" style="width:720px"><div class="modal-header"><span>'+(ie?'编辑团购':'新建团购')+'</span><span class="modal-close" onclick="closeModal(\'gb-modal\')">×</span></div><div class="modal-body vue-form">';
   h+='<div class="vf-divider">基础信息</div>';
   h+='<div class="vf-row"><div class="vf-label required">商品名称</div><div class="vf-value"><input class="form-input" id="gbf-title" value="'+esc(g.title)+'"></div></div>';
-  h+='<div class="vf-row"><div class="vf-label required">商品图片</div><div class="vf-value"><div style="display:flex;flex-wrap:wrap;gap:8px" id="gbf-imgs">'+((g.images||[]).map(function(img,i){return'<div style="position:relative;width:120px;height:90px;border-radius:6px;overflow:hidden;border:1px solid #ebeef5"><img src="'+img+'" style="width:100%;height:100%;object-fit:cover"><button class="btn-icon sm" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.5);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px" onclick="this.parentElement.remove()">×</button></div>';}).join(''))+'<div onclick="gbAddImg()" style="width:120px;height:90px;border:1px dashed #dcdfe6;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#909399;font-size:24px">+</div></div><div class="text-muted" style="margin-top:4px">支持多张，每张≤5MB</div></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">封面图</div><div class="vf-value"><div style="display:flex;align-items:center;gap:8px"><img id="gbf-cover-preview" src="'+esc(g.cover||'')+'" style="width:120px;height:90px;border-radius:6px;object-fit:cover;border:1px solid #ebeef5;background:#f5f7fa"><button class="btn btn-default btn-sm" onclick="document.getElementById(\'gbf-cover-input\').click()">选择图片</button><input type="file" id="gbf-cover-input" accept="image/*" style="display:none" onchange="gbCoverChange(this)"></div><div class="text-muted" style="margin-top:4px">封面图，仅一张，≤5MB</div></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">详情图</div><div class="vf-value"><div style="display:flex;flex-wrap:wrap;gap:8px" id="gbf-imgs">'+((g.images||[]).map(function(img,i){return'<div style="position:relative;width:160px;height:90px;border-radius:6px;overflow:hidden;border:1px solid #ebeef5"><img src="'+img+'" style="width:100%;height:100%;object-fit:cover"><button class="btn-icon sm" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.5);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px" onclick="this.parentElement.remove()">×</button></div>';}).join(''))+'<div onclick="gbAddImg()" style="width:160px;height:90px;border:1px dashed #dcdfe6;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#909399;font-size:24px">+</div></div><div class="text-muted" style="margin-top:4px">详情图，支持多张，每张≤5MB</div></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">供应商</div><div class="vf-value"><input class="form-input" id="gbf-supplier" value="'+esc(g.supplier||'')+'" style="width:320px"></div></div>';
-  h+='<div class="vf-row"><div class="vf-label required">分类</div><div class="vf-value"><select class="form-select" id="gbf-cat" style="width:240px">';['商品','餐饮','酒店','旅游','娱乐','运动'].forEach(function(x){h+='<option value="'+x+'"'+(g.category===x?' selected':'')+'>'+x+'</option>'});h+='</select></div></div>';
+  h+='<div class="vf-row"><div class="vf-label required">分类</div><div class="vf-value"><select class="form-select" id="gbf-cat" style="width:240px">';['商品','餐饮','娱乐','运动'].forEach(function(x){h+='<option value="'+x+'"'+(g.category===x?' selected':'')+'>'+x+'</option>'});h+='</select></div></div>';
   h+='<div class="vf-divider">价格</div>';
   h+='<div class="vf-row"><div class="vf-label required">团购价</div><div class="vf-value"><input class="form-input" type="number" id="gbf-price" value="'+g.price+'" style="width:160px"><span style="margin-left:8px;color:#909399;font-size:12px">元</span></div></div>';
   h+='<div class="vf-row"><div class="vf-label required">原价</div><div class="vf-value"><input class="form-input" type="number" id="gbf-oprice" value="'+g.originalPrice+'" style="width:160px"></div></div>';
@@ -1164,10 +1181,13 @@ function gbForm(id){
   h+='</div><div class="modal-footer"><button class="btn btn-default" onclick="closeModal(\'gb-modal\')">取消</button><button class="btn btn-primary" onclick="gbSave()">保存</button></div></div></div>';
   showModal('gb-modal',h);
 }
-function gbAddImg(){var d=document.getElementById('gbf-imgs');var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=function(){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){var div=document.createElement('div');div.style.cssText='position:relative;width:120px;height:90px;border-radius:6px;overflow:hidden;border:1px solid #ebeef5';div.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover"><button class="btn-icon sm" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.5);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px" onclick="this.parentElement.remove()">×</button>';d.insertBefore(div,d.lastElementChild)};r.readAsDataURL(f)};inp.click()}
+function gbAddImg(){var d=document.getElementById('gbf-imgs');var inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=function(){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){var div=document.createElement('div');div.style.cssText='position:relative;width:160px;height:90px;border-radius:6px;overflow:hidden;border:1px solid #ebeef5';div.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover"><button class="btn-icon sm" style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.5);color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px" onclick="this.parentElement.remove()">×</button>';d.insertBefore(div,d.lastElementChild)};r.readAsDataURL(f)};inp.click()}
+function gbCoverChange(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(e){var img=document.getElementById('gbf-cover-preview');if(img)img.src=e.target.result};r.readAsDataURL(f)}
 function gbSave(){
   var gf=window._gbF;var g=gf.it;
   g.title=document.getElementById('gbf-title').value.trim();g.price=parseInt(document.getElementById('gbf-price').value)||0;g.originalPrice=parseInt(document.getElementById('gbf-oprice').value)||0;g.category=document.getElementById('gbf-cat').value;g.supplier=document.getElementById('gbf-supplier').value.trim();g.desc=document.getElementById('gbf-desc').value.trim();g.endDate=document.getElementById('gbf-enddate').value;g.specs=document.getElementById('gbf-specs').value.trim();g.shipping=document.getElementById('gbf-shipping').value.trim();g.published=document.getElementById('gbf-pub').checked;
+  g.cover=document.getElementById('gbf-cover-preview').src;
+  g.images=(function(){var imgs=[];document.querySelectorAll('#gbf-imgs img').forEach(function(x){imgs.push(x.src)});return imgs})();
   if(!g.title||!g.cover||!g.price){toast('请填写必要字段','warning');return}
   if(!gf.ie){g.id=Date.now();v(g.soldCount)=0;groupBuyList.unshift(g)}else{var idx=groupBuyList.findIndex(function(x){return x.id===g.id});if(idx>-1)groupBuyList[idx]=g}
   closeModal('gb-modal');toast('已保存','success');render();
@@ -1250,35 +1270,20 @@ function gbdOrderDetailHtml(i){
 // MEMBERS
 // ================================================================
 function renderMembers(){
-  var mt=UI.memberTab||'cert';var ct=UI.certTab||'pending';var bt=UI.bizTab||'pending';
-  var h='<div class="card" style="margin-bottom:0"><div class="card-body"><div class="el-tabs"><div class="el-tab'+(mt==='cert'?' active':'')+'" onclick="UI.memberTab=\'cert\';render()">校友认证</div><div class="el-tab'+(mt==='biz'?' active':'')+'" onclick="UI.memberTab=\'biz\';render()">会员认证</div></div></div></div>';
-  if(mt==='cert'){
-    var cq=(UI.certSearch||'').toLowerCase();
-    var fl=certRequests.filter(function(r){return r.status===ct});
-    if(cq)fl=fl.filter(function(r){return (r.name||'').toLowerCase().indexOf(cq)>=0||(r.school||'').indexOf(cq)>=0||(r.dept||'').indexOf(cq)>=0||(r.company||'').indexOf(cq)>=0});
-    h+='<div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0"><div class="card-body"><div class="toolbar"><div class="el-tabs"><div class="el-tab'+(ct==='pending'?' active':'')+'" onclick="UI.certTab=\'pending\';render()">待审核 ('+certRequests.filter(function(r){return r.status==='pending'}).length+')</div><div class="el-tab'+(ct==='approved'?' active':'')+'" onclick="UI.certTab=\'approved\';render()">已通过 ('+certRequests.filter(function(r){return r.status==='approved'}).length+')</div><div class="el-tab'+(ct==='rejected'?' active':'')+'" onclick="UI.certTab=\'rejected\';render()">已拒绝 ('+certRequests.filter(function(r){return r.status==='rejected'}).length+')</div></div><div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索姓名/学院/公司" value="'+esc(UI.certSearch||'')+'" oninput="UI.certSearch=this.value;render()" style="width:280px"></div></div>';
-    h+='<div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:200px">申请人</th><th>学院专业</th><th style="width:160px">工作单位</th><th style="width:70px">所在地</th><th style="width:120px">申请时间</th><th style="width:70px">状态</th><th style="width:60px">操作</th></tr></thead><tbody>';
-    fl.forEach(function(r){
-      var st=r.status==='pending'?tag('待审核','warning'):(r.status==='approved'?tag('已通过','success'):tag('已拒绝','danger'));
-      h+='<tr><td><div class="user-cell">'+av(r.avatar,r.name)+'<div class="uinfo"><div class="uname">'+esc(r.name)+'</div><div class="umeta">'+esc(r.year)+' · '+esc(r.degree)+'</div></div></div></td><td><div>'+esc(r.dept)+'</div><div class="umeta">'+esc(r.major)+'</div></td><td>'+(r.company?esc(r.company):'<span style="color:#c0c4cc">—</span>')+'</td><td>'+esc(r.city||'')+'</td><td>'+esc(r.date)+'</td><td>'+st+'</td><td>';
-      if(r.status==='pending')h+='<div class="dropdown">'+ddBtn('crd-'+r.id)+dd('crd-'+r.id,[{label:'查看详情',action:'certDetail('+r.id+')'},{label:'通过',action:'certApprove('+r.id+')'},{label:'拒绝',action:'certReject('+r.id+')',danger:true}])+'</div>';
-      else h+='<button class="btn btn-text btn-sm" onclick="certDetail('+r.id+')">查看详情</button>';
-      h+='</td></tr>';
-    });h+='</tbody></table></div></div></div>';
-  }else{
-    var bq=(UI.bizSearch||'').toLowerCase();
-    var bfl=bizRequests.filter(function(r){return r.status===bt});
-    if(bq)bfl=bfl.filter(function(r){return (r.name||'').toLowerCase().indexOf(bq)>=0||(r.school||'').indexOf(bq)>=0||(r.dept||'').indexOf(bq)>=0});
-    h+='<div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0"><div class="card-body"><div class="toolbar"><div class="el-tabs"><div class="el-tab'+(bt==='pending'?' active':'')+'" onclick="UI.bizTab=\'pending\';render()">待审核 ('+bizRequests.filter(function(r){return r.status==='pending'}).length+')</div><div class="el-tab'+(bt==='approved'?' active':'')+'" onclick="UI.bizTab=\'approved\';render()">已通过 ('+bizRequests.filter(function(r){return r.status==='approved'}).length+')</div><div class="el-tab'+(bt==='rejected'?' active':'')+'" onclick="UI.bizTab=\'rejected\';render()">已拒绝 ('+bizRequests.filter(function(r){return r.status==='rejected'}).length+')</div></div><div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索姓名/学院" value="'+esc(UI.bizSearch||'')+'" oninput="UI.bizSearch=this.value;render()" style="width:280px"></div></div>';
-    h+='<div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:180px">申请人</th><th>关联企业</th><th>关联产品</th><th style="width:120px">申请时间</th><th style="width:70px">状态</th><th style="width:60px">操作</th></tr></thead><tbody>';
-    bfl.forEach(function(r){
-      var st=r.status==='pending'?tag('待审核','warning'):(r.status==='approved'?tag('已通过','success'):tag('已拒绝','danger'));
-      h+='<tr><td><div class="user-cell">'+av(r.avatar,r.name)+'<div class="uinfo"><div class="uname">'+esc(r.name)+'</div><div class="umeta">'+esc(r.dept)+' · '+esc(r.year)+'</div></div></div></td><td>'+(r.companies&&r.companies.length?r.companies.map(function(c){return tag(c.name,'primary')+' <span style="font-size:12px;color:#909399">'+esc(c.position||'')+'</span>'}).join('<br>'):'<span style="color:#c0c4cc">—</span>')+'</td><td>'+(r.products&&r.products.length?r.products.map(function(p){return tag(p.name,'success')}).join(' '):'<span style="color:#c0c4cc">—</span>')+'</td><td>'+esc(r.date)+'</td><td>'+st+'</td><td>';
-      if(r.status==='pending')h+='<div class="dropdown">'+ddBtn('brd-'+r.id)+dd('brd-'+r.id,[{label:'查看详情',action:'bizDetail('+r.id+')'},{label:'通过',action:'bizApprove('+r.id+')'},{label:'拒绝',action:'bizReject('+r.id+')',danger:true}])+'</div>';
-      else h+='<button class="btn btn-text btn-sm" onclick="bizDetail('+r.id+')">查看详情</button>';
-      h+='</td></tr>';
-    });h+='</tbody></table></div></div></div>';
-  }
+  var ct=UI.certTab||'pending';
+  var h='<div class="card" style="margin-bottom:0"><div class="card-body"><div class="el-tabs"><div class="el-tab active">校友认证</div></div></div></div>';
+  var cq=(UI.certSearch||'').toLowerCase();
+  var fl=certRequests.filter(function(r){return r.status===ct});
+  if(cq)fl=fl.filter(function(r){return (r.name||'').toLowerCase().indexOf(cq)>=0||(r.school||'').indexOf(cq)>=0||(r.dept||'').indexOf(cq)>=0||(r.company||'').indexOf(cq)>=0});
+  h+='<div class="card" style="margin-top:0;border-top-left-radius:0;border-top-right-radius:0"><div class="card-body"><div class="toolbar"><div class="el-tabs"><div class="el-tab'+(ct==='pending'?' active':'')+'" onclick="UI.certTab=\'pending\';render()">待审核 ('+certRequests.filter(function(r){return r.status==='pending'}).length+')</div><div class="el-tab'+(ct==='approved'?' active':'')+'" onclick="UI.certTab=\'approved\';render()">已通过 ('+certRequests.filter(function(r){return r.status==='approved'}).length+')</div><div class="el-tab'+(ct==='rejected'?' active':'')+'" onclick="UI.certTab=\'rejected\';render()">已拒绝 ('+certRequests.filter(function(r){return r.status==='rejected'}).length+')</div></div><div class="search-input"><span class="search-icon-slot">'+luci('search',16)+'</span><input class="form-input sm" placeholder="搜索姓名/学院/公司" value="'+esc(UI.certSearch||'')+'" oninput="UI.certSearch=this.value;render()" style="width:280px"></div></div>';
+  h+='<div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:200px">申请人</th><th>学院专业</th><th style="width:160px">工作单位</th><th style="width:70px">所在地</th><th style="width:120px">申请时间</th><th style="width:70px">状态</th><th style="width:60px">操作</th></tr></thead><tbody>';
+  fl.forEach(function(r){
+    var st=r.status==='pending'?tag('待审核','warning'):(r.status==='approved'?tag('已通过','success'):tag('已拒绝','danger'));
+    h+='<tr><td><div class="user-cell">'+av(r.avatar,r.name)+'<div class="uinfo"><div class="uname">'+esc(r.name)+'</div><div class="umeta">'+esc(r.year)+' · '+esc(r.degree)+'</div></div></div></td><td><div>'+esc(r.dept)+'</div><div class="umeta">'+esc(r.major)+'</div></td><td>'+(r.company?esc(r.company):'<span style="color:#c0c4cc">—</span>')+'</td><td>'+esc(r.city||'')+'</td><td>'+esc(r.date)+'</td><td>'+st+'</td><td>';
+    if(r.status==='pending')h+='<div class="dropdown">'+ddBtn('crd-'+r.id)+dd('crd-'+r.id,[{label:'查看详情',action:'certDetail('+r.id+')'},{label:'通过',action:'certApprove('+r.id+')'},{label:'拒绝',action:'certReject('+r.id+')',danger:true}])+'</div>';
+    else h+='<button class="btn btn-text btn-sm" onclick="certDetail('+r.id+')">查看详情</button>';
+    h+='</td></tr>';
+  });h+='</tbody></table></div></div></div>';
   return h;
 }
 function certApprove(id){var r=certRequests.find(function(x){return x.id===id});if(r){r.status='approved';toast('已通过','success');render()}}
@@ -1296,6 +1301,12 @@ function certDetail(id){
   if(r.tags&&r.tags.length)h+='<div class="dg-item dg-full"><div class="dg-label">个人标签</div><div class="dg-value">'+r.tags.map(function(t){return tag(t,'primary')}).join(' ')+'</div></div>';
   if(r.hobbies&&r.hobbies.length)h+='<div class="dg-item dg-full"><div class="dg-label">兴趣爱好</div><div class="dg-value">'+r.hobbies.map(function(t){return tag(t,'success')}).join(' ')+'</div></div>';
   h+='<div class="dg-item dg-full"><div class="dg-label">个人简介</div><div class="dg-value">'+esc(r.intro||'')+'</div></div></div>';
+  h+='<div class="detail-title mt-20">关联企业（'+(r.companies?r.companies.length:0)+'家）</div>';
+  if(!r.companies||!r.companies.length)h+='<div style="color:#c0c4cc;font-size:13px;padding:12px">暂无关联企业</div>';
+  else r.companies.forEach(function(c){h+='<div class="biz-card"><div class="biz-card-header"><img src="'+(c.logo||'')+'" style="width:44px;height:44px;border-radius:4px;object-fit:cover"><div style="flex:1;margin-left:10px"><div style="font-weight:600;font-size:14px">'+esc(c.name)+'</div><div style="font-size:12px;color:#909399">'+esc(c.position||'')+(c.joinDate?' · '+c.joinDate:'')+'</div></div>'+tag(c.industry||'','info')+'</div>'+(c.address?'<div style="font-size:13px;color:#666;margin-top:8px">'+esc(c.address)+'</div>':'')+(c.intro?'<div style="font-size:13px;color:#999;margin-top:4px">简介：'+esc(c.intro)+'</div>':'')+'</div>'});
+  h+='<div class="detail-title mt-20">关联产品（'+(r.products?r.products.length:0)+'款）</div>';
+  if(!r.products||!r.products.length)h+='<div style="color:#c0c4cc;font-size:13px;padding:12px">暂无关联产品</div>';
+  else r.products.forEach(function(p){h+='<div class="biz-card"><div class="biz-card-header"><img src="'+(p.cover||'')+'" style="width:60px;height:44px;border-radius:6px;object-fit:cover"><div style="flex:1;margin-left:10px"><div style="font-weight:600;font-size:14px">'+esc(p.name)+'</div><div style="font-size:12px;color:#909399;margin-top:2px">'+(p.applications?esc(p.applications):'')+'</div></div></div>'+(p.intro?'<div style="font-size:13px;color:#666;margin-top:8px">'+esc(p.intro)+'</div>':'')+(p.features&&p.features.length?'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px">'+p.features.map(function(f){return tag(f,'success')}).join('')+'</div>':'')+'</div>'});
   if(r.status==='pending')h+='<div class="drawer-footer"><button class="btn btn-danger" onclick="certReject('+r.id+');closeDrawer(\'cert-dr\')">拒绝</button><button class="btn btn-primary" onclick="certApprove('+r.id+');closeDrawer(\'cert-dr\')">通过认证</button></div>';
   h+='</div></div></div>';showDrawer('cert-dr',h);
 }
@@ -1359,7 +1370,7 @@ function ptDelRule(i){confirmDialog('确定删除？',function(){ruleForm.rules.
 function renderFundsFlow(){
   var tf=UI.fundsType||'all';var sf=UI.fundsStatus||'all';var fl=fundsRecordsMock;
   if(tf!=='all')fl=fl.filter(function(r){return r.type===tf});if(sf!=='all')fl=fl.filter(function(r){return r.status===sf});
-  var h='<div class="stat-row">'+statCard('总收入','¥'+fl.filter(function(r){return r.status==='success'&&r.amount>0}).reduce(function(s,r){return s+r.amount},0).toLocaleString(),'',false,'#67c23a',luci('banknote',26))+statCard('交易笔数',fl.length,'',false,'#4a90d9',luci('clipboard-list',26))+'</div><div class="card"><div class="card-body"><div class="filter-bar"><select class="form-select sm" onchange="UI.fundsType=this.value;render()"><option value="all">全部类型</option><option value="activity"'+('activity'===tf?' selected':'')+'>活动报名</option><option value="course"'+('course'===tf?' selected':'')+'>课程购买</option><option value="groupbuy"'+('groupbuy'===tf?' selected':'')+'>团购</option></select><select class="form-select sm" onchange="UI.fundsStatus=this.value;render()"><option value="success"'+('success'===sf?' selected':'')+'>交易成功</option></select><span class="total-count">共 '+fl.length+' 条</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:80px">用户</th><th style="width:90px">类型</th><th style="width:90px">金额</th><th>关联</th><th style="width:80px">支付方式</th><th style="width:70px">状态</th><th style="width:140px">时间</th></tr></thead><tbody>';
+  var h='<div class="stat-row">'+statCard('总收入','¥'+fl.filter(function(r){return r.status==='success'&&r.amount>0}).reduce(function(s,r){return s+r.amount},0).toLocaleString(),'',false,'#67c23a',luci('banknote',26))+statCard('交易笔数',fl.length,'',false,'#4a90d9',luci('clipboard-list',26))+'</div><div class="card"><div class="card-body"><div class="filter-bar"><select class="form-select sm" onchange="UI.fundsType=this.value;render()"><option value="all">全部类型</option><option value="activity"'+('activity'===tf?' selected':'')+'>活动报名</option><option value="course"'+('course'===tf?' selected':'')+'>视频购买</option><option value="groupbuy"'+('groupbuy'===tf?' selected':'')+'>团购</option></select><select class="form-select sm" onchange="UI.fundsStatus=this.value;render()"><option value="success"'+('success'===sf?' selected':'')+'>交易成功</option></select><span class="total-count">共 '+fl.length+' 条</span></div><div class="data-table-wrap"><table class="data-table"><thead><tr><th style="width:80px">用户</th><th style="width:90px">类型</th><th style="width:90px">金额</th><th>关联</th><th style="width:80px">支付方式</th><th style="width:70px">状态</th><th style="width:140px">时间</th></tr></thead><tbody>';
   fl.sort(function(a,b){return new Date(b.transactionTime)-new Date(a.transactionTime)}).forEach(function(r){var tc='primary';var sc=r.status==='success'?'success':'danger';var sl=r.status==='success'?'成功':r.status;var ac=r.amount>=0?'#67c23a':'#f56c6c';h+='<tr><td>'+esc(r.userName)+'</td><td>'+tag(r.typeLabel,tc)+'</td><td style="font-weight:700;color:'+ac+'">'+(r.amount>=0?'+':'')+'¥'+r.amount.toLocaleString()+'</td><td>'+esc(r.relatedName||r.remark||'')+'</td><td>'+esc(r.payMethod)+'</td><td>'+tag(sl,sc)+'</td><td>'+esc(r.transactionTime)+'</td></tr>'});h+='</tbody></table></div></div></div>';return h;
 }
 
@@ -1461,200 +1472,6 @@ function svcOrgSave(){
   closeModal('svcorg-modal');toast('已保存','success');render();
 }
 
-// ================================================================
-// ALUMNI CIRCLES
-// ================================================================
-var circlePredefined=['上市公司','投资机构','企业高管','科创项目'];
-var circleGenderOpts=['男','女'];
-var circleRoleOpts=['创始人','联合创始人','董事长','总经理','独立董事'];
-var circleStageOpts=['已上市','IPO 申报中','Pre-IPO'];
-var circleOrgTypeOpts=['PE','VC','天使投资','产业投资','券商直投'];
-var circleInvPosOpts=['管理合伙人','合伙人','投资总监','投资经理'];
-var circleNatureOpts=['上市民企','央企','地方国企','跨国企业','民营企业'];
-var circleDevStageOpts=['种子轮','天使轮','A轮','B轮','C轮','稳定经营'];
-
-function circleIsCustom(c){return circlePredefined.indexOf(c.name)<0;}
-function circleItems(c){if(!c)return[];if(c.name==='上市公司')return c.listedItems||[];if(c.name==='投资机构')return c.investmentItems||[];if(c.name==='企业高管')return c.executiveItems||[];if(c.name==='科创项目')return c.techProjectItems||[];return c.customItems||[];}
-function circleSetItems(c,arr){if(c.name==='上市公司')c.listedItems=arr;else if(c.name==='投资机构')c.investmentItems=arr;else if(c.name==='企业高管')c.executiveItems=arr;else if(c.name==='科创项目')c.techProjectItems=arr;else c.customItems=arr;}
-function circleCount(c){return (c.listedItems?c.listedItems.length:0)+(c.investmentItems?c.investmentItems.length:0)+(c.executiveItems?c.executiveItems.length:0)+(c.techProjectItems?c.techProjectItems.length:0)+(c.customItems?c.customItems.length:0);}
-function circleEmptyAlumnus(){return {avatar:'',name:'',gender:'',graduationYear:'',department:'',major:'',phone:'',email:''};}
-function circleEmptyItem(c){var info=circleEmptyAlumnus();if(c.name==='上市公司')return {alumnusInfo:info,companyShortName:'',stockCode:'',roleLabel:'',companyStage:'',businessIntro:''};if(c.name==='投资机构')return {alumnusInfo:info,orgName:'',orgType:'',position:'',investTrack:'',representProjects:''};if(c.name==='企业高管')return {alumnusInfo:info,companyName:'',companyNature:'',position:'',businessBlock:''};if(c.name==='科创项目')return {alumnusInfo:info,projectName:'',techTrack:'',devStage:'',financing:'',coreAdvantage:'',showFinancing:false};var o={alumnusInfo:info};(c.fields||[]).forEach(function(f){o[f]='';});return o;}
-
-function circleAlumCell(a){a=a||{};return '<td><div class="user-cell">'+av(a.avatar,a.name,36)+'<div class="uinfo"><div class="uname">'+esc(a.name)+'</div><div class="umeta">'+esc(a.department||'')+' · '+esc(a.graduationYear||'')+'</div></div></div></td>';}
-function circleActions(idx){return '<td style="width:80px"><div class="dropdown">'+ddBtn('cid-'+idx)+dd('cid-'+idx,[{label:'查看详情',action:'circleItemForm('+idx+',"view")'},{label:'编辑',action:'circleItemForm('+idx+',"edit")'},{label:'删除',action:'circleItemDel('+idx+')',danger:true}])+'</div></td>';}
-
-function circleInput(id,val,ph,dis){return '<input class="form-input" id="'+id+'" value="'+esc(val||'')+'" placeholder="'+esc(ph||'')+'"'+(dis?' disabled':'')+'>';}
-function circleFieldRow(label,id,val,ph,dis,req){return '<div class="vf-row"><div class="vf-label w120'+(req?' required':'')+'">'+esc(label)+'</div><div class="vf-value">'+circleInput(id,val,ph,dis)+'</div></div>';}
-function circleSelect(id,opts,val,dis){var h='<select class="form-select" id="'+id+'"'+(dis?' disabled':'')+'><option value="">请选择</option>';opts.forEach(function(o){h+='<option value="'+esc(o)+'"'+(val===o?' selected':'')+'>'+esc(o)+'</option>';});return h+'</select>';}
-function circleSelectRow(label,id,opts,val,dis,req){return '<div class="vf-row"><div class="vf-label w120'+(req?' required':'')+'">'+esc(label)+'</div><div class="vf-value">'+circleSelect(id,opts,val,dis)+'</div></div>';}
-
-function renderAlumniCircles(){
-  var i=UI.circleIdx||0;var c=alumniCirclesList[i];if(!c){UI.circleIdx=0;c=alumniCirclesList[0]}
-  var isCustom=circleIsCustom(c);var items=circleItems(c);
-  var h='<div class="circle-tab-group">';
-  alumniCirclesList.forEach(function(x,j){h+='<div class="circle-tab'+(i===j?' active':'')+'" onclick="UI.circleIdx='+j+';render()">'+esc(x.name)+' ('+x.count+')<span style="margin-left:8px;font-size:14px;opacity:.7;font-weight:400" onclick="event.stopPropagation();circleDel('+j+')">×</span></div>';});
-  h+='<div class="circle-tab" style="opacity:.65" onclick="circleAdd()">+ 新增</div></div>';
-  h+='<div class="card"><div class="card-body">';
-  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div><div style="font-size:18px;font-weight:600;color:#333">'+esc(c.name)+'</div><div style="font-size:13px;color:#999;margin-top:4px">'+esc(c.description||'')+'</div></div><div style="display:flex;align-items:center;gap:12px">'+(isCustom?'<button class="btn btn-default btn-sm" onclick="circleFieldsOpen()">配置字段</button>':'')+'<span style="font-size:24px;font-weight:700;color:#1890ff">'+items.length+' 条</span></div></div>';
-  if(isCustom&&(!c.fields||c.fields.length===0)){h+='<div style="background:#f0f9ff;border:1px solid #d0eaff;border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:12px;color:#4a90d9">该标签尚未配置业务字段，可点击右侧按钮补充业务信息</span><button class="btn btn-default btn-sm" onclick="circleFieldsOpen()">配置业务字段</button></div>';}
-  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span style="font-size:14px;font-weight:600;color:#333">校友列表</span><button class="btn btn-primary btn-sm" onclick="circleItemForm()">'+luci('plus',16)+' 新增校友</button></div>';
-  h+='<div class="data-table-wrap"><table class="data-table"><thead><tr><th>校友</th><th style="width:60px">性别</th><th style="width:140px">专业</th><th style="width:130px">联系电话</th><th>邮箱</th><th style="width:80px">操作</th></tr></thead><tbody>';
-  if(items.length===0){h+='<tr><td colspan="6" style="text-align:center;color:#909399;padding:20px">暂无校友信息，点击右上角"新增校友"添加</td></tr>';}
-  else{items.forEach(function(it,idx){var a=it.alumnusInfo||{};h+='<tr>'+circleAlumCell(a)+'<td>'+esc(a.gender||'')+'</td><td>'+esc(a.major||'')+'</td><td>'+esc(a.phone||'')+'</td><td>'+esc(a.email||'')+'</td>'+circleActions(idx)+'</tr>';});}
-  h+='</tbody></table></div>';
-  h+='</div></div>';
-  return h;
-}
-
-function circleAdd(){
-  var h='<div class="modal-overlay" id="cc-modal"><div class="modal-box" style="width:400px"><div class="modal-header"><span>新增分类</span><span class="modal-close" onclick="closeModal(\'cc-modal\')">×</span></div><div class="modal-body vue-form"><div class="vf-row"><div class="vf-label required">分类名称</div><div class="vf-value"><input class="form-input" id="cc-name" placeholder="请输入分类名称"></div></div></div><div class="modal-footer"><button class="btn btn-default" onclick="closeModal(\'cc-modal\')">取消</button><button class="btn btn-primary" onclick="circleAddSave()">确定</button></div></div></div>';
-  showModal('cc-modal',h);
-}
-function circleAddSave(){
-  var name=document.getElementById('cc-name').value.trim();
-  if(!name)return toast('请输入分类名称','warning');
-  if(alumniCirclesList.some(function(c){return c.name===name}))return toast('分类名称已存在','warning');
-  var gradients=['linear-gradient(135deg, #6fa4cf, #9bc1de)','linear-gradient(135deg, #07c160, #05a04a)','linear-gradient(135deg, #ee0a24, #d00820)','linear-gradient(135deg, #ff976a, #f07a4a)','linear-gradient(135deg, #9b59b6, #bb8fce)','linear-gradient(135deg, #1abc9c, #16a085)','linear-gradient(135deg, #e67e22, #f39c12)','linear-gradient(135deg, #3498db, #2980b9)'];
-  var idx=alumniCirclesList.length;
-  alumniCirclesList.push({id:Date.now(),name:name,description:'',count:0,published:true,gradient:gradients[idx%gradients.length],fields:[],customItems:[]});
-  UI.circleIdx=alumniCirclesList.length-1;
-  closeModal('cc-modal');toast('已添加分类','success');render();
-}
-function circleDel(j){
-  if(alumniCirclesList.length<=1){toast('至少保留一个标签','warning');return}
-  confirmDialog('确定删除标签「'+alumniCirclesList[j].name+'」？',function(){
-    alumniCirclesList.splice(j,1);
-    if(UI.circleIdx>=alumniCirclesList.length)UI.circleIdx=alumniCirclesList.length-1;
-    render();
-  });
-}
-
-function circleFieldsOpen(){
-  var c=alumniCirclesList[UI.circleIdx];if(!c)return;
-  window._circleFields=(c.fields&&c.fields.length)?c.fields.slice():[''];
-  var h='<div class="modal-overlay" id="cf-modal"><div class="modal-box" style="width:440px"><div class="modal-header"><span>配置列表字段</span><span class="modal-close" onclick="closeModal(\'cf-modal\')">×</span></div><div class="modal-body"><div id="cf-rows"></div><button class="btn btn-default btn-sm" onclick="circleFieldsAdd()">'+luci('plus',14)+' 添加字段</button></div><div class="modal-footer"><button class="btn btn-default" onclick="closeModal(\'cf-modal\')">取消</button><button class="btn btn-primary" onclick="circleFieldsSave()">保存</button></div></div></div>';
-  showModal('cf-modal',h);
-  circleFieldsRenderRows();
-}
-function circleFieldsRenderRows(){
-  var el=document.getElementById('cf-rows');if(!el)return;
-  var h='';
-  window._circleFields.forEach(function(f,idx){
-    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><input class="form-input" id="cf-f-'+idx+'" value="'+esc(f)+'" placeholder="字段名，如：企业名称"><button class="btn-icon sm" onclick="circleFieldsRemove('+idx+')" style="flex-shrink:0">×</button></div>';
-  });
-  el.innerHTML=h;
-}
-function circleFieldsAdd(){window._circleFields.push('');circleFieldsRenderRows();}
-function circleFieldsRemove(idx){if(window._circleFields.length>1)window._circleFields.splice(idx,1);circleFieldsRenderRows();}
-function circleFieldsSave(){
-  var rows=[];for(var i=0;i<window._circleFields.length;i++){var el=document.getElementById('cf-f-'+i);var val=el?el.value.trim():'';if(val)rows.push(val);}
-  if(!rows.length)return toast('请至少配置一个字段','warning');
-  var c=alumniCirclesList[UI.circleIdx];if(c)c.fields=rows;
-  closeModal('cf-modal');toast('字段配置已保存','success');render();
-}
-
-function circleAvatarBox(){
-  var info=(window._circleF&&window._circleF.item&&window._circleF.item.alumnusInfo)||{};
-  if(info.avatar)return '<img id="ci-avatar" src="'+esc(info.avatar)+'" style="width:72px;height:72px;border-radius:50%;object-fit:cover">';
-  return '<div id="ci-avatar" style="width:72px;height:72px;border-radius:50%;background:#cbd5e1;display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px">'+(info.name?esc(info.name[0]):'?')+'</div>';
-}
-function circleAvatarUpload(){
-  var seed=Math.random().toString(36).substring(2,8);
-  var url='https://picsum.photos/seed/'+seed+'/100/100';
-  window._circleF.item.alumnusInfo.avatar=url;
-  var box=document.getElementById('ci-avatar-box');if(box)box.innerHTML='<img id="ci-avatar" src="'+url+'" style="width:72px;height:72px;border-radius:50%;object-fit:cover">';
-}
-function circleBizFields(c,it,dis){
-  var h='';
-  if(c.name==='上市公司'){
-    h+=circleFieldRow('企业证券简称','ci-companyShortName',it.companyShortName,'如：某某科技',dis,true);
-    h+=circleFieldRow('股票代码','ci-stockCode',it.stockCode,'上市公司填写，如301xxx',dis);
-    h+=circleSelectRow('角色标签','ci-roleLabel',circleRoleOpts,it.roleLabel,dis,true);
-    h+=circleSelectRow('企业阶段','ci-companyStage',circleStageOpts,it.companyStage,dis,true);
-    h+='<div class="vf-row"><div class="vf-label w120">主营业务简介</div><div class="vf-value"><textarea class="form-textarea" id="ci-businessIntro" rows="3" placeholder="100字以内"'+(dis?' disabled':'')+'>'+esc(it.businessIntro||'')+'</textarea></div></div>';
-  } else if(c.name==='投资机构'){
-    h+=circleFieldRow('机构名称','ci-orgName',it.orgName,'请输入机构名称',dis,true);
-    h+=circleSelectRow('机构类型','ci-orgType',circleOrgTypeOpts,it.orgType,dis,true);
-    h+=circleSelectRow('岗位细分','ci-position',circleInvPosOpts,it.position,dis,true);
-    h+=circleFieldRow('重点投资赛道','ci-investTrack',it.investTrack,'如：半导体、生物医药',dis);
-    h+=circleFieldRow('代表投资项目','ci-representProjects',it.representProjects,'项目名称，多个用逗号分隔',dis);
-  } else if(c.name==='企业高管'){
-    h+=circleFieldRow('企业名称','ci-companyName',it.companyName,'请输入企业名称',dis,true);
-    h+=circleSelectRow('企业性质','ci-companyNature',circleNatureOpts,it.companyNature,dis,true);
-    h+=circleFieldRow('职位','ci-position',it.position,'如：CEO、CFO',dis,true);
-    h+=circleFieldRow('管辖业务板块','ci-businessBlock',it.businessBlock,'可选',dis);
-  } else if(c.name==='科创项目'){
-    h+=circleFieldRow('项目/公司名称','ci-projectName',it.projectName,'请输入项目或公司名称',dis,true);
-    h+=circleFieldRow('赛道/技术方向','ci-techTrack',it.techTrack,'如：AI、新能源',dis,true);
-    h+=circleSelectRow('发展阶段','ci-devStage',circleDevStageOpts,it.devStage,dis,true);
-    h+=circleFieldRow('已获融资情况','ci-financing',it.financing,'如：A轮+5000万',dis);
-    h+='<div class="vf-row"><div class="vf-label w120">对外展示融资</div><div class="vf-value"><label style="cursor:pointer"><input type="checkbox" id="ci-showFinancing"'+(it.showFinancing?' checked':'')+(dis?' disabled':'')+'></label></div></div>';
-    h+='<div class="vf-row"><div class="vf-label w120">核心产品/技术优势</div><div class="vf-value"><textarea class="form-textarea" id="ci-coreAdvantage" rows="3" placeholder="简述核心优势"'+(dis?' disabled':'')+'>'+esc(it.coreAdvantage||'')+'</textarea></div></div>';
-  } else {
-    (c.fields||[]).forEach(function(f,fi){h+=circleFieldRow(f,'ci-f-'+fi,it[f]||'','请输入'+f,dis);});
-  }
-  return h;
-}
-function circleItemForm(idx,mode){
-  var c=alumniCirclesList[UI.circleIdx];if(!c)return;
-  if(idx===undefined||idx===null){idx=undefined;mode='add';}else{mode=mode||'edit';}
-  var item=(idx===undefined)?circleEmptyItem(c):JSON.parse(JSON.stringify(circleItems(c)[idx]));
-  window._circleF={idx:idx,mode:mode,item:item,circle:UI.circleIdx};
-  var dis=(mode==='view');
-  var title=(idx===undefined)?('新增'+c.name+'校友'):(mode==='view'?(c.name+'详情'):('编辑'+c.name+'校友'));
-  var info=item.alumnusInfo||{};
-  var h='<div class="modal-overlay" id="ci-modal"><div class="modal-box" style="width:680px"><div class="modal-header"><span>'+esc(title)+'</span><span class="modal-close" onclick="closeModal(\'ci-modal\')">×</span></div><div class="modal-body" style="max-height:600px;overflow-y:auto">';
-  h+='<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:12px;padding-left:10px;border-left:3px solid #1890ff">校友基本信息</div>';
-  h+='<div style="display:flex;gap:20px;padding:16px;background:#f8f9fc;border-radius:8px;margin-bottom:12px">';
-  h+='<div style="display:flex;flex-direction:column;align-items:center;gap:8px;min-width:100px"><div id="ci-avatar-box">'+circleAvatarBox()+'</div>'+(dis?'':'<button class="btn btn-default btn-sm" onclick="circleAvatarUpload()">上传头像</button>')+'</div>';
-  h+='<div style="flex:1">';
-  h+=circleFieldRow('姓名','ci-name',info.name,'请输入校友姓名',dis,true);
-  h+=circleSelectRow('性别','ci-gender',circleGenderOpts,info.gender,dis);
-  h+=circleFieldRow('届别','ci-year',info.graduationYear,'如：2005届',dis);
-  h+=circleFieldRow('院系','ci-dept',info.department,'如：计算机学院',dis);
-  h+=circleFieldRow('专业','ci-major',info.major,'如：软件工程',dis);
-  h+=circleFieldRow('联系电话','ci-phone',info.phone,'请输入手机号',dis);
-  h+=circleFieldRow('邮箱','ci-email',info.email,'请输入邮箱',dis);
-  h+='</div></div>';
-  if(!circleIsCustom(c)||(c.fields&&c.fields.length>0)){h+='<div style="font-size:14px;font-weight:600;color:#333;margin:16px 0 12px;padding-left:10px;border-left:3px solid #1890ff">业务信息</div>';h+=circleBizFields(c,item,dis);}
-  h+='</div><div class="modal-footer"><button class="btn btn-default" onclick="closeModal(\'ci-modal\')">'+(dis?'关闭':'取消')+'</button>'+(dis?'':'<button class="btn btn-primary" onclick="circleItemSave()">保存</button>')+'</div></div></div>';
-  showModal('ci-modal',h);
-}
-function circleItemSave(){
-  var cf=window._circleF;var c=alumniCirclesList[cf.circle];var it=cf.item;
-  var info=it.alumnusInfo||(it.alumnusInfo={});
-  info.name=document.getElementById('ci-name').value.trim();
-  info.gender=document.getElementById('ci-gender').value;
-  info.graduationYear=document.getElementById('ci-year').value.trim();
-  info.department=document.getElementById('ci-dept').value.trim();
-  info.major=document.getElementById('ci-major').value.trim();
-  info.phone=document.getElementById('ci-phone').value.trim();
-  info.email=document.getElementById('ci-email').value.trim();
-  if(!info.name)return toast('请填写校友姓名','warning');
-  if(c.name==='上市公司'){
-    it.companyShortName=document.getElementById('ci-companyShortName').value.trim();it.stockCode=document.getElementById('ci-stockCode').value.trim();it.roleLabel=document.getElementById('ci-roleLabel').value;it.companyStage=document.getElementById('ci-companyStage').value;it.businessIntro=document.getElementById('ci-businessIntro').value.trim();
-    if(!it.companyShortName)return toast('请填写企业名称','warning');
-  } else if(c.name==='投资机构'){
-    it.orgName=document.getElementById('ci-orgName').value.trim();it.orgType=document.getElementById('ci-orgType').value;it.position=document.getElementById('ci-position').value;it.investTrack=document.getElementById('ci-investTrack').value.trim();it.representProjects=document.getElementById('ci-representProjects').value.trim();
-    if(!it.orgName)return toast('请填写机构名称','warning');
-  } else if(c.name==='企业高管'){
-    it.companyName=document.getElementById('ci-companyName').value.trim();it.companyNature=document.getElementById('ci-companyNature').value;it.position=document.getElementById('ci-position').value.trim();it.businessBlock=document.getElementById('ci-businessBlock').value.trim();
-    if(!it.companyName)return toast('请填写企业名称','warning');
-  } else if(c.name==='科创项目'){
-    it.projectName=document.getElementById('ci-projectName').value.trim();it.techTrack=document.getElementById('ci-techTrack').value.trim();it.devStage=document.getElementById('ci-devStage').value;it.financing=document.getElementById('ci-financing').value.trim();it.showFinancing=document.getElementById('ci-showFinancing').checked;it.coreAdvantage=document.getElementById('ci-coreAdvantage').value.trim();
-    if(!it.projectName)return toast('请填写项目名称','warning');
-  } else {
-    (c.fields||[]).forEach(function(f,fi){it[f]=document.getElementById('ci-f-'+fi).value.trim();});
-  }
-  var items=circleItems(c);
-  if(cf.idx===undefined){items.push(it);}else{items[cf.idx]=it;}
-  circleSetItems(c,items);c.count=circleCount(c);
-  closeModal('ci-modal');toast('保存成功','success');render();
-}
-function circleItemDel(idx){
-  var c=alumniCirclesList[UI.circleIdx];if(!c)return;
-  confirmDialog('确定删除此条校友信息吗？',function(){var items=circleItems(c);items.splice(idx,1);circleSetItems(c,items);c.count=circleCount(c);toast('已删除','success');render();});
-}
 
 // ================================================================
 // SERVICE PAGES
