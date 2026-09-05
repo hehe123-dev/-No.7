@@ -73,18 +73,19 @@ Views.Home = function() {
   var publicMenus = '';
 
   // 所有角色均可见，权限隔离在后端实现
-  var alumniMenus = '<div class="section-title">校友功能<span class="more" data-action="nav" data-payload="/alumni-distribution">校友数据 ›</span></div><div class="menu-grid">'
-    + '<div class="menu-item" data-action="nav" data-payload="/alumni-card"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('card', 22, '#6fa4cf') + '</div><div class="menu-label">校友名片</div></div>'
-    + '<div class="menu-item" data-action="nav" data-payload="/alumni-group"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('users', 22, '#07c160') + '</div><div class="menu-label">校友社团</div></div>'
-    + '<div class="menu-item" data-action="nav" data-payload="/activity"><div class="menu-icon" style="background:#fff0f0">' + iconSVG('activity', 22, '#ee0a24') + '</div><div class="menu-label">校友活动</div></div>'
+  var alumniMenus = '<div class="section-title">校友功能</div><div class="menu-grid">'
+    + '<div class="menu-item" data-action="nav" data-payload="/alumni-resources"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('package', 22, '#6fa4cf') + '</div><div class="menu-label">校友资源</div></div>'
+    + '<div class="menu-item" data-action="nav" data-payload="/alumni-group"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('users', 22, '#07c160') + '</div><div class="menu-label">校友组织</div></div>'
     + '<div class="menu-item" data-action="nav" data-payload="/help"><div class="menu-icon" style="background:#fff7ed">' + iconSVG('help', 22, '#ff976a') + '</div><div class="menu-label">校友互助</div></div>'
+    + '<div class="menu-item" data-action="nav" data-payload="/alumni-stories"><div class="menu-icon" style="background:#f3e8ff">' + iconSVG('edit', 22, '#9254de') + '</div><div class="menu-label">校友故事</div></div>'
     + '</div>';
 
-  var memberMenus = '<div class="section-title">会员功能<span class="more" data-action="nav" data-payload="/member-distribution">会员数据 ›</span></div><div class="menu-grid">'
-    + '<div class="menu-item" data-action="nav" data-payload="/member-card"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('award', 22, '#6fa4cf') + '</div><div class="menu-label">会员名片</div></div>'
-    + '<div class="menu-item" data-action="nav" data-payload="/member-ep"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('building', 22, '#07c160') + '</div><div class="menu-label">会员企业</div></div>'
-    + '<div class="menu-item" data-action="nav" data-payload="/member-service"><div class="menu-icon" style="background:#fff7ed">' + iconSVG('service', 22, '#ff976a') + '</div><div class="menu-label">会员服务</div></div>'
-    + '<div class="menu-item" data-action="nav" data-payload="/member-org"><div class="menu-icon" style="background:#f3e8ff">' + iconSVG('network', 22, '#9254de') + '</div><div class="menu-label">会员组织</div></div>'
+  // 平台服务宫格（所有角色可见）
+  var platformMenus = '<div class="section-title">平台服务</div><div class="menu-grid">'
+    + '<div class="menu-item" data-action="nav" data-payload="/education"><div class="menu-icon" style="background:#e8f4fd">' + iconSVG('bookmark', 22, '#6fa4cf') + '</div><div class="menu-label">教育培训</div></div>'
+    + '<div class="menu-item" data-action="nav" data-payload="/career"><div class="menu-icon" style="background:#e8f8ee">' + iconSVG('flag', 22, '#07c160') + '</div><div class="menu-label">职场导航</div></div>'
+    + '<div class="menu-item" data-action="nav" data-payload="/ai-park"><div class="menu-icon" style="background:#f3e8ff">' + iconSVG('palette', 22, '#9254de') + '</div><div class="menu-label">AI智创园</div></div>'
+    + '<div class="menu-item" data-action="nav" data-payload="/empower"><div class="menu-icon" style="background:#fff7ed">' + iconSVG('pulse', 22, '#ff976a') + '</div><div class="menu-label">智汇赋能</div></div>'
     + '</div>';
 
   var html = '<div class="page-container page-home">';
@@ -95,27 +96,15 @@ Views.Home = function() {
   // Slogan
   html += '<div class="slogan-banner">同心共建，聚力共赢</div>';
   // Menus
-  html += publicMenus + alumniMenus + memberMenus;
-  // News section
-  html += '<div class="section-title">最新资讯<span class="more" data-action="nav" data-payload="/news">查看更多 &gt;</span></div><div class="card-list">';
-  newsList.slice(0, 3).forEach(function(n) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
-  });
-  html += '</div>';
+  html += publicMenus + alumniMenus + platformMenus;
   // Activity section
   html += '<div class="section-title">活动报名<span class="more" data-action="nav" data-payload="/activity">查看更多 &gt;</span></div><div class="card-list">';
   activityList.slice(0, 2).forEach(function(a) {
     html += '<div class="comp-card" data-action="nav" data-payload="/activity/' + a.id + '"><img src="' + a.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(a.title) + '</div><div class="card-desc">' + escapeHtml(a.date + (a.endDate && a.endDate !== a.date ? ' - ' + a.endDate : '')) + (a.startTime ? ' ' + a.startTime + (a.endTime ? ' - ' + a.endTime : '') : '') + ' ' + escapeHtml(a.location) + '</div><div class="card-meta">' + UI_Tag(getActivityStatus(a), getActivityTagColor(a)) + ' ' + (a.reviewStatus === 'approved' ? a.registered + '人已报名' : '-') + '</div></div></div>';
   });
   html += '</div>';
-  // Topic Share section
-  html += '<div class="section-title">主题分享<span class="more" data-action="nav" data-payload="/topic-share">查看更多 &gt;</span></div><div class="card-list">';
-  topicList.slice(0, 2).forEach(function(t) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
-  });
-  html += '</div>';
   // Interview section
-  html += '<div class="section-title">会员专访<span class="more" data-action="nav" data-payload="/interview">查看更多 &gt;</span></div><div class="card-list">';
+  html += '<div class="section-title">最新资讯<span class="more" data-action="nav" data-payload="/interview">查看更多 &gt;</span></div><div class="card-list">';
   interviewList.slice(0, 2).forEach(function(item) {
     html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
   });
@@ -139,7 +128,7 @@ Views.Home = function() {
 
 // --- NEWS ---
 Views.NewsList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('最新资讯', true);
+  var html = '<div class="page-container">' + UI_NavBar('人物风采', true);
   html += '<div class="card-list">';
   newsList.forEach(function(n) {
     html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
@@ -547,6 +536,15 @@ Views.AlumniCardDetail = function() {
     html += '<div style="font-size:12px;color:var(--text-lighter);padding:0 16px 8px">交换名片后查看完整简介</div>';
   }
   html += '</div>';
+  // 校友关联的企业信息（从 companyList 关联，企业下挂产品）
+  var companyFull = companyList.find(function(cl) { return cl.name === a.company; });
+  if (companyFull) {
+    html += '<div class="section-title" style="padding:8px 16px">校友关联的企业信息</div>';
+    html += '<div class="comp-cell" data-action="nav" data-payload="/member-company/' + companyFull.id + '"><img src="' + companyFull.logo + '" style="width:36px;height:36px;border-radius:6px;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(companyFull.name) + '</div><div class="cell-label">' + escapeHtml(companyFull.industry || '') + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+    (companyFull.products || []).forEach(function(p) {
+      html += '<div class="comp-cell" style="padding-left:44px;background:#fafafa" data-action="nav" data-payload="/member-product/' + p.id + '"><img src="' + p.cover + '" style="width:30px;height:30px;border-radius:4px;margin-right:10px;object-fit:cover"><div class="cell-body"><div class="cell-title" style="font-size:13px">' + escapeHtml(p.name) + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+    });
+  }
   if (exchanged) {
     html += '<div style="display:flex;gap:4px;padding:4px 16px;flex-wrap:wrap">';
         html += '</div>';
@@ -563,8 +561,13 @@ Views.AlumniCardDetail = function() {
 
 // --- ALUMNI GROUP ---
 Views.AlumniGroupList = function() {
-  var tabs = [{ key: 'all', name: '全部' }, { key: '行业社团', name: '行业' }, { key: '兴趣社团', name: '兴趣' }, { key: '地方社团', name: '地方' }, { key: '海外社团', name: '海外' }];
-  var html = '<div class="page-container">' + UI_NavBar('校友社团', true) + UI_Tabs(tabs, uiState.groupListTab);
+  var tabs = [{ key: 'all', name: '全部' }, { key: '行业社群', name: '行业社群' }, { key: '兴趣社团', name: '兴趣社团' }, { key: '地方社群', name: '地方社群' }, { key: '商务团体', name: '商务团体' }];
+  var html = '<div class="page-container">' + UI_NavBar('校友组织', true);
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === uiState.groupListTab ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
   html += '<div style="padding-top:8px">';
   groupList.forEach(function(g) {
     if (uiState.groupListTab !== 'all' && g.category !== uiState.groupListTab) return;
@@ -729,21 +732,95 @@ Views.PublishFeed = function() {
 };
 
 // --- HELP ---
-Views.HelpList = function() {
+function renderHelpList() {
+  var html = '';
   var filtered = helpList.filter(function(h) {
     return h.reviewStatus === 'approved' && h.status !== 'offline';
   });
-  var html = '<div class="page-container">' + UI_NavBar('校友互助', true);
   filtered.forEach(function(h) {
-    var statusText = '';
-    var statusColor = 'warning';
-    html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '"><img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.publisher.name + ' · ' + h.publisher.role + ' · ' + h.date + '</div></div>' + UI_Tag(statusText, statusColor) + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+    html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '"><img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.publisher.name + ' · ' + h.publisher.role + ' · ' + h.date + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
   });
   if (filtered.length === 0) {
     html += '<div class="empty-state">' + iconSVG('help', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无求助</div></div>';
   }
+  return html;
+}
+
+function renderHelpCases() {
+  var html = '';
+  var cases = helpList.filter(function(h) {
+    return h.reviewStatus === 'approved' && h.status === 'resolved';
+  });
+  cases.forEach(function(h) {
+    html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '"><img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.publisher.name + ' · ' + h.date + '</div></div>' + UI_Tag('已解决', 'success') + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+  });
+  if (cases.length === 0) {
+    html += '<div class="empty-state">' + iconSVG('check', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无互助案例</div></div>';
+  }
+  return html;
+}
+
+function renderMatchSquare() {
+  var html = '';
+  var list = businessNeedList.filter(function(b) { return b.status !== 'offline'; });
+  list.forEach(function(b) {
+    var statusText = b.status === 'resolved' ? '已完成' : '进行中';
+    var statusColor = b.status === 'resolved' ? 'success' : 'warning';
+    html += '<div class="comp-cell" data-action="nav" data-payload="/member-demand/business/' + b.id + '">';
+    html += '<div style="flex:1;min-width:0">';
+    html += '<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(b.title) + '</div>';
+    html += '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#999">';
+    html += '<img src="' + b.publisher.avatar + '" style="width:16px;height:16px;border-radius:50%">';
+    html += '<span>' + escapeHtml(b.publisher.name) + '</span>';
+    if (b.publisher.company) html += '<span style="color:#666">· ' + escapeHtml(b.publisher.company) + '</span>';
+    html += '<span>· ' + b.date + '</span>';
+    html += '<span style="margin-left:auto">' + UI_Tag(statusText, statusColor) + '</span>';
+    html += '</div>';
+    html += '<div style="margin-top:6px;font-size:12px;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(b.description) + '</div>';
+    html += '<div style="margin-top:6px;font-size:11px;color:#999">' + iconSVG('chat', 12, '#999') + ' ' + b.responseCount + '条响应</div>';
+    html += '</div>';
+    html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
+    html += '</div>';
+  });
+  if (list.length === 0) {
+    html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无对接需求</div></div>';
+  }
+  return html;
+}
+
+Views.HelpCenter = function() {
+  var tabs = [
+    { key: 'publish-help', name: '发布求助' },
+    { key: 'smart-service', name: '企智服务' },
+    { key: 'cases', name: '互助案例' },
+    { key: 'match', name: '对接广场' }
+  ];
+  var active = uiState.helpCenterTab || 'publish-help';
+  var html = '<div class="page-container">' + UI_NavBar('校友互助', true);
+
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === active ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
+
+  if (active === 'publish-help') {
+    html += renderHelpList();
+    html += '<div style="padding:12px 16px"><button class="comp-btn primary round block" data-action="nav" data-payload="/publish-demand">发布求助</button></div>';
+  } else if (active === 'smart-service') {
+    html += renderSmartService();
+  } else if (active === 'cases') {
+    html += renderHelpCases();
+  } else if (active === 'match') {
+    html += renderMatchSquare();
+  }
+
   html += '</div>';
   return html;
+};
+
+Views.HelpList = function() {
+  return '<div class="page-container">' + UI_NavBar('校友互助', true) + renderHelpList() + '</div>';
 };
 
 Views.HelpDetail = function() {
@@ -825,27 +902,13 @@ Views.HelpDetail = function() {
 };
 
 Views.PublishDemand = function() {
-  var type = Router.params.type || uiState.publishDemandType || 'help';
-  var isMember = roleRank[AppState.currentRole] >= 2;
-  // 认证校友只能发布互助求助，商务求助仅商务会员可发布
-  if (type === 'business' && !isMember) {
-    type = 'help';
-  }
+  var type = 'help';
   var tabs = [{ key: 'help', name: '互助求助' }];
-  if (isMember) {
-    tabs.push({ key: 'business', name: '商务求助' });
-  }
   var html = '<div class="page-container">' + UI_NavBar('发布需求', true, '<span data-action="toast" data-payload="需求已发布">发表</span>');
   html += UI_Tabs(tabs, type);
   html += '<div class="demand-form">';
-  if (type === 'business') {
-    html += UI_Field('需求标题', 'text', '请输入商务求助标题', '', true);
-    html += UI_Field('预算范围', 'text', '请输入预算范围，如：50万-100万', '', false);
-    html += UI_Field('需求描述', 'textarea', '请详细描述你的商务求助...', '', true);
-  } else {
-    html += UI_Field('求助标题', 'text', '请输入求助标题', '', true);
-    html += UI_Field('求助描述', 'textarea', '请详细描述你的求助需求...', '', true);
-  }
+  html += UI_Field('求助标题', 'text', '请输入求助标题', '', true);
+  html += UI_Field('求助描述', 'textarea', '请详细描述你的求助需求...', '', true);
   html += '</div>';
   html += '<div style="padding:12px 16px"><button type="button" class="comp-btn primary round block" data-action="publish-demand">立即发布</button></div>';
   html += '</div>';
@@ -854,11 +917,11 @@ Views.PublishDemand = function() {
 
 // --- MEMBER CARD ---
 Views.MemberCardList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员名片', true);
+  var html = '<div class="page-container">' + UI_NavBar('校友名片', true);
 
   // 搜索栏
   html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
-  html += '<input type="search" placeholder="搜索会员姓名/公司" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
+  html += '<input type="search" placeholder="搜索校友姓名/公司" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
   html += '</div>';
 
   // 会员卡片列表
@@ -867,7 +930,7 @@ Views.MemberCardList = function() {
     html += '<div class="member-card" data-action="nav" data-payload="/member-card/' + m.id + '" style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);position:relative;overflow:hidden">';
 
     // 会员标签（右上角）
-    html += '<div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#dabb6e,#e8c987);color:#fff;font-size:11px;padding:3px 12px;border-bottom-left-radius:8px">商务会员</div>';
+    html += '<div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#6fa4cf,#9bc1de);color:#fff;font-size:11px;padding:3px 12px;border-bottom-left-radius:8px">认证校友</div>';
 
     // 头部：头像+姓名+职位
     var mstat = '';
@@ -904,23 +967,22 @@ Views.MemberCardList = function() {
 
 Views.MemberCardDetail = function() {
   var m = memberList.find(function(item) { return item.id == Router.params.id; });
-  if (!m) return '<div class="page-container">' + UI_NavBar('会员详情', true) + UI_Empty('会员未找到') + '</div>';
-  var html = '<div class="page-container no-tab">' + UI_NavBar('会员详情', true);
-  html += '<div style="text-align:center;padding:20px"><img src="' + m.avatar + '" style="width:72px;height:72px;border-radius:50%;margin:0 auto"><h3 style="margin:8px 0 4px">' + escapeHtml(m.name) + '</h3><div style="font-size:12px;color:var(--text-lighter)">' + m.company + ' · ' + m.title + '</div>' + UI_Tag('商务会员', 'primary') + '</div>';
+  if (!m) return '<div class="page-container">' + UI_NavBar('校友详情', true) + UI_Empty('校友未找到') + '</div>';
+  var html = '<div class="page-container no-tab">' + UI_NavBar('校友详情', true);
+  html += '<div style="text-align:center;padding:20px"><img src="' + m.avatar + '" style="width:72px;height:72px;border-radius:50%;margin:0 auto"><h3 style="margin:8px 0 4px">' + escapeHtml(m.name) + '</h3><div style="font-size:12px;color:var(--text-lighter)">' + m.company + ' · ' + m.title + '</div>' + UI_Tag('认证校友', 'primary') + '</div>';
+  html += '<div class="section-title" style="padding:8px 16px">校友信息</div>';
   html += UI_CellGroup([{ title: '学校', value: m.school }, { title: '年级', value: m.year }, { title: '城市', value: m.city }, { title: '行业', value: m.industry }, { title: '加入时间', value: m.memberSince }], true);
   html += '<div class="content-detail"><h4>简介</h4><div class="body">' + escapeHtml(m.intro) + '</div></div>';
-  // Companies
+  // 校友关联的企业信息（每个企业下挂产品）
   if (m.companies && m.companies.length) {
-    html += '<div class="section-title" style="padding:8px 16px">关联企业</div>';
+    html += '<div class="section-title" style="padding:8px 16px">校友关联的企业信息</div>';
     m.companies.forEach(function(c) {
-      html += '<div class="comp-cell" data-action="nav" data-payload="/member-company/' + c.id + '"><img src="' + c.logo + '" style="width:36px;height:36px;border-radius:6px;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(c.name) + '</div><div class="cell-label">' + c.industry + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
-    });
-  }
-  // Products
-  if (m.products && m.products.length) {
-    html += '<div class="section-title" style="padding:8px 16px">关联产品</div>';
-    m.products.forEach(function(p) {
-      html += '<div class="comp-cell" data-action="nav" data-payload="/member-product/' + p.id + '"><img src="' + p.cover + '" style="width:36px;height:36px;border-radius:6px;margin-right:10px;object-fit:cover"><div class="cell-body"><div class="cell-title">' + escapeHtml(p.name) + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+      html += '<div class="comp-cell" data-action="nav" data-payload="/member-company/' + c.id + '"><img src="' + c.logo + '" style="width:36px;height:36px;border-radius:6px;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(c.name) + '</div><div class="cell-label">' + escapeHtml(c.industry || '') + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+      var companyFull = companyList.find(function(cl) { return cl.name === c.name; });
+      var companyProducts = (companyFull && companyFull.products) || [];
+      companyProducts.forEach(function(p) {
+        html += '<div class="comp-cell" style="padding-left:44px;background:#fafafa" data-action="nav" data-payload="/member-product/' + p.id + '"><img src="' + p.cover + '" style="width:30px;height:30px;border-radius:4px;margin-right:10px;object-fit:cover"><div class="cell-body"><div class="cell-title" style="font-size:13px">' + escapeHtml(p.name) + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+      });
     });
   }
   // 底部交换名片按钮
@@ -935,7 +997,7 @@ Views.MemberCardDetail = function() {
 
 // --- MEMBER COMPANY ---
 Views.MemberCompanyList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员企业', true);
+  var html = '<div class="page-container">' + UI_NavBar('校友企业', true);
 
   // 搜索栏
   html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
@@ -1001,15 +1063,11 @@ Views.MemberCompanyDetail = function() {
 
 // --- MEMBER PRODUCT ---
 Views.MemberProductList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员产品', true);
+  var html = '<div class="page-container">' + UI_NavBar('企业产品', true);
 
   // 搜索栏
   html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
   html += '<input type="search" placeholder="搜索产品关键词" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
-  html += '</div>';
-
-  // 产品数量统计
-  html += '<div style="padding:8px 16px;font-size:13px;color:#666;background:#fff">当前产品数量：' + productList.length + '个</div>';
   html += '</div>';
 
   // 产品列表
@@ -1047,52 +1105,6 @@ Views.MemberProductDetail = function() {
     html += '</ul></div></div>';
   }
   html += '<div class="content-detail"><h4>应用领域</h4><div class="body">' + escapeHtml(p.applications) + '</div></div>';
-  html += '</div>';
-  return html;
-};
-
-// --- MEMBER ENTERPRISE & PRODUCT (MERGED) ---
-Views.MemberEPListView = function() {
-  var tabs = [{ key: 'company', name: '会员企业' }, { key: 'product', name: '会员产品' }];
-  var html = '<div class="page-container">' + UI_NavBar('会员企产', true) + UI_Tabs(tabs, uiState.epListTab || 'company');
-
-  // 搜索栏
-  html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
-  html += '<input type="search" placeholder="搜索' + (uiState.epListTab === 'product' ? '产品' : '企业') + '" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
-  html += '</div>';
-
-  if (uiState.epListTab === 'product') {
-    // 产品数量统计
-    html += '<div style="padding:8px 16px;font-size:13px;color:#666;background:#fff">当前产品数量：' + productList.length + '个</div>';
-    // 产品列表
-    html += '<div style="padding:8px 0;background:#f5f5f5">';
-    productList.forEach(function(p) {
-      html += '<div class="product-card" data-action="nav" data-payload="/member-product/' + p.id + '" style="background:#fff;margin-bottom:8px;padding:12px 16px;display:flex;gap:12px">';
-      html += '<img src="' + p.cover + '" style="width:80px;height:80px;border-radius:6px;flex-shrink:0;object-fit:cover">';
-      html += '<div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center">';
-      html += '<div style="font-size:15px;font-weight:600;margin-bottom:4px;color:#333">' + escapeHtml(p.name) + '</div>';
-      html += '<div style="font-size:13px;color:#666;margin-bottom:2px">所属行业：' + escapeHtml(p.industry) + '</div>';
-      html += '<div style="font-size:13px;color:#666;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">应用领域：' + escapeHtml((p.intro || '').substring(0, 20)) + ((p.intro || '').length > 20 ? '...' : '') + '</div>';
-      html += '<div style="font-size:13px;color:#666">生产企业：' + escapeHtml(p.company) + '</div>';
-      html += '</div></div>';
-    });
-    html += '</div>';
-  } else {
-    // 企业列表
-    html += '<div style="padding:8px 0;background:#f5f5f5">';
-    companyList.forEach(function(c) {
-      html += '<div class="company-card" data-action="nav" data-payload="/member-company/' + c.id + '" style="background:#fff;margin-bottom:8px;padding:12px 16px;display:flex;align-items:center;gap:12px">';
-      html += '<img src="' + c.logo + '" style="width:48px;height:48px;border-radius:50%;flex-shrink:0;object-fit:cover">';
-      html += '<div style="flex:1;min-width:0">';
-      html += '<div style="font-size:16px;font-weight:600;margin-bottom:4px;color:#333">' + escapeHtml(c.name) + '</div>';
-      html += '<div style="font-size:13px;color:#666;margin-bottom:2px">行业：' + escapeHtml(c.industry) + '</div>';
-      html += '<div style="font-size:13px;color:#999">地址：' + escapeHtml(c.address) + '</div>';
-      html += '</div>';
-      html += '<div style="flex-shrink:0">' + iconSVG('arrow-right', 16, '#ccc') + '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-  }
   html += '</div>';
   return html;
 };
@@ -1136,7 +1148,7 @@ Views.MemberDemandListView = function() {
   } else {
     // 会员互助列表（复用helpList数据）
     var helpFiltered = helpList.filter(function(h) {
-      return h.reviewStatus === 'approved' && h.status !== 'offline' && h.publisher.role === '商务会员';
+      return h.reviewStatus === 'approved' && h.status !== 'offline' && h.publisher.role === '认证校友';
     });
     html += '<div style="padding:8px 0;background:#f5f5f5">';
     helpFiltered.forEach(function(h) {
@@ -1178,7 +1190,7 @@ Views.MemberMutualHelp = function() {
 
   // 会员互助列表（复用helpList数据）
   var helpFiltered = helpList.filter(function(h) {
-    return h.reviewStatus === 'approved' && h.status !== 'offline' && h.publisher.role === '商务会员';
+    return h.reviewStatus === 'approved' && h.status !== 'offline' && h.publisher.role === '认证校友';
   });
   html += '<div style="padding:8px 0;background:#f5f5f5">';
   helpFiltered.forEach(function(h) {
@@ -1245,7 +1257,7 @@ Views.MemberBusinessDemand = function() {
   }
   html += '</div>';
 
-  // 发布按钮（仅商务会员可发布商务求助）
+  // 发布按钮
   if (roleRank[AppState.currentRole] >= 2) {
     html += '<div class="bottom-bar">';
     html += UI_Button('发布商务求助', 'primary', '', true, true);
@@ -1265,7 +1277,6 @@ Views.MemberBusinessDetail = function() {
   // 需求信息卡片
   html += '<div style="background:#fff;padding:16px;margin-bottom:8px">';
   html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">';
-  html += '<span style="font-size:14px;color:#ff976a;font-weight:500">' + escapeHtml(b.budget) + '</span>';
   html += UI_Tag(statusText, statusColor);
   html += '</div>';
   html += '<h3 style="font-size:17px;font-weight:600;color:#333;margin-bottom:12px">' + escapeHtml(b.title) + '</h3>';
@@ -1317,51 +1328,10 @@ Views.MemberBusinessDetail = function() {
   return html;
 };
 
-// --- MEMBER SERVICE ---
-Views.MemberServiceIndex = function() {
+// --- 企智服务 ---
+function renderSmartService() {
   var aiCat = { key: 'ai-report', name: 'AI智能报告', desc: '产业分析 · 经营评估 · 科创需求 · 企业画像', icon: 'brain', gradient: 'linear-gradient(135deg, #6fa4cf, #9bc1de)', tagBg: '#e8f4fd', tagColor: '#4a90d9' };
-
-  var html = '<div class="page-container" style="background:#f5f6fa">' + UI_NavBar('会员服务', true);
-
-  // 顶部说明条
-  html += '<div style="padding:12px 16px;background:linear-gradient(135deg,#f0f4ff,#fff);display:flex;align-items:center;gap:8px;border-bottom:1px solid #eef0f5">';
-  html += '<div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6fa4cf,#9bc1de);display:flex;align-items:center;justify-content:center;flex-shrink:0">' + iconSVG('service', 16, '#fff') + '</div>';
-  html += '<div><div style="font-size:13px;font-weight:600;color:#333">欢迎使用会员服务</div><div style="font-size:11px;color:#999">北理工校友专属的商务求助对接平台</div></div>';
-  html += '</div>';
-
-  html += '<div style="padding:12px 16px">';
-
-  // 会员互助 - 入口卡片
-  html += '<div data-action="nav" data-payload="/member-mutual-help" style="background:linear-gradient(135deg,#07c160,#05a04a);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(7,193,96,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('help', 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">会员互助</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">互助与响应 · 问题解决</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-
-  // 商务求助 - 入口卡片
-  html += '<div data-action="nav" data-payload="/member-business-demand" style="background:linear-gradient(135deg,#9254de,#b37feb);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(146,84,222,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('list', 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">商务求助</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">供需匹配 | 销售拓展 | 项目合作 | 投融资对接</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-
-  html += '</div>';
+  var html = '';
 
   // AI智能报告卡片
   html += '<div style="padding:6px 16px">';
@@ -1433,10 +1403,11 @@ Views.MemberServiceIndex = function() {
   html += '</div>';
   html += '</div>';
 
-  html += '</div></div>';
-
-  html += '</div>';
   return html;
+}
+
+Views.MemberServiceIndex = function() {
+  return '<div class="page-container" style="background:#f5f6fa">' + UI_NavBar('企智服务', true) + renderSmartService() + '</div>';
 };
 
 Views.MemberServiceDetail = function() {
@@ -1565,7 +1536,7 @@ Views.ServiceProvider = function() {
 
 // --- TOPIC SHARE ---
 Views.TopicShareList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('主题分享', true);
+  var html = '<div class="page-container">' + UI_NavBar('校友访谈', true);
   html += '<div class="card-list">';
   topicList.forEach(function(t) {
     html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
@@ -1598,7 +1569,7 @@ Views.TopicShareDetail = function() {
 
 // --- INTERVIEW ---
 Views.InterviewList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员专访', true);
+  var html = '<div class="page-container">' + UI_NavBar('最新资讯', true);
   html += '<div class="card-list">';
   interviewList.forEach(function(item) {
     html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
@@ -1620,32 +1591,57 @@ Views.InterviewDetail = function() {
 
 // --- COURSES ---
 Views.CourseList = function() {
-  var html = '<div class="page-container">' + UI_NavBar('在线课程', true);
+  var tabs = [
+    { key: 'video-interview', name: '专题采访' },
+    { key: 'video-insight', name: '行业看点' },
+    { key: 'video-learning', name: '在线学习' },
+    { key: 'video-live', name: '直播课程' }
+  ];
+  var categoryMap = {
+    'video-interview': '专题采访',
+    'video-insight': '行业看点',
+    'video-learning': '在线学习',
+    'video-live': '直播课程'
+  };
+  var active = uiState.courseListTab || 'video-interview';
+  var filtered = courseList.filter(function(c) { return c.category === categoryMap[active]; });
+
+  var html = '<div class="page-container">' + UI_NavBar('视频', true);
+
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === active ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
+
   html += '<div class="card-list">';
-  courseList.forEach(function(c) {
+  filtered.forEach(function(c) {
     html += '<div class="course-item" data-action="nav" data-payload="/courses/' + c.id + '"><img src="' + c.cover + '" class="course-thumb"><div class="course-info"><div class="course-title">' + escapeHtml(c.title) + '</div><div class="course-meta">' + c.teacher + ' · ' + c.duration + ' · ' + c.students + '人订阅</div><div class="course-price">¥' + c.price + '<span class="orig">¥' + c.originalPrice + '</span></div></div></div>';
   });
+  if (filtered.length === 0) {
+    html += '<div class="empty-state">' + iconSVG('video', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无内容</div></div>';
+  }
   html += '</div></div>';
   return html;
 };
 
 Views.CourseDetail = function() {
   var c = courseList.find(function(item) { return item.id == Router.params.id; });
-  if (!c) return '<div class="page-container">' + UI_NavBar('课程详情', true) + UI_Empty('课程未找到') + '</div>';
-  var tabs = [{ key: 'intro', name: '课程介绍' }, { key: 'chapters', name: '课程目录' }, { key: 'teacher', name: '讲师' }];
+  if (!c) return '<div class="page-container">' + UI_NavBar('视频详情', true) + UI_Empty('视频未找到') + '</div>';
+  var tabs = [{ key: 'intro', name: '视频介绍' }, { key: 'chapters', name: '视频目录' }, { key: 'teacher', name: '讲师' }];
   var subscribed = isSubscribedCourse(c.id);
-  var html = '<div class="page-container no-tab">' + UI_NavBar('课程详情', true, '<span data-action="share-course" data-id="' + c.id + '">' + iconSVG('share', 18, '#fff') + '</span>');
+  var html = '<div class="page-container no-tab">' + UI_NavBar('视频详情', true, '<span data-action="share-course" data-id="' + c.id + '">' + iconSVG('share', 18, '#fff') + '</span>');
   html += '<img src="' + c.cover + '" style="width:100%;max-height:220px;object-fit:cover">';
   html += '<div style="padding:12px 16px"><h3>' + escapeHtml(c.title) + '</h3><div style="font-size:12px;color:var(--text-lighter);margin:4px 0">' + c.subtitle + '</div>';
-  html += '<div style="color:var(--danger);font-size:22px;font-weight:700">¥' + c.price + '<span style="font-size:12px;color:var(--text-lighter);text-decoration:line-through;margin-left:4px">¥' + c.originalPrice + '</span><span style="font-size:12px;color:var(--accent);margin-left:8px">会员价 ¥' + c.memberPrice + '</span></div>';
+  html += '<div style="color:var(--danger);font-size:22px;font-weight:700">¥' + c.price + '<span style="font-size:12px;color:var(--text-lighter);text-decoration:line-through;margin-left:4px">¥' + c.originalPrice + '</span></div>';
   html += '<div style="display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--text-lighter)">' + c.duration + ' · ' + c.students + '人订阅</div></div>';
   html += '<div style="display:flex;gap:8px;padding:4px 16px;flex-wrap:wrap">';
     html += '</div>';
   html += UI_Tabs(tabs, uiState.courseDetailTab);
   if (uiState.courseDetailTab === 'intro') {
-    html += '<div class="content-detail"><h4>课程亮点</h4><div><ul style="padding-left:16px;line-height:2">';
+    html += '<div class="content-detail"><h4>视频亮点</h4><div><ul style="padding-left:16px;line-height:2">';
     c.highlights.forEach(function(h) { html += '<li>' + escapeHtml(h) + '</li>'; });
-    html += '</ul></div><h4>课程简介</h4><div class="body">' + escapeHtml(c.intro) + '</div></div>';
+    html += '</ul></div><h4>视频简介</h4><div class="body">' + escapeHtml(c.intro) + '</div></div>';
     html += '<div class="comment-section"><div class="cmt-title">学员评价 (' + (c.reviews || 0) + ')</div>';
     if (c.reviewList && c.reviewList.length) {
       c.reviewList.forEach(function(r) {
@@ -1692,7 +1688,7 @@ Views.AlumniDistribution = function() {
   // ===== 1. 数据概览卡片 =====
   html += '<div class="dist-overview">';
   html += '<div class="dist-stat-item"><div class="dist-stat-num">1,520</div><div class="dist-stat-label">认证校友</div></div>';
-  html += '<div class="dist-stat-item"><div class="dist-stat-num">7</div><div class="dist-stat-label">校友社团</div></div>';
+  html += '<div class="dist-stat-item"><div class="dist-stat-num">7</div><div class="dist-stat-label">校友组织</div></div>';
   html += '<div class="dist-stat-item"><div class="dist-stat-num">128</div><div class="dist-stat-label">年度活动</div></div>';
   html += '<div class="dist-stat-item"><div class="dist-stat-num">197</div><div class="dist-stat-label">互助次数</div></div>';
   html += '</div>';
@@ -1711,7 +1707,7 @@ Views.AlumniDistribution = function() {
 
   // ===== 4. 社团人数分布 =====
   html += '<div class="dist-card">';
-  html += '<div class="dist-card-title">校友社团分布<span class="dist-card-sub">各社团成员数</span></div>';
+  html += '<div class="dist-card-title">校友组织分布<span class="dist-card-sub">各社团成员数</span></div>';
   html += '<div id="alumni-group-chart" class="dist-chart-box dist-chart-tall"></div>';
   html += '</div>';
 
@@ -1739,14 +1735,14 @@ Views.MemberDistribution = function() {
   // ===== 1. 数据概览卡片 =====
   html += '<div class="dist-overview">';
   html += '<div class="dist-stat-item"><div class="dist-stat-num dist-stat-num-gold">426</div><div class="dist-stat-label">注册会员</div></div>';
-  html += '<div class="dist-stat-item"><div class="dist-stat-num dist-stat-num-gold">183</div><div class="dist-stat-label">会员企业</div></div>';
+  html += '<div class="dist-stat-item"><div class="dist-stat-num dist-stat-num-gold">183</div><div class="dist-stat-label">校友企业</div></div>';
   html += '<div class="dist-stat-item"><div class="dist-stat-num dist-stat-num-gold">96</div><div class="dist-stat-label">商务活动</div></div>';
   html += '<div class="dist-stat-item"><div class="dist-stat-num dist-stat-num-gold">152</div><div class="dist-stat-label">商务互助</div></div>';
   html += '</div>';
 
-  // ===== 2. 会员企业行业分布 =====
+  // ===== 2. 校友企业行业分布 =====
   html += '<div class="dist-card">';
-  html += '<div class="dist-card-title">会员企业行业分布<span class="dist-card-sub">各行业企业占比</span></div>';
+  html += '<div class="dist-card-title">校友企业行业分布<span class="dist-card-sub">各行业企业占比</span></div>';
   html += '<div id="member-industry-chart" class="dist-chart-box dist-chart-tall"></div>';
   html += '</div>';
 
@@ -1774,34 +1770,26 @@ Views.MemberDistribution = function() {
 };
 
 // --- MEMBER ORGANIZATION ---
-Views.MemberOrganization = function() {
-  var html = '<div class="page-container no-tab">' + UI_NavBar('会员组织', true);
-
-  // 合并所有圈子数据为单一列表
+function renderOrgList() {
+  var html = '<div style="padding:16px">';
   var allItems = [];
   memberOrgList.forEach(function(circle) {
     (circle.items || []).forEach(function(item) {
       allItems.push({ circle: circle, item: item });
     });
   });
-
-  html += '<div style="padding:16px">';
   if (allItems.length) {
     allItems.forEach(function(entry) {
       var circle = entry.circle;
       var item = entry.item;
       var info = item.alumnusInfo || {};
       html += '<div class="org-item-card">';
-      // 分类标签
       html += '<div style="font-size:11px;font-weight:600;margin-bottom:6px;color:' + circle.color + '">' + circle.name + '</div>';
-      // 校友信息
       html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
       html += '<img src="' + (info.avatar || '') + '" style="width:40px;height:40px;border-radius:50%;object-fit:cover">';
       html += '<div><div style="font-weight:600;font-size:14px">' + escapeHtml(info.name || '') + '</div>';
       html += '<div style="font-size:11px;color:var(--text-lighter)">' + escapeHtml((info.school || '') + ' · ' + (info.major || '')) + '</div></div>';
       html += '</div>';
-
-      // 字段
       html += '<div style="display:flex;flex-wrap:wrap;gap:6px">';
       if (circle.name === '上市公司') {
         html += fieldTag(item.companyShortName);
@@ -1835,9 +1823,11 @@ Views.MemberOrganization = function() {
     html += '<div style="padding:40px;text-align:center;color:var(--text-lighter)">暂无数据</div>';
   }
   html += '</div>';
-
-  html += '</div>';
   return html;
+}
+
+Views.MemberOrganization = function() {
+  return '<div class="page-container no-tab">' + UI_NavBar('商务团体', true) + renderOrgList() + '</div>';
 };
 
 function fieldTag(val, color) {
@@ -1924,31 +1914,13 @@ Views.Profile = function() {
   } else if (isAlumni) {
     stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-card"><div class="num">' + AppState.friendIds.length + '</div><div class="label">好友</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/my-feed"><div class="num">' + AppState.myFeeds.length + '</div><div class="label">动态</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">5</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/alumni-group"><div class="num">2</div><div class="label">社团</div></div>';
   } else {
-    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/group-buy"><div class="num">2</div><div class="label">订单</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">3</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/courses"><div class="num">1</div><div class="label">课程</div></div>';
+    stats = '<div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/group-buy"><div class="num">2</div><div class="label">订单</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/profile/collections"><div class="num">3</div><div class="label">收藏</div></div><div class="stat" style="cursor:pointer" data-action="nav" data-payload="/courses"><div class="num">1</div><div class="label">视频</div></div>';
   }
 
   var html = '<div class="page-container">';
   html += '<div class="profile-header"><div class="profile-card">';
 
-  // 会员到期提醒（仅商务会员/服务机构）
-  var memberExpiry = '';
-  if (isMember) {
-    var expiryDate = '2026-12-31';
-    var today = new Date();
-    var expDate = new Date(expiryDate);
-    var daysLeft = Math.ceil((expDate - today) / (1000 * 60 * 60 * 24));
-    var expColor, expText;
-    if (daysLeft < 0) {
-      expColor = '#ee0a24'; expText = '已过期';
-    } else if (daysLeft <= 30) {
-      expColor = '#ff976a'; expText = '剩余' + daysLeft + '天 · ' + expiryDate;
-    } else {
-      expColor = '#07c160'; expText = '有效期至 ' + expiryDate;
-    }
-    memberExpiry = '<span style="display:inline-flex;align-items:center;gap:3px;margin-left:6px;padding:2px 8px;background:' + expColor + '14;color:' + expColor + ';border-radius:10px;font-size:11px;font-weight:500;cursor:pointer" data-action="nav" data-payload="/profile/member-recharge">' + iconSVG('clock', 11, expColor) + expText + '</span>';
-  }
-
-  html += '<div class="avatar-row"><img src="' + myAvatar + '" data-action="nav" data-payload="/profile/edit" style="cursor:pointer"><div class="info"><div class="name">演示用户 <span data-action="show-role-popup">' + UI_Tag(role, 'primary') + '</span>' + memberExpiry + '</div><div style="font-size:11px;color:var(--text-lighter);margin-top:2px">自动化学院 · 2005级 · 北京</div></div><span data-action="nav" data-payload="/profile/settings">' + iconSVG('settings', 20, '#999') + '</span></div>';
+  html += '<div class="avatar-row"><img src="' + myAvatar + '" data-action="nav" data-payload="/profile/edit" style="cursor:pointer"><div class="info"><div class="name">演示用户 <span data-action="show-role-popup">' + UI_Tag(role, 'primary') + '</span></div><div style="font-size:11px;color:var(--text-lighter);margin-top:2px">自动化学院 · 2005级 · 北京</div></div><span data-action="nav" data-payload="/profile/settings">' + iconSVG('settings', 20, '#999') + '</span></div>';
   html += '<div class="stats">' + stats + '</div></div></div>';
   // Exchange requests (for alumni)
   if (isAlumni && AppState.incomingRequests.length > 0) {
@@ -1965,10 +1937,6 @@ Views.Profile = function() {
   if (!isAlumni) {
     html += '<div class="promo-card" style="background:linear-gradient(135deg,#eef4fb,#e3eefc)" data-action="nav" data-payload="/profile/edit"><div class="promo-icon">🎓</div><div class="promo-text"><div class="pt">认证为校友</div><div class="ps">填写校友信息，认证后解锁校友名片、动态、互助等功能</div></div>' + iconSVG('arrowRight', 16, '#6fa4cf') + '</div>';
   }
-  // Member promo (only for 认证校友, not 普通用户)
-  if (isAlumni && !isMember) {
-    html += '<div class="promo-card" data-action="nav" data-payload="/profile/member-edit"><div class="promo-icon">⭐</div><div class="promo-text"><div class="pt">升级为商务会员</div><div class="ps">填写企业信息，支付信息服务费后完成升级</div></div>' + iconSVG('arrowRight', 16, '#dabb6e') + '</div>';
-  }
   // Service grid
   html += '<div class="service-grid">';
   html += '</div>';
@@ -1976,7 +1944,7 @@ Views.Profile = function() {
   // Category cards
   var categories = [
     { name: '我的内容', desc: '活动/社团', path: '/profile/my-content', icon: 'edit', color: '#6fa4cf' },
-    { name: '学习消费', desc: '课程/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
+    { name: '学习消费', desc: '视频/收藏/订单', path: '/profile/learning', icon: 'book', color: '#dabb6e' },
     { name: '设置', desc: '资料/客服/切换角色', path: '/profile/settings', icon: 'settings', color: '#999' }
   ];
   if (isAlumni) {
@@ -2102,8 +2070,8 @@ Views.ProfileEdit = function() {
     }
   }
 
-  // 个人基础信息
-  html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">个人基础信息 <span style="color:#ee0a24;font-size:11px;font-weight:400">*必填</span></div>';
+  // 校友信息
+  html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">校友信息 <span style="color:#ee0a24;font-size:11px;font-weight:400">*必填</span></div>';
   html += '<div class="comp-cell-group inset">';
   html += avatarField(d.avatar);
   html += UI_Field('姓名', 'text', '请输入姓名', d.name, true);
@@ -2113,8 +2081,6 @@ Views.ProfileEdit = function() {
   html += UI_Field('邮箱', 'text', '请输入邮箱', d.email, true);
   html += '</div>';
 
-  // 校友认证信息
-  html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">校友认证信息 <span style="color:#ee0a24;font-size:11px;font-weight:400">*必填</span></div>';
   html += '<div class="comp-cell-group inset">';
   html += UI_Field('学校', 'text', '请输入学校', d.school, true);
   html += UI_Field('院系', 'text', '请输入院系', d.dept, true);
@@ -2125,14 +2091,49 @@ Views.ProfileEdit = function() {
   html += certPhotoField('毕业证照片', 'pe-grad-cert', d.gradCertImg);
   html += '</div>';
 
-  // 其它信息
-  html += '<div style="font-size:13px;font-weight:600;color:var(--text-light);padding:12px 20px 6px">其它信息 <span style="font-size:11px;font-weight:400;color:var(--text-lighter)">（选填）</span></div>';
   html += '<div class="comp-cell-group inset">';
   html += UI_Field('籍贯', 'text', '请输入籍贯', d.hometown);
   html += UI_Field('现住城市', 'text', '请输入现住城市', d.city);
   html += UI_Field('个人标签', 'text', '用逗号分隔', d.tags);
   html += UI_Field('兴趣爱好', 'text', '用逗号分隔，如：篮球,摄影', d.hobbies);
   html += UI_Field('个人简介', 'textarea', '简单介绍一下自己...', d.intro);
+  html += '</div>';
+
+  // 校友关联的企业信息（产品挂靠企业）
+  html += '<div style="margin-top:12px;background:#fff">';
+  html += '<div style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">';
+  html += '<div style="font-size:15px;font-weight:600;color:#333">校友关联的企业信息 <span style="font-size:11px;font-weight:400;color:var(--text-lighter)">（选填）</span></div>';
+  html += '<button class="comp-btn primary small" data-action="add-company">' + iconSVG('plus', 12, '#fff') + ' 添加企业</button>';
+  html += '</div>';
+  if (!uiState.selectedCompanies || uiState.selectedCompanies.length === 0) {
+    html += '<div style="padding:30px 20px;text-align:center;color:#999;font-size:13px">请添加您关联的企业</div>';
+  } else {
+    uiState.selectedCompanies.forEach(function(c, idx) {
+      html += '<div style="padding:12px 16px;border-bottom:1px solid #f0f0f0">';
+      // 企业信息行
+      html += '<div style="display:flex;align-items:center;gap:10px">';
+      html += '<img src="' + (c.logo || '') + '" style="width:40px;height:40px;border-radius:6px;object-fit:cover">';
+      html += '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:600;color:#333">' + escapeHtml(c.name) + '</div><div style="font-size:12px;color:#999">' + escapeHtml(c.industry || '') + '</div></div>';
+      html += '<button data-action="remove-company" data-index="' + idx + '" style="background:none;border:none;color:#f56c6c;cursor:pointer;padding:6px">' + iconSVG('close', 16, '#f56c6c') + '</button>';
+      html += '</div>';
+      // 该企业的产品列表
+      var products = c.products || [];
+      if (products.length === 0) {
+        html += '<div style="margin:8px 0 0 50px;font-size:12px;color:#bbb">暂无产品</div>';
+      } else {
+        products.forEach(function(p, pidx) {
+          html += '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 0 50px;padding:8px 10px;background:#fafafa;border-radius:6px">';
+          html += '<img src="' + (p.cover || '') + '" style="width:28px;height:28px;border-radius:4px;object-fit:cover">';
+          html += '<div style="flex:1;min-width:0;font-size:13px;color:#333">' + escapeHtml(p.name) + '</div>';
+          html += '<button data-action="remove-product" data-company-index="' + idx + '" data-product-index="' + pidx + '" style="background:none;border:none;color:#f56c6c;cursor:pointer;padding:4px">' + iconSVG('close', 14, '#f56c6c') + '</button>';
+          html += '</div>';
+        });
+      }
+      // 添加产品按钮
+      html += '<div style="margin:8px 0 0 50px"><button class="comp-btn plain small" data-action="add-product" data-company-index="' + idx + '">' + iconSVG('plus', 12, '#6fa4cf') + ' 添加产品</button></div>';
+      html += '</div>';
+    });
+  }
   html += '</div>';
 
   html += '<div style="padding:20px 16px"><span data-action="submit-profile-edit" data-role="' + role + '">' + UI_Button(btnText, 'primary', '', true, true) + '</span></div>';
@@ -2149,7 +2150,7 @@ Views.ProfileMemberEdit = function() {
   if (!uiState.selectedProducts) uiState.selectedProducts = [];
 
   // ============================
-  // 已是商务会员：展示已维护的商务信息
+  // 已维护的商务信息
   // ============================
   if (isMember) {
     // 如果没有已维护的数据，用模拟数据填充（演示用）
@@ -2172,9 +2173,9 @@ Views.ProfileMemberEdit = function() {
     html += '<div style="margin:12px 16px;padding:16px;background:linear-gradient(135deg,#fff8e1,#fef3c7);border-radius:14px;border:1px solid #f0d9a3">';
     html += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">';
     html += '<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#dabb6e,#e8c987);display:flex;align-items:center;justify-content:center">' + iconSVG('award', 18, '#fff') + '</div>';
-    html += '<div><div style="font-size:15px;font-weight:700;color:#5c4510">商务会员</div><div style="font-size:11px;color:#9a7a3a">有效期至 2026-12-31</div></div>';
+    html += '<div><div style="font-size:15px;font-weight:700;color:#5c4510">认证校友</div><div style="font-size:11px;color:#9a7a3a">有效期至 2026-12-31</div></div>';
     html += '</div>';
-    html += '<div style="font-size:12px;color:#7a5d20;line-height:1.6">您已认证为商务会员，以下为您维护的商务信息。如需修改，请联系平台客服或重新提交审核。</div>';
+    html += '<div style="font-size:12px;color:#7a5d20;line-height:1.6">您已维护以下商务信息。如需修改，请联系平台客服或重新提交审核。</div>';
     html += '</div>';
 
     // 关联企业
@@ -2234,14 +2235,14 @@ Views.ProfileMemberEdit = function() {
   // ============================
   // 未认证会员：升级表单
   // ============================
-  var html = '<div class="page-container">' + UI_NavBar('升级商务会员', true);
+  var html = '<div class="page-container">' + UI_NavBar('维护商务信息', true);
 
   // 升级审核状态条（仅在审核中/驳回时展示）
   if (AppState.bizUpgradeStatus === 'pending') {
     html += '<div style="margin:12px 16px;padding:14px 16px;background:#fffbe6;border:1px solid #faecd8;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
       iconSVG('clock', 18, '#e6a23c') +
       '<div><div style="font-size:14px;font-weight:600;color:#b88230">升级审核中</div>' +
-      '<div style="font-size:12px;color:#b88230;margin-top:4px;line-height:1.6">您的商务会员升级申请已提交，平台正在审核中，一般 1-3 个工作日完成，请耐心等待。</div></div></div>';
+      '<div style="font-size:12px;color:#b88230;margin-top:4px;line-height:1.6">您的商务信息已提交审核，平台正在审核中，一般 1-3 个工作日完成，请耐心等待。</div></div></div>';
   } else if (AppState.bizUpgradeStatus === 'rejected') {
     html += '<div style="margin:12px 16px;padding:14px 16px;background:#fef0f0;border:1px solid #fbc4c4;border-radius:10px;display:flex;align-items:flex-start;gap:10px">' +
       iconSVG('alertCircle', 18, '#f56c6c') +
@@ -2254,8 +2255,8 @@ Views.ProfileMemberEdit = function() {
   html += '<div style="display:flex;align-items:flex-start;gap:8px">';
   html += '<div style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:#dabb6e;display:flex;align-items:center;justify-content:center">' + iconSVG('award', 14, '#fff') + '</div>';
   html += '<div>';
-  html += '<div style="font-size:14px;font-weight:600;color:#7a5d20;margin-bottom:4px">升级商务会员</div>';
-  html += '<div style="font-size:12px;color:#9a7a3a;line-height:1.6">作为认证校友，您只需提交关联的商务信息（关联企业 + 关联产品），即可申请升级为商务会员，享受更多权益。</div>';
+  html += '<div style="font-size:14px;font-weight:600;color:#7a5d20;margin-bottom:4px">维护商务信息</div>';
+  html += '<div style="font-size:12px;color:#9a7a3a;line-height:1.6">作为认证校友，您可以提交关联的商务信息（关联企业 + 关联产品），完善您的商务资源。</div>';
   html += '</div></div></div>';
 
   // 关联企业部分
@@ -2393,9 +2394,13 @@ Views.AddCompanyForm = function() {
 Views.AddProductForm = function() {
   var editIndex = uiState.editingProductIndex;
   var isEdit = editIndex !== undefined && editIndex !== null;
-  var product = isEdit ? (uiState.selectedProducts[editIndex] || {}) : {};
+  var companyIdx = uiState.addingProductCompanyIndex;
+  var company = (uiState.selectedCompanies && uiState.selectedCompanies[companyIdx]) || null;
+  var products = (company && company.products) || [];
+  var product = isEdit ? (products[editIndex] || {}) : {};
+  var title = (company && company.name) ? ('添加产品 - ' + company.name) : (isEdit ? '编辑产品' : '添加产品');
 
-  var html = '<div class="page-container">' + UI_NavBar(isEdit ? '编辑产品' : '添加关联产品', true);
+  var html = '<div class="page-container">' + UI_NavBar(title, true);
 
   html += '<div style="background:#fff;padding:16px">';
 
@@ -2433,9 +2438,9 @@ Views.AddProductForm = function() {
 };
 
 Views.ProfileSubscribe = function() {
-  var html = '<div class="page-container">' + UI_NavBar('订阅课程', true);
+  var html = '<div class="page-container">' + UI_NavBar('订阅视频', true);
   var subs = courseList.filter(function(c) { return AppState.subscribedCourses.indexOf(c.id) >= 0; });
-  if (!subs.length) { html += UI_Empty('暂无订阅课程'); }
+  if (!subs.length) { html += UI_Empty('暂无订阅视频'); }
   else {
     html += '<div class="card-list">';
     subs.forEach(function(c) {
@@ -2469,7 +2474,7 @@ Views.ProfileFavorites = function() {
   else {
     html += '<div class="card-list">';
     friends.forEach(function(a) {
-      html += '<div class="comp-cell"><img src="' + a.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.name) + '</div><div class="cell-label">' + a.school + ' · ' + a.major + ' · ' + a.year + '</div></div></div>';
+      html += '<div class="comp-cell" data-action="nav" data-payload="/alumni-card/' + a.id + '"><img src="' + a.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(a.name) + '</div><div class="cell-label">' + a.school + ' · ' + a.major + ' · ' + a.year + '</div></div><span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
     });
     html += '</div>';
   }
@@ -2535,7 +2540,13 @@ Views.ProfileMyFeed = function() {
   if (!myFeeds.length) { html += UI_Empty('暂无发布的动态'); }
   else {
     myFeeds.forEach(function(f) {
-      html += '<div class="feed-item" data-action="nav" data-payload="/alumni-feed/' + f.id + '"><div class="feed-user"><img src="' + f.user.avatar + '"><div><div class="uname">' + escapeHtml(f.user.name) + '</div><div class="umeta">' + f.date + '</div></div></div><div class="feed-content" style="max-height:60px;overflow:hidden">' + escapeHtml(f.content) + '</div><div class="feed-actions"><span>' + iconSVG('heart', 14) + ' ' + f.likes + '</span><span>' + iconSVG('message', 14) + ' ' + f.comments + '</span></div></div>';
+      html += '<div class="feed-item" data-action="nav" data-payload="/alumni-feed/' + f.id + '"><div class="feed-user"><img src="' + f.user.avatar + '"><div><div class="uname">' + escapeHtml(f.user.name) + '</div><div class="umeta">' + f.date + '</div></div></div><div class="feed-content" style="max-height:60px;overflow:hidden">' + escapeHtml(f.content) + '</div>';
+      if (f.images && f.images.length) {
+        html += '<div class="feed-images col' + f.images.length + '">';
+        f.images.forEach(function(img) { html += '<img src="' + img + '">'; });
+        html += '</div>';
+      }
+      html += '<div class="feed-actions"><span>' + iconSVG('heart', 14) + ' ' + f.likes + '</span><span>' + iconSVG('message', 14) + ' ' + f.comments + '</span></div></div>';
     });
   }
   html += '</div>';
@@ -2762,7 +2773,7 @@ Views.ProfilePoints = function() {
   var records = [
     { desc: '报名参加「2026北理校友创业论坛」', points: '+20', date: '2026-06-17' },
     { desc: '发布动态', points: '+5', date: '2026-06-16' },
-    { desc: '订阅课程「商务谈判技巧」', points: '-50', date: '2026-06-15' },
+    { desc: '订阅视频「商务谈判技巧」', points: '-50', date: '2026-06-15' },
     { desc: '发布动态', points: '+5', date: '2026-06-14' },
     { desc: '报名参加「校友企业走访活动」', points: '+20', date: '2026-06-13' }
   ];
@@ -3088,172 +3099,17 @@ Views.ServiceChat = function() {
   return html;
 };
 
-Views.MemberRecharge = function() {
-  var html = '<div class="page-container">' + UI_NavBar('信息服务费', true);
-  html += '<div style="padding:16px;background:linear-gradient(135deg,#6fa4cf,#9bc1de);text-align:center;color:#fff">';
-  html += '<div style="font-size:14px;margin-bottom:4px">当前会员状态</div>';
-  html += '<div style="font-size:24px;font-weight:700">' + AppState.currentRole + '</div>';
-  html += '<div style="font-size:12px;opacity:0.8;margin-top:4px">有效期至 2026-12-31</div>';
-  html += '</div>';
-  html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
-  html += '<div style="font-size:14px;font-weight:600">选择套餐</div>';
-  html += '</div>';
-  html += '<div style="padding:12px">';
-  memberPackages.forEach(function(p) {
-    var popularTag = p.popular ? '<div style="position:absolute;top:-1px;right:-1px;background:#dabb6e;color:#fff;font-size:10px;padding:2px 8px;border-bottom-left-radius:8px">推荐</div>' : '';
-    html += '<div class="comp-card" style="position:relative;border:2px solid ' + (p.popular ? p.color : 'transparent') + ';margin-bottom:12px" data-action="nav" data-payload="/profile/member-recharge/' + p.id + '">';
-    html += popularTag;
-    html += '<div style="padding:16px">';
-    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">';
-    html += '<div><div style="font-size:18px;font-weight:700;color:' + p.color + '">' + p.name + '</div><div style="font-size:12px;color:var(--text-lighter)">' + p.duration + '</div></div>';
-    html += '<div style="text-align:right"><div style="font-size:24px;font-weight:700;color:#ee0a24">¥' + p.price + '</div><div style="font-size:11px;color:var(--text-lighter);text-decoration:line-through">¥' + p.originalPrice + '</div></div>';
-    html += '</div>';
-    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">';
-    p.benefits.forEach(function(b) {
-      html += '<span style="padding:4px 10px;background:#f5f7fa;color:var(--text-light);border-radius:12px;font-size:11px">' + b + '</span>';
-    });
-    html += '</div>';
-    html += '</div></div>';
-  });
-  html += '</div>';
-  html += '<div style="padding:12px 16px;background:#fff;margin-top:12px">';
-  html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px">会员权益说明</div>';
-  html += '<div style="font-size:12px;color:var(--text-light);line-height:1.8">';
-  html += '<p>1. 购买会员套餐后，将立即获得对应时长的商务会员权益</p>';
-  html += '<p>2. 会员到期后，您的会员权益将自动暂停，已发布的内容保留</p>';
-  html += '<p>3. 购买后不支持退款，请您谨慎选择</p>';
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-  return html;
-};
-
-Views.MemberRechargeConfirm = function() {
-  var pkgId = parseInt(Router.params.id);
-  var pkg = memberPackages.find(function(p) { return p.id == pkgId; });
-  if (!pkg) return '<div class="page-container">' + UI_NavBar('支付确认', true) + UI_Empty('套餐不存在') + '</div>';
-  var html = '<div class="page-container">' + UI_NavBar('支付确认', true);
-  html += '<div style="padding:16px;background:#fff;margin-top:12px">';
-  html += '<div style="font-size:16px;font-weight:600;margin-bottom:12px">确认订单</div>';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:80px;height:80px;border-radius:8px;background:' + pkg.color + ';display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">' + pkg.name.substring(0, 2) + '</div>';
-  html += '<div style="flex:1">';
-  html += '<div style="font-size:16px;font-weight:600">' + pkg.name + '</div>';
-  html += '<div style="font-size:13px;color:var(--text-light);margin-top:4px">有效期：' + pkg.duration + '</div>';
-  html += '<div style="font-size:13px;color:var(--text-light);margin-top:2px">权益：' + pkg.benefits.join('、') + '</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="padding:16px;background:#fff;margin-top:12px">';
-  html += '<div style="font-size:16px;font-weight:600;margin-bottom:12px">支付方式</div>';
-  html += '<div style="display:flex;align-items:center;gap:10px;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="width:36px;height:36px;border-radius:50%;background:#07c160;display:flex;align-items:center;justify-content:center">' + iconSVG('wallet', 18, '#fff') + '</div>';
-  html += '<div style="flex:1"><div style="font-size:14px;font-weight:600">微信支付</div><div style="font-size:12px;color:var(--text-lighter)">推荐使用微信支付</div></div>';
-  html += iconSVG('check', 18, '#07c160');
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="padding:16px;background:#fff;margin-top:12px">';
-  html += '<div style="font-size:16px;font-weight:600;margin-bottom:12px">订单信息</div>';
-  html += UI_CellGroup([
-    { title: '订单编号', value: 'MO' + Date.now().toString().slice(-10) },
-    { title: '购买时间', value: new Date().toLocaleString('zh-CN') },
-    { title: '购买人', value: '演示用户' }
-  ], true);
-  html += '</div>';
-  html += '<div style="padding:16px;background:#fff;margin-top:12px">';
-  html += '<div style="font-size:16px;font-weight:600;margin-bottom:12px">金额明细</div>';
-  html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--text-light)">套餐原价</span><span style="color:var(--text-lighter);text-decoration:line-through">¥' + pkg.originalPrice + '</span></div>';
-  html += '<div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:var(--text-light)">优惠金额</span><span style="color:#07c160">-¥' + (pkg.originalPrice - pkg.price) + '</span></div>';
-  html += '<div style="border-top:1px solid var(--border);padding-top:8px;margin-top:8px;display:flex;justify-content:space-between"><span style="font-weight:600">实付金额</span><span style="font-size:18px;font-weight:700;color:#ee0a24">¥' + pkg.price + '</span></div>';
-  html += '</div>';
-  html += '<div style="padding:12px 16px;margin-top:12px">';
-  html += '<div style="font-size:11px;color:var(--text-lighter);text-align:center">';
-  html += '<input type="checkbox" checked style="margin-right:4px">';
-  html += '我已阅读并同意《会员服务协议》和《隐私政策》';
-  html += '</div>';
-  html += '</div>';
-  html += '<div class="bottom-bar"><button class="comp-btn primary round block" data-action="confirm-recharge" data-pkg-id="' + pkg.id + '">立即支付 ¥' + pkg.price + '</button></div>';
-  html += '</div>';
-  return html;
-};
-
-Views.MemberRechargeSuccess = function() {
-  var html = '<div class="page-container" style="text-align:center;padding-top:60px">';
-  html += '<div style="width:80px;height:80px;border-radius:50%;background:#07c160;display:flex;align-items:center;justify-content:center;margin:0 auto 20px">' + iconSVG('check', 40, '#fff') + '</div>';
-  html += '<h2 style="font-size:20px;font-weight:700;margin-bottom:8px">支付成功</h2>';
-  html += '<div style="font-size:14px;color:var(--text-light);margin-bottom:30px">您已成功开通商务会员</div>';
-  html += '<div style="padding:16px;background:#fff;border-radius:12px;margin:0 16px;text-align:left">';
-  html += '<div style="font-size:14px;font-weight:600;margin-bottom:8px">订单信息</div>';
-  html += UI_CellGroup([
-    { title: '订单编号', value: 'MO' + Date.now().toString().slice(-10) },
-    { title: '开通套餐', value: '年度会员' },
-    { title: '支付金额', value: '¥899' },
-    { title: '有效期至', value: '2027-06-01' }
-  ], true);
-  html += '</div>';
-  html += '<div style="padding:20px 16px;margin-top:30px">';
-  html += '<div style="font-size:14px;color:var(--text-light);margin-bottom:20px">支付成功，您的商务会员申请已提交审核</div>';
-  html += '<div style="font-size:12px;color:var(--text-muted)">预计1-3个工作日内反馈审核结果，请耐心等待</div>';
-  html += '</div>';
-  html += '</div>';
-  return html;
-};
-
-Views.MemberOrders = function() {
-  var html = '<div class="page-container">' + UI_NavBar('会员订单', true);
-  if (!memberOrders.length) {
-    html += UI_Empty('暂无会员订单');
-  } else {
-    html += '<div style="padding:12px">';
-    memberOrders.forEach(function(order) {
-      html += '<div class="comp-card" style="margin-bottom:12px">';
-      html += '<div style="padding:16px">';
-      html += '<div style="display:flex;justify-content:space-between;margin-bottom:12px">';
-      html += '<div style="font-size:12px;color:var(--text-lighter)">订单编号：' + order.id + '</div>';
-      html += UI_Tag(order.status, order.status === '已完成' ? 'success' : 'warning');
-      html += '</div>';
-      html += '<div style="display:flex;justify-content:space-between;align-items:center">';
-      html += '<div>';
-      html += '<div style="font-size:16px;font-weight:600">' + order.packageName + '</div>';
-      html += '<div style="font-size:12px;color:var(--text-lighter);margin-top:4px">' + order.createTime + '</div>';
-      html += '<div style="font-size:12px;color:var(--text-lighter);margin-top:2px">有效期至 ' + order.expiryDate + '</div>';
-      html += '</div>';
-      html += '<div style="font-size:18px;font-weight:700;color:#ee0a24">¥' + order.price + '</div>';
-      html += '</div>';
-      html += '</div>';
-      html += '</div>';
-    });
-    html += '</div>';
-  }
-  html += '</div>';
-  return html;
-};
-
 Views.ProfileCollections = function() {
   var html = '<div class="page-container">' + UI_NavBar('我的收藏', true);
-  var tabs = [{ key: 'all', name: '全部' }, { key: 'news', name: '资讯' }, { key: 'topic', name: '主题' }, { key: 'interview', name: '专访' }, { key: 'course', name: '课程' }];
+  var tabs = [{ key: 'all', name: '全部' }, { key: 'news', name: '资讯' }, { key: 'course', name: '视频' }, { key: 'essay', name: '校友文苑' }, { key: 'memory', name: '校园记忆' }];
   var activeTab = uiState.collectionTab || 'all';
   html += UI_Tabs(tabs, activeTab);
-  
+
   var allCollections = [];
   if (activeTab === 'all' || activeTab === 'news') {
     newsList.forEach(function(n) {
       if (AppState.collectedNews[n.id]) {
         allCollections.push({ type: 'news', id: n.id, title: n.title, author: n.author, date: n.date, cover: n.cover });
-      }
-    });
-  }
-  if (activeTab === 'all' || activeTab === 'topic') {
-    topicList.forEach(function(t) {
-      if (AppState.collectedTopics[t.id]) {
-        allCollections.push({ type: 'topic', id: t.id, title: t.title, author: t.author, date: t.date, cover: t.cover });
-      }
-    });
-  }
-  if (activeTab === 'all' || activeTab === 'interview') {
-    interviewList.forEach(function(i) {
-      if (AppState.collectedInterviews[i.id]) {
-        allCollections.push({ type: 'interview', id: i.id, title: i.title, author: i.author, date: i.date, cover: i.cover });
       }
     });
   }
@@ -3264,14 +3120,28 @@ Views.ProfileCollections = function() {
       }
     });
   }
-  
+  if (activeTab === 'all' || activeTab === 'essay') {
+    alumniEssayList.forEach(function(e) {
+      if (AppState.collectedEssays[e.id]) {
+        allCollections.push({ type: 'essay', id: e.id, title: e.title, author: e.author, date: e.date, cover: e.cover });
+      }
+    });
+  }
+  if (activeTab === 'all' || activeTab === 'memory') {
+    campusMemoryList.forEach(function(m) {
+      if (AppState.collectedMemories[m.id]) {
+        allCollections.push({ type: 'memory', id: m.id, title: m.title, author: m.author, date: m.date, cover: m.cover });
+      }
+    });
+  }
+
   if (!allCollections.length) {
     html += UI_Empty('暂无收藏内容');
   } else {
     html += '<div class="card-list">';
     allCollections.forEach(function(item) {
-      var path = item.type === 'news' ? '/news/' + item.id : (item.type === 'topic' ? '/topic-share/' + item.id : (item.type === 'interview' ? '/interview/' + item.id : '/courses/' + item.id));
-      var typeLabel = item.type === 'news' ? '资讯' : (item.type === 'topic' ? '主题' : (item.type === 'interview' ? '专访' : '课程'));
+      var path = item.type === 'news' ? '/news/' + item.id : (item.type === 'course' ? '/courses/' + item.id : (item.type === 'essay' ? '/alumni-essay/' + item.id : '/campus-memory/' + item.id));
+      var typeLabel = item.type === 'news' ? '资讯' : (item.type === 'course' ? '视频' : (item.type === 'essay' ? '校友文苑' : '校园记忆'));
       html += '<div class="comp-cell" data-action="nav" data-payload="' + path + '">';
       if (item.cover) {
         html += '<img src="' + item.cover + '" style="width:60px;height:60px;border-radius:6px;margin-right:10px">';
@@ -3555,16 +3425,11 @@ Views.ProfileBusinessCenter = function() {
 };
 
 Views.ProfileLearning = function() {
-  var role = AppState.currentRole;
-  var isMember = roleRank[role] >= 2;
   var html = '<div class="page-container">' + UI_NavBar('学习消费', true);
   var items = [
-    { title: '订阅课程', path: '/profile/subscribe', icon: 'book' },
+    { title: '订阅视频', path: '/profile/subscribe', icon: 'book' },
     { title: '团购订单', path: '/profile/group-buy', icon: 'bag' }
   ];
-  if (isMember) {
-    items.push({ title: '会员订单', path: '/profile/member-orders', icon: 'wallet' });
-  }
   html += '<div class="card-list">';
   items.forEach(function(item) {
     html += '<div class="comp-cell" data-action="nav" data-payload="' + item.path + '">';
@@ -3800,7 +3665,276 @@ Views.ReportOrderDetail = function() {
     html += '<button class="comp-btn primary" data-action="pay-report-order" style="padding:10px 40px">立即支付</button>';
     html += '</div>';
   }
-  
+
+  html += '</div>';
+  return html;
+};
+
+// ================================================================
+// 平台服务页面（占位，待后续开发）
+// ================================================================
+Views.Education = function() {
+  var tabs = [
+    { key: 'edu-degree', name: '学历教育' },
+    { key: 'edu-license', name: '执业资格' },
+    { key: 'edu-literacy', name: '素养训练' },
+    { key: 'edu-topic', name: '专题培训' }
+  ];
+  var active = uiState.educationTab || 'edu-degree';
+  var activeName = '学历教育';
+  tabs.forEach(function(t) { if (t.key === active) activeName = t.name; });
+  var html = '<div class="page-container">' + UI_NavBar('教育培训', true);
+
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === active ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
+
+  html += '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;text-align:center">';
+  html += '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#e8f4fd,#d4e8f7);display:flex;align-items:center;justify-content:center;margin-bottom:20px">' + iconSVG('bookmark', 32, '#6fa4cf') + '</div>';
+  html += '<div style="font-size:16px;font-weight:600;color:#333;margin-bottom:8px">' + activeName + '</div>';
+  html += '<div style="font-size:13px;color:#999;line-height:1.6">功能开发中，敬请期待</div>';
+  html += '</div>';
+
+  html += '</div>';
+  return html;
+};
+
+Views.Career = function() {
+  return '<div class="page-container">' + UI_NavBar('职场导航', true)
+    + '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;text-align:center">'
+    + '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#e8f8ee,#d4efe0);display:flex;align-items:center;justify-content:center;margin-bottom:20px">' + iconSVG('flag', 32, '#07c160') + '</div>'
+    + '<div style="font-size:16px;font-weight:600;color:#333;margin-bottom:8px">职场导航</div>'
+    + '<div style="font-size:13px;color:#999;line-height:1.6">功能开发中，敬请期待</div>'
+    + '</div></div>';
+};
+
+Views.AIPark = function() {
+  return '<div class="page-container">' + UI_NavBar('AI智创园', true)
+    + '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;text-align:center">'
+    + '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#f3e8ff,#e4d4f7);display:flex;align-items:center;justify-content:center;margin-bottom:20px">' + iconSVG('palette', 32, '#9254de') + '</div>'
+    + '<div style="font-size:16px;font-weight:600;color:#333;margin-bottom:8px">AI智创园</div>'
+    + '<div style="font-size:13px;color:#999;line-height:1.6">功能开发中，敬请期待</div>'
+    + '</div></div>';
+};
+
+Views.Empower = function() {
+  return '<div class="page-container">' + UI_NavBar('智汇赋能', true)
+    + '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 32px;text-align:center">'
+    + '<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#fff7ed,#ffe4d4);display:flex;align-items:center;justify-content:center;margin-bottom:20px">' + iconSVG('pulse', 32, '#ff976a') + '</div>'
+    + '<div style="font-size:16px;font-weight:600;color:#333;margin-bottom:8px">智汇赋能</div>'
+    + '<div style="font-size:13px;color:#999;line-height:1.6">功能开发中，敬请期待</div>'
+    + '</div></div>';
+};
+
+// ================================================================
+// 校友资源（胶囊tab聚合页：校友名片 / 校友企业 / 企业产品 / 校友数据）
+// ================================================================
+Views.AlumniResources = function() {
+  var tabs = [
+    { key: 'alumni-card', name: '校友名片' },
+    { key: 'alumni-company', name: '校友企业' },
+    { key: 'alumni-product', name: '企业产品' },
+    { key: 'alumni-data', name: '校友数据' }
+  ];
+  var active = uiState.alumniResourceTab || 'alumni-card';
+  var html = '<div class="page-container">' + UI_NavBar('校友资源', true);
+
+  // 胶囊筛选
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === active ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
+
+  if (active === 'alumni-card') {
+    // ---- 校友名片 ----
+    html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
+    html += '<input type="search" placeholder="搜索校友姓名/公司" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
+    html += '</div>';
+    html += '<div style="padding:12px;background:#f5f5f5">';
+    memberList.forEach(function(m) {
+      html += '<div class="member-card" data-action="nav" data-payload="/member-card/' + m.id + '" style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.06);position:relative;overflow:hidden">';
+      html += '<div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#6fa4cf,#9bc1de);color:#fff;font-size:11px;padding:3px 12px;border-bottom-left-radius:8px">认证校友</div>';
+      var mstat = '';
+      if (isFriend(m.id)) mstat = '<span style="padding:4px 10px;background:#e8f5e9;color:#4caf50;border-radius:12px;font-size:12px">已是好友</span>';
+      else if (AppState.outgoingIds.indexOf(m.id) >= 0) mstat = '<span style="padding:4px 10px;background:#f5f5f5;color:#999;border-radius:12px;font-size:12px">已发送请求</span>';
+      else mstat = '<button class="comp-btn primary small" onclick="event.stopPropagation();doExchangeCard(' + m.id + ')">交换名片</button>';
+      html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">';
+      html += '<img src="' + m.avatar + '" style="width:60px;height:60px;border-radius:50%;flex-shrink:0;border:2px solid #dabb6e">';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:17px;font-weight:600;margin-bottom:4px;color:#333">' + escapeHtml(m.name) + '</div>';
+      html += '<div style="font-size:13px;color:#666;margin-bottom:2px">' + escapeHtml(m.title) + '</div>';
+      html += '<div style="font-size:12px;color:#999;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(m.company) + '</div>';
+      html += '</div>';
+      html += '<div style="flex-shrink:0">' + mstat + '</div>';
+      html += '</div>';
+      html += '<div style="padding-top:10px;border-top:1px solid #f0f0f0">';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:#666">';
+      html += '<div style="display:flex;align-items:center;gap:4px">' + iconSVG('award', 12, '#999') + '<span>' + escapeHtml(m.school) + '</span></div>';
+      html += '<div style="display:flex;align-items:center;gap:4px">' + iconSVG('users', 12, '#999') + '<span>' + escapeHtml(m.year) + '</span></div>';
+      html += '</div>';
+      html += '<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:13px;color:#666;margin-top:6px;align-items:center">';
+      html += '<span style="display:inline-block;padding:1px 8px;background:#e3f2fd;color:#1976d2;border-radius:4px;font-size:11px">' + escapeHtml(m.industry) + '</span>';
+      html += '<span style="color:#999">' + escapeHtml(m.city) + '</span>';
+      html += '<span style="color:#999;margin-left:auto;font-size:11px">入会：' + escapeHtml(m.memberSince) + '</span>';
+      html += '</div></div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else if (active === 'alumni-company') {
+    // ---- 校友企业 ----
+    html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
+    html += '<input type="search" placeholder="搜索企业或简讯" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
+    html += '</div>';
+    html += '<div style="padding:8px 0;background:#f5f5f5">';
+    companyList.forEach(function(c) {
+      html += '<div class="company-card" data-action="nav" data-payload="/member-company/' + c.id + '" style="background:#fff;margin-bottom:8px;padding:12px 16px;display:flex;align-items:center;gap:12px">';
+      html += '<img src="' + c.logo + '" style="width:48px;height:48px;border-radius:50%;flex-shrink:0;object-fit:cover">';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:16px;font-weight:600;margin-bottom:4px;color:#333">' + escapeHtml(c.name) + '</div>';
+      html += '<div style="font-size:13px;color:#666;margin-bottom:2px">行业：' + escapeHtml(c.industry) + '</div>';
+      html += '<div style="font-size:13px;color:#999">地址：' + escapeHtml(c.address) + '</div>';
+      html += '</div>';
+      html += '<div style="flex-shrink:0">' + iconSVG('arrowRight', 16, '#ccc') + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else if (active === 'alumni-product') {
+    // ---- 企业产品 ----
+    html += '<div style="padding:12px 16px;background:#fff;border-bottom:1px solid var(--border)">';
+    html += '<input type="search" placeholder="搜索产品关键词" style="width:100%;padding:6px 12px;border:1px solid var(--border);border-radius:4px;font-size:14px;outline:none;box-sizing:border-box">';
+    html += '</div>';
+    html += '<div style="padding:8px 0;background:#f5f5f5">';
+    productList.forEach(function(p) {
+      html += '<div class="product-card" data-action="nav" data-payload="/member-product/' + p.id + '" style="background:#fff;margin-bottom:8px;padding:12px 16px;display:flex;gap:12px">';
+      html += '<img src="' + p.cover + '" style="width:80px;height:80px;border-radius:6px;flex-shrink:0;object-fit:cover">';
+      html += '<div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center">';
+      html += '<div style="font-size:15px;font-weight:600;margin-bottom:4px;color:#333">产品名称：' + escapeHtml(p.name) + '</div>';
+      html += '<div style="font-size:13px;color:#666;margin-bottom:2px">所属行业：' + escapeHtml(p.industry) + '</div>';
+      html += '<div style="font-size:13px;color:#666;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">应用领域：' + escapeHtml((p.intro || '').substring(0, 20)) + ((p.intro || '').length > 20 ? '...' : '') + '</div>';
+      html += '<div style="font-size:13px;color:#666">生产企业：' + escapeHtml(p.company) + '</div>';
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else if (active === 'alumni-data') {
+    // ---- 校友数据 ----
+    html += '<div class="dist-overview">';
+    html += '<div class="dist-stat-item"><div class="dist-stat-num">1,520</div><div class="dist-stat-label">认证校友</div></div>';
+    html += '<div class="dist-stat-item"><div class="dist-stat-num">7</div><div class="dist-stat-label">校友组织</div></div>';
+    html += '<div class="dist-stat-item"><div class="dist-stat-num">128</div><div class="dist-stat-label">年度活动</div></div>';
+    html += '<div class="dist-stat-item"><div class="dist-stat-num">197</div><div class="dist-stat-label">互助次数</div></div>';
+    html += '</div>';
+    html += '<div class="dist-card">';
+    html += '<div class="dist-card-title">年龄分布<span class="dist-card-sub">按10年分段</span></div>';
+    html += '<div id="alumni-age-chart" class="dist-chart-box"></div>';
+    html += '</div>';
+    html += '<div class="dist-card">';
+    html += '<div class="dist-card-title">专业分布<span class="dist-card-sub">各专业校友占比</span></div>';
+    html += '<div id="alumni-major-chart" class="dist-chart-box dist-chart-tall"></div>';
+    html += '</div>';
+    html += '<div class="dist-card">';
+    html += '<div class="dist-card-title">校友组织分布<span class="dist-card-sub">各社团成员数</span></div>';
+    html += '<div id="alumni-group-chart" class="dist-chart-box dist-chart-tall"></div>';
+    html += '</div>';
+    html += '<div class="dist-card">';
+    html += '<div class="dist-card-title">活动频次<span class="dist-card-sub">按月统计（次）</span></div>';
+    html += '<div id="alumni-activity-chart" class="dist-chart-box"></div>';
+    html += '</div>';
+    html += '<div class="dist-card">';
+    html += '<div class="dist-card-title">校友互助频次<span class="dist-card-sub">按月统计（次）</span></div>';
+    html += '<div id="alumni-help-chart" class="dist-chart-box"></div>';
+    html += '</div>';
+    html += '<div class="dist-footer-tip">数据更新于 2026-08-04</div>';
+  }
+
+  html += '</div>';
+  return html;
+};
+
+// ================================================================
+// 校友故事（胶囊tab：校友访谈 / 人物风采 / 校友文苑 / 校园记忆）
+// ================================================================
+Views.AlumniStories = function() {
+  var tabs = [
+    { key: 'story-interview', name: '校友访谈' },
+    { key: 'story-profile', name: '人物风采' },
+    { key: 'story-essay', name: '校友文苑' },
+    { key: 'story-memory', name: '校园记忆' }
+  ];
+  var active = uiState.alumniStoriesTab || 'story-interview';
+  var html = '<div class="page-container">' + UI_NavBar('校友故事', true);
+
+  html += '<div class="type-tabs">';
+  tabs.forEach(function(t) {
+    html += '<span class="type-tab' + (t.key === active ? ' active' : '') + '" data-action="switch-tab" data-tab="' + t.key + '">' + t.name + '</span>';
+  });
+  html += '</div>';
+
+  html += '<div class="card-list">';
+  if (active === 'story-interview') {
+    topicList.forEach(function(t) {
+      html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
+    });
+  } else if (active === 'story-profile') {
+    newsList.forEach(function(n) {
+      html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
+    });
+  } else if (active === 'story-essay') {
+    alumniEssayList.forEach(function(e) {
+      html += '<div class="comp-card" data-action="nav" data-payload="/alumni-essay/' + e.id + '"><img src="' + e.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(e.title) + '</div><div class="card-desc">' + escapeHtml(e.summary || '') + '</div><div class="card-meta">' + e.author + ' · ' + e.date + '</div></div></div>';
+    });
+  } else if (active === 'story-memory') {
+    campusMemoryList.forEach(function(m) {
+      html += '<div class="comp-card" data-action="nav" data-payload="/campus-memory/' + m.id + '"><img src="' + m.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(m.title) + '</div><div class="card-desc">' + escapeHtml(m.summary || '') + '</div><div class="card-meta">' + m.author + ' · ' + m.date + '</div></div></div>';
+    });
+  }
+  html += '</div>';
+
+  html += '</div>';
+  return html;
+};
+
+Views.AlumniEssayDetail = function() {
+  var e = alumniEssayList.find(function(item) { return item.id == Router.params.id; });
+  if (!e) return '<div class="page-container">' + UI_NavBar('校友文苑', true) + UI_Empty('内容未找到') + '</div>';
+  var collected = AppState.collectedEssays[e.id];
+  var showCmt = uiState.showEssayComment === e.id;
+  var cmts = (AppState.essayComments && AppState.essayComments[e.id]) || [];
+  var html = '<div class="page-container no-tab">' + UI_NavBar('校友文苑', true);
+  html += '<div class="content-detail"><h3>' + escapeHtml(e.title) + '</h3><div class="meta">' + e.author + ' · ' + e.date + '</div><div class="body">' + e.content + '</div></div>';
+  if (showCmt) {
+    html += '<div class="comment-section"><div class="cmt-title">评论 (' + cmts.length + ')</div>';
+    if (cmts.length === 0) html += '<div style="text-align:center;padding:20px;color:var(--text-lighter)">暂无评论，来说两句吧</div>';
+    cmts.forEach(function(c) {
+      html += '<div class="comment-item"><img src="' + c.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(c.name) + '</div><div class="cmt-text">' + escapeHtml(c.text) + '</div><div class="cmt-time">' + c.time + '</div></div></div>';
+    });
+    html += '<div style="display:flex;gap:10px;padding:8px 16px;background:#fff;border-top:1px solid var(--border)"><input id="essay-comment-input" type="text" placeholder="写评论..." style="flex:1;background:#f5f6f8;border-radius:20px;padding:8px 14px;font-size:13px;border:none;outline:none"><span style="padding:8px 12px;color:var(--primary);font-weight:600;cursor:pointer;font-size:14px" onclick="doPostEssayComment(' + e.id + ')">发送</span></div>';
+  }
+  html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['e' + e.id] ? ' active' : '') + '" onclick="doLikeEssay(' + e.id + ')">' + (AppState.likedFeeds['e' + e.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + e.likes + '</span></div><div class="bba-item' + (showCmt ? ' active' : '') + '" onclick="doToggleEssayComment(' + e.id + ')">' + iconSVG('message', 18) + '<span>' + (e.comments || 0) + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectEssay(' + e.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
+  html += '</div>';
+  return html;
+};
+
+Views.CampusMemoryDetail = function() {
+  var m = campusMemoryList.find(function(item) { return item.id == Router.params.id; });
+  if (!m) return '<div class="page-container">' + UI_NavBar('校园记忆', true) + UI_Empty('内容未找到') + '</div>';
+  var collected = AppState.collectedMemories[m.id];
+  var showCmt = uiState.showMemoryComment === m.id;
+  var cmts = (AppState.memoryComments && AppState.memoryComments[m.id]) || [];
+  var html = '<div class="page-container no-tab">' + UI_NavBar('校园记忆', true);
+  html += '<div class="content-detail"><h3>' + escapeHtml(m.title) + '</h3><div class="meta">' + m.author + ' · ' + m.date + '</div><div class="body">' + m.content + '</div></div>';
+  if (showCmt) {
+    html += '<div class="comment-section"><div class="cmt-title">评论 (' + cmts.length + ')</div>';
+    if (cmts.length === 0) html += '<div style="text-align:center;padding:20px;color:var(--text-lighter)">暂无评论，来说两句吧</div>';
+    cmts.forEach(function(c) {
+      html += '<div class="comment-item"><img src="' + c.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(c.name) + '</div><div class="cmt-text">' + escapeHtml(c.text) + '</div><div class="cmt-time">' + c.time + '</div></div></div>';
+    });
+    html += '<div style="display:flex;gap:10px;padding:8px 16px;background:#fff;border-top:1px solid var(--border)"><input id="memory-comment-input" type="text" placeholder="写评论..." style="flex:1;background:#f5f6f8;border-radius:20px;padding:8px 14px;font-size:13px;border:none;outline:none"><span style="padding:8px 12px;color:var(--primary);font-weight:600;cursor:pointer;font-size:14px" onclick="doPostMemoryComment(' + m.id + ')">发送</span></div>';
+  }
+  html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['m' + m.id] ? ' active' : '') + '" onclick="doLikeMemory(' + m.id + ')">' + (AppState.likedFeeds['m' + m.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + m.likes + '</span></div><div class="bba-item' + (showCmt ? ' active' : '') + '" onclick="doToggleMemoryComment(' + m.id + ')">' + iconSVG('message', 18) + '<span>' + (m.comments || 0) + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectMemory(' + m.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
   html += '</div>';
   return html;
 };
