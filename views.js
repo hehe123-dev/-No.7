@@ -50,15 +50,14 @@ Views.Login = function() {
     + '<div class="login-bg-deco"></div>'
     + '<div class="logo-area"><div class="logo-card"><img src="bit-logo.jpg" alt="白石桥七号"></div><div class="app-name">白石桥七号</div><div class="slogan">同心共建 · 聚力共赢</div><div class="desc">北理人商务平台</div></div>'
     + '<div class="login-panel">'
-    + '<div class="wechat-btn" data-action="wechat-login"><span class="wx-icon">微</span>微信一键登录</div>'
-    + '<div class="phone-toggle" data-action="toggle-phone"><span>手机号登录</span></div>'
-    + '<div class="phone-form hidden" id="phone-form">'
+    + '<div class="phone-form" id="phone-form">'
     + '<div class="input-row"><input type="tel" id="login-phone" placeholder="请输入手机号" maxlength="11"><span style="font-size:18px;color:#999">' + iconSVG('phone', 18, '#999') + '</span></div>'
     + '<div class="input-row"><input type="digit" id="login-code" placeholder="请输入验证码" maxlength="6"><span class="code-btn" data-action="send-code">获取验证码</span></div>'
-    + '<div class="mt-12">' + UI_Button('登录', 'primary', '', true, true) + '</div></div>'
-    + '<div class="login-tip">演示账号已内置，点击上方任意方式即可体验</div>'
+    + '<div class="mt-12">' + UI_Button('登录', 'primary', '', true, true) + '</div>'
     + '</div>'
-    + '<div class="agreement">登录即表示同意《用户协议》和《隐私政策》<br><a href="#/admin/login">运营管理员入口 &gt;</a></div>'
+    + '<div class="login-tip">演示环境：点击「获取验证码」，验证码将以弹窗提示</div>'
+    + '</div>'
+    + '<div class="agreement">登录即表示同意《用户协议》和《隐私政策》</div>'
     + '</div>';
 };
 
@@ -139,9 +138,10 @@ Views.NewsList = function() {
 
 Views.NewsDetail = function() {
   var n = newsList.find(function(item) { return item.id == Router.params.id; });
-  if (!n) return '<div class="page-container">' + UI_NavBar('资讯详情', true) + UI_Empty('资讯未找到') + '</div>';
+  var title = Router.params.from === 'story-profile' ? '人物风采' : '资讯详情';
+  if (!n) return '<div class="page-container">' + UI_NavBar(title, true) + UI_Empty('资讯未找到') + '</div>';
   var collected = AppState.collectedNews[n.id];
-  var html = '<div class="page-container">' + UI_NavBar('资讯详情', true);
+  var html = '<div class="page-container">' + UI_NavBar(title, true);
   html += '<div class="content-detail"><h3>' + escapeHtml(n.title) + '</h3><div class="meta">' + n.author + ' · ' + n.date + '</div><div class="body">' + n.content + '</div></div>';
   // Comment section
   var showCmt = uiState.showNewsComment === n.id;
@@ -751,9 +751,79 @@ function renderHelpCases() {
   var cases = helpList.filter(function(h) {
     return h.reviewStatus === 'approved' && h.status === 'resolved';
   });
-  cases.forEach(function(h) {
-    html += '<div class="comp-cell" data-action="nav" data-payload="/help/' + h.id + '"><img src="' + h.publisher.avatar + '" style="width:40px;height:40px;border-radius:50%;margin-right:10px"><div class="cell-body"><div class="cell-title">' + escapeHtml(h.title) + '</div><div class="cell-label">' + h.publisher.name + ' · ' + h.date + '</div></div>' + UI_Tag('已解决', 'success') + '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span></div>';
+
+  // 分为左右两列
+  var leftCol = [];
+  var rightCol = [];
+  cases.forEach(function(h, idx) {
+    if (idx % 2 === 0) leftCol.push(h);
+    else rightCol.push(h);
   });
+
+  html += '<div style="display:flex;gap:8px;padding:12px;background:#f5f5f5;align-items:flex-start">';
+
+  // 左列
+  html += '<div style="flex:1;min-width:0">';
+  leftCol.forEach(function(h) {
+    var bgColor = '#f9f0e8';
+    html += '<div data-action="nav" data-payload="/help/' + h.id + '" style="background:' + bgColor + ';border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">';
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">';
+    html += '<img src="' + h.publisher.avatar + '" style="width:28px;height:28px;border-radius:50%">';
+    html += '<div style="flex:1">';
+    html += '<div style="font-size:12px;font-weight:600;color:#333">' + escapeHtml(h.publisher.name) + '</div>';
+    html += '<div style="font-size:10px;color:#999">' + h.date + '</div>';
+    html += '</div>';
+    html += UI_Tag('已解决', 'success');
+    html += '</div>';
+    html += '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px;line-height:1.4">' + escapeHtml(h.title) + '</div>';
+    html += '<div style="font-size:12px;color:#666;line-height:1.5;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(h.description) + '</div>';
+    if (h.images && h.images.length > 0) {
+      html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:8px">';
+      h.images.slice(0, 3).forEach(function(img) {
+        html += '<div style="aspect-ratio:1;overflow:hidden;border-radius:3px"><img src="' + img + '" style="width:100%;height:100%;object-fit:cover"></div>';
+      });
+      html += '</div>';
+    }
+    html += '<div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#999">';
+    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('chat', 12, '#999') + '<span>' + (h.responseCount || 0) + '</span></div>';
+    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('thumbUp', 12, '#999') + '<span>' + Math.floor(Math.random() * 30 + 10) + '</span></div>';
+    html += '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  // 右列
+  html += '<div style="flex:1;min-width:0">';
+  rightCol.forEach(function(h) {
+    var bgColor = '#f0f5f9';
+    html += '<div data-action="nav" data-payload="/help/' + h.id + '" style="background:' + bgColor + ';border-radius:12px;padding:12px;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06)">';
+    html += '<div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">';
+    html += '<img src="' + h.publisher.avatar + '" style="width:28px;height:28px;border-radius:50%">';
+    html += '<div style="flex:1">';
+    html += '<div style="font-size:12px;font-weight:600;color:#333">' + escapeHtml(h.publisher.name) + '</div>';
+    html += '<div style="font-size:10px;color:#999">' + h.date + '</div>';
+    html += '</div>';
+    html += UI_Tag('已解决', 'success');
+    html += '</div>';
+    html += '<div style="font-size:13px;font-weight:600;color:#333;margin-bottom:6px;line-height:1.4">' + escapeHtml(h.title) + '</div>';
+    html += '<div style="font-size:12px;color:#666;line-height:1.5;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(h.description) + '</div>';
+    if (h.images && h.images.length > 0) {
+      html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-bottom:8px">';
+      h.images.slice(0, 3).forEach(function(img) {
+        html += '<div style="aspect-ratio:1;overflow:hidden;border-radius:3px"><img src="' + img + '" style="width:100%;height:100%;object-fit:cover"></div>';
+      });
+      html += '</div>';
+    }
+    html += '<div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#999">';
+    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('chat', 12, '#999') + '<span>' + (h.responseCount || 0) + '</span></div>';
+    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('thumbUp', 12, '#999') + '<span>' + Math.floor(Math.random() * 30 + 10) + '</span></div>';
+    html += '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  html += '</div>';
+
   if (cases.length === 0) {
     html += '<div class="empty-state">' + iconSVG('check', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无互助案例</div></div>';
   }
@@ -763,23 +833,21 @@ function renderHelpCases() {
 function renderMatchSquare() {
   var html = '';
   var list = businessNeedList.filter(function(b) { return b.status !== 'offline'; });
-  list.forEach(function(b) {
-    var statusText = b.status === 'resolved' ? '已完成' : '进行中';
-    var statusColor = b.status === 'resolved' ? 'success' : 'warning';
-    html += '<div class="comp-cell" data-action="nav" data-payload="/member-demand/business/' + b.id + '">';
+  list.forEach(function(b, idx) {
+    var rankColor = idx === 0 ? '#ff4d4f' : (idx === 1 ? '#ff7a45' : (idx === 2 ? '#ffa940' : '#999'));
+    html += '<div data-action="nav" data-payload="/member-demand/business/' + b.id + '" style="display:flex;align-items:center;padding:12px 16px;background:#fff;border-bottom:1px solid #f5f5f5">';
+    // 序号
+    html += '<div style="width:24px;font-size:18px;font-weight:700;color:' + rankColor + ';flex-shrink:0;margin-right:12px">' + (idx + 1) + '</div>';
+    // 标题和热度
     html += '<div style="flex:1;min-width:0">';
-    html += '<div style="font-size:14px;font-weight:600;color:#333;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(b.title) + '</div>';
-    html += '<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#999">';
-    html += '<img src="' + b.publisher.avatar + '" style="width:16px;height:16px;border-radius:50%">';
-    html += '<span>' + escapeHtml(b.publisher.name) + '</span>';
-    if (b.publisher.company) html += '<span style="color:#666">· ' + escapeHtml(b.publisher.company) + '</span>';
-    html += '<span>· ' + b.date + '</span>';
-    html += '<span style="margin-left:auto">' + UI_Tag(statusText, statusColor) + '</span>';
+    html += '<div style="font-size:15px;color:#333;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(b.title) + '</div>';
+    html += '<div style="font-size:12px;color:#999">' + (b.responseCount * 100 + Math.floor(Math.random() * 50)) + ' 热度</div>';
     html += '</div>';
-    html += '<div style="margin-top:6px;font-size:12px;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(b.description) + '</div>';
-    html += '<div style="margin-top:6px;font-size:11px;color:#999">' + iconSVG('chat', 12, '#999') + ' ' + b.responseCount + '条响应</div>';
+    // 右侧缩略图
+    html += '<div style="width:100px;height:60px;border-radius:4px;overflow:hidden;flex-shrink:0;margin-left:12px;position:relative">';
+    html += '<img src="' + b.cover + '" style="width:100%;height:100%;object-fit:cover">';
+    html += '<div style="position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 4px;border-radius:2px">0' + (idx + 1) + ':24</div>';
     html += '</div>';
-    html += '<span class="cell-arrow">' + iconSVG('arrowRight', 14, '#c8c9cc') + '</span>';
     html += '</div>';
   });
   if (list.length === 0) {
@@ -904,7 +972,7 @@ Views.HelpDetail = function() {
 Views.PublishDemand = function() {
   var type = 'help';
   var tabs = [{ key: 'help', name: '互助求助' }];
-  var html = '<div class="page-container">' + UI_NavBar('发布需求', true, '<span data-action="toast" data-payload="需求已发布">发表</span>');
+  var html = '<div class="page-container">' + UI_NavBar('发布求助', true, '<span data-action="toast" data-payload="求助已发布">发表</span>');
   html += UI_Tabs(tabs, type);
   html += '<div class="demand-form">';
   html += UI_Field('求助标题', 'text', '请输入求助标题', '', true);
@@ -968,11 +1036,23 @@ Views.MemberCardList = function() {
 Views.MemberCardDetail = function() {
   var m = memberList.find(function(item) { return item.id == Router.params.id; });
   if (!m) return '<div class="page-container">' + UI_NavBar('校友详情', true) + UI_Empty('校友未找到') + '</div>';
+  var exchanged = isFriend(m.id);
   var html = '<div class="page-container no-tab">' + UI_NavBar('校友详情', true);
   html += '<div style="text-align:center;padding:20px"><img src="' + m.avatar + '" style="width:72px;height:72px;border-radius:50%;margin:0 auto"><h3 style="margin:8px 0 4px">' + escapeHtml(m.name) + '</h3><div style="font-size:12px;color:var(--text-lighter)">' + m.company + ' · ' + m.title + '</div>' + UI_Tag('认证校友', 'primary') + '</div>';
   html += '<div class="section-title" style="padding:8px 16px">校友信息</div>';
-  html += UI_CellGroup([{ title: '学校', value: m.school }, { title: '年级', value: m.year }, { title: '城市', value: m.city }, { title: '行业', value: m.industry }, { title: '加入时间', value: m.memberSince }], true);
-  html += '<div class="content-detail"><h4>简介</h4><div class="body">' + escapeHtml(m.intro) + '</div></div>';
+  html += UI_CellGroup([{ title: '学校', value: m.school }, { title: '学历', value: m.degree }, { title: '年级', value: m.year }, { title: '城市', value: m.city }, { title: '行业', value: m.industry }, { title: '加入时间', value: m.memberSince }], true);
+  if (exchanged) {
+    html += UI_CellGroup([{ title: '手机', value: m.phone }, { title: '邮箱', value: m.email }, { title: '微信', value: m.wechat }], true);
+  } else {
+    html += '<div class="exchange-notice">' + iconSVG('shield', 16, '#ff976a') + ' 交换名片后可查看联系方式</div>';
+  }
+  var introFull = m.intro || '';
+  var introText = exchanged ? introFull : (introFull.length > 50 ? introFull.substring(0, 50) + '...' : introFull);
+  html += '<div class="content-detail"><h4>个人简介</h4><div class="body">' + escapeHtml(introText) + '</div>';
+  if (!exchanged) {
+    html += '<div style="font-size:12px;color:var(--text-lighter);padding:0 16px 8px">交换名片后查看完整简介</div>';
+  }
+  html += '</div>';
   // 校友关联的企业信息（每个企业下挂产品）
   if (m.companies && m.companies.length) {
     html += '<div class="section-title" style="padding:8px 16px">校友关联的企业信息</div>';
@@ -1304,25 +1384,6 @@ Views.MemberBusinessDetail = function() {
   html += '<div style="font-size:15px;color:#333;line-height:1.6">' + escapeHtml(b.description) + '</div>';
   html += '</div>';
 
-  // 响应统计
-  html += '<div style="background:#fff;padding:16px;margin-bottom:8px">';
-  html += '<div style="font-size:13px;color:#999;margin-bottom:8px">响应统计</div>';
-  html += '<div style="display:flex;gap:16px">';
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#333">' + b.responseCount + '</div>';
-  html += '<div style="font-size:12px;color:#999">响应数</div>';
-  html += '</div>';
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#07c160">' + Math.floor(b.responseCount / 2) + '</div>';
-  html += '<div style="font-size:12px;color:#999">已接受</div>';
-  html += '</div>';
-  html += '<div style="flex:1;text-align:center;padding:12px;background:#f5f7fa;border-radius:8px">';
-  html += '<div style="font-size:24px;font-weight:600;color:#ff976a">' + Math.ceil(b.responseCount / 2) + '</div>';
-  html += '<div style="font-size:12px;color:#999">进行中</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-
   html += '<div class="bottom-bar"><button class="comp-btn primary round block" onclick="showBusinessResponseModal(' + b.id + ')">我要响应</button></div>';
   html += '</div>';
   return html;
@@ -1547,9 +1608,10 @@ Views.TopicShareList = function() {
 
 Views.TopicShareDetail = function() {
   var t = topicList.find(function(item) { return item.id == Router.params.id; });
-  if (!t) return '<div class="page-container">' + UI_NavBar('分享详情', true) + UI_Empty('内容未找到') + '</div>';
+  var title = Router.params.from === 'story-interview' ? '校友访谈' : '分享详情';
+  if (!t) return '<div class="page-container">' + UI_NavBar(title, true) + UI_Empty('内容未找到') + '</div>';
   var collected = AppState.collectedTopics[t.id];
-  var html = '<div class="page-container">' + UI_NavBar('分享详情', true);
+  var html = '<div class="page-container">' + UI_NavBar(title, true);
   html += '<div class="content-detail"><h3>' + escapeHtml(t.title) + '</h3><div class="meta">' + t.date + '</div><div class="body">' + t.content + '</div></div>';
   // Comment section
   var showCmt = uiState.showTopicComment === t.id;
@@ -1935,7 +1997,13 @@ Views.Profile = function() {
   }
   // 校友认证入口（仅普通用户）
   if (!isAlumni) {
-    html += '<div class="promo-card" style="background:linear-gradient(135deg,#eef4fb,#e3eefc)" data-action="nav" data-payload="/profile/edit"><div class="promo-icon">🎓</div><div class="promo-text"><div class="pt">认证为校友</div><div class="ps">填写校友信息，认证后解锁校友名片、动态、互助等功能</div></div>' + iconSVG('arrowRight', 16, '#6fa4cf') + '</div>';
+    var certRejected = AppState.alumniCertStatus === 'rejected';
+    var certBg = certRejected ? 'linear-gradient(135deg,#fef0f0,#fde2e2)' : 'linear-gradient(135deg,#eef4fb,#e3eefc)';
+    var certIcon = certRejected ? '⚠️' : '🎓';
+    var certTitle = certRejected ? '认证失败' : '认证为校友';
+    var certDesc = certRejected ? '认证未通过，点击查看原因并重新提交' : '填写校友信息，认证后解锁校友名片、动态、互助等功能';
+    var certArrowColor = certRejected ? '#f56c6c' : '#6fa4cf';
+    html += '<div class="promo-card" style="background:' + certBg + '" data-action="nav" data-payload="/profile/edit"><div class="promo-icon">' + certIcon + '</div><div class="promo-text"><div class="pt">' + certTitle + '</div><div class="ps">' + certDesc + '</div></div>' + iconSVG('arrowRight', 16, certArrowColor) + '</div>';
   }
   // Service grid
   html += '<div class="service-grid">';
@@ -2008,15 +2076,20 @@ Views.ProfileEdit = function() {
   var pageTitle = isAlumni ? '编辑校友信息' : '申请校友认证';
   var btnText = isAlumni ? '保存' : '提交审核';
 
+  var prev = !isAlumni ? AppState.alumniCertForm : null;
   var d = isAlumni ? {
     avatar: img('myavatar', 100, 100),
     name: '赵明辉', gender: '男', birth: '1987-05', phone: '138****8888', email: 'zhaomh@example.com',
     school: '北京理工大学', dept: '自动化学院', major: '控制科学与工程', year: '2005级', degree: '硕士',
     hometown: '江苏南京', city: '北京', tags: '创业,人工智能,智能制造', hobbies: '篮球,摄影,阅读', intro: '', degreeCertImg: img('degcert', 400, 300), gradCertImg: img('gradcert', 400, 300)
   } : {
-    avatar: '', name: '', gender: '', birth: '', phone: '', email: '',
-    school: '', dept: '', major: '', year: '', degree: '',
-    hometown: '', city: '', tags: '', hobbies: '', intro: '', degreeCertImg: '', gradCertImg: ''
+    avatar: (prev && prev.avatar) || '', name: (prev && prev.name) || '', gender: (prev && prev.gender) || '',
+    birth: (prev && prev.birth) || '', phone: (prev && prev.phone) || '', email: (prev && prev.email) || '',
+    school: (prev && prev.school) || '', dept: (prev && prev.dept) || '', major: (prev && prev.major) || '',
+    year: (prev && prev.year) || '', degree: (prev && prev.degree) || '',
+    hometown: (prev && prev.hometown) || '', city: (prev && prev.city) || '', tags: (prev && prev.tags) || '',
+    hobbies: (prev && prev.hobbies) || '', intro: (prev && prev.intro) || '',
+    degreeCertImg: (prev && prev.degreeCertImg) || '', gradCertImg: (prev && prev.gradCertImg) || ''
   };
 
   function genderField(val) {
@@ -3876,11 +3949,11 @@ Views.AlumniStories = function() {
   html += '<div class="card-list">';
   if (active === 'story-interview') {
     topicList.forEach(function(t) {
-      html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
+      html += '<div class="comp-card" data-action="nav" data-payload="/topic-share/' + t.id + '?from=story-interview"><img src="' + t.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(t.title) + '</div><div class="card-desc">' + escapeHtml(t.summary || '') + '</div><div class="card-meta">' + t.date + '</div></div></div>';
     });
   } else if (active === 'story-profile') {
     newsList.forEach(function(n) {
-      html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
+      html += '<div class="comp-card" data-action="nav" data-payload="/news/' + n.id + '?from=story-profile"><img src="' + n.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(n.title) + '</div><div class="card-desc">' + escapeHtml(n.summary || '') + '</div><div class="card-meta">' + n.date + ' · ' + n.author + '</div></div></div>';
     });
   } else if (active === 'story-essay') {
     alumniEssayList.forEach(function(e) {

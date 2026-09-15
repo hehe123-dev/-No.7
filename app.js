@@ -79,7 +79,7 @@ var activityList = [
   { id: 6, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号年度校友大会', cover: img('act6', 400, 240), date: '2026-09-15', endDate: '2026-09-16', location: '北京国家会议中心', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-09-10', description: '<p>一年一度的白石桥七号校友大会，将邀请校领导、各行业杰出校友代表发表演讲，回顾平台年度成果，展望未来发展蓝图。欢迎全体校友踊跃报名参加！</p>', registered: 320, registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] },
   // [活动结束] 活动日期已过
   { id: 7, type: '校友活动', reviewStatus: 'approved', title: '毕业十周年校友聚会', cover: img('act3', 400, 240), date: '2026-07-15', endDate: '2026-07-15', location: '北京海淀某宴会厅', fee: 200, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-10', description: '<p>毕业十周年同学聚会，回顾校园时光，畅谈十年发展。</p>', registered: 36, customFields: [{ label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }], reviewComment: '' },
-  { id: 8, type: '商务活动', reviewStatus: 'approved', title: '智能制造行业校友沙龙', cover: img('act4', 400, 240), date: '2026-09-20', endDate: '2026-09-20', location: '北京中关村', fee: 0, organizer: '演示用户', orgAvatar: img('myavatar', 100, 100), publisher: { name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, deadline: '2026-09-15', description: '<p>面向智能制造领域的校友举办小型沙龙，交流行业趋势与合作机会。</p>', registered: 5, customFields: [{ label: '所属行业', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }], reviewComment: '' }
+  { id: 8, type: '商务活动', reviewStatus: 'approved', title: '智能制造行业校友沙龙', cover: img('act4', 400, 240), date: '2026-09-20', endDate: '2026-09-20', location: '北京中关村', fee: 0, organizer: '演示用户', orgAvatar: img('myavatar', 100, 100), publisher: { name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, deadline: '2026-09-15', description: '<p>面向智能制造领域的校友举办小型沙龙，交流行业趋势与合作机会。</p>', registered: 5, customFields: [{ label: '所在企业', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }], reviewComment: '' }
 ];
 
 
@@ -217,9 +217,9 @@ var groupList = [
 ];
 
 var memberList = [
-  { id: 1, name: '张建国', avatar: img('u1', 100, 100), school: '自动化学院', year: '2005级', city: '北京', industry: '人工智能', memberSince: '2025-03', company: '北京智控科技有限公司', title: '创始人兼CEO', intro: '15年自动化与人工智能行业经验，专注于工业智能控制领域。公司已获A轮融资，服务客户超过100家制造企业。', companies: [{ id: 1, name: '北京智控科技有限公司', logo: img('logo1', 200, 200), industry: '人工智能' }], products: [{ id: 1, name: '智控工业AI平台', cover: img('prod1', 400, 300) }] },
-  { id: 2, name: '李明远', avatar: img('u2', 100, 100), school: '计算机学院', year: '2008级', city: '深圳', industry: '互联网', memberSince: '2025-06', company: '字节跳动', title: '技术总监', intro: '10年互联网行业经验，在分布式系统和大数据平台方面有深厚积累。', companies: [], products: [] },
-  { id: 3, name: '刘芳', avatar: img('u3', 100, 100), school: '管理与经济学院', year: '2010级', city: '北京', industry: '生物医药', memberSince: '2026-01', company: '北京康源生物科技有限公司', title: 'CEO', intro: '连续创业者，专注于创新药物研发。公司已获B轮融资2亿元。', companies: [{ id: 1, name: '北京康源生物科技有限公司', logo: img('logo2', 200, 200), industry: '生物医药' }], products: [{ id: 1, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300) }] }
+  { id: 1, name: '张建国', avatar: img('u1', 100, 100), school: '自动化学院', degree: '硕士', year: '2005级', city: '北京', industry: '人工智能', memberSince: '2025-03', company: '北京智控科技有限公司', title: '创始人兼CEO', intro: '15年自动化与人工智能行业经验，专注于工业智能控制领域。公司已获A轮融资，服务客户超过100家制造企业。', phone: '138****6789', email: 'zhangjg@example.com', wechat: 'zhangjianguo_bit', companies: [{ id: 1, name: '北京智控科技有限公司', logo: img('logo1', 200, 200), industry: '人工智能' }], products: [{ id: 1, name: '智控工业AI平台', cover: img('prod1', 400, 300) }] },
+  { id: 2, name: '李明远', avatar: img('u2', 100, 100), school: '计算机学院', degree: '本科', year: '2008级', city: '深圳', industry: '互联网', memberSince: '2025-06', company: '字节跳动', title: '技术总监', intro: '10年互联网行业经验，在分布式系统和大数据平台方面有深厚积累。', phone: '139****1234', email: 'limy@example.com', wechat: 'limingyuan_bit', companies: [], products: [] },
+  { id: 3, name: '刘芳', avatar: img('u3', 100, 100), school: '管理与经济学院', degree: '硕士', year: '2010级', city: '北京', industry: '生物医药', memberSince: '2026-01', company: '北京康源生物科技有限公司', title: 'CEO', intro: '连续创业者，专注于创新药物研发。公司已获B轮融资2亿元。', phone: '135****6789', email: 'liuf@example.com', wechat: 'liufang_bit', companies: [{ id: 1, name: '北京康源生物科技有限公司', logo: img('logo2', 200, 200), industry: '生物医药' }], products: [{ id: 1, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300) }] }
 ];
 
 // 商务团体数据（与后台商务团体管理对应）
@@ -228,13 +228,16 @@ var memberOrgList = [];
 var companyList = [
   { id: 1, name: '北京智控科技有限公司', logo: img('logo1', 200, 200), industry: '人工智能', address: '北京市海淀区中关村软件园', founder: '张建国', intro: '智控科技成立于2018年，专注于工业智能控制领域，为制造企业提供AI驱动的智能控制解决方案。公司已获A轮融资，服务客户超过100家。', products: [{ id: 1, name: '智控工业AI平台', cover: img('prod1', 400, 300), intro: '基于深度学习的工业过程控制和优化平台，可降低能耗15%，提升产能20%。' }, { id: 2, name: '智能质检系统', cover: img('prod3', 400, 300), intro: '基于计算机视觉的产品质量检测系统，检测精度达到99.5%。' }] },
   { id: 2, name: '北京康源生物科技有限公司', logo: img('logo2', 200, 200), industry: '生物医药', address: '北京市昌平区生命科学园', founder: '刘芳', intro: '康源生物专注于创新药物研发，以肿瘤免疫治疗为核心方向。公司拥有多项自主知识产权，研发管线涵盖小分子药物和生物制剂。', products: [{ id: 1, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300), intro: '针对非小细胞肺癌的新型靶向药物，目前处于临床II期。' }] },
-  { id: 3, name: '深圳星辰科技有限公司', logo: img('logo3', 200, 200), industry: '新能源', address: '深圳市南山区科技园', founder: '陈晓华', intro: '星辰科技致力于新能源储能技术的研发和应用，产品覆盖家庭储能、工商业储能和电网级储能。公司已获C轮融资3亿元。', products: [] }
+  { id: 3, name: '深圳星辰科技有限公司', logo: img('logo3', 200, 200), industry: '新能源', address: '深圳市南山区科技园', founder: '陈晓华', intro: '星辰科技致力于新能源储能技术的研发和应用，产品覆盖家庭储能、工商业储能和电网级储能。公司已获C轮融资3亿元。', products: [] },
+  { id: 4, name: '字节跳动', logo: img('logo4', 200, 200), industry: '互联网', address: '北京市海淀区中关村', founder: '张一鸣', intro: '字节跳动是一家全球化的互联网科技公司，旗下拥有抖音、今日头条、飞书等产品，业务覆盖短视频、信息分发、企业服务等多个领域。', products: [{ id: 4, name: '抖音', cover: img('prod4', 400, 300), intro: '抖音是一款面向全年龄段的短视频社交平台。' }, { id: 5, name: '飞书', cover: img('prod5', 400, 300), intro: '飞书是字节跳动出品的企业协作与管理平台。' }] }
 ];
 
 var productList = [
   { id: 1, name: '智控工业AI平台', cover: img('prod1', 400, 300), company: '北京智控科技有限公司', industry: '人工智能', intro: '基于深度学习的工业过程控制和优化平台，通过实时数据分析和智能决策，帮助企业实现生产过程的最优化控制。', features: ['降低能耗15%', '提升产能20%', '实时监控与预警', '兼容主流PLC/DCS系统'], applications: '适用于化工、钢铁、水泥、电力等流程工业领域。' },
   { id: 2, name: '新型抗肿瘤药物K-101', cover: img('prod2', 400, 300), company: '北京康源生物科技有限公司', industry: '生物医药', intro: '针对非小细胞肺癌的新型靶向药物，具有高选择性和低毒性的特点。', features: ['高选择性靶向', '低毒副作用', '口服给药', '联合用药潜力'], applications: '非小细胞肺癌（NSCLC）二线治疗，目前处于临床II期。' },
-  { id: 3, name: '智能安防监控系统', cover: img('prod3', 400, 300), company: '深圳星辰科技有限公司', industry: '安防', intro: '基于AI视觉分析的智能安防监控系统，支持人脸识别、行为分析和异常检测。', features: ['实时人脸识别', '异常行为检测', '多摄像头联动', '云端+边缘部署'], applications: '适用于社区、园区、商场、学校等场所的安全监控。' }
+  { id: 3, name: '智能安防监控系统', cover: img('prod3', 400, 300), company: '深圳星辰科技有限公司', industry: '安防', intro: '基于AI视觉分析的智能安防监控系统，支持人脸识别、行为分析和异常检测。', features: ['实时人脸识别', '异常行为检测', '多摄像头联动', '云端+边缘部署'], applications: '适用于社区、园区、商场、学校等场所的安全监控。' },
+  { id: 4, name: '抖音', cover: img('prod4', 400, 300), company: '字节跳动', industry: '互联网', intro: '抖音是一款面向全年龄段的短视频社交平台，通过个性化推荐为用户提供优质内容。', features: ['个性化推荐', '丰富内容生态', '直播互动', '电商带货'], applications: '适用于内容消费、品牌营销、电商直播等场景。' },
+  { id: 5, name: '飞书', cover: img('prod5', 400, 300), company: '字节跳动', industry: '企业服务', intro: '飞书是字节跳动出品的企业协作与管理平台，整合即时沟通、日历、云文档、会议等功能。', features: ['即时沟通', '云文档协作', '视频会议', '应用集成'], applications: '适用于企业日常办公、项目协作与远程协同。' }
 ];
 
 var helpList = [
@@ -247,16 +250,19 @@ var helpList = [
   { id: 7, title: '北京车牌指标出租或转让求助', publisher: { id: 10, name: '杨帆', avatar: img('u8', 100, 100), role: '普通用户' }, date: '2026-06-14', description: '刚毕业在北京工作，急需解决通勤问题。想问问有没有校友出租或转让北京车牌指标的渠道？靠谱的中介也可以推荐。', reviewStatus: 'rejected', status: 'processing', rejectReason: '涉及违规内容，平台不允许发布此类信息', responseCount: 0, responses: [] },
   { id: 8, title: '校友创业项目寻求天使轮融资', publisher: { id: 7, name: '孙磊', avatar: img('m3', 100, 100), role: '认证校友' }, date: '2026-06-16', description: '我们团队正在做AI辅助教育产品，已有种子用户，想寻求天使轮融资100-200万。BP已准备好，欢迎感兴趣的校友投资人联系。', reviewStatus: 'pending', status: 'processing', rejectReason: '', responseCount: 0, responses: [] },
   { id: 9, title: '旧书转让——考研资料低价出', publisher: { id: 9, name: '周小雅', avatar: img('u6', 100, 100), role: '普通用户' }, date: '2026-06-17', description: '本人去年考研上岸，现有大量考研资料（数学、英语、政治）低价转让，包含真题、笔记、网课视频等。北京地区可面交，其他地区包邮。', reviewStatus: 'approved', status: 'offline', rejectReason: '', responseCount: 3, responses: [] },
-  { id: 10, title: '寻找智能制造领域的校友合作伙伴', publisher: { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, date: '2026-06-18', description: '我们公司正在推进工业互联网相关项目，希望寻找在智能制造、工业大数据、AI质检方面有经验的校友一起合作，可技术合作或项目联合。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 3, responses: [{ id: 2, name: '李明远', avatar: img('u2', 100, 100), role: '认证校友', text: '我在做工业大数据方向，可以深入聊聊合作。', time: '2026-06-19', responseStatus: 'waiting' }, { id: 8, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友', text: '我们团队有智能制造解决方案，可以对接一下。', time: '2026-06-20', responseStatus: 'waiting' }, { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友', text: '补充说明：项目地点在北京，优先考虑有实际落地案例的团队，欢迎私信进一步沟通。', time: '2026-06-21', responseStatus: 'waiting' }] }
+  { id: 10, title: '寻找智能制造领域的校友合作伙伴', publisher: { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, date: '2026-06-18', description: '我们公司正在推进工业互联网相关项目，希望寻找在智能制造、工业大数据、AI质检方面有经验的校友一起合作，可技术合作或项目联合。', reviewStatus: 'approved', status: 'processing', rejectReason: '', responseCount: 3, responses: [{ id: 2, name: '李明远', avatar: img('u2', 100, 100), role: '认证校友', text: '我在做工业大数据方向，可以深入聊聊合作。', time: '2026-06-19', responseStatus: 'waiting' }, { id: 8, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友', text: '我们团队有智能制造解决方案，可以对接一下。', time: '2026-06-20', responseStatus: 'waiting' }, { id: 0, name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友', text: '补充说明：项目地点在北京，优先考虑有实际落地案例的团队，欢迎私信进一步沟通。', time: '2026-06-21', responseStatus: 'waiting' }] },
+  { id: 11, title: '校友企业团建活动场地推荐', publisher: { id: 3, name: '李娜', avatar: img('u9', 100, 100), role: '认证校友' }, date: '2026-06-20', description: '公司计划组织50人团建活动，需要推荐北京周边的场地，最好有会议室和户外拓展设施。预算2-3万，时间7月中旬。感谢校友们推荐！', reviewStatus: 'approved', status: 'resolved', rejectReason: '', responseCount: 4, images: [img('essay1', 400, 240), img('campus1', 400, 240), img('campus2', 400, 240)], responses: [{ id: 5, name: '刘芳', avatar: img('u3', 100, 100), role: '认证校友', text: '推荐怀柔的雁栖湖基地，我们去年去过，设施很好。', time: '2026-06-21', responseStatus: 'finished' }] },
+  { id: 12, title: '求推荐靠谱的财务审计机构', publisher: { id: 8, name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, date: '2026-06-22', description: '公司准备进行年度审计，需要找一家有高新技术企业审计经验的会计师事务所。坐标北京海淀，预算5-8万。有合作过的校友请推荐一下，谢谢！', reviewStatus: 'approved', status: 'resolved', rejectReason: '', responseCount: 6, images: [img('biz2', 400, 220), img('biz5', 400, 220)], responses: [{ id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '认证校友', text: '我们合作的立信会计师事务所不错，专业高效，可以帮你联系。', time: '2026-06-23', responseStatus: 'finished' }] },
+  { id: 13, title: '校友子女暑期实习机会提供', publisher: { id: 2, name: '李明远', avatar: img('m1', 100, 100), role: '认证校友' }, date: '2026-06-25', description: '优品贸易暑期需要3-5名实习生，岗位包括电商运营、市场推广、数据分析。欢迎校友推荐子女或学弟学妹，表现优秀可留用。本科及以上，专业不限。', reviewStatus: 'approved', status: 'resolved', rejectReason: '', responseCount: 8, images: [img('biz4', 400, 220), img('essay2', 400, 240), img('topic1', 400, 240)], responses: [{ id: 9, name: '周小雅', avatar: img('u6', 100, 100), role: '认证校友', text: '太感谢了！我妹妹今年大二，想申请数据分析岗位，怎么投递简历？', time: '2026-06-26', responseStatus: 'finished' }] }
 ];
 
 var businessNeedList = [
-  { id: 1, title: '寻找新能源电池领域技术合作伙伴', publisher: { id: 4, name: '陈晓华', avatar: img('u2', 100, 100), role: '认证校友', company: '华能科技' }, date: '2026-06-08', description: '公司正在开发新一代储能电池管理系统，需要寻找在电池管理芯片或算法方面有技术积累的合作伙伴，优先深圳或广州地区。', category: '技术合作', budget: '面议', status: 'processing', responseCount: 3 },
-  { id: 2, title: '求推荐靠谱的医疗器械注册代理机构', publisher: { id: 5, name: '刘芳', avatar: img('u3', 100, 100), role: '认证校友', company: '康源生物' }, date: '2026-06-05', description: '公司有一款二类医疗器械需要注册，求推荐有经验的代理机构，最好在北京地区，有成功案例的优先。', category: '专业服务', budget: '5-20万', status: 'resolved', responseCount: 5 },
-  { id: 3, title: '寻求A轮融资——AI工业检测项目', publisher: { id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '认证校友', company: '智控科技' }, date: '2026-06-01', description: '智控科技专注于AI工业视觉检测，已服务20+制造企业，年收入500万+，寻求A轮融资2000-3000万。', category: '融资需求', budget: '2000-3000万', status: 'processing', responseCount: 8 },
-  { id: 4, title: '寻找跨境电商代运营合作', publisher: { id: 2, name: '李明远', avatar: img('m1', 100, 100), role: '认证校友', company: '优品贸易' }, date: '2026-06-10', description: '公司产品为消费电子配件，寻求亚马逊/TikTok Shop代运营合作伙伴，目标北美和欧洲市场。', category: '渠道合作', budget: '佣金制', status: 'processing', responseCount: 2 },
-  { id: 5, title: '企业数字化转型咨询服务采购', publisher: { id: 6, name: '王磊', avatar: img('u5', 100, 100), role: '认证校友', company: '恒业集团' }, date: '2026-06-12', description: '集团计划启动数字化转型项目，需要寻找有大型企业转型经验的咨询公司，预算50-100万。', category: '咨询服务', budget: '50-100万', status: 'processing', responseCount: 4 },
-  { id: 6, title: '寻求律所常年法律顾问合作', publisher: { id: 7, name: '孙磊', avatar: img('m3', 100, 100), role: '认证校友', company: '创新教育科技' }, date: '2026-06-15', description: '科技公司寻求常年法律顾问服务，涉及公司法、知识产权、劳动法等领域，希望律所熟悉互联网行业。', category: '法律顾问', budget: '10-30万/年', status: 'processing', responseCount: 1 }
+  { id: 1, title: '寻找新能源电池领域技术合作伙伴', cover: img('biz1', 400, 220), publisher: { id: 4, name: '陈晓华', avatar: img('u2', 100, 100), role: '认证校友', company: '华能科技' }, date: '2026-06-08', description: '公司正在开发新一代储能电池管理系统，需要寻找在电池管理芯片或算法方面有技术积累的合作伙伴，优先深圳或广州地区。', category: '技术合作', budget: '面议', status: 'processing', responseCount: 3 },
+  { id: 2, title: '求推荐靠谱的医疗器械注册代理机构', cover: img('biz2', 400, 220), publisher: { id: 5, name: '刘芳', avatar: img('u3', 100, 100), role: '认证校友', company: '康源生物' }, date: '2026-06-05', description: '公司有一款二类医疗器械需要注册，求推荐有经验的代理机构，最好在北京地区，有成功案例的优先。', category: '专业服务', budget: '5-20万', status: 'resolved', responseCount: 5 },
+  { id: 3, title: '寻求A轮融资——AI工业检测项目', cover: img('biz3', 400, 220), publisher: { id: 1, name: '张建国', avatar: img('u1', 100, 100), role: '认证校友', company: '智控科技' }, date: '2026-06-01', description: '智控科技专注于AI工业视觉检测，已服务20+制造企业，年收入500万+，寻求A轮融资2000-3000万。', category: '融资需求', budget: '2000-3000万', status: 'processing', responseCount: 8 },
+  { id: 4, title: '寻找跨境电商代运营合作', cover: img('biz4', 400, 220), publisher: { id: 2, name: '李明远', avatar: img('m1', 100, 100), role: '认证校友', company: '优品贸易' }, date: '2026-06-10', description: '公司产品为消费电子配件，寻求亚马逊/TikTok Shop代运营合作伙伴，目标北美和欧洲市场。', category: '渠道合作', budget: '佣金制', status: 'processing', responseCount: 2 },
+  { id: 5, title: '企业数字化转型咨询服务采购', cover: img('biz5', 400, 220), publisher: { id: 6, name: '王磊', avatar: img('u5', 100, 100), role: '认证校友', company: '恒业集团' }, date: '2026-06-12', description: '集团计划启动数字化转型项目，需要寻找有大型企业转型经验的咨询公司，预算50-100万。', category: '咨询服务', budget: '50-100万', status: 'processing', responseCount: 4 },
+  { id: 6, title: '寻求律所常年法律顾问合作', cover: img('biz6', 400, 220), publisher: { id: 7, name: '孙磊', avatar: img('m3', 100, 100), role: '认证校友', company: '创新教育科技' }, date: '2026-06-15', description: '科技公司寻求常年法律顾问服务，涉及公司法、知识产权、劳动法等领域，希望律所熟悉互联网行业。', category: '法律顾问', budget: '10-30万/年', status: 'processing', responseCount: 1 }
 ];
 
 var topicList = [
@@ -333,6 +339,23 @@ var courseList = [
       { user: '产品小王', avatar: img('r6', 100, 100), rating: 5, date: '2026-06-08', content: '李老师的课真的太棒了，内容深度和广度都很到位。' },
       { user: '设计师Lisa', avatar: img('r7', 100, 100), rating: 5, date: '2026-06-03', content: '从产品视角讲AI，给我打开了新思路。强推！' },
       { user: '创业者Alex', avatar: img('r8', 100, 100), rating: 5, date: '2026-05-25', content: '我们公司在做AI产品，这门课解决了我很多疑惑。' }
+    ]
+  },
+  {
+    id: 4, title: '王军校友专访：新能源汽车的下一个十年', subtitle: '从技术、产业到投资，一次讲透新能源赛道', cover: img('course4', 750, 420),
+    teacher: '王军', teacherAvatar: img('u5', 200, 200), teacherTitle: '蔚来汽车资深产品总监 · 北理工2006级',
+    teacherBio: '北理工机械与车辆学院2006级校友，先后在比亚迪、蔚来汽车担任核心技术与管理岗位，深度参与多款车型研发，专注新能源汽车与智能驾驶领域超过12年。',
+    price: 99, originalPrice: 199, memberPrice: 79, students: 1560, duration: '6课时', totalMinutes: 180, rating: 4.9, reviews: 156,
+    category: '专题采访', intro: '白石桥七号校友专题采访系列。王军校友结合自身在新能源汽车行业的多年经验，分享行业发展趋势、技术演进方向与创业投资机会。',
+    highlights: ['校友独家专访', '行业趋势深度解读', '投资机会分析', '创业经验分享'],
+    chapters: [
+      { id: 1, title: '第一章 行业格局', lessons: [{ id: 1, title: '1.1 新能源汽车行业现状', duration: '18:20', preview: true }, { id: 2, title: '1.2 竞争格局与头部玩家', duration: '21:40', preview: false }] },
+      { id: 2, title: '第二章 技术演进', lessons: [{ id: 3, title: '2.1 三电核心技术', duration: '24:10', preview: false }, { id: 4, title: '2.2 智能化与自动驾驶', duration: '26:30', preview: false }] },
+      { id: 3, title: '第三章 投资与创业', lessons: [{ id: 5, title: '3.1 产业链投资机会', duration: '22:00', preview: false }, { id: 6, title: '3.2 创业避坑指南', duration: '20:15', preview: false }] }
+    ],
+    reviewList: [
+      { user: '刘芳', avatar: img('r9', 100, 100), rating: 5, date: '2026-06-10', content: '采访形式很生动，王军校友讲得特别实在，对新能源行业的判断很有见地。' },
+      { user: '陈晓华', avatar: img('r10', 100, 100), rating: 5, date: '2026-06-06', content: '作为从业者看也很有收获，尤其是智能驾驶那一章。' }
     ]
   }
 ];
@@ -431,9 +454,19 @@ var AppState = {
   isLoggedIn: false,
   currentRole: '认证校友',
   userName: '演示用户',
+  userPhone: '',
   // 校友认证审核状态：'pending'(审核中) / 'rejected'(已驳回) / null(未提交或已通过)
   alumniCertStatus: 'rejected',
   alumniCertRejectReason: '提交的学籍材料不清晰，请重新上传毕业证/学位证照片，并确保个人信息页完整可见',
+  // 上次提交的校友认证信息（认证未通过时回显）
+  alumniCertForm: {
+    avatar: img('myavatar', 100, 100),
+    name: '演示用户', gender: '男', birth: '1990-01', phone: '138****8888', email: 'demo@bit.edu.cn',
+    school: '北京理工大学', dept: '自动化学院', major: '控制科学与工程', year: '2005级', degree: '硕士',
+    hometown: '北京', city: '北京', tags: '创业,人工智能', hobbies: '篮球,摄影',
+    intro: '北理工自动化学院校友，从事人工智能行业，专注工业智能方向。',
+    degreeCertImg: img('degcert', 400, 300), gradCertImg: img('gradcert', 400, 300)
+  },
   // 商务信息维护审核状态：'pending'(审核中) / 'rejected'(已驳回) / null(未提交或已通过)
   bizUpgradeStatus: 'rejected',
   bizUpgradeRejectReason: '关联企业缺少营业执照证明材料，产品介绍需补充完整的产品规格与应用案例说明',
@@ -506,7 +539,7 @@ function getPublishActions() {
   var allActions = [
     { name: '发布动态', desc: '分享校友圈动态与生活', key: 'feed', icon: 'edit', color: '#6fa4cf', path: '/publish-feed', permission: 'publish_feed', minRole: '认证校友', category: 'alumni' },
     { name: '发布活动', desc: '发布校友活动', key: 'activity', icon: 'calendar', color: '#07c160', path: '/publish-activity', permission: 'publish_activity', minRole: '认证校友', category: 'alumni' },
-    { name: '发布需求', desc: '发布互助求助', key: 'demand', icon: 'help', color: '#a78bfa', path: '/publish-demand', permission: 'publish_help', minRole: '认证校友', category: 'alumni' }
+    { name: '发布求助', desc: '发布互助求助', key: 'demand', icon: 'help', color: '#a78bfa', path: '/publish-demand', permission: 'publish_help', minRole: '认证校友', category: 'alumni' }
   ];
 
   // 按角色过滤和标记状态
@@ -614,18 +647,17 @@ function submitRegistration(aid) {
 }
 function doActivityPay(aid) {
   var act = activityList.find(function(a) { return a.id == aid; });
-  if (!act) return;
-  
-  showLoading('支付中...');
-  setTimeout(function() {
-    hideLoading();
-    var reg = getMyRegistration(aid);
-    if (reg) {
+  var reg = getMyRegistration(aid);
+  if (!act || !reg) return;
+  showWechatPay({
+    amount: reg.payAmount,
+    title: act.title,
+    onSuccess: function() {
       reg.status = 'confirmed';
       reg.payStatus = 'paid';
+      Router.navigate('/activity-register-success/' + aid);
     }
-    Router.navigate('/activity-register-success/' + aid);
-  }, 1500);
+  });
 }
 function isSubscribedCourse(cid) { return AppState.subscribedCourses.indexOf(cid) >= 0; }
 function subscribeCourse(cid) { if (AppState.subscribedCourses.indexOf(cid) < 0) AppState.subscribedCourses.push(cid); }
@@ -647,6 +679,50 @@ function doLogout() {
 function doReset() {
   localStorage.clear();
   location.reload();
+}
+
+// 手机号 + 验证码登录
+var loginSmsCode = '';
+function sendLoginCode() {
+  var phoneInput = document.getElementById('login-phone');
+  var phone = phoneInput ? phoneInput.value.trim() : '';
+  if (!/^1\d{10}$/.test(phone)) { showToast('请输入正确的11位手机号'); return; }
+  loginSmsCode = String(Math.floor(100000 + Math.random() * 900000));
+  var codeInput = document.getElementById('login-code');
+  if (codeInput) codeInput.value = loginSmsCode;
+  var btn = document.querySelector('#phone-form .code-btn');
+  var left = 60;
+  if (btn) {
+    btn.textContent = left + 's后重发';
+    btn.style.color = '#999';
+    btn.style.pointerEvents = 'none';
+    var timer = setInterval(function() {
+      left--;
+      if (left <= 0) {
+        clearInterval(timer);
+        btn.textContent = '获取验证码';
+        btn.style.color = 'var(--primary)';
+        btn.style.pointerEvents = '';
+      } else {
+        btn.textContent = left + 's后重发';
+      }
+    }, 1000);
+  }
+  showToast('验证码已自动填入（演示）');
+}
+function phoneLogin() {
+  var phoneInput = document.getElementById('login-phone');
+  var codeInput = document.getElementById('login-code');
+  var phone = phoneInput ? phoneInput.value.trim() : '';
+  var code = codeInput ? codeInput.value.trim() : '';
+  if (!/^1\d{10}$/.test(phone)) { showToast('请输入正确的11位手机号'); return; }
+  if (!code) { showToast('请输入验证码'); return; }
+  if (code !== loginSmsCode) { showToast('验证码错误'); return; }
+  AppState.userPhone = phone;
+  AppState.currentRole = '普通用户';
+  AppState.isLoggedIn = true;
+  showToast('登录成功');
+  setTimeout(function() { Router.navigate('/home'); }, 500);
 }
 
 // ================================================================
@@ -712,7 +788,7 @@ function authGuard(route, params) {
     var reqRank = roleRank[route.meta.minRole];
     var userRank = roleRank[AppState.currentRole];
     if (userRank < reqRank) {
-      showToast('该功能仅限' + route.meta.minRole + '使用，请先升级会员');
+      showToast('该功能仅限' + route.meta.minRole + '使用，请先认证校友');
       return '/home';
     }
   }
@@ -736,27 +812,22 @@ var routes = [
   { path: '/activity-registration/:id', view: 'ActivityRegistration' },
   { path: '/publish-activity', view: 'PublishActivity' },
   { path: '/alumni-card', view: 'AlumniCardList' },
-  { path: '/alumni-card/:id', view: 'AlumniCardDetail' },
+  { path: '/alumni-card/:id', view: 'AlumniCardDetail', meta: { minRole: '认证校友' } },
   { path: '/alumni-distribution', view: 'AlumniDistribution' },
   { path: '/alumni-group', view: 'AlumniGroupList' },
-  { path: '/alumni-group/:id', view: 'AlumniGroupDetail' },
+  { path: '/alumni-group/:id', view: 'AlumniGroupDetail', meta: { minRole: '认证校友' } },
   { path: '/alumni-feed', view: 'AlumniFeedList' },
   { path: '/alumni-feed/:id', view: 'AlumniFeedDetail' },
   { path: '/publish-feed', view: 'PublishFeed' },
   { path: '/help', view: 'HelpCenter' },
-  { path: '/help/:id', view: 'HelpDetail' },
+  { path: '/help/:id', view: 'HelpDetail', meta: { minRole: '认证校友' } },
   { path: '/publish-demand', view: 'PublishDemand' },
   { path: '/member-card', view: 'MemberCardList' },
-  { path: '/member-card/:id', view: 'MemberCardDetail' },
-  { path: '/group-member/:groupId/:memberIdx', view: 'GroupMemberDetail' },
-  { path: '/member-distribution', view: 'MemberDistribution' },
+  { path: '/member-card/:id', view: 'MemberCardDetail', meta: { minRole: '认证校友' } },
+  { path: '/group-member/:groupId/:memberIdx', view: 'GroupMemberDetail', meta: { minRole: '认证校友' } },
   { path: '/member-company/:id', view: 'MemberCompanyDetail', meta: { minRole: '认证校友' } },
   { path: '/member-product/:id', view: 'MemberProductDetail', meta: { minRole: '认证校友' } },
-  { path: '/member-demand', view: 'MemberDemandListView' },
-  { path: '/member-mutual-help', view: 'MemberMutualHelp' },
-  { path: '/member-business-demand', view: 'MemberBusinessDemand' },
   { path: '/member-demand/business/:id', view: 'MemberBusinessDetail', meta: { minRole: '认证校友' } },
-  { path: '/member-org', view: 'MemberOrganization' },
   { path: '/member-service', view: 'MemberServiceIndex' },
   { path: '/member-service/:category', view: 'MemberServiceDetail', meta: { minRole: '认证校友' } },
   { path: '/service-provider/:id', view: 'ServiceProviderDetail', meta: { minRole: '认证校友' } },
@@ -776,28 +847,20 @@ var routes = [
   { path: '/profile/group-buy', view: 'ProfileGroupBuy' },
   { path: '/profile/favorites', view: 'ProfileFavorites' },
   { path: '/profile/activities', view: 'ProfileActivities' },
-  { path: '/profile/member-edit', view: 'ProfileMemberEdit' },
   { path: '/profile/add-company', view: 'AddCompanyForm' },
   { path: '/profile/add-product', view: 'AddProductForm' },
   { path: '/profile/my-feed', view: 'ProfileMyFeed' },
   { path: '/profile/my-groups', view: 'ProfileMyGroups' },
   { path: '/profile/my-help', view: 'ProfileMyHelp' },
   { path: '/profile/my-response', view: 'ProfileMyResponse' },
-  { path: '/help-response/:id/:responseIdx', view: 'HelpResponseDetail' },
-  { path: '/profile/my-business', view: 'ProfileMyBusiness' },
+  { path: '/help-response/:id/:responseIdx', view: 'HelpResponseDetail', meta: { minRole: '认证校友' } },
   { path: '/profile/my-topics', view: 'ProfileMyTopics' },
-  { path: '/profile/points', view: 'ProfilePoints', meta: { minRole: '认证校友' } },
   { path: '/profile/collections', view: 'ProfileCollections' },
   { path: '/profile/likes', view: 'ProfileLikes' },
   { path: '/profile/settings', view: 'ProfileSettings' },
-  { path: '/publish-service', view: 'PublishService' },
-  { path: '/profile/my-services', view: 'ProfileMyServices' },
-  { path: '/profile/service-consults', view: 'ProfileServiceConsults' },
-  { path: '/profile/service-orders', view: 'ProfileServiceOrders' },
   { path: '/profile/my-content', view: 'ProfileMyContent' },
   { path: '/profile/social', view: 'ProfileSocial' },
   { path: '/profile/help-center', view: 'ProfileHelpCenter' },
-  { path: '/profile/business-center', view: 'ProfileBusinessCenter' },
   { path: '/profile/learning', view: 'ProfileLearning' },
   // AI报告相关路由
   { path: '/ai-report', view: 'AIReportList' },
@@ -832,6 +895,8 @@ I.clock = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-wid
 I.location = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
 I.heart = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
 I.heartFilled = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+I.male = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="14" r="5"/><path d="M19 5l-5.4 5.4"/><path d="M19 5h-5"/><path d="M19 5v5"/></svg>';
+I.thumbUp = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>';
 I.star = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 I.starFilled = '<svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
 I.share = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
@@ -1016,6 +1081,37 @@ function showConfirm(msg, onOk, onCancel) {
   el.innerHTML = '<div class="comp-dialog-overlay"><div class="comp-dialog-box"><div class="dlg-header">提示</div><div class="dlg-body">' + escapeHtml(msg) + '</div><div class="dlg-footer"><button class="btn-cancel">取消</button><button class="btn-confirm" id="dlg-confirm-btn">确定</button></div></div></div>';
   document.getElementById('dlg-confirm-btn').onclick = function() { el.innerHTML = ''; if (onOk) onOk(); };
   el.querySelector('.btn-cancel').onclick = function() { el.innerHTML = ''; if (onCancel) onCancel(); };
+}
+
+function showLoading(msg) {
+  var el = document.getElementById('overlay-container');
+  el.innerHTML = '<div class="loading-overlay"><div class="loading-box"><div class="loading-spinner"></div><div class="loading-text">' + escapeHtml(msg || '加载中...') + '</div></div></div>';
+}
+function hideLoading() {
+  document.getElementById('overlay-container').innerHTML = '';
+}
+
+// 微信支付收银台弹窗（原型）
+function showWechatPay(opts) {
+  opts = opts || {};
+  var el = document.getElementById('overlay-container');
+  var html = '<div class="comp-popup-overlay"><div class="wechat-pay-sheet">';
+  html += '<div class="wp-head"><span class="wp-title">微信支付</span><span class="wp-close" onclick="hideLoading()">×</span></div>';
+  html += '<div class="wp-body">';
+  html += '<div class="wp-amount"><span class="wp-currency">¥</span><span class="wp-num">' + (opts.amount || 0) + '</span></div>';
+  html += '<div class="wp-order">' + escapeHtml(opts.title || '订单支付') + '</div>';
+  html += '<div class="wp-method"><span class="wp-method-ic">微</span><span class="wp-method-name">微信支付</span><span class="wp-method-check">' + iconSVG('check', 16, '#07c160') + '</span></div>';
+  html += '</div>';
+  html += '<div class="wp-footer"><button class="comp-btn primary block" id="wp-pay-btn">立即支付 ¥' + (opts.amount || 0) + '</button><div class="wp-safe">支付安全由微信支付保障</div></div>';
+  html += '</div></div>';
+  el.innerHTML = html;
+  document.getElementById('wp-pay-btn').onclick = function() {
+    showLoading('正在支付...');
+    setTimeout(function() {
+      hideLoading();
+      if (opts.onSuccess) opts.onSuccess();
+    }, 1200);
+  };
 }
 
 function showActionSheet(actions, onSelect) {
@@ -1858,7 +1954,7 @@ document.addEventListener('click', function(e) {
 
     // Publish demand
     case 'publish-demand':
-      showToast('需求已发布');
+      showToast('求助已发布');
       setTimeout(function() { goBack(); }, 800);
       break;
 
@@ -1928,22 +2024,9 @@ document.addEventListener('click', function(e) {
       renderView();
       break;
 
-    // Login
-    case 'wechat-login':
-      AppState.isLoggedIn = true;
-      showToast('登录成功');
-      setTimeout(function() { Router.navigate('/home'); }, 500);
-      break;
-    case 'toggle-phone':
-      var pf = document.getElementById('phone-form');
-      if (pf) pf.classList.toggle('hidden');
-      break;
+    // Login（手机号+验证码）
     case 'send-code':
-      var btn = target;
-      btn.textContent = '60s后重发';
-      btn.style.color = '#999';
-      setTimeout(function() { btn.textContent = '获取验证码'; btn.style.color = 'var(--primary)'; }, 3000);
-      showToast('验证码已发送');
+      sendLoginCode();
       break;
 
     // Role
@@ -2091,6 +2174,12 @@ document.addEventListener('click', function(e) {
         if (el.id === 'pe-avatar-input' || el.id === 'pe-degree-cert-input' || el.id === 'pe-grad-cert-input') return;
         if (peIdx < peLabels.length) { peVals[peLabels[peIdx]] = (el.value || '').trim(); peIdx++; }
       });
+      var peAvatarPreview = document.getElementById('pe-avatar-preview');
+      var peDegreeCertPreview = document.getElementById('pe-degree-cert-preview');
+      var peGradCertPreview = document.getElementById('pe-grad-cert-preview');
+      peVals.avatarImg = (peAvatarPreview && peAvatarPreview.tagName === 'IMG') ? peAvatarPreview.src : '';
+      peVals.degreeCertImg = (peDegreeCertPreview && peDegreeCertPreview.tagName === 'IMG') ? peDegreeCertPreview.src : '';
+      peVals.gradCertImg = (peGradCertPreview && peGradCertPreview.tagName === 'IMG') ? peGradCertPreview.src : '';
       if (!peIsAlumni && !peVals.avatar) { showToast('请上传个人头像'); break; }
       if (!peVals.name) { showToast('请填写姓名'); break; }
       if (!peVals.gender) { showToast('请选择性别'); break; }
@@ -2104,6 +2193,18 @@ document.addEventListener('click', function(e) {
       if (!peVals.degree) { showToast('请选择学历层次'); break; }
       if (!peIsAlumni && !peVals.degreeCert) { showToast('请上传学位证照片'); break; }
       if (!peIsAlumni && !peVals.gradCert) { showToast('请上传毕业证照片'); break; }
+      if (!peIsAlumni) {
+        AppState.alumniCertForm = {
+          avatar: peVals.avatarImg,
+          name: peVals.name, gender: peVals.gender, birth: peVals.birth,
+          phone: peVals.phone, email: peVals.email,
+          school: peVals.school, dept: peVals.dept, major: peVals.major,
+          year: peVals.year, degree: peVals.degree,
+          hometown: peVals.hometown, city: peVals.city, tags: peVals.tags,
+          hobbies: peVals.hobbies, intro: peVals.intro,
+          degreeCertImg: peVals.degreeCertImg, gradCertImg: peVals.gradCertImg
+        };
+      }
       showToast(peIsAlumni ? '信息保存成功' : '认证申请已提交，请等待审核');
       setTimeout(function() { goBack('/profile'); }, 1000);
       break;
@@ -2538,9 +2639,7 @@ document.addEventListener('click', function(e) {
   if (!btn) return;
   var text = btn.textContent.trim();
   if (text === '登录') {
-    AppState.isLoggedIn = true;
-    showToast('登录成功');
-    setTimeout(function() { Router.navigate('/home'); }, 500);
+    phoneLogin();
   } else if (text === '发布校友活动') {
     Router.navigate('/publish-activity');
   } else if (text === '发布互助求助') {
