@@ -1629,11 +1629,21 @@ Views.InterviewList = function() {
 
 Views.InterviewDetail = function() {
   var item = interviewList.find(function(x) { return x.id == Router.params.id; });
-  if (!item) return '<div class="page-container">' + UI_NavBar('专访详情', true) + UI_Empty('内容未找到') + '</div>';
+  if (!item) return '<div class="page-container">' + UI_NavBar('最新资讯', true) + UI_Empty('内容未找到') + '</div>';
   var collected = AppState.collectedInterviews[item.id];
-  var html = '<div class="page-container">' + UI_NavBar('专访详情', true);
+  var showCmt = uiState.showInterviewComment === item.id;
+  var cmts = (AppState.interviewComments && AppState.interviewComments[item.id]) || [];
+  var html = '<div class="page-container">' + UI_NavBar('最新资讯', true);
   html += '<div class="content-detail"><h3>' + escapeHtml(item.title) + '</h3><div class="meta">' + item.date + '</div><div class="body">' + item.content + '</div></div>';
-  html += '<div class="bottom-bar-actions"><div class="bba-item' + (AppState.likedFeeds['i' + item.id] ? ' active' : '') + '" onclick="doLikeInterview(' + item.id + ')">' + (AppState.likedFeeds['i' + item.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + item.likes + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectInterview(' + item.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
+  if (showCmt) {
+    html += '<div class="comment-section"><div class="cmt-title">评论 (' + cmts.length + ')</div>';
+    if (cmts.length === 0) html += '<div style="text-align:center;padding:20px;color:var(--text-lighter)">暂无评论，来说两句吧</div>';
+    cmts.forEach(function(c) {
+      html += '<div class="comment-item"><img src="' + c.avatar + '"><div class="cmt-body"><div class="cmt-name">' + escapeHtml(c.name) + '</div><div class="cmt-text">' + escapeHtml(c.text) + '</div><div class="cmt-time">' + c.time + '</div></div></div>';
+    });
+    html += '<div style="display:flex;gap:10px;padding:8px 16px;background:#fff;border-top:1px solid var(--border)"><input id="interview-comment-input" type="text" placeholder="写评论..." style="flex:1;background:#f5f6f8;border-radius:20px;padding:8px 14px;font-size:13px;border:none;outline:none"><span style="padding:8px 12px;color:var(--primary);font-weight:600;cursor:pointer;font-size:14px" onclick="doPostInterviewComment(' + item.id + ')">发送</span></div>';
+  }
+  html += '<div class="bottom-bar-actions"><div class="bba-item' + (showCmt ? ' active' : '') + '" onclick="doToggleInterviewComment(' + item.id + ')">' + iconSVG('message', 18) + '<span>' + cmts.length + '</span></div><div class="bba-item' + (AppState.likedFeeds['i' + item.id] ? ' active' : '') + '" onclick="doLikeInterview(' + item.id + ')">' + (AppState.likedFeeds['i' + item.id] ? iconSVG('heartFilled', 18, 'var(--danger)') : iconSVG('heart', 18)) + '<span>' + item.likes + '</span></div><div class="bba-item' + (collected ? ' active' : '') + '" onclick="doCollectInterview(' + item.id + ')">' + (collected ? iconSVG('starFilled', 18, 'var(--accent)') : iconSVG('star', 18)) + '<span>' + (collected ? '已收藏' : '收藏') + '</span></div><div class="bba-item" onclick="doShare()">' + iconSVG('share', 18) + '<span>分享</span></div></div>';
   html += '</div>';
   return html;
 };

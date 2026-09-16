@@ -2796,6 +2796,17 @@ function doLikeTopic(id) {
   if (tp) tp.likes += AppState.likedFeeds['t' + id] ? 1 : -1;
   renderView();
 }
+function doToggleInterviewComment(id) { uiState.showInterviewComment = uiState.showInterviewComment === id ? null : id; renderView(); }
+function doPostInterviewComment(id) {
+  var input = document.getElementById('interview-comment-input');
+  if (input && input.value.trim()) {
+    if (!AppState.interviewComments) AppState.interviewComments = {};
+    if (!AppState.interviewComments[id]) AppState.interviewComments[id] = [];
+    AppState.interviewComments[id].push({ name: '演示用户', avatar: img('myavatar', 100, 100), text: input.value.trim(), time: new Date().toLocaleString() });
+    uiState.showInterviewComment = null;
+    renderView();
+  }
+}
 function doLikeInterview(id) {
   AppState.likedFeeds['i' + id] = !AppState.likedFeeds['i' + id];
   var iv = interviewList.find(function(it) { return it.id == id; });
