@@ -786,7 +786,6 @@ function renderHelpCases() {
     }
     html += '<div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#999">';
     html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('chat', 12, '#999') + '<span>' + (h.responseCount || 0) + '</span></div>';
-    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('thumbUp', 12, '#999') + '<span>' + Math.floor(Math.random() * 30 + 10) + '</span></div>';
     html += '</div>';
     html += '</div>';
   });
@@ -816,7 +815,6 @@ function renderHelpCases() {
     }
     html += '<div style="display:flex;align-items:center;gap:12px;font-size:11px;color:#999">';
     html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('chat', 12, '#999') + '<span>' + (h.responseCount || 0) + '</span></div>';
-    html += '<div style="display:flex;align-items:center;gap:3px">' + iconSVG('thumbUp', 12, '#999') + '<span>' + Math.floor(Math.random() * 30 + 10) + '</span></div>';
     html += '</div>';
     html += '</div>';
   });
