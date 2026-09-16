@@ -538,8 +538,7 @@ function getPublishActions() {
   var role = AppState.currentRole;
   var allActions = [
     { name: '发布动态', desc: '分享校友圈动态与生活', key: 'feed', icon: 'edit', color: '#6fa4cf', path: '/publish-feed', permission: 'publish_feed', minRole: '认证校友', category: 'alumni' },
-    { name: '发布活动', desc: '发布校友活动', key: 'activity', icon: 'calendar', color: '#07c160', path: '/publish-activity', permission: 'publish_activity', minRole: '认证校友', category: 'alumni' },
-    { name: '发布求助', desc: '发布互助求助', key: 'demand', icon: 'help', color: '#a78bfa', path: '/publish-demand', permission: 'publish_help', minRole: '认证校友', category: 'alumni' }
+    { name: '发布活动', desc: '发布校友活动', key: 'activity', icon: 'calendar', color: '#07c160', path: '/publish-activity', permission: 'publish_activity', minRole: '认证校友', category: 'alumni' }
   ];
 
   // 按角色过滤和标记状态
@@ -2874,6 +2873,15 @@ function doSubmitResponse(id) {
     h.responseCount = h.responses.length;
     document.getElementById('response-modal').remove();
     showToast('响应成功');
+    renderView();
+  }
+}
+
+function resolveHelp(id) {
+  var h = helpList.find(function(item) { return item.id == id; });
+  if (h) {
+    h.status = 'resolved';
+    showToast('求助已解决');
     renderView();
   }
 }

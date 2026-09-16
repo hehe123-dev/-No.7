@@ -262,7 +262,7 @@ Views.PublishActivity = function() {
     + '<div class="cover-uploader" data-action="upload-cover"><span class="upload-plus">+</span><span style="font-size:12px;color:#c0c4cc;margin-left:6px">上传封面</span></div>'
     + typeTagHtml()
     + UI_Field('活动名称', 'text', '请输入活动名称') + UI_Field('活动地点', 'text', '请输入活动地点')
-    + UI_Field('活动日期', 'date', '活动日期', '', true) + UI_Field('活动费用', 'number', '0表示免费', '0')
+    + UI_Field('活动日期', 'date', '活动日期', '', true) + '<div class="form-group"><label>活动费用</label><input type="number" value="0" disabled style="width:100%;padding:10px 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:#f5f5f5;color:#999"></div>'
     + UI_Field('活动时间', 'text', '如：09:00 - 17:00', '', true) + UI_Field('报名截止', 'date', '报名截止日期', '', true)
     + UI_Field('活动描述', 'textarea', '请输入活动描述...')
     + '<div style="padding:12px 16px"><span data-action="submit-publish-activity">' + UI_Button('提交审核', 'primary', '', true, true) + '</span></div>'
@@ -832,27 +832,7 @@ function renderHelpCases() {
 
 function renderMatchSquare() {
   var html = '';
-  var list = businessNeedList.filter(function(b) { return b.status !== 'offline'; });
-  list.forEach(function(b, idx) {
-    var rankColor = idx === 0 ? '#ff4d4f' : (idx === 1 ? '#ff7a45' : (idx === 2 ? '#ffa940' : '#999'));
-    html += '<div data-action="nav" data-payload="/member-demand/business/' + b.id + '" style="display:flex;align-items:center;padding:12px 16px;background:#fff;border-bottom:1px solid #f5f5f5">';
-    // 序号
-    html += '<div style="width:24px;font-size:18px;font-weight:700;color:' + rankColor + ';flex-shrink:0;margin-right:12px">' + (idx + 1) + '</div>';
-    // 标题和热度
-    html += '<div style="flex:1;min-width:0">';
-    html += '<div style="font-size:15px;color:#333;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(b.title) + '</div>';
-    html += '<div style="font-size:12px;color:#999">' + (b.responseCount * 100 + Math.floor(Math.random() * 50)) + ' 热度</div>';
-    html += '</div>';
-    // 右侧缩略图
-    html += '<div style="width:100px;height:60px;border-radius:4px;overflow:hidden;flex-shrink:0;margin-left:12px;position:relative">';
-    html += '<img src="' + b.cover + '" style="width:100%;height:100%;object-fit:cover">';
-    html += '<div style="position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 4px;border-radius:2px">0' + (idx + 1) + ':24</div>';
-    html += '</div>';
-    html += '</div>';
-  });
-  if (list.length === 0) {
-    html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">暂无对接需求</div></div>';
-  }
+  html += '<div class="empty-state">' + iconSVG('list', 48, '#ccc') + '<div style="margin-top:8px;color:#999">对接广场</div></div>';
   return html;
 }
 
@@ -948,7 +928,7 @@ Views.HelpDetail = function() {
     html += '<div style="font-size:13px;color:#555;line-height:1.5;margin-bottom:6px">' + escapeHtml(r.text) + '</div>';
     html += '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
     html += '<span style="font-size:11px;color:#999">' + r.time + '</span>';
-    if (rStatus !== 'waiting') {
+    if (rStatus === 'finished' || rStatus === 'rejected') {
       html += UI_Tag(rStatusText, rStatusColor);
     }
     html += '</div>';
@@ -964,7 +944,20 @@ Views.HelpDetail = function() {
   }
   html += '</div>';
 
-  html += '<div class="bottom-bar"><button class="comp-btn primary round block" onclick="showResponseModal(' + h.id + ')">我要响应</button></div>';
+  // 底部按钮逻辑
+  var isPublisher = (h.publisher.id === 0 && AppState.currentRole === '认证校友') || h.publisher.id === AppState.currentUser?.id;
+  var isResolved = h.status === 'resolved';
+
+  if (isResolved) {
+    // 已解决，显示已解决状态
+    html += '<div class="bottom-bar"><button class="comp-btn round block" disabled style="background:#f5f5f5;color:#999;border:1px solid #e0e0e0">已解决</button></div>';
+  } else if (isPublisher) {
+    // 发布者且未解决，显示解决按钮
+    html += '<div class="bottom-bar"><button class="comp-btn primary round block" onclick="resolveHelp(' + h.id + ')">解决</button></div>';
+  } else {
+    // 其他用户且未解决，显示我要响应按钮
+    html += '<div class="bottom-bar"><button class="comp-btn primary round block" onclick="showResponseModal(' + h.id + ')">我要响应</button></div>';
+  }
   html += '</div>';
   return html;
 };
@@ -1391,78 +1384,74 @@ Views.MemberBusinessDetail = function() {
 
 // --- 企智服务 ---
 function renderSmartService() {
-  var aiCat = { key: 'ai-report', name: 'AI智能报告', desc: '产业分析 · 经营评估 · 科创需求 · 企业画像', icon: 'brain', gradient: 'linear-gradient(135deg, #6fa4cf, #9bc1de)', tagBg: '#e8f4fd', tagColor: '#4a90d9' };
   var html = '';
 
-  // AI智能报告卡片
-  html += '<div style="padding:6px 16px">';
-  html += '<div data-action="nav" data-payload="/ai-report" style="background:linear-gradient(135deg,#6fa4cf,#9bc1de);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(111,164,207,0.3);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG(aiCat.icon, 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">' + aiCat.name + '</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">' + aiCat.desc + '</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
+  // 企业赋能 - 服务列表
+  var empowerCats = serviceCategoryMap['企业赋能'] || [];
+  var empowerProjects = serviceProjects.filter(function(p) { return empowerCats.indexOf(p.category) >= 0; });
+  if (empowerProjects.length > 0) {
+    html += '<div style="padding:0 16px">';
+    empowerProjects.forEach(function(p) {
+      var provider = serviceProviders.find(function(sp) { return sp.id === p.providerId; });
+      html += '<div class="service-card" data-action="nav" data-payload="/service-project/' + p.id + '" style="background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,0.04)">';
+      html += '<div style="display:flex;align-items:flex-start;gap:12px">';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:15px;font-weight:600;color:#333;margin-bottom:4px">' + escapeHtml(p.name) + '</div>';
+      html += '<div style="font-size:12px;color:#999;margin-bottom:6px">' + escapeHtml(p.category) + '</div>';
+      html += '<div style="font-size:13px;color:#666;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(p.desc) + '</div>';
+      html += '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">';
+      html += '<span style="font-size:15px;font-weight:600;color:#f56c6c">¥' + p.price + '</span>';
+      html += '<span style="font-size:11px;color:#999">/' + escapeHtml(p.unit) + '</span>';
+      html += '</div>';
+      html += '</div>';
+      if (provider) {
+        html += '<div style="flex-shrink:0;text-align:center">';
+        html += '<img src="' + provider.avatar + '" style="width:36px;height:36px;border-radius:50%;margin-bottom:2px">';
+        html += '<div style="font-size:10px;color:#999;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(provider.name) + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
 
-  // 企业赋能 - 入口卡片
-  html += '<div style="padding:6px 16px">';
-  html += '<div data-action="nav" data-payload="/member-service/empower" style="background:linear-gradient(135deg,#07c160,#05a04a);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(7,193,96,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('activity', 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">企业赋能</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">管理咨询 | 教育培训 | 人才招聘 | 办公选址</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">企划合规 | 资质申报 | 营销推广 | 系统建设</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
+  // 专属服务 - 服务列表
+  var exclusiveCats = serviceCategoryMap['专属服务'] || [];
+  var exclusiveProjects = serviceProjects.filter(function(p) { return exclusiveCats.indexOf(p.category) >= 0; });
+  if (exclusiveProjects.length > 0) {
+    html += '<div style="padding:0 16px">';
+    exclusiveProjects.forEach(function(p) {
+      var provider = serviceProviders.find(function(sp) { return sp.id === p.providerId; });
+      html += '<div class="service-card" data-action="nav" data-payload="/service-project/' + p.id + '" style="background:#fff;border-radius:14px;padding:16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,0.04)">';
+      html += '<div style="display:flex;align-items:flex-start;gap:12px">';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:15px;font-weight:600;color:#333;margin-bottom:4px">' + escapeHtml(p.name) + '</div>';
+      html += '<div style="font-size:12px;color:#999;margin-bottom:6px">' + escapeHtml(p.category) + '</div>';
+      html += '<div style="font-size:13px;color:#666;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + escapeHtml(p.desc) + '</div>';
+      html += '<div style="display:flex;align-items:center;gap:8px;margin-top:8px">';
+      html += '<span style="font-size:15px;font-weight:600;color:#f56c6c">¥' + p.price + '</span>';
+      html += '<span style="font-size:11px;color:#999">/' + escapeHtml(p.unit) + '</span>';
+      html += '</div>';
+      html += '</div>';
+      if (provider) {
+        html += '<div style="flex-shrink:0;text-align:center">';
+        html += '<img src="' + provider.avatar + '" style="width:36px;height:36px;border-radius:50%;margin-bottom:2px">';
+        html += '<div style="font-size:10px;color:#999;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(provider.name) + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
 
-  // 专属服务 - 入口卡片
-  html += '<div style="padding:6px 16px">';
-  html += '<div data-action="nav" data-payload="/member-service/exclusive" style="background:linear-gradient(135deg,#ff976a,#f07a4a);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(255,151,106,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('service', 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">专属服务</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">亲子教育 | 保健就医 | 居家置业 | 财富管理</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
-
-  // 商务活动 - 入口卡片
-  html += '<div style="padding:6px 16px">';
-  html += '<div data-action="nav" data-payload="/member-service/biz-activity" style="background:linear-gradient(135deg,#ee0a24,#d00820);border-radius:14px;padding:16px;box-shadow:0 4px 16px rgba(238,10,36,0.25);cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:space-between">';
-  html += '<div style="display:flex;align-items:center;gap:12px">';
-  html += '<div style="width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center">' + iconSVG('calendar', 20, '#fff') + '</div>';
-  html += '<div>';
-  html += '<div style="font-size:15px;font-weight:600">商务活动</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">主题沙龙 | 圈层联谊 | 管理研修 | 行业峰会</div>';
-  html += '<div style="font-size:11px;opacity:0.85;margin-top:2px">项目路演 | 政企走访 | 招商推介 | 公益帮扶</div>';
-  html += '</div>';
-  html += '</div>';
-  html += '<div style="display:flex;align-items:center;gap:4px">';
-  html += '<span style="font-size:12px;opacity:0.9">进入</span>';
-  html += iconSVG('arrowRight', 16, '#fff');
-  html += '</div>';
-  html += '</div>';
-  html += '</div>';
+  if (empowerProjects.length === 0 && exclusiveProjects.length === 0) {
+    html += '<div style="padding:60px 20px;text-align:center">';
+    html += '<div style="margin-bottom:12px">' + iconSVG('package', 48, '#ddd') + '</div>';
+    html += '<div style="font-size:14px;color:#999">暂无服务项目</div>';
+    html += '</div>';
+  }
 
   return html;
 }
