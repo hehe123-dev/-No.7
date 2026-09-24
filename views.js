@@ -105,7 +105,7 @@ Views.Home = function() {
   // Interview section
   html += '<div class="section-title">最新资讯<span class="more" data-action="nav" data-payload="/interview">查看更多 &gt;</span></div><div class="card-list">';
   interviewList.slice(0, 2).forEach(function(item) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + UI_Tag(item.source || '平台', item.source === '平台' ? 'primary' : 'success') + ' ' + item.date + '</div></div></div>';
   });
   html += '</div>';
   // Alumni Feed section
@@ -355,7 +355,7 @@ Views.ActivityPay = function() {
   
   html += '<div style="background:#fff;margin:0 16px;padding:16px;border-radius:12px">';
   html += '<div style="font-size:15px;font-weight:600;margin-bottom:16px;color:#333">报名人信息</div>';
-  html += UI_CellGroup([{ title: '姓名', value: reg.name }, { title: '手机号', value: reg.phone }], true);
+  html += UI_CellGroup([{ title: '姓名', value: reg.name }, { title: '手机号', value: reg.phone }, { title: '所在企业', value: reg.company }], true);
   if (reg.fields && Object.keys(reg.fields).length > 0) {
     Object.keys(reg.fields).forEach(function(key) {
       html += '<div class="comp-cell" style="border-bottom:1px solid var(--border);padding:10px 0"><div class="cell-body"><div class="cell-title" style="font-size:14px;color:#666">' + escapeHtml(key) + '</div><div class="cell-label" style="font-size:15px;color:#333">' + escapeHtml(reg.fields[key] || '') + '</div></div></div>';
@@ -449,7 +449,7 @@ Views.ActivityRegistration = function() {
   
   html += '<div style="background:#fff;margin:12px 16px;padding:16px;border-radius:12px">';
   html += '<div style="font-size:15px;font-weight:600;margin-bottom:16px;color:#333">个人信息</div>';
-  html += UI_CellGroup([{ title: '姓名', value: reg.name }, { title: '手机号', value: reg.phone }], true);
+  html += UI_CellGroup([{ title: '姓名', value: reg.name }, { title: '手机号', value: reg.phone }, { title: '所在企业', value: reg.company }], true);
   if (reg.fields && Object.keys(reg.fields).length > 0) {
     Object.keys(reg.fields).forEach(function(key) {
       html += '<div class="comp-cell" style="border-bottom:1px solid var(--border);padding:10px 0"><div class="cell-body"><div class="cell-title" style="font-size:14px;color:#666">' + escapeHtml(key) + '</div><div class="cell-label" style="font-size:15px;color:#333">' + escapeHtml(reg.fields[key] || '') + '</div></div></div>';
@@ -1621,7 +1621,7 @@ Views.InterviewList = function() {
   var html = '<div class="page-container">' + UI_NavBar('最新资讯', true);
   html += '<div class="card-list">';
   interviewList.forEach(function(item) {
-    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + item.date + '</div></div></div>';
+    html += '<div class="comp-card" data-action="nav" data-payload="/interview/' + item.id + '"><img src="' + item.cover + '" class="card-thumb"><div class="card-info"><div class="card-title">' + escapeHtml(item.title) + '</div><div class="card-desc">' + escapeHtml(item.summary || '') + '</div><div class="card-meta">' + UI_Tag(item.source || '平台', item.source === '平台' ? 'primary' : 'success') + ' ' + item.date + '</div></div></div>';
   });
   html += '</div></div>';
   return html;

@@ -66,7 +66,7 @@ var newsList = [
 
 var activityList = [
   // [报名中] 审核通过 + 报名截止日未到 + 活动未开始
-  { id: 1, type: '商务活动', reviewStatus: 'approved', title: '北理工校友企业投融资对接会', cover: img('act1', 400, 240), date: '2026-09-01', endDate: '2026-09-01', location: '北京中关村', fee: 0, organizer: '张建国', orgAvatar: img('avatar1', 100, 100), publisher: { name: '张建国', avatar: img('avatar1', 100, 100), role: '认证校友' }, deadline: '2026-08-25', description: '<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与，为校友企业提供展示和对接机会。欢迎有融资需求的校友企业报名参加。</p>', registered: 28, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '新能源', '生物医药', '金融', '其他'], required: true }, { label: '公司名称', type: 'text', required: true }, { label: '职位', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }, { name: '吴敏', avatar: img('u9', 60, 60) }] },
+  { id: 1, type: '商务活动', reviewStatus: 'approved', title: '北理工校友企业投融资对接会', cover: img('act1', 400, 240), date: '2026-09-01', endDate: '2026-09-01', location: '北京中关村', fee: 0, organizer: '张建国', orgAvatar: img('avatar1', 100, 100), publisher: { name: '张建国', avatar: img('avatar1', 100, 100), role: '认证校友' }, deadline: '2026-08-25', description: '<p>为促进校友企业融资对接，本次投融资对接会将邀请多家知名投资机构参与，为校友企业提供展示和对接机会。欢迎有融资需求的校友企业报名参加。</p>', registered: 28, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '新能源', '生物医药', '金融', '其他'], required: true }, { label: '职位', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }, { name: '吴敏', avatar: img('u9', 60, 60) }] },
   // [活动进行中] 审核通过 + 今天在 date~endDate 之间（8月10日-8月15日，今天8月11日）
   { id: 2, type: '校友活动', reviewStatus: 'approved', title: '走进字节跳动——数字化转型与组织创新', cover: img('act2', 400, 240), date: '2026-08-10', endDate: '2026-08-15', location: '北京海淀', fee: 200, organizer: '李明远', orgAvatar: img('avatar2', 100, 100), publisher: { name: '李明远', avatar: img('avatar2', 100, 100), role: '认证校友' }, deadline: '2026-08-05', description: '<p>参访字节跳动总部，学习其在数字化转型、组织管理创新和企业文化建设方面的先进经验。活动费用包含交通和午餐。</p>', registered: 45, customFields: [{ label: '所属学校', type: 'text', required: true }, { label: '毕业年份', type: 'select', options: ['2026届', '2025届', '2024届', '2023届', '2022届', '更早'], required: false }, { label: '备注', type: 'textarea', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '赵磊', avatar: img('u5', 60, 60) }, { name: '孙丽', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u7', 60, 60) }, { name: '吴敏', avatar: img('u8', 60, 60) }, { name: '郑凯', avatar: img('u10', 60, 60) }] },
   // [报名截止] 审核通过 + deadline已过 + 活动尚未开始
@@ -79,7 +79,11 @@ var activityList = [
   { id: 6, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号年度校友大会', cover: img('act6', 400, 240), date: '2026-09-15', endDate: '2026-09-16', location: '北京国家会议中心', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-09-10', description: '<p>一年一度的白石桥七号校友大会，将邀请校领导、各行业杰出校友代表发表演讲，回顾平台年度成果，展望未来发展蓝图。欢迎全体校友踊跃报名参加！</p>', registered: 320, registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] },
   // [活动结束] 活动日期已过
   { id: 7, type: '校友活动', reviewStatus: 'approved', title: '毕业十周年校友聚会', cover: img('act3', 400, 240), date: '2026-07-15', endDate: '2026-07-15', location: '北京海淀某宴会厅', fee: 200, organizer: '赵明辉', orgAvatar: img('m1', 100, 100), publisher: { name: '赵明辉', avatar: img('m1', 100, 100), role: '认证校友' }, deadline: '2026-07-10', description: '<p>毕业十周年同学聚会，回顾校园时光，畅谈十年发展。</p>', registered: 36, customFields: [{ label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }], reviewComment: '' },
-  { id: 8, type: '商务活动', reviewStatus: 'approved', title: '智能制造行业校友沙龙', cover: img('act4', 400, 240), date: '2026-09-20', endDate: '2026-09-20', location: '北京中关村', fee: 0, organizer: '演示用户', orgAvatar: img('myavatar', 100, 100), publisher: { name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, deadline: '2026-09-15', description: '<p>面向智能制造领域的校友举办小型沙龙，交流行业趋势与合作机会。</p>', registered: 5, customFields: [{ label: '所在企业', type: 'text', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }], reviewComment: '' }
+  { id: 8, type: '商务活动', reviewStatus: 'approved', title: '智能制造行业校友沙龙', cover: img('act4', 400, 240), date: '2026-09-20', endDate: '2026-09-20', location: '北京中关村', fee: 0, organizer: '演示用户', orgAvatar: img('myavatar', 100, 100), publisher: { name: '演示用户', avatar: img('myavatar', 100, 100), role: '认证校友' }, deadline: '2026-09-15', description: '<p>面向智能制造领域的校友举办小型沙龙，交流行业趋势与合作机会。</p>', registered: 5, customFields: [], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }], reviewComment: '' },
+  // [报名中] 以下为演示报名弹窗的新增活动
+  { id: 9, type: '商务活动', reviewStatus: 'approved', title: '校友企业融资路演对接会（第三季）', cover: img('act9', 400, 240), date: '2026-10-18', endDate: '2026-10-18', location: '北京中关村软件园', fee: 0, organizer: '张建国', orgAvatar: img('avatar1', 100, 100), publisher: { name: '张建国', avatar: img('avatar1', 100, 100), role: '商务会员' }, deadline: '2026-10-12', description: '<p>面向有融资需求的校友企业举办路演对接会，邀请多家知名投资机构现场参与，为创业校友提供展示与一对一交流机会。欢迎报名路演或现场观摩。</p>', registered: 42, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '新能源', '生物医药', '智能制造', '金融科技', '其他'], required: true }, { label: '融资需求说明', type: 'textarea', required: false }], registeredUsers: [{ name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }] },
+  { id: 10, type: '校友活动', reviewStatus: 'approved', title: '北理工校友秋季健步走暨联谊会', cover: img('act10', 400, 240), date: '2026-10-25', endDate: '2026-10-25', location: '奥林匹克森林公园', fee: 88, organizer: '李明远', orgAvatar: img('avatar2', 100, 100), publisher: { name: '李明远', avatar: img('avatar2', 100, 100), role: '认证校友' }, deadline: '2026-10-20', description: '<p>金秋十月，相约奥森。组织校友沿奥林匹克森林公园绿道健步走，途中设置打卡点与趣味互动，结束后统一安排联谊聚餐。活动费用含纪念T恤和午餐。</p>', registered: 26, customFields: [{ label: '服装尺码', type: 'select', options: ['S', 'M', 'L', 'XL', 'XXL'], required: true }, { label: '随行人数', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }, { name: '吴敏', avatar: img('u9', 60, 60) }] },
+  { id: 11, type: '平台活动', reviewStatus: 'approved', title: '白石桥七号·人工智能行业峰会', cover: img('act11', 400, 240), date: '2026-11-08', endDate: '2026-11-08', location: '北京国家会议中心', fee: 0, organizer: '平台运营', orgAvatar: img('admin', 100, 100), publisher: { name: '平台运营', avatar: img('admin', 100, 100), role: '平台' }, deadline: '2026-11-02', description: '<p>汇聚人工智能领域的北理工校友与业界专家，围绕大模型、具身智能、AI+产业落地等前沿议题展开分享与圆桌讨论，搭建技术交流与产业合作平台。</p>', registered: 156, customFields: [{ label: '所属行业', type: 'select', options: ['人工智能', '互联网', '智能制造', '金融', '教育', '其他'], required: true }, { label: '职位', type: 'text', required: false }], registeredUsers: [{ name: '张建国', avatar: img('u1', 60, 60) }, { name: '李明远', avatar: img('u2', 60, 60) }, { name: '王军', avatar: img('u3', 60, 60) }, { name: '刘芳', avatar: img('u4', 60, 60) }, { name: '陈晓华', avatar: img('u5', 60, 60) }, { name: '赵磊', avatar: img('u6', 60, 60) }, { name: '孙丽', avatar: img('u7', 60, 60) }, { name: '周杰', avatar: img('u8', 60, 60) }] }
 ];
 
 
@@ -271,8 +275,9 @@ var topicList = [
 ];
 
 var interviewList = [
-  { id: 1, title: '从技术专家到创业者——专访智控科技CEO张建国', cover: img('interview1', 400, 240), author: '平台编辑部', date: '2026-05-20', summary: '张建国校友分享了从西门子技术专家到创办智控科技的心路历程，以及对工业AI未来发展的深刻思考。', content: '<p><strong>问：是什么促使你离开外企选择创业？</strong></p><p>张建国：在西门子工作了近10年，虽然职位一直在升，但内心始终有一个声音——我想做一件属于自己的事情。2018年看到国内制造业智能化转型的需求爆发，我判断这是一个千载难逢的机会窗口。</p><p><strong>问：创业过程中最大的挑战是什么？</strong></p><p>张建国：最大的挑战是从技术思维转向商业思维。做技术时追求完美，但做产品要追求"够用"。这个转变花了我至少一年时间。</p>', views: 3210, likes: 210 },
-  { id: 2, title: '创新药研发的北理工力量——访康源生物CEO刘芳', cover: img('interview2', 400, 240), author: '平台编辑部', date: '2026-05-15', summary: '刘芳校友分享了在创新药研发领域的创业故事，以及如何借助校友平台资源加速企业发展。', content: '<p><strong>问：为什么选择肿瘤免疫治疗这个方向？</strong></p><p>刘芳：我母亲因癌症去世，这成为我投身肿瘤药物研发的原动力。我希望通过自己的努力，让更多患者能够获得有效且可负担的治疗。</p><p><strong>问：校友平台对你的帮助大吗？</strong></p><p>刘芳：非常大！我们的B轮投资方就是通过白石桥七号平台对接上的。此外，平台上的几位医药行业校友在临床资源方面也给了我们很大支持。</p>', views: 2180, likes: 145 }
+  { id: 3, title: 'AI校友会春季技术交流会圆满举办', cover: img('interview3', 400, 240), author: '北理工人工智能校友会', source: '北理工人工智能校友会', date: '2026-06-15', summary: '汇聚人工智能领域的北理工校友，分享大模型技术最新进展与产业落地实践。', content: '<p>近日，北理工人工智能校友会春季技术交流会在中关村软件园成功举办。</p><p>来自AI算法、芯片、应用等多个细分方向的校友齐聚一堂，围绕大模型、智能体等热点话题展开深入交流，并达成多项合作意向。</p>', views: 1520, likes: 96 },
+  { id: 1, title: '从技术专家到创业者——专访智控科技CEO张建国', cover: img('interview1', 400, 240), author: '平台编辑部', source: '平台', date: '2026-05-20', summary: '张建国校友分享了从西门子技术专家到创办智控科技的心路历程，以及对工业AI未来发展的深刻思考。', content: '<p><strong>问：是什么促使你离开外企选择创业？</strong></p><p>张建国：在西门子工作了近10年，虽然职位一直在升，但内心始终有一个声音——我想做一件属于自己的事情。2018年看到国内制造业智能化转型的需求爆发，我判断这是一个千载难逢的机会窗口。</p><p><strong>问：创业过程中最大的挑战是什么？</strong></p><p>张建国：最大的挑战是从技术思维转向商业思维。做技术时追求完美，但做产品要追求"够用"。这个转变花了我至少一年时间。</p>', views: 3210, likes: 210 },
+  { id: 2, title: '创新药研发的北理工力量——访康源生物CEO刘芳', cover: img('interview2', 400, 240), author: '平台编辑部', source: '平台', date: '2026-05-15', summary: '刘芳校友分享了在创新药研发领域的创业故事，以及如何借助校友平台资源加速企业发展。', content: '<p><strong>问：为什么选择肿瘤免疫治疗这个方向？</strong></p><p>刘芳：我母亲因癌症去世，这成为我投身肿瘤药物研发的原动力。我希望通过自己的努力，让更多患者能够获得有效且可负担的治疗。</p><p><strong>问：校友平台对你的帮助大吗？</strong></p><p>刘芳：非常大！我们的B轮投资方就是通过白石桥七号平台对接上的。此外，平台上的几位医药行业校友在临床资源方面也给了我们很大支持。</p>', views: 2180, likes: 145 }
 ];
 
 var alumniEssayList = [
@@ -599,6 +604,7 @@ function saveRegistration(activityId, data) {
     activityId: activityId,
     name: data.name,
     phone: data.phone,
+    company: data.company || '',
     fields: data.fields || {},
     status: data.fee > 0 ? 'pending_pay' : 'confirmed',
     payStatus: data.fee > 0 ? 'unpaid' : 'paid',
@@ -621,10 +627,12 @@ function showRegistrationInfo(aid) {
 function submitRegistration(aid) {
   var name = document.getElementById('reg-name') ? document.getElementById('reg-name').value : '';
   var phone = document.getElementById('reg-phone') ? document.getElementById('reg-phone').value : '';
-  
+  var company = document.getElementById('reg-company') ? document.getElementById('reg-company').value : '';
+
   if (!name.trim()) { showToast('请填写姓名'); return; }
   if (!phone.trim() || phone.length !== 11) { showToast('请填写正确的手机号'); return; }
-  
+  if (!company.trim()) { showToast('请填写所在企业'); return; }
+
   var act = activityList.find(function(a) { return a.id == aid; });
   if (!act) return;
 
@@ -635,9 +643,10 @@ function submitRegistration(aid) {
     if (f.required && !val.trim()) { showToast('请填写' + f.label); return; }
     fields[f.label] = val;
   });
-  
-  saveRegistration(aid, { name: name, phone: phone, fee: act.fee, fields: fields });
-  
+
+  saveRegistration(aid, { name: name, phone: phone, company: company, fee: act.fee, fields: fields });
+
+  hideOverlay();
   if (act.fee > 0) {
     Router.navigate('/activity-pay/' + aid);
   } else {
@@ -1978,11 +1987,12 @@ document.addEventListener('click', function(e) {
       if (isPreview) {
         showToast('开始试看：' + ltitle);
       } else {
-        showConfirm('该课时需要订阅视频后才能观看，确认订阅？', function() {
+        var lockedCourse = courseList.find(function(c) { return c.id == parseInt(Router.params.id); });
+        showWechatPay({ amount: lockedCourse ? lockedCourse.price : 0, title: (lockedCourse ? lockedCourse.title : '课程') + ' 订阅', onSuccess: function() {
           subscribeCourse(parseInt(Router.params.id));
           showToast('订阅成功');
           renderView();
-        });
+        } });
       }
       break;
 
@@ -2423,7 +2433,7 @@ document.addEventListener('click', function(e) {
       var cid = parseInt(id);
       if (isSubscribedCourse(cid)) return;
       var course = courseList.find(function(c) { return c.id == cid; });
-      showConfirm('确认订阅《' + (course ? course.title : '') + '》？¥' + (course ? course.price : ''), function() { subscribeCourse(cid); showToast('订阅成功'); renderView(); });
+      showWechatPay({ amount: course ? course.price : 0, title: (course ? course.title : '课程') + ' 订阅', onSuccess: function() { subscribeCourse(cid); showToast('订阅成功'); renderView(); } });
       break;
 
     // Member upgrade - 关联企业/产品管理
@@ -2643,16 +2653,6 @@ document.addEventListener('click', function(e) {
     Router.navigate('/publish-activity');
   } else if (text === '发布互助求助') {
     Router.navigate('/publish-demand?type=help');
-  } else if (text === '立即报名') {
-    var actId = Router.params.id;
-    if (actId) {
-      var act = activityList.find(function(a) { return a.id == parseInt(actId); });
-      if (act && act.fee > 0) {
-        showConfirm('该活动需支付 ¥' + act.fee + '，确认报名？', function() { registerActivity(parseInt(actId)); showToast('报名成功'); renderView(); });
-      } else {
-        registerActivity(parseInt(actId)); showToast('报名成功'); renderView();
-      }
-    }
   } else if (text === '退出登录') {
     showConfirm('确定要退出登录吗？', doLogout);
   } else if (text === '重置演示数据') {
@@ -2661,12 +2661,12 @@ document.addEventListener('click', function(e) {
     var cId = Router.params.id ? parseInt(Router.params.id) : null;
     if (cId && !isSubscribedCourse(cId)) {
       var course = courseList.find(function(c) { return c.id == cId; });
-      showConfirm('确认订阅《' + (course ? course.title : '') + '》？', function() { subscribeCourse(cId); showToast('订阅成功'); renderView(); });
+      showWechatPay({ amount: course ? course.price : 0, title: (course ? course.title : '课程') + ' 订阅', onSuccess: function() { subscribeCourse(cId); showToast('订阅成功'); renderView(); } });
     } else if (cId && isSubscribedCourse(cId)) {
       showToast('已订阅该视频');
     }
   } else if (text === '立即购买') {
-    showConfirm('确认购买？', function() { showToast('下单成功'); });
+    doBuy();
   } else if (text === '我要响应') {
     showToast('响应已提交');
   } else if (text === '联系Ta') {
@@ -2821,7 +2821,67 @@ function doCollectCourse(id) {
 function doRegisterActivity(id) {
   if (hasRegisteredAct(id)) return;
   var act = activityList.find(function(a) { return a.id == id; });
-  Router.navigate('/activity-register/' + id);
+  if (!act) return;
+  showRegisterModal(id);
+}
+function showRegisterModal(id) {
+  var act = activityList.find(function(a) { return a.id == id; });
+  if (!act) return;
+  var customFields = (act.customFields || []).filter(function(f) { return f.visible !== false; });
+  var el = document.getElementById('overlay-container');
+  var fieldStyle = 'width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;outline:none;box-sizing:border-box;background:#fff';
+
+  var html = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:9999;display:flex;align-items:flex-end;justify-content:center">';
+  html += '<div style="width:100%;max-width:600px;background:#fff;border-radius:16px 16px 0 0;padding:16px;box-sizing:border-box;max-height:88vh;overflow-y:auto">';
+
+  // 头部
+  html += '<div style="text-align:center;font-size:17px;font-weight:700;color:#16233c;margin-bottom:12px;position:relative">活动报名<span onclick="hideOverlay()" style="position:absolute;right:0;top:-2px;font-size:24px;color:#999;cursor:pointer;line-height:1;padding:0 4px">&times;</span></div>';
+
+  // 活动摘要
+  html += '<div style="display:flex;gap:12px;padding:12px;background:#f7f8fa;border-radius:10px;margin-bottom:16px">';
+  html += '<img src="' + act.cover + '" style="width:64px;height:64px;border-radius:8px;object-fit:cover;flex-shrink:0">';
+  html += '<div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;color:#333;line-height:1.4">' + escapeHtml(act.title) + '</div><div style="font-size:12px;color:#999;margin-top:4px">' + act.date + ' · ' + escapeHtml(act.location) + '</div></div>';
+  html += '</div>';
+
+  // 姓名
+  html += '<div style="margin-bottom:14px"><div style="font-size:14px;color:#333;margin-bottom:6px">姓名 <span style="color:#f56c6c">*</span></div><input type="text" id="reg-name" placeholder="请输入姓名" style="' + fieldStyle + '"></div>';
+  // 手机号
+  html += '<div style="margin-bottom:14px"><div style="font-size:14px;color:#333;margin-bottom:6px">手机号 <span style="color:#f56c6c">*</span></div><input type="tel" id="reg-phone" placeholder="请输入手机号" maxlength="11" style="' + fieldStyle + '"></div>';
+  // 所在企业
+  html += '<div style="margin-bottom:14px"><div style="font-size:14px;color:#333;margin-bottom:6px">所在企业 <span style="color:#f56c6c">*</span></div><input type="text" id="reg-company" placeholder="请输入所在企业" style="' + fieldStyle + '"></div>';
+
+  // 自定义字段
+  customFields.forEach(function(f, idx) {
+    html += '<div style="margin-bottom:14px"><div style="font-size:14px;color:#333;margin-bottom:6px">' + escapeHtml(f.label) + (f.required ? ' <span style="color:#f56c6c">*</span>' : '') + '</div>';
+    if (f.type === 'select') {
+      html += '<select id="reg-field-' + idx + '" style="' + fieldStyle + '"><option value="">请选择</option>';
+      (f.options || []).forEach(function(opt) { html += '<option value="' + escapeHtml(opt) + '">' + escapeHtml(opt) + '</option>'; });
+      html += '</select>';
+    } else if (f.type === 'textarea') {
+      html += '<textarea id="reg-field-' + idx + '" rows="2" placeholder="' + (f.placeholder || '') + '" style="' + fieldStyle + ';resize:none"></textarea>';
+    } else {
+      html += '<input type="text" id="reg-field-' + idx + '" placeholder="' + (f.placeholder || '') + '" style="' + fieldStyle + '">';
+    }
+    html += '</div>';
+  });
+
+  // 费用
+  if (act.fee > 0) {
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:#fff7f0;border-radius:8px;margin-bottom:14px"><span style="font-size:14px;color:#666">报名费用</span><span style="font-size:20px;font-weight:700;color:#f56c6c">¥' + act.fee + '</span></div>';
+  }
+
+  // 底部按钮
+  html += '<div style="display:flex;gap:12px;margin-top:4px">';
+  html += '<button class="comp-btn outline round" style="flex:1" onclick="hideOverlay()">取消</button>';
+  html += '<button class="comp-btn primary round" style="flex:1" id="reg-submit-btn">' + (act.fee > 0 ? '确认报名并支付' : '提交报名') + '</button>';
+  html += '</div>';
+  if (act.fee > 0) {
+    html += '<div style="font-size:12px;color:#999;text-align:center;margin-top:8px">点击即表示同意《活动报名协议》</div>';
+  }
+
+  html += '</div></div>';
+  el.innerHTML = html;
+  document.getElementById('reg-submit-btn').onclick = function() { submitRegistration(id); };
 }
 function doExchangeCard(id) {
   showConfirm('确认向该校友发送名片交换申请？', function() { sendRequest(id); showToast('名片交换请求已发送'); renderView(); });
@@ -2846,9 +2906,14 @@ function showJoinGroupDialog(gid) {
 function doSubscribeCourse(id) {
   if (isSubscribedCourse(id)) { showToast('已订阅该视频'); return; }
   var course = courseList.find(function(c) { return c.id == id; });
-  showConfirm('确认订阅《' + (course ? course.title : '') + '》？', function() { subscribeCourse(id); showToast('订阅成功'); renderView(); });
+  showWechatPay({ amount: course ? course.price : 0, title: (course ? course.title : '课程') + ' 订阅', onSuccess: function() { subscribeCourse(id); showToast('订阅成功'); renderView(); } });
 }
-function doBuy() { showConfirm('确认购买？', function() { showToast('下单成功'); }); }
+function doBuy() {
+  var g = groupBuyList.find(function(item) { return item.id == Router.params.id; });
+  var qtyEl = document.getElementById('gb-qty');
+  var qty = qtyEl ? (parseInt(qtyEl.value) || 1) : 1;
+  showWechatPay({ amount: g ? g.price * qty : 0, title: g ? g.title : '团购订单', onSuccess: function() { showToast('下单成功'); renderView(); } });
+}
 function doPayService(id) {
   showConfirm('确认进行缴费？', function() { showToast('缴费成功'); });
 }

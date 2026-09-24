@@ -209,6 +209,25 @@ ul, ol { list-style: none; }
 .comp-popup .popup-header .popup-close { font-size: 20px; color: var(--text-lighter); cursor: pointer; }
 
 /* ================================================================
+   COMPONENT: WECHAT PAY SHEET (微信支付 mock 弹窗)
+   ================================================================ */
+.wechat-pay-sheet { background: #fff; width: 100%; border-radius: 16px 16px 0 0; animation: slideUp .25s ease; overflow: hidden; }
+.wechat-pay-sheet .wp-head { display: flex; align-items: center; justify-content: center; position: relative; padding: 18px 16px 8px; border-bottom: 1px solid #f0f0f0; }
+.wechat-pay-sheet .wp-title { font-size: 17px; font-weight: 700; color: #1b1b1b; }
+.wechat-pay-sheet .wp-close { position: absolute; right: 16px; top: 12px; font-size: 22px; line-height: 1; color: #999; cursor: pointer; padding: 4px; }
+.wechat-pay-sheet .wp-body { padding: 24px 24px 16px; text-align: center; }
+.wechat-pay-sheet .wp-amount { display: flex; align-items: baseline; justify-content: center; color: #1b1b1b; margin-bottom: 6px; }
+.wechat-pay-sheet .wp-currency { font-size: 22px; font-weight: 600; margin-right: 2px; }
+.wechat-pay-sheet .wp-num { font-size: 40px; font-weight: 700; line-height: 1; }
+.wechat-pay-sheet .wp-order { font-size: 13px; color: #8a8a8a; margin-bottom: 26px; }
+.wechat-pay-sheet .wp-method { display: flex; align-items: center; border: 1px solid #eee; border-radius: 12px; padding: 14px; margin-bottom: 6px; }
+.wechat-pay-sheet .wp-method-ic { width: 36px; height: 36px; border-radius: 50%; background: #07c160; color: #fff; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-right: 12px; }
+.wechat-pay-sheet .wp-method-name { flex: 1; text-align: left; font-size: 15px; color: #1b1b1b; }
+.wechat-pay-sheet .wp-method-check { display: flex; align-items: center; }
+.wechat-pay-sheet .wp-footer { padding: 4px 24px 22px; }
+.wechat-pay-sheet .wp-safe { text-align: center; font-size: 11px; color: #b3b3b3; margin-top: 10px; }
+
+/* ================================================================
    COMPONENT: ACTIONSHEET
    ================================================================ */
 .comp-actionsheet { background: #fff; border-radius: 16px 16px 0 0; animation: slideUp .25s ease; }
